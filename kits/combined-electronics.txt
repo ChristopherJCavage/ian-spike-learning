@@ -1,0 +1,46 @@
+# Combined SPIKE Electronics -- Essential 45345 + Prime 45678
+#
+# The whole reason these two kits are compatible: SPIKE Essential and
+# SPIKE Prime run the same SPIKE App and the same underlying hub firmware
+# family. Motors, sensors, and cables from either box plug into either
+# hub. This file is the one place to check "what electronics do we own
+# across both bins" before starting a build.
+#
+# Format (pipe-delimited, grep-friendly):
+#   QTY | PART | FROM KIT | NOTES
+#
+# Example: grep -i "sensor" combined-electronics.txt
+
+## Hubs (1 per kit -- pick ONE hub per build, they are not daisy-chained)
+1 | Hub, Small (SPIKE Essential Hub, element 100885/106060) | 45345 Essential | 4 ports, built-in 5x5 light matrix, simpler firmware menu -- good default for Ian's Saturday class
+1 | Hub, Prime (SPIKE Prime Hub, element 105474) | 45678 Prime | 6 ports, built-in 5x5 light matrix + speaker + light/IMU sensors on board -- more powerful, use once he's ready to graduate
+
+## Motors
+2 | Small Angular Motor (element 68488, "MOTOR, NO. 14") | 45345 Essential | Lower torque, higher speed -- good for wheels/spinners on simple builds
+1 | Medium Angular Motor (element 99085, "MOTOR, NO. 11") | 45678 Prime | Mid torque/speed, built-in rotation sensor
+2 | Large Motor (element 79818, "MOTOR, NO. 12") | 45678 Prime | Highest torque, built-in rotation sensor -- best for driving wheels or lifting arms
+TOTAL: 5 motors across both kits (2 small, 1 medium, 2 large)
+
+## Sensors
+1 | Color Sensor (element 37308, "SENSOR COLOUR, NO. 2") | 45345 Essential | Also detects reflected light intensity
+1 | Color Sensor (element 37308, "SENSOR COLOUR, NO. 2") | 45678 Prime | Second, identical unit -- 2 total across both kits
+1 | Force Sensor (element 37312, "SENSOR FORCE, NO. 1") | 45678 Prime | 0-10 Newton, also works as a simple button/touch sensor
+1 | Distance Sensor (element 37316, "SENSOR DISTANCE, NO. 1") | 45678 Prime | Ultrasonic, has 4 built-in lights around the "eyes"
+1 | 3x3 Color Light Matrix (element 47592, "LIGHT, NO. 1") | 45345 Essential | Not a sensor -- a 3x3 RGB display accessory, plugs into a hub port like a sensor
+
+## Power & Cables
+1 | Rechargeable Battery (element 100887) | 45345 Essential | Fits the Essential hub
+1 | Rechargeable Battery (element 107826) | 45678 Prime | Fits the Prime hub (batteries are NOT interchangeable between hub models)
+1 | USB Cable, USB-A to Micro-B (element 39881) | 45345 Essential | Charges either hub, also used for firmware updates / wired programming
+1 | USB Cable, USB-A to Micro-B (element 39881) | 45678 Prime | Second, identical cable -- 2 total across both kits
+
+# --- Practical notes ---
+# - Each hub charges/pairs independently. You cannot mix-and-match a
+#   Prime battery into an Essential hub or vice versa -- check the plug
+#   shape before assuming a swap will work.
+# - Every motor and sensor uses the same 6-wire flat connector and works
+#   on any port of either hub, regardless of which box it came from.
+# - The SPIKE App auto-detects whichever hub you connect and shows the
+#   matching block palette (Essential's simplified Word/Icon Blocks vs
+#   Prime's fuller Word Blocks / Python), so there's no separate app to
+#   install for either kit.

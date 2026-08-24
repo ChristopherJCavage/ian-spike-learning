@@ -1,0 +1,195 @@
+# LEGO Education SPIKE Essential 45345 -- Parts Inventory
+#
+# Official LEGO box count: 449 pieces.
+# This teardown (LEGO's own Customer Service replacement-parts registry,
+# via Brickset, retrieved 2024-10-27): 473 pieces / 141 unique elements.
+# The gap is normal -- LEGO's replacement-parts count includes the sticker
+# sheet and counts a few small connectors slightly differently than the
+# box blurb. Treat this file as the accurate source for "what's actually
+# in the bin," not the marketing number.
+#
+# Format (pipe-delimited, grep-friendly):
+#   QTY | COLOR | PART NAME | CATEGORY | DESIGN_ID | ELEMENT_ID
+#
+# Examples:
+#   grep -i "motor" parts.txt
+#   grep -i "connector" parts.txt
+#   awk -F'|' '{print $2}' parts.txt | sort | uniq -c   # pieces per color
+#
+# Two rows sharing a DESIGN_ID/name/color (e.g. the two "HUB, NO. 12" rows)
+# are LEGO manufacturing-revision variants of the same physical part --
+# only one revision ships in any given box, they are not both present.
+
+## Power Functions / Electronics (9 pcs, 8 unique -- the "brains" of the kit)
+1 | Bright Yellow | HUB, NO. 12 (SPIKE Prime Small Hub) | Power Functions | 100885 | 6412840
+1 | Bright Yellow | HUB, NO. 12 (SPIKE Prime Small Hub, mold rev.) | Power Functions | 106060 | 6466707
+1 | Bright Yellow | RECHARGEABLE BATTERY, NO. 4 | Power Functions | 100887 | 6412911
+1 | Medium Azur | LIGHT, NO. 1 (3x3 Color Light Matrix) | Power Functions | 47592 | 6275773
+1 | Medium Azur | LIGHT, NO. 1 (3x3 Color Light Matrix, mold rev.) | Power Functions | 47592 | 6401412
+1 | White | SENSOR COLOUR, NO. 2 | Power Functions | 37308 | 6217705
+2 | White | MOTOR, NO. 14 (Small Angular Motor) | Power Functions | 68488 | 6305270
+1 | White | USB CABLE, NO. 2 (USB-A to Micro-B) | Power Functions | 39881 | 6322774
+
+## Bricks (143 pcs)
+6 | Bright Blue | BRICK 1X2 | Bricks | 3004 | 300423
+3 | Bright Blue | BRICK 2X4 W/ CROSS HOLE | Bricks | 39789 | 6244916
+2 | Bright Green | TECHNIC BRICK 1X16, D4.9 | Bricks | 3703 | 6282104
+6 | Bright Green | ROOF TILE 1X2/45 DEG | Bricks | 3040 | 6300148
+5 | Bright Orange | BRICK 1X4 | Bricks | 3010 | 4118827
+4 | Bright Orange | NOSE CONE 2X2X2 | Bricks | 14918 | 6062601
+6 | Bright Orange | PLATE W. BOW 2X2X2/3 | Bricks | 15068 | 6067913
+6 | Bright Orange | TECHNIC BRICK 1X2, D4.9 | Bricks | 3700 | 6136553
+5 | Bright Orange | BRICK 1X3X2 W. INSIDE BOW | Bricks | 18653 | 6167516
+4 | Bright Orange | NOSE CONE 2X2X2 | Bricks | 6834 | 6533789
+4 | Bright Red | BRICK 1X6 W/BOW | Bricks | 42022 | 4160390
+6 | Bright Red | BRICK 1X1 W. 1 KNOB | Bricks | 87087 | 4558886
+5 | Bright Red | BRICK 2X2X3 | Bricks | 30145 | 6138839
+3 | Bright Red | BRICK 2X4 W/ CROSS HOLE | Bricks | 39789 | 6244918
+5 | Bright Reddish Violet | ROOF TILE 2X2/45 DEG | Bricks | 3039 | 4550362
+6 | Bright Reddish Violet | NOSE CONE SMALL 1X1 | Bricks | 59900 | 6003007
+3 | Bright Reddish Violet | BRICK 2X4 W/ CROSS HOLE | Bricks | 39789 | 6252647
+5 | Bright Reddish Violet | TECHNIC BRICK 1X4, D4.9 | Bricks | 3701 | 6282101
+6 | Bright Yellow | BRICK 1X2 WITH CROSS HOLE | Bricks | 31493 | 6206240
+3 | Bright Yellow | BRICK 2X4 W/ CROSS HOLE | Bricks | 39789 | 6244914
+5 | Dark Azur | ROOF TILE 2X3/25 DEG | Bricks | 3298 | 6021566
+5 | Dark Azur | TECHNIC BRICK 1X8 | Bricks | 3702 | 6284131
+5 | Dark Green | BRICK D16 W. CROSS | Bricks | 6143 | 4251378
+3 | Dark Green | BRICK 2X4 W/ CROSS HOLE | Bricks | 39789 | 6244915
+6 | Flame Yellowish Orange | ROOF TILE 1X3/25 DEG | Bricks | 4286 | 6131583
+3 | Flame Yellowish Orange | PLATE W. BOW 1X4X2/3 | Bricks | 93273 | 6133826
+2 | Flame Yellowish Orange | TECHNIC BRICK 1X12, D4.9 | Bricks | 3895 | 6282106
+4 | Flame Yellowish Orange | BOW 1/4 4X4X1 | Bricks | 48092 | 6310615
+6 | Multicombination | BRICK 1X2 W. HORIZONTAL SNAP | Bricks | 44865 | 6393320
+5 | Transparent Light Blue | BRICK D16 W. CROSS | Bricks | 39223 | 6273153
+5 | Transparent Light Blue | BRICK D16 W. CROSS | Bricks | 39223 | 6514282
+
+## Plates (102 pcs)
+3 | Bright Blue | FLAT TILE 2X4 | Plates | 87079 | 4560180
+5 | Bright Green | PLATE 2X8 W. HOLES | Plates | 3738 | 6138494
+6 | Bright Orange | FLAT TILE 1X2 | Plates | 3069 | 4188771
+6 | Bright Orange | FLAT TILE 2X2 ROUND W. HOLE D4.85 | Plates | 15535 | 6147052
+6 | Bright Red | T-BEAM W. PLATE 1X2 W. TUBE | Plates | 32530 | 4207715
+3 | Bright Red | FLAT TILE 2X4 | Plates | 87079 | 4560179
+3 | Bright Reddish Violet | PLATE 4X4 ROUND W. SNAP | Plates | 60474 | 6096210
+6 | Bright Reddish Violet | SLIDE SHOE ROUND 2X2 | Plates | 2654 | 6143445
+3 | Bright Yellow | FLAT TILE 2X4 | Plates | 87079 | 4560181
+5 | Dark Azur | FLAT TILE 1X4 | Plates | 2431 | 6205089
+5 | Dark Azur | PLATE 2X6 W. HOLES | Plates | 32001 | 6282116
+5 | Dark Green | FLAT TILE 1X8 | Plates | 4162 | 4296081
+3 | Dark Green | FLAT TILE 2X4 | Plates | 87079 | 4566179
+5 | Dark Stone Grey | PLATE 1X2 BALL D5.9 MIDDLE | Plates | 14417 | 6039479
+5 | Flame Yellowish Orange | PLATE 2X4, 3XD4.9 | Plates | 3709 | 6132408
+2 | Flame Yellowish Orange | PLATE 4X6 26 DEGREES | Plates | 32059 | 6308004
+2 | Medium Azur | FLAT TILE 2X4 | Plates | 87079 | 6097042
+5 | Medium Stone Grey | PLATE 1X2 BALL CUP / FRICTION MIDDLE | Plates | 14704 | 6043656
+2 | Transparent Light Blue | ROUND PLATE D32X6.4 | Plates | 35394 | 6252265
+2 | Transparent Light Blue | ROUND PLATE D32X6.4 | Plates | 35394 | 6503215
+2 | White | PLATE 8X16 | Plates | 92438 | 4598523
+2 | White | PLATE 16X16 | Plates | 91405 | 4618526
+2 | White | PLATE 8X8 | Plates | 41539 | 4624911
+2 | White | FLAT TILE 2X2, ROUND, NO. 1116 | Plates | 44690 | 6252746
+4 | White | FLAT TILE 1X1 - ROUND 'NO. 8' | Plates | 13360 | 6284599
+6 | White | PLATE 2X2 W. VERTICAL SNAP | Plates | 49153 | 6313138
+2 | White | FLAT TILE 2X2, ROUND, NO. 1116 | Plates | 113420 | 6545236
+
+## Connectors (113 pcs -- pins, axles, bushes: the stuff that holds builds together)
+3 | Black | CROSS AXLE 4M | Connectors | 3705 | 370526
+3 | Black | CROSS AXLE 8M | Connectors | 3707 | 370726
+5 | Black | DAMPER 2M | Connectors | 45590 | 4198367
+28 | Black | CONNECTOR PEG W. FRICTION | Connectors | 61332 | 6279875
+28 | Bright Green | 4.85 BUSH, W/ SINGLE TUBE | Connectors | 65826 | 6301284
+8 | Bright Red | 2M CROSS AXLE W. GROOVE | Connectors | 32062 | 4142865
+4 | Bright Red | CROSS AXLE, EXTENSION, 2M | Connectors | 59443 | 4513174
+3 | Bright Red | CROSS AXLE 6M | Connectors | 3706 | 6130002
+8 | Bright Red | BUSH FOR CROSS AXLE | Connectors | 42798 | 6271820
+4 | Bright Yellow | CROSS AXLE 3M | Connectors | 4519 | 6130007
+3 | Bright Yellow | CROSS AXLE 7M | Connectors | 44294 | 6130009
+12 | White | 4.85 BUSH, W/ 2 MODULE CROSS AXLE | Connectors | 65249 | 6289797
+4 | White | ANGLE ELEMENT, 0 DEGREES [1] | Connectors | 42127 | 6332573
+
+## Technic Beams (13 pcs)
+3 | Bright Blue | TECHNIC 7M BEAM | Technic Beams | 32524 | 4506043
+3 | Bright Green | TECHNIC ANG. BEAM 3X5 90 DEG | Technic Beams | 32526 | 6097397
+3 | Bright Orange | TECHNIC ANGULAR BEAM 4X6 | Technic Beams | 42149 | 6360128
+2 | Bright Reddish Violet | FRAME 3X3 | Technic Beams | 39793 | 6252656
+2 | Bright Reddish Violet | TECHNIC 11M BEAM | Technic Beams | 64290 | 6261634
+
+## Cables, Hoses & Strings (8 pcs)
+4 | Bright Yellow | V-BELT D33, YELLOW | Cables, Hoses & Strings | 85546 | 4544151
+2 | Multicombination | FLEXHOSE 19M W/3.18 STICK C.I | Cables, Hoses & Strings | 14770 | 6059315
+2 | Multicombination | FLEX HOSE 10 MODULE W/3.2 SHAFT | Cables, Hoses & Strings | 27328 | 6308533
+
+## Vehicles & Transportation (22 pcs -- wheels, axles for wheels)
+1 | Black | WHEEL AXLE D8.2/D1.9 | Vehicles & Transportation | 2496 | 249626
+4 | Bright Yellow | LATTICE TOWER 2X2X10 W/CROSS | Vehicles & Transportation | 95347 | 6074687
+4 | Medium Azur | TYRE FOR WEDGE-BELT WHEEL | Vehicles & Transportation | 2815 | 6307952
+1 | Medium Stone Grey | WHEEL CHAIR, W/ MINI SNAP | Vehicles & Transportation | 65353 | 6297209
+2 | Multicombination | WHEEL 21X2, W/ 3.2 HOLE | Vehicles & Transportation | 24314 | 6342135
+2 | Multicombination | WHEEL 21X2, W/ 3.2 HOLE | Vehicles & Transportation | 24314 | 6503208
+2 | White | WHEEL DIA.43 | Vehicles & Transportation | 65834 | 6285433
+4 | White | WEDGE-BELT WHEEL D24 | Vehicles & Transportation | 49750 | 6330136
+2 | White | WHEEL DIA.43 | Vehicles & Transportation | 65834 | 6549422
+
+## Animals & Nature (14 pcs)
+2 | Bright Green | FLOWER, STALK | Animals & Nature | 4727 | 4143562
+2 | Bright Green | GRASS, W/ 3.2 TUBE | Animals & Nature | 31576 | 6188693
+2 | Bright Green | GRASS, W/ 3.2 TUBE | Animals & Nature | 2659 | 6413056
+2 | Bright Purple | FLOWER, W/ 3.2 SHAFT, 1.5 HOLE, NO. 1 | Animals & Nature | 32606 | 6206151
+2 | Dark Green | BUSH | Animals & Nature | 6064 | 6269009
+1 | Flame Yellowish Orange | CRAB | Animals & Nature | 31577 | 6253362
+2 | Flame Yellowish Orange | FLOWER, W/ 3.2 SHAFT, 1.5 HOLE, NO. 1 | Animals & Nature | 32606 | 6212994
+1 | Medium Nougat | DOG W. DECO | Animals & Nature | 93239 | 4614195
+
+## Buildings & Furniture (8 pcs)
+4 | Bright Red | SEAT 2X2X2 | Buildings & Furniture | 4079 | 407921
+2 | Bright Red | FLAG W/ 2 HOLDERS | Buildings & Furniture | 80326 | 6365459
+2 | White | WHIP/AERIAL | Buildings & Furniture | 3957 | 395701
+
+## Minifigure Accessories (15 pcs -- Ian will hoard these)
+1 | Black | CAMERA | Minifigure Accessories | 30089 | 4106552
+1 | Black | CAMERA | Minifigure Accessories | 4724 | 6476480
+1 | Dark Stone Grey | PRISMATIC BINOCULARS | Minifigure Accessories | 30162 | 4211051
+1 | Flame Yellowish Orange | DISH D24 | Minifigure Accessories | 6256 | 4243920
+2 | Flame Yellowish Orange | MINI FIGURE SNOW BOARD | Minifigure Accessories | 18746 | 6105957
+1 | Multicombination | MAGNIFYING GLASS | Minifigure Accessories | 38648 | 6325525
+1 | Multicombination | MAGNIFYING GLASS | Minifigure Accessories | 38648 | 6499140
+1 | Silver Metallic | SCREWDRIVER/SPANNER | Minifigure Accessories | 4006 | 6167576
+1 | Transparent Bright Green | ROCK CRYSTAL, TRANSPARENT | Minifigure Accessories | 28623 | 6170292
+1 | Transparent Bright Green | ROCK CRYSTAL, TRANSPARENT | Minifigure Accessories | 28623 | 6507862
+1 | Transparent Medium Reddish Violet | MAGIC WAND | Minifigure Accessories | 28681 | 6245512
+1 | Transparent Red | ROCK CRYSTAL, TRANSPARENT | Minifigure Accessories | 28623 | 6236961
+1 | Transparent Red | ROCK CRYSTAL, TRANSPARENT | Minifigure Accessories | 28623 | 6507863
+1 | White | EGG NO. 1 | Minifigure Accessories | 24946 | 6143595
+
+## Minifigure Parts (16 pcs)
+1 | Black | MINI WIG NO. 6 | Minifigure Parts | 18226 | 6079894
+1 | Black | WIG LADY PAGE | Minifigure Parts | 27058 | 6155002
+1 | Bright Blue | MINI UPPER PART 'NO. 1162' | Minifigure Parts | 76382 | 4275815
+1 | Bright Green | MINI UPPER PART NO. 5098 | Minifigure Parts | 76382 | 6299168
+1 | Bright Orange | MINI LOWER PART | Minifigure Parts | 73200 | 4120158
+1 | Bright Red | MINI UPPER PART 'NO. 1175' | Minifigure Parts | 76382 | 4275872
+1 | Bright Reddish Violet | MINI UPPER PART NO. 5099 | Minifigure Parts | 76382 | 6299170
+1 | Bright Yellow | MINI HEAD NO. '752' | Minifigure Parts | 96004 | 6039464
+1 | Bright Yellow | MINI HEAD NO. 1675 | Minifigure Parts | 21463 | 6116616
+1 | Bright Yellow | MINI HEAD 'NO. 1762' | Minifigure Parts | 23094 | 6123714
+1 | Bright Yellow | MINI HEAD 'NO. 1771' | Minifigure Parts | 23177 | 6123730
+1 | Dark Azur | MINI LOWER PART AZURBLUE | Minifigure Parts | 73200 | 6005307
+1 | Dark Green | MINI LEG | Minifigure Parts | 41879 | 6074870
+1 | Medium Lilac | MINI LOWER PART 'NO. 161' | Minifigure Parts | 73200 | 4586410
+1 | Medium Nougat | MINI WIG NO. 18 | Minifigure Parts | 18228 | 6163633
+1 | Reddish Brown | MINI WIG NO. 63 | Minifigure Parts | 29066 | 6184572
+
+## Miscellaneous (10 pcs)
+2 | Bright Blue | PLATES W. BOWS 2X2 | Miscellaneous | 47457 | 4496366
+1 | Bright Orange | ELEMENT SEPARATOR | Miscellaneous | 31510 | 6240515
+5 | Bright Red | BALL D16.5 | Miscellaneous | 54821 | 4545430
+2 | Dark Green | FROG | Miscellaneous | 28841 | 6171101
+
+# --- Colour summary (per Brickset teardown) ---
+# Black 44 | Bright Blue 18 | Bright Green 51 | Bright Orange 47 | Bright Purple 2
+# Bright Red 63 | Bright Reddish Violet 33 | Bright Yellow 34 | Dark Azur 21
+# Dark Green 21 | Dark Stone Grey 6 | Flame Yellowish Orange 28 | Medium Azur 8
+# Medium Lilac 1 | Medium Nougat 2 | Medium Stone Grey 6 | Multicombination 16
+# Reddish Brown 1 | Silver Metallic 1 | Transparent Bright Green 2
+# Transparent Light Blue 14 | Transparent Medium Reddish Violet 1
+# Transparent Red 2 | White 51 | TOTAL 473

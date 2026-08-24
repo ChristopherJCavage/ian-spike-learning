@@ -1,0 +1,155 @@
+# LEGO Education SPIKE Prime 45678 -- Parts Inventory
+#
+# Official LEGO box count: 528 pieces.
+# This teardown (LEGO's own Customer Service replacement-parts registry,
+# via Brickset, retrieved 2024-10-27): 557 pieces / 112 unique elements.
+# Same gap story as the Essential set -- includes the sticker sheet, and
+# LEGO's own recount corrected the 32270 gear qty from 2 to 3 at some point.
+# Treat this file as the accurate source for "what's actually in the bin."
+#
+# Format (pipe-delimited, grep-friendly):
+#   QTY | COLOR | PART NAME | CATEGORY | DESIGN_ID | ELEMENT_ID
+#
+# Examples:
+#   grep -i "motor" parts.txt
+#   grep -i "sensor" parts.txt
+#   awk -F'|' '{print $2}' parts.txt | sort | uniq -c   # pieces per color
+#
+# Two rows sharing a DESIGN_ID/name/color are LEGO manufacturing-revision
+# variants of the same physical part -- only one revision ships per box.
+
+## Power Functions / Electronics (9 pcs, 8 unique -- the "brains" of the kit)
+1 | Bright Yellow | HUB, NO. 8 (SPIKE Prime Hub) | Power Functions | 105474 | 6464165
+1 | Bright Yellow | RECHARGEABLE BATTERY, NO. 2 | Power Functions | 107826 | 6482346
+1 | Medium Azur | MOTOR, NO. 11 (Medium Angular Motor) | Power Functions | 99085 | 6384811
+1 | White | SENSOR COLOUR, NO. 2 | Power Functions | 37308 | 6217705
+1 | White | SENSOR FORCE, NO. 1 | Power Functions | 37312 | 6217712
+1 | White | SENSOR DISTANCE, NO. 1 (Ultrasonic) | Power Functions | 37316 | 6302968
+1 | White | USB CABLE, NO. 2 (USB-A to Micro-B) | Power Functions | 39881 | 6322774
+2 | White | MOTOR, NO. 12 (Large Motor) | Power Functions | 79818 | 6359210
+
+## Connectors (285 pcs -- pins, axles, bushes: by far the biggest category)
+4 | Black | CROSS AXLE 4M | Connectors | 3705 | 370526
+6 | Black | CROSS AXLE 8M | Connectors | 3707 | 370726
+6 | Black | DAMPER 2M | Connectors | 45590 | 4198367
+15 | Black | CROSS AXLE 2M W. SNAP W. FRIC. | Connectors | 18651 | 6089119
+5 | Black | ANGLE ELEMENT, 180 DEGREES [2] | Connectors | 42134 | 6271869
+92 | Black | CONNECTOR PEG W. FRICTION | Connectors | 61332 | 6279875
+30 | Brick Yellow | CONNECTOR PEG/CROSS AXLE | Connectors | 6562 | 4666579
+14 | Bright Blue | CONNECTOR PEG W. FRICTION 3M | Connectors | 6558 | 4514553
+14 | Bright Blue | CONNECTOR PEG W. FRICTION 3M | Connectors | 42924 | 6299413
+12 | Bright Red | 2M CROSS AXLE W. GROOVE | Connectors | 32062 | 4142865
+10 | Bright Yellow | CROSS AXLE 3M | Connectors | 4519 | 6130007
+6 | Bright Yellow | CROSS AXLE 7M | Connectors | 44294 | 6130009
+3 | Bright Yellow | CROSS AXLE, 11 MODULE | Connectors | 23948 | 6130012
+2 | Bright Yellow | TUBE, W/ DOUBLE 4.85 HOLE | Connectors | 29219 | 6173122
+5 | Bright Yellow | ANGLE ELEMENT, 90 DEGREES [6] | Connectors | 42155 | 6268925
+6 | Medium Stone Grey | CROSS AXLE 5M | Connectors | 32073 | 4211639
+10 | Medium Stone Grey | 2M FRIC. SNAP W/CROSS HOLE | Connectors | 32054 | 4211865
+6 | Medium Stone Grey | CROSS AXLE 9M | Connectors | 60485 | 4535768
+10 | Medium Stone Grey | BUSH FOR CROSS AXLE | Connectors | 42798 | 6275844
+5 | Medium Stone Grey | ANGLE ELEMENT, 0 DEGREES [1] | Connectors | 42127 | 6296859
+10 | Medium Stone Grey | 2M FRIC. SNAP W/CROSS HOLE | Connectors | 65304 | 6321747
+3 | White | CROSS AXLE, EXTENSION, 2M | Connectors | 59443 | 6212049
+5 | White | ANGLE ELEMENT 135 DEG. [4] | Connectors | 42156 | 6262904
+
+## Technic Beams (125 pcs -- Prime's structural bread and butter)
+6 | Black | TECHNIC 15M BEAM | Technic Beams | 64871 | 4542573
+5 | Black | T-BEAM 3X3 W/HOLE D4.8 | Technic Beams | 60484 | 4552347
+5 | Black | TECHNIC 9M BEAM | Technic Beams | 64289 | 4645732
+2 | Black | BEAM FRAME 5X7 D4.85 | Technic Beams | 64179 | 6016154
+2 | Black | FLAT PANEL 3X11M | Technic Beams | 15458 | 6080356
+6 | Black | FRAME 3X3 | Technic Beams | 39793 | 6265644
+5 | Black | DOUBLE ANGULAR BEAM 3X7 45 DEG | Technic Beams | 41486 | 6271152
+5 | Black | TECHNIC ANGULAR BEAM 4X4 | Technic Beams | 42165 | 6278125
+8 | Bright Reddish Violet | FRAME 3X3 | Technic Beams | 39793 | 6252656
+2 | Bright Reddish Violet | FRAME 7X11 | Technic Beams | 39794 | 6252663
+5 | Bright Reddish Violet | TECHNIC 11M BEAM | Technic Beams | 64290 | 6261634
+5 | Bright Reddish Violet | TECHNIC 5M BEAM | Technic Beams | 32316 | 6261642
+8 | Bright Yellow | TECHNIC 3M BEAM | Technic Beams | 32523 | 4153707
+2 | Bright Yellow | PANEL 11X19 | Technic Beams | 39369 | 6252630
+5 | Bright Yellow | TECHNIC ANG. BEAM 4X2 90 DEG | Technic Beams | 42137 | 6271828
+4 | Bright Yellow | TECHNIC ANGULAR BEAM 3X7 | Technic Beams | 42160 | 6276838
+2 | Medium Azur | BOWED PANEL 3X11X2 D4.85 (X19) | Technic Beams | 11954 | 6133928
+5 | Medium Azur | TECHNIC ANG. BEAM 3X5 90 DEG | Technic Beams | 32526 | 6173003
+2 | Medium Azur | FRAME 11X15 | Technic Beams | 39790 | 6245375
+7 | Medium Azur | TECHNIC 7M BEAM | Technic Beams | 32524 | 6261638
+4 | Medium Azur | TECHNIC 13M BEAM | Technic Beams | 41239 | 6261643
+4 | Medium Azur | BEAM 1X2 W/CROSS AND HOLE | Technic Beams | 40147 | 6344813
+4 | Medium Stone Grey | BEAM I-FRAME 3X5 90 DEGR. HOLE D4.85 | Technic Beams | 14720 | 6055519
+12 | Medium Stone Grey | BEAM 3 MODULE W/ 4 SNAP | Technic Beams | 65489 | 6282158
+4 | Medium Stone Grey | ANGULAR BEAM 90 DEGR. W. 4 SNAPS | Technic Beams | 49130 | 6313453
+2 | Medium Stone Grey | DOUBLE BUSH 3M D4.9 | Technic Beams | 44874 | 6321303
+4 | White | DOUBLE CROSS BLOCK | Technic Beams | 42142 | 6276981
+
+## Bricks (36 pcs)
+4 | Black | BRICK 2X6 W. BOW | Bricks | 44126 | 4180548
+3 | Bright Blue | BRICK 2X4 W/ CROSS HOLE | Bricks | 39789 | 6244916
+3 | Bright Red | BRICK 2X4 W/ CROSS HOLE | Bricks | 39789 | 6244918
+3 | Bright Reddish Violet | BRICK 2X4 W/ CROSS HOLE | Bricks | 39789 | 6252647
+4 | Bright Yellow | ROOF TILE 1X2X2/3, ABS | Bricks | 85984 | 4550348
+4 | Bright Yellow | BRICK, W/ HALF BOW 2X3, W/ CUT | Bricks | 24309 | 6198024
+3 | Bright Yellow | BRICK 2X4 W/ CROSS HOLE | Bricks | 39789 | 6244914
+3 | Dark Green | BRICK 2X4 W/ CROSS HOLE | Bricks | 39789 | 6244915
+1 | Medium Azur | LEFT SHELL 3X8X2 W/BOW/ANGLE | Bricks | 41750 | 6223316
+1 | Medium Azur | RIGHT SHELL 3X8X2 W/BOW/ANGLE | Bricks | 41749 | 6223317
+1 | Medium Azur | SHELL 6X8X2 W/BOW/ANGLE | Bricks | 40995 | 6258445
+6 | White | BRICK D16 W. CROSS | Bricks | 6143 | 614301
+
+## Plates (32 pcs)
+4 | Black | PLATE 2X8 W. HOLES | Plates | 3738 | 373826
+4 | Black | FLAT TILE 2X2 ROUND W. HOLE D4.85 | Plates | 15535 | 6143850
+4 | Black | FLAT TILE 1X1, ROUND, NO. 76 | Plates | 32732 | 6284079
+2 | Bright Reddish Violet | PLATE 2X16 | Plates | 4282 | 6173062
+6 | Medium Azur | PLATE 2X2 ROUND | Plates | 4032 | 6109752
+2 | Transparent | SATELLITE DISH 6X6 | Plates | 35327 | 6220743
+2 | Transparent | SATELLITE DISH 6X6 | Plates | 35327 | 6507944
+2 | White | PLATE ROUND W. 1 KNOB | Plates | 18674 | 6093053
+2 | White | FLAT TILE 2X2, ROUND, NO. 1099 | Plates | 37006 | 6215018
+4 | White | FLAT TILE 1X1, ROUND, NO. 151 | Plates | 73811 | 6329648
+
+## Vehicles & Transportation (32 pcs -- wheels, tires, gears)
+3 | Black | TYRE LOW NARROW D24x7MM | Vehicles & Transportation | 61254 | 4541455
+3 | Black | DOUBLE CONICAL WHEEL Z12 1M | Vehicles & Transportation | 32270 | 4177431
+3 | Black | DOUBLE CONICAL WHEEL Z36 | Vehicles & Transportation | 32498 | 4255563
+2 | Black | TYRE FOR WEDGE-BELT WHEEL | Vehicles & Transportation | 2815 | 6028041
+2 | Black | RACK 13M | Vehicles & Transportation | 53504 | 6302830
+2 | Black | WEDGE-BELT WHEEL D24 | Vehicles & Transportation | 49750 | 6323668
+3 | Brick Yellow | DOUBLE CONICAL WHEEL Z20 1M | Vehicles & Transportation | 18575 | 6346517
+3 | Medium Stone Grey | ANGLED GEAR WHEEL Z28 | Vehicles & Transportation | 46372 | 6259270
+4 | Multicombination | WHEEL DIA.56 | Vehicles & Transportation | 39367 | 6253244
+4 | Multicombination | WHEEL DIA.56 | Vehicles & Transportation | 39367 | 6460453
+3 | White | RIM NARROW, DIA. 18X7, W/ CROSS | Vehicles & Transportation | 56903 | 6013484
+
+## Minifigure Parts (8 pcs -- the two SPIKE Prime minifigs)
+1 | Black | MINI BODY LOWER PART BLACK | Minifigure Parts | 73200 | 9339
+1 | Black | MINI WIG NO. 18 | Minifigure Parts | 18228 | 6079896
+1 | Bright Yellow | MINI HEAD NO. 893 | Minifigure Parts | 99570 | 4651443
+1 | Bright Yellow | MINI HEAD NO. 1966 | Minifigure Parts | 26881 | 6153335
+1 | Dark Azur | MINI UPPER PART NO. 3431 | Minifigure Parts | 76382 | 6153138
+1 | Dark Brown | WIG W/LONG PONYTAIL | Minifigure Parts | 62696 | 4527065
+1 | Flame Yellowish Orange | MINI LOWER PART | Minifigure Parts | 73200 | 6215422
+1 | Light Royal Blue | MINI UPPER PART, NO. 3688 | Minifigure Parts | 76382 | 6176217
+
+## Miscellaneous (24 pcs)
+3 | Black | TRACK ROD 6M | Miscellaneous | 32005 | 4629921
+3 | Bright Blue | WIRE CLIP, W/ CROSS HOLE | Miscellaneous | 49283 | 6263071
+3 | Bright Red | WIRE CLIP, W/ CROSS HOLE | Miscellaneous | 49283 | 6263067
+3 | Bright Reddish Violet | WIRE CLIP, W/ CROSS HOLE | Miscellaneous | 49283 | 6263193
+3 | Bright Yellow | WIRE CLIP, W/ CROSS HOLE | Miscellaneous | 49283 | 6263069
+3 | Dark Green | WIRE CLIP, W/ CROSS HOLE | Miscellaneous | 49283 | 6263072
+1 | Medium Azur | BEAM 3X5 W/ DIA. 19 WHEEL CUP | Miscellaneous | 39370 | 6261590
+2 | Medium Azur | WIRE CLIP, W/ CROSS HOLE | Miscellaneous | 49283 | 6263192
+1 | White | DIA. 19 WHEEL BALL | Miscellaneous | 52629 | 6261647
+2 | White | BION. EYE | Miscellaneous | 48267 | 6288218
+
+## Cables, Hoses & Strings (6 pcs)
+4 | Bright Yellow | V-BELT D33, YELLOW | Cables, Hoses & Strings | 85546 | 4544151
+2 | Silver Metallic | FLEX HOSE 19M W/3.18 STICK | Cables, Hoses & Strings | 14925 | 6044636
+
+# --- Colour summary (per Brickset teardown) ---
+# Black 206 | Brick Yellow 33 | Bright Blue 34 | Bright Red 18
+# Bright Reddish Violet 28 | Bright Yellow 67 | Dark Azur 1 | Dark Brown 1
+# Dark Green 6 | Flame Yellowish Orange 1 | Light Royal Blue 1
+# Medium Azur 37 | Medium Stone Grey 72 | Multicombination 8
+# Silver Metallic 2 | Transparent 4 | White 38 | TOTAL 557
