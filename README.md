@@ -1,59 +1,56 @@
 # Ian SPIKE Learning
 
-Parts inventory and reference notes for Ian's LEGO Education SPIKE kits,
-kept as flat, grep-able text files -- not a parts database, not a build
-tracker. Just "what do we own and where did it come from."
+Grep-able notes for Ian's LEGO Education SPIKE kits and **our** builds.
+Not a parts database. Not official LEGO curriculum.
 
-## The kits
+| Folder | What it is |
+|---|---|
+| [`kits/`](kits/) | What we **own** (inventories + how the two boxes mix) |
+| [`builds/`](builds/) | What we **make** (briefs, LDraw, step lists, Figma maps) |
+| [`context/`](context/) | Words, house rules, LDraw/Figma conventions for the next agent |
+
+## Kits
 
 | Set | Name | Box piece count | Role |
 |---|---|---|---|
-| [45345](kits/45345-essential/) | SPIKE Essential | 449 | Ian's set for his Saturday ASU class (he's 6) |
-| [45678](kits/45678-prime/) | SPIKE Prime | 528 | "Grow into it" set -- more motors, sensors, and hub ports |
+| [45345](kits/45345-essential/) | SPIKE Essential | 449 | Saturday ASU class (Ian is 6) |
+| [45678](kits/45678-prime/) | SPIKE Prime | 528 | Grow-into set -- more motors, sensors, ports |
 
-Both kits run the **same SPIKE App**, and motors/sensors from either box
-work on either hub -- see [`kits/how-the-kits-mix.md`](kits/how-the-kits-mix.md)
-for the full rundown of what mixes and what doesn't.
+Same **SPIKE App**; motors/sensors mix; batteries/hubs do not. Details:
+[`kits/how-the-kits-mix.md`](kits/how-the-kits-mix.md).
 
-We are **not** using Prime's official middle-school lesson plans -- just
-the hardware. We do **not** own Expansion Set 45681 or any other add-on;
-nothing here assumes extra parts beyond these two boxes unless a kit
-folder for that set exists.
+We are **not** using Prime's official middle-school lessons -- hardware only.
+We do **not** own Expansion `45681`.
 
-## Files
+- `kits/45345-essential/parts.txt`
+- `kits/45678-prime/parts.txt`
+- `kits/combined-electronics.txt`
+- `kits/how-the-kits-mix.md`
 
-- `kits/45345-essential/parts.txt` -- full element-level parts list for
-  SPIKE Essential 45345.
-- `kits/45678-prime/parts.txt` -- full element-level parts list for
-  SPIKE Prime 45678.
-- `kits/combined-electronics.txt` -- just the motors/sensors/hubs/cables
-  from both kits in one place, since those are what actually get shared
-  across builds.
-- `kits/how-the-kits-mix.md` -- narrative notes on how the two kits work
-  together (and where they don't).
+Piece counts in `parts.txt` come from LEGO's replacement-parts registry via
+[Brickset](https://brickset.com/) (2024-10-27) and can differ from the box
+blurb -- see the header in each file.
 
-## Data source
+## Builds
 
-Each `parts.txt` is built from LEGO's own Customer Service replacement-
-parts registry (via [Brickset](https://brickset.com/), retrieved
-2024-10-27), which lists exact element IDs, colors, and quantities. That
-registry's total differs slightly from the marketing piece count on the
-box (see the header comment in each file for why) -- treat `parts.txt` as
-the accurate "what's in the bin" source, and the box number as the
-rounded marketing figure.
+Original projects. Copy [`builds/_template/`](builds/_template/) when a brief
+exists. Pretty instruction pages: LDraw/LeoCAD PNGs + Figma chrome --
+[`builds/README.md`](builds/README.md), [`context/ldraw.md`](context/ldraw.md),
+[`context/instruction-screens.md`](context/instruction-screens.md).
 
-## Usage
+## Context
 
-Everything is flat text on purpose, so plain `grep`/`awk` is the whole
-toolkit:
+- [`context/glossary.md`](context/glossary.md) -- Education vs catalog vs our tags
+- [`context/house-rules.md`](context/house-rules.md) -- Ian, kits, what agents must not assume
+- [`context/sources.md`](context/sources.md) -- links only (no dumped PDFs)
+- [`context/connection-language.md`](context/connection-language.md) -- how we write steps
+- [`context/ldraw.md`](context/ldraw.md) -- LDraw text + LeoCAD CLI (no MCP)
+- [`context/instruction-screens.md`](context/instruction-screens.md) -- Figma BI chrome
+
+## Grep
 
 ```bash
-# Find every motor across both kits
 grep -i "motor" kits/*/parts.txt
-
-# Find a specific sensor
 grep -i "distance" kits/*/parts.txt kits/combined-electronics.txt
-
-# Count pieces by color in one kit
 awk -F'|' '{print $2}' kits/45345-essential/parts.txt | sort | uniq -c
 ```
