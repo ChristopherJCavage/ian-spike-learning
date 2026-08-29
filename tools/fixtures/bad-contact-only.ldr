@@ -1,0 +1,8 @@
+0 Fixture: Small Angular Motor resting against an I-frame. No pin.
+0 Expected: problems -- contact without joint, no joint on both parts.
+0
+0 I-frame occupies z -49..49. Motor identity back face is z=-29, so origin
+0 z=78 puts that face on the I-frame's front (z=49).
+1 71 0 0 0 1 0 0 0 1 0 0 0 1 14720.dat
+1 16 0 0 78 1 0 0 0 1 0 0 0 1 68488.dat
+0 STEP

@@ -1,0 +1,13 @@
+0 Fixture: a beam centred on the Hub's own side face, so half of it sits
+0 inside the hollow shell. The exact bug in the screenshot: comparing
+0 eroded-vs-eroded solids missed this because the Hub is thin-walled and
+0 erodes away to almost nothing, hiding real interpenetration.
+0 Expected: problems -- interpenetration, plus no joint (no pin used).
+0
+0 Hub occupies x -70..70. The rail is 20 LDU thick along X and centred at
+0 x=70 -- the face itself -- so it straddles the wall by a full 10 LDU on
+0 each side instead of sitting flush against it (which would need x=80,
+0 face 70 + half the rail's own 20 LDU thickness).
+1 16 0 -40 0 1 0 0 0 1 0 0 0 1 45601.dat
+1 14 70 -40 0 1 0 0 0 1 0 0 0 1 32524.dat
+0 STEP

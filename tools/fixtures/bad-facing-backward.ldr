@@ -1,0 +1,7 @@
+0 Fixture: minifig on a plate, identity matrix. Native facing is -Z, the
+0 model declares FRONT +Z. Expected: problems -- FACING.
+0
+0 !LDRCHECK FRONT +Z
+1 0 0 0 0 1 0 0 0 1 0 0 0 1 3738.dat
+1 0 40 -40 0 1 0 0 0 1 0 0 0 1 73200.dat
+0 STEP

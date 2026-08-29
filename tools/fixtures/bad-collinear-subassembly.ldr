@@ -1,0 +1,21 @@
+0 Fixture: two beams rigidly pinned to each other (two non-collinear
+0 pins), and that rigid pair reaches a third beam through two more pins
+0 that sit on the very same line. Each individual beam looks fully
+0 pinned (two engagements apiece), but the two-beam subassembly as a
+0 whole can still swing around that shared line -- the sensor-gantry bug.
+0 Expected: problems -- RIGID CLUSTER HINGE (and the per-part hinge WARN
+0 on the third beam, which is a lone part pinned twice on one axis).
+0
+0 beamL (x=-20) and beamR (x=20) are tied together at z=-20 and z=0 by
+0 pin1/pin2 -- offset along Z, so not collinear, a genuine rigid bond.
+0 beamC (z=40) reaches beamL and beamR separately through pin3 (x=-20)
+0 and pin4 (x=20) at z=20; both run along +X and sit on the same y=0,
+0 z=20 line, so the beamL+beamR pair can still rotate about it.
+1 14 -20 0 0 0 1 0 -1 0 0 0 0 1 32523.dat
+1 14 20 0 0 0 1 0 -1 0 0 0 0 1 32523.dat
+1 14 0 0 40 0 1 0 -1 0 0 0 0 1 32523.dat
+1 0 0 0 -20 1 0 0 0 1 0 0 0 1 61332.dat
+1 0 0 0 0 1 0 0 0 1 0 0 0 1 61332.dat
+1 0 -20 0 20 1 0 0 0 1 0 0 0 1 61332.dat
+1 0 20 0 20 1 0 0 0 1 0 0 0 1 61332.dat
+0 STEP

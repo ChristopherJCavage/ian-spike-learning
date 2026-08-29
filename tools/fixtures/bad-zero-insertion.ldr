@@ -1,0 +1,9 @@
+0 Fixture: pin coaxial with a beam hole but sitting entirely outside it.
+0 Expected: problems -- zero insertion, pin joins nothing.
+0
+0 Beam holes run along Y, centre hole at the origin. Pin is rotated so its
+0 shaft also runs along Y, but its origin is 30 LDU above the beam, so the
+0 shaft occupies y 10..50 and never enters the beam (y -10..10).
+1 14 0 0 0 1 0 0 0 1 0 0 0 1 32523.dat
+1 0 0 30 0 0 -1 0 1 0 0 0 0 1 61332.dat
+0 STEP

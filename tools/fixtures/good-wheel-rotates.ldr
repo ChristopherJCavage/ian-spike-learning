@@ -1,0 +1,17 @@
+0 Fixture: a rigid two-part body (a motor-ish block and a beam, pinned
+0 together at two non-collinear points) drives a wheel through a single
+0 cross axle -- exactly the motor -> axle -> wheel pattern in the truck.
+0 Expected: clean. Without `rotates: true` on 39367 in connections.yml,
+0 RIGID CLUSTER HINGE would wrongly treat the wheel's one driving axle
+0 as an under-constrained hinge and change 3 would outlaw every wheel.
+0
+0 68488 and the beam are pinned at y=-20 and y=20 (non-collinear, so a
+0 genuine rigid pair). 68488's axle_hole (annotated, y=-50) takes the
+0 4519 axle, which drives the wheel's own axle_hole at the far end.
+1 16 0 0 0 1 0 0 0 1 0 0 0 1 68488.dat
+1 14 -50 0 -20 0 1 0 0 0 1 1 0 0 32523.dat
+1 0 -40 -20 -20 1 0 0 0 1 0 0 0 1 61332.dat
+1 0 -40 20 -20 1 0 0 0 1 0 0 0 1 61332.dat
+1 16 0 -70 0 0 1 0 -1 0 0 0 0 1 4519.dat
+1 16 0 -100 0 1 0 0 0 0 -1 0 1 0 39367.dat
+0 STEP

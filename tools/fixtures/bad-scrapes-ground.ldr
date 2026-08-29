@@ -1,0 +1,8 @@
+0 Fixture: the 5x7 frame stands at y=0, so its bottom sits on the ground
+0 plane (y=70, the wheel radius). The exact truck bug: GROUND CLEARANCE
+0 used to test "below the floor" and called this clean.
+0 Expected: problems -- GROUND CLEARANCE (scrapes), plus no joint.
+0
+0 !LDRCHECK GROUND 70
+1 0 0 0 120 1 0 0 0 0 -1 0 1 0 64179.dat
+0 STEP

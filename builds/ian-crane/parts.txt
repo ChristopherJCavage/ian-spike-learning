@@ -1,0 +1,6 @@
+# BOM
+#
+# QTY | COLOR | NAME | KIT | ELEMENT_ID | LDRAW
+#
+# KIT is 45345 or 45678. ELEMENT_ID from kits/*/parts.txt.
+# Grep kits before adding a line. Qty must not exceed inventory.

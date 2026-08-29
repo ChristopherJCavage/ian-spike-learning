@@ -1,0 +1,6 @@
+0 Fixture: 11M axle through two wheels. Wheel native axis is Z; mapped onto X.
+0 Expected: clean.
+1 14 0 0 0 1 0 0 0 1 0 0 0 1 23948.dat
+1 16 -107.5 0 0 0 0 1 0 1 0 -1 0 0 39367.dat
+1 16 107.5 0 0 0 0 1 0 1 0 -1 0 0 39367.dat
+0 STEP

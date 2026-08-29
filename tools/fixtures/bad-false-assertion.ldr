@@ -1,0 +1,10 @@
+0 Fixture: two beams and two pins, geometrically clean, but an assertion
+0 names a part that is not here. Deleting a part must not silently orphan
+0 its claim. Expected: problems -- ASSERTIONS.
+0
+0 !LDRCHECK JOINS 32523.dat 64179.dat
+1 14 -10 0 0 0 1 0 -1 0 0 0 0 1 32523.dat
+1 14 10 0 0 0 1 0 -1 0 0 0 0 1 32523.dat
+1 0 0 0 0 1 0 0 0 1 0 0 0 1 61332.dat
+1 0 0 0 20 1 0 0 0 1 0 0 0 1 61332.dat
+0 STEP

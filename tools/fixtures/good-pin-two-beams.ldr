@@ -1,0 +1,10 @@
+0 Fixture: two 3M beams joined by one 2M friction pin through aligned holes.
+0 Expected: clean.
+0
+0 Beams rotated so holes face along X. Each is 20 LDU thick along X.
+0 Pin (native along X) sits in both holes, 20 LDU per beam.
+1 14 -10 0 0 0 1 0 -1 0 0 0 0 1 32523.dat
+1 14 10 0 0 0 1 0 -1 0 0 0 0 1 32523.dat
+1 0 0 0 0 1 0 0 0 1 0 0 0 1 61332.dat
+1 0 0 0 20 1 0 0 0 1 0 0 0 1 61332.dat
+0 STEP

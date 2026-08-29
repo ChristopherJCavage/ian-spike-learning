@@ -1,0 +1,13 @@
+0 Fixture: seat clutched onto a plate's studs (not merged into the plate),
+0 minifig standing beside it facing the model's FRONT. Expected: clean.
+0
+0 !LDRCHECK GROUND 20
+0 !LDRCHECK FRONT +Z
+0 !LDRCHECK FACES 73200.dat +Z
+0 !LDRCHECK RESTS 4079.dat ON 3738.dat
+0 !LDRCHECK JOINS 4079.dat 3738.dat
+0 !LDRCHECK CLEARANCE 3738.dat 8
+1 0 0 0 0 1 0 0 0 1 0 0 0 1 3738.dat
+1 4 -40 -8 0 1 0 0 0 1 0 0 0 1 4079.dat
+1 0 50 -40 10 -1 0 0 0 1 0 0 0 -1 73200.dat
+0 STEP

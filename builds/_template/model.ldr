@@ -3,4 +3,6 @@
 0 Author: ian-spike-learning
 0 !LICENSE Content of this repo; LDraw part files belong to the LDraw library
 0 Fill 0 STEP blocks to match steps.md
+0 !LDRCHECK GROUND 70
+0 !LDRCHECK FRONT +Z
 0 STEP

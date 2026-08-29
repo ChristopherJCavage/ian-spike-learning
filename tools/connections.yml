@@ -1,0 +1,292 @@
+# Connection annotations for SPIKE Prime (45678) + Essential (45345).
+#
+# LDraw encodes female holes as named primitives, but not male shafts, and
+# some electronics/wheels have bespoke mesh with no primitives at all.
+# This file fills those gaps. Keys are LDraw part names (after aliasing).
+#
+# role:
+#   connector   -- fastener; must join at least two distinct parts
+#   structural  -- default if omitted; must have at least one real joint
+#   decorative  -- exempt from joint requirements (eyes, dog, antennae, plants)
+#
+# shafts: male features. axis/origin are in the part's own coordinates.
+#   t0, t1 = extent along axis from origin, in LDU.
+# features: extra female (or male) points LDraw does not emit as primitives.
+
+# ---------------------------------------------------------------------------
+# Friction pins -- native shaft along +X
+# ---------------------------------------------------------------------------
+61332.dat:
+  role: connector
+  shafts:
+    - {type: friction_pin, origin: [0, 0, 0], axis: [1, 0, 0], t0: -20, t1: 20}
+
+42924.dat:
+  role: connector
+  shafts:
+    - {type: friction_pin, origin: [0, 0, 0], axis: [1, 0, 0], t0: -30, t1: 30}
+
+6558.dat:
+  role: connector
+  shafts:
+    - {type: friction_pin, origin: [0, 0, 0], axis: [1, 0, 0], t0: -30, t1: 30}
+
+# Pin one end, axle the other (CONNECTOR PEG/CROSS AXLE)
+6562.dat:
+  role: connector
+  shafts:
+    - {type: friction_pin, origin: [0, 0, 0], axis: [1, 0, 0], t0: -20, t1: 0}
+    - {type: cross_axle,   origin: [0, 0, 0], axis: [1, 0, 0], t0: 0, t1: 19.5}
+
+# 2M axle with friction snap -- 3M overall, pin + axle
+18651.dat:
+  role: connector
+  shafts:
+    - {type: friction_pin, origin: [0, 0, 0], axis: [1, 0, 0], t0: -30, t1: -10}
+    - {type: cross_axle,   origin: [0, 0, 0], axis: [1, 0, 0], t0: -10, t1: 29.5}
+
+# 2M friction snap with cross hole through the middle
+32054.dat:
+  role: connector
+  shafts:
+    - {type: friction_pin, origin: [0, 0, 0], axis: [1, 0, 0], t0: -30, t1: 30}
+
+65304.dat:
+  role: connector
+  shafts:
+    - {type: friction_pin, origin: [0, 0, 0], axis: [1, 0, 0], t0: -30, t1: 30}
+
+# ---------------------------------------------------------------------------
+# Cross axles -- native shaft along +X (except the 2M extender, along +Z)
+# ---------------------------------------------------------------------------
+32062.dat:
+  role: connector
+  shafts:
+    - {type: cross_axle, origin: [0, 0, 0], axis: [1, 0, 0], t0: -19.5, t1: 19.5}
+
+4519.dat:
+  role: connector
+  shafts:
+    - {type: cross_axle, origin: [0, 0, 0], axis: [1, 0, 0], t0: -29.5, t1: 29.5}
+
+3705.dat:
+  role: connector
+  shafts:
+    - {type: cross_axle, origin: [0, 0, 0], axis: [1, 0, 0], t0: -39.5, t1: 39.5}
+
+3706.dat:
+  role: connector
+  shafts:
+    - {type: cross_axle, origin: [0, 0, 0], axis: [1, 0, 0], t0: -59.5, t1: 59.5}
+
+3707.dat:
+  role: connector
+  shafts:
+    - {type: cross_axle, origin: [0, 0, 0], axis: [1, 0, 0], t0: -79.5, t1: 79.5}
+
+32073.dat:
+  role: connector
+  shafts:
+    - {type: cross_axle, origin: [0, 0, 0], axis: [1, 0, 0], t0: -49.5, t1: 49.5}
+
+44294.dat:
+  role: connector
+  shafts:
+    - {type: cross_axle, origin: [0, 0, 0], axis: [1, 0, 0], t0: -69.5, t1: 69.5}
+
+60485.dat:
+  role: connector
+  shafts:
+    - {type: cross_axle, origin: [0, 0, 0], axis: [1, 0, 0], t0: -89.5, t1: 89.5}
+
+23948.dat:
+  role: connector
+  shafts:
+    - {type: cross_axle, origin: [0, 0, 0], axis: [1, 0, 0], t0: -109.5, t1: 109.5}
+
+# Axle extender -- native along Z
+59443.dat:
+  role: connector
+  shafts:
+    - {type: cross_axle, origin: [0, 0, 0], axis: [0, 0, 1], t0: -20, t1: 20}
+
+# 2M pin with 2M axle molded on (bush with axle)
+65249.dat:
+  role: connector
+  shafts:
+    - {type: friction_pin, origin: [0, 0, 0], axis: [1, 0, 0], t0: -30, t1: 0}
+    - {type: cross_axle,   origin: [0, 0, 0], axis: [1, 0, 0], t0: 0, t1: 29.5}
+
+65826.dat:
+  role: connector
+  shafts:
+    - {type: friction_pin, origin: [0, 0, 0], axis: [1, 0, 0], t0: -20, t1: 8}
+
+# ---------------------------------------------------------------------------
+# Bushes sit on axles; they are retainers, not two-ended fasteners.
+# Marked structural so "joins two parts" does not apply; "must have a joint"
+# still does -- a bush in mid-air fails. A bush's entire job is to ride an
+# axle without locking it, so it -- and whatever else only ever reaches the
+# model through that same free-spinning axle -- is exempt from the rigid
+# cluster hinge check (rotates: true).
+4265c.dat:
+  role: structural
+  rotates: true
+  features:
+    - {kind: axle_hole, gender: female, origin: [0, 0, 0], axis: [0, 0, 1], depth: 10}
+
+32123b.dat:
+  role: structural
+  rotates: true
+  features:
+    - {kind: axle_hole, gender: female, origin: [0, 0, 0], axis: [0, 0, 1], depth: 10}
+
+32123.dat:
+  role: structural
+  rotates: true
+  features:
+    - {kind: axle_hole, gender: female, origin: [0, 0, 0], axis: [0, 0, 1], depth: 10}
+
+3713.dat:
+  role: structural
+  rotates: true
+  features:
+    - {kind: axle_hole, gender: female, origin: [0, 0, 0], axis: [0, 0, 1], depth: 20}
+
+# ---------------------------------------------------------------------------
+# Electronics -- output discs have axle holes LDraw does not emit
+# Disc is at local (0, -50, 0), axis along local Y (out of the disc face).
+# ---------------------------------------------------------------------------
+54675.dat:
+  role: structural
+  features:
+    - {kind: axle_hole, gender: female, origin: [0, -50, 0], axis: [0, 1, 0], depth: 20}
+
+54696p01.dat:
+  role: structural
+  features:
+    - {kind: axle_hole, gender: female, origin: [0, -50, 0], axis: [0, 1, 0], depth: 20}
+
+68488.dat:
+  role: structural
+  features:
+    - {kind: axle_hole, gender: female, origin: [0, -50, 0], axis: [0, 1, 0], depth: 20}
+
+45601.dat:
+  role: structural
+
+67351.dat:
+  role: structural
+
+37316.dat:
+  role: structural
+
+37308.dat:
+  role: structural
+
+37312.dat:
+  role: structural
+
+# ---------------------------------------------------------------------------
+# Wheel dia.56 -- spoke pin holes exist as primitives; the centre CROSS
+# axle hole is mesh-only. Native wheel axis is Z. Wheels are meant to
+# spin on their axle, so a single cross_axle reaching one is not a hinge.
+# ---------------------------------------------------------------------------
+39367.dat:
+  role: structural
+  rotates: true
+  ground_contact: true
+  features:
+    - {kind: axle_hole, gender: female, origin: [0, 0, 0], axis: [0, 0, 1], depth: 35}
+
+# ---------------------------------------------------------------------------
+# Drill bit cone -- reused here as the spinning tip of the mining drill,
+# driven by the same cross axle that runs the bush above.
+# ---------------------------------------------------------------------------
+14918.dat:
+  role: structural
+  rotates: true
+
+# Seat 4079 is a 2x2 with a backrest. LDraw emits only the centre underside
+# tube (stud4 at the origin) and two top studs; the four corner tubes that
+# actually clutch a plate are missing. Origins are at the underside face
+# (local y=8) so the 4 LDU stud shaft overlaps the bore.
+4079.dat:
+  role: structural
+  features:
+    - {kind: pin_hole, gender: female, origin: [10, 8, 10], axis: [0, -1, 0], depth: 8}
+    - {kind: pin_hole, gender: female, origin: [10, 8, -10], axis: [0, -1, 0], depth: 8}
+    - {kind: pin_hole, gender: female, origin: [-10, 8, 10], axis: [0, -1, 0], depth: 8}
+    - {kind: pin_hole, gender: female, origin: [-10, 8, -10], axis: [0, -1, 0], depth: 8}
+
+# Round dish -- LDraw already emits a stud and an underside tube.
+35394.dat:
+  role: structural
+
+# Minifig legs face -Z natively (identity looks toward -Z). The model's
+# FRONT axis is compared against this after the placement matrix.
+73200.dat:
+  role: decorative
+  facing: -Z
+76382.dat:
+  role: decorative
+18228.dat:
+  role: decorative
+# 3005 is only a head/dog proxy in this repo (real 26881 / 93239 have no .dat).
+3005.dat:
+  role: decorative
+
+# ---------------------------------------------------------------------------
+# Decorative -- joint-exempt
+# ---------------------------------------------------------------------------
+98138.dat:
+  role: decorative
+# Antenna -- LDraw emits the underside tube; it clutches a stud.
+3957.dat:
+  role: structural
+3957a.dat:
+  role: structural
+93239.dat:
+  role: decorative
+33121.dat:
+  role: decorative
+33320.dat:
+  role: decorative
+15279.dat:
+  role: decorative
+32606.dat:
+  role: decorative
+4727.dat:
+  role: decorative
+6064.dat:
+  role: decorative
+11127.dat:
+  role: decorative
+10830.dat:
+  role: decorative
+30089b.dat:
+  role: decorative
+24946.dat:
+  role: decorative
+28681.dat:
+  role: decorative
+4006.dat:
+  role: decorative
+6256.dat:
+  role: decorative
+18746.dat:
+  role: decorative
+80326.dat:
+  role: decorative
+85546.dat:
+  role: decorative
+57539.dat:
+  role: decorative
+27328.dat:
+  role: decorative
+39881.dat:
+  role: decorative
+45610.dat:
+  role: decorative
+66757.dat:
+  role: decorative

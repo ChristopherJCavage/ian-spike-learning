@@ -87,6 +87,7 @@ Never BOM a part we do not own just because LDraw has a pretty file.
 | Job | Who |
 |---|---|
 | Write/patch `model.ldr` + `steps.md` | Agent |
+| `python3 tools/ldrcheck.py check` until 0 problems | Agent |
 | `grep` BOM against `kits/*/parts.txt` | Agent |
 | Install LeoCAD + library | Chris (once) |
 | CLI export PNGs if binary exists | Agent |

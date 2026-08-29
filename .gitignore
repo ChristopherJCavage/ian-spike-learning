@@ -1,1 +1,4 @@
 .DS_Store
+
+# Official LDraw parts library, downloaded by tools/ldrcheck.py. 145 MB.
+.ldraw/

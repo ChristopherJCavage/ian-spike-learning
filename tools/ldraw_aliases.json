@@ -1,0 +1,59 @@
+{
+  "_comment": "Kit DESIGN_ID -> LDraw part file. 48 kit IDs have no .dat at that number. Structural parts are mapped to geometry-equivalent LDraw files (often an older mold number). Decorative parts with no usable geometry stay null.",
+
+  "105474": {"ldraw": "45601.dat", "name": "HUB, NO. 8 (SPIKE Prime Hub)"},
+  "107826": {"ldraw": "45610.dat", "name": "RECHARGEABLE BATTERY, NO. 2"},
+  "99085":  {"ldraw": "54696p01.dat", "name": "MOTOR, NO. 11 (Medium Angular Motor)"},
+  "79818":  {"ldraw": "54675.dat", "name": "MOTOR, NO. 12 (Large Motor)"},
+  "100885": {"ldraw": "67351.dat", "name": "HUB, NO. 12 (SPIKE Prime Small Hub)"},
+  "106060": {"ldraw": "67351.dat", "name": "HUB, NO. 12 (SPIKE Prime Small Hub, mold rev.)"},
+  "100887": {"ldraw": "66757.dat", "name": "RECHARGEABLE BATTERY, NO. 4"},
+  "39881":  {"ldraw": null, "name": "USB CABLE, NO. 2", "note": "no LDraw geometry; decorative/accessory"},
+
+  "42127": {"ldraw": "32013.dat", "name": "ANGLE ELEMENT, 0 DEGREES [1]"},
+  "42134": {"ldraw": "32034.dat", "name": "ANGLE ELEMENT, 180 DEGREES [2]"},
+  "42155": {"ldraw": "32014.dat", "name": "ANGLE ELEMENT, 90 DEGREES [6]"},
+  "42156": {"ldraw": "32192.dat", "name": "ANGLE ELEMENT 135 DEG. [4]"},
+  "42798": {"ldraw": "32123b.dat", "name": "BUSH FOR CROSS AXLE", "note": "4265c redirects here; model files may still say 4265c.dat"},
+
+  "42137": {"ldraw": "32140.dat", "name": "TECHNIC ANG. BEAM 4X2 90 DEG"},
+  "42149": {"ldraw": "6629.dat", "name": "TECHNIC ANGULAR BEAM 4X6"},
+  "42160": {"ldraw": "32271.dat", "name": "TECHNIC ANGULAR BEAM 3X7"},
+  "42165": {"ldraw": "32348.dat", "name": "TECHNIC ANGULAR BEAM 4X4"},
+  "40147": {"ldraw": "60483.dat", "name": "BEAM 1X2 W/CROSS AND HOLE"},
+  "42142": {"ldraw": "41678.dat", "name": "DOUBLE CROSS BLOCK"},
+
+  "40995": {"ldraw": "45411.dat", "name": "SHELL 6X8X2 W/BOW/ANGLE"},
+  "6834":  {"ldraw": "14918.dat", "name": "NOSE CONE 2X2X2 (mold rev.)"},
+  "39223": {"ldraw": "6143.dat", "name": "BRICK D16 W. CROSS (transparent mold)"},
+
+  "32732": {"ldraw": "98138.dat", "name": "FLAT TILE 1X1, ROUND, NO. 76", "note": "printed; unprinted geometry"},
+  "37006": {"ldraw": "14769.dat", "name": "FLAT TILE 2X2, ROUND, NO. 1099", "note": "printed; unprinted geometry"},
+  "73811": {"ldraw": "98138.dat", "name": "FLAT TILE 1X1, ROUND, NO. 151", "note": "printed; unprinted geometry"},
+  "44690": {"ldraw": "14769.dat", "name": "FLAT TILE 2X2, ROUND, NO. 1116", "note": "printed; unprinted geometry"},
+  "13360": {"ldraw": "98138.dat", "name": "FLAT TILE 1X1 - ROUND NO. 8", "note": "printed; unprinted geometry"},
+  "113420": {"ldraw": "14769.dat", "name": "FLAT TILE 2X2, ROUND, NO. 1116 (mold rev.)"},
+
+  "53504": {"ldraw": "64781.dat", "name": "RACK 13M"},
+  "49750": {"ldraw": "4185b.dat", "name": "WEDGE-BELT WHEEL D24"},
+  "65353": {"ldraw": "24312.dat", "name": "WHEEL CHAIR, W/ MINI SNAP"},
+  "14925": {"ldraw": "57539.dat", "name": "FLEX HOSE 19M W/3.18 STICK"},
+  "14770": {"ldraw": "57539.dat", "name": "FLEXHOSE 19M W/3.18 STICK C.I"},
+
+  "2659":  {"ldraw": "15279.dat", "name": "GRASS, W/ 3.2 TUBE (mold rev.)"},
+  "31577": {"ldraw": "33121.dat", "name": "CRAB"},
+  "28841": {"ldraw": "33320.dat", "name": "FROG"},
+  "93239": {"ldraw": null, "name": "DOG W. DECO", "note": "SPIKE dog mold not in LDraw"},
+  "4724":  {"ldraw": "30089b.dat", "name": "CAMERA (mold rev. of 30089)"},
+  "38648": {"ldraw": "10830.dat", "name": "MAGNIFYING GLASS"},
+  "28623": {"ldraw": "11127.dat", "name": "ROCK CRYSTAL, TRANSPARENT"},
+
+  "26881": {"ldraw": null, "name": "MINI HEAD NO. 1966", "note": "printed head not in LDraw"},
+  "96004": {"ldraw": null, "name": "MINI HEAD NO. 752", "note": "printed head not in LDraw"},
+  "21463": {"ldraw": null, "name": "MINI HEAD NO. 1675", "note": "printed head not in LDraw"},
+  "23094": {"ldraw": null, "name": "MINI HEAD NO. 1762", "note": "printed head not in LDraw"},
+  "23177": {"ldraw": null, "name": "MINI HEAD NO. 1771", "note": "printed head not in LDraw"},
+  "18226": {"ldraw": null, "name": "MINI WIG NO. 6", "note": "specific wig not confirmed in LDraw"},
+  "27058": {"ldraw": null, "name": "WIG LADY PAGE"},
+  "29066": {"ldraw": null, "name": "MINI WIG NO. 63"}
+}

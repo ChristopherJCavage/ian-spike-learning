@@ -1,0 +1,8 @@
+0 Fixture: minifig and seat share the plate's own y, so their solids
+0 occupy the same cubic centimetres -- the hatched blend in the screenshot.
+0 Expected: problems -- INTERPENETRATION of figure vs seat (and seat vs
+0 plate). Decorative no longer excuses solidity.
+1 0 0 0 0 1 0 0 0 1 0 0 0 1 3738.dat
+1 4 0 0 0 1 0 0 0 1 0 0 0 1 4079.dat
+1 0 0 -40 0 1 0 0 0 1 0 0 0 1 73200.dat
+0 STEP
