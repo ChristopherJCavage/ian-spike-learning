@@ -1,0 +1,87 @@
+# BOM -- Mining Drill Truck
+#
+# QTY | COLOR | NAME | KIT | ELEMENT_ID | LDRAW
+#
+# KIT is 45345 or 45678. ELEMENT_ID from kits/*/parts.txt.
+# Re-derived from the finished model.ldr and re-grepped against both kit
+# files -- every line below is inventory-checked.
+#
+# NOTE: 45678's two "WHEEL DIA.56" rows (element 6253244 / 6460453) are the
+# same mold-revision pair -- only 4 physical wheels ship per box, not 8.
+# This BOM uses exactly 4 (2 rear + 2 front).
+
+## Electronics
+1 | Bright Yellow | HUB, NO. 8 (SPIKE Prime Hub) | 45678 | 6464165 | 45601.dat
+2 | White | MOTOR, NO. 12 (Large Motor) -- port A rear-left, port B rear-right | 45678 | 6359210 | 54675.dat
+1 | White | MOTOR, NO. 14 (Small Angular Motor) -- port C, drill | 45345 | 6305270 | 68488.dat
+1 | White | SENSOR DISTANCE, NO. 1 -- port D | 45678 | 6302968 | 37316.dat
+
+## Base (skid-steer chassis + rear wheels)
+# Two Large Motors sit side by side under the Hub (x -90..-10 and 10..90),
+# each driving its own rear wheel directly off its output disc -- no
+# transverse rear axle. 3M axles bridge the 7.5 LDU recess between the
+# disc and the wheel hub. Six pins tie the Hub down (the front pair of
+# bottom holes at z=60 is left open for the sensor rails).
+6 | Black | CONNECTOR PEG W. FRICTION -- ties the Hub bottom to the motor tops | 45678 | 6279875 | 61332.dat
+2 | Bright Yellow | CROSS AXLE 3M | 45678 | 6130007 | 4519.dat
+4 | Multicombination | WHEEL DIA.56 | 45678 | 6253244 | 39367.dat
+
+## Front axle
+# A 5x7 beam frame stands on the Hub's front face, pinned through the
+# Hub's end holes at y=-60. The frame centre is at y=-40 (40 LDU of
+# ground clearance); a side-hole row at y=0, z=120 still carries the
+# 11M front axle.
+2 | Black | CONNECTOR PEG W. FRICTION -- Hub front face to 5x7 frame | 45678 | 6279875 | 61332.dat
+1 | Black | BEAM FRAME 5X7 D4.85 | 45678 | 6016154 | 64179.dat
+1 | Bright Yellow | CROSS AXLE, 11 MODULE | 45678 | 6130012 | 23948.dat
+
+## Drill
+# A 7M beam is pinned across the 5x7's leftover front holes, then the
+# Small Angular Motor is pinned to that beam (disc facing +Z, body entirely
+# in front of the axle so they do not occupy the same space). 8M axle
+# through the disc carries three nose cones at 48 LDU pitch, capped with a bush.
+1 | Medium Azur | TECHNIC 7M BEAM -- drill-motor crossbeam | 45678 | 6261638 | 32524.dat
+4 | Black | CONNECTOR PEG W. FRICTION -- 2 frame-to-beam, 2 beam-to-motor | 45678 | 6279875 | 61332.dat
+1 | Black | CROSS AXLE 8M | 45345 | 370726 | 3707.dat
+3 | Bright Orange | NOSE CONE 2X2X2 | 45345 | 6062601 | 14918.dat
+1 | Bright Red | BUSH FOR CROSS AXLE | 45345 | 6271820 | 4265c.dat
+
+## Distance sensor
+# Two rails run forward from the Hub's side holes, one per row (y=-80
+# and y=-100, both x=+-80) so the gantry reaches the Hub through two
+# non-collinear rows instead of one. Both rows are one step lower than
+# the naive y=-60 four-hole row: the front wheels are solid discs
+# spanning y=-70..70, so a rail at y=-60 runs its whole length flush
+# against wheel material. Each rail needs its own hub pins at the row's
+# z=-80 and z=80 holes (160 LDU apart) plus reach to z=200 to clear the
+# wheel's z=190 face -- only the 15M beam, the longest in the kit,
+# spans that; a shorter 9M beam covered the old z=40/80 holes but comes
+# up short of z=-80. At z=200 a 3M pin per row hands off to a 3M
+# upright, which a last pin ties into the sensor's lower hole.
+4 | Black | TECHNIC 15M BEAM -- sensor rails, both rows | 45678 | 4542573 | 64871.dat
+2 | Bright Yellow | TECHNIC 3M BEAM -- sensor anti-hinge upright | 45678 | 4153707 | 32523.dat
+8 | Black | CONNECTOR PEG W. FRICTION -- hub-to-rail, both rows | 45678 | 6279875 | 61332.dat
+6 | Bright Blue | CONNECTOR PEG W. FRICTION 3M -- rail-to-upright, upright-to-sensor | 45678 | 6299413 | 42924.dat
+
+## Cab deck
+# The Hub's 4 top pin holes (x=+-60, z=+-100) each take a vertical
+# CONNECTOR PEG W. FRICTION, half sunk into the Hub and half standing
+# proud. A PLATE 2X8 W. HOLES on each side is its own technic-to-stud
+# converter. Front deck carries the cab; rear deck carries the dog.
+4 | Black | CONNECTOR PEG W. FRICTION -- stands proud of the Hub top | 45678 | 6279875 | 61332.dat
+2 | Black | PLATE 2X8 W. HOLES | 45678 | 373826 | 3738.dat
+
+## Cab furniture
+1 | Bright Red | SEAT 2X2X2 | 45345 | 407921 | 4079.dat
+1 | Transparent Light Blue | ROUND PLATE D32X6.4 | 45345 | 6252265 | 35394.dat
+
+## Driver minifig (mashup, no pre-built minifig in either kit)
+1 | Black | MINI BODY LOWER PART BLACK | 45678 | 9339 | 73200.dat
+1 | Light Royal Blue | MINI UPPER PART, NO. 3688 | 45678 | 6176217 | 76382.dat
+1 | Bright Yellow | MINI HEAD NO. 1966 | 45678 | 6153335 | (not in LDraw lib -- proxy brick in model.ldr)
+1 | Black | MINI WIG NO. 18 | 45678 | 6079896 | 18228.dat
+
+## Face / cuteness
+2 | Black | FLAT TILE 1X1, ROUND, NO. 76 | 45678 | 6284079 | 98138.dat
+2 | White | WHIP/AERIAL | 45345 | 395701 | 3957.dat
+1 | Medium Nougat | DOG W. DECO | 45345 | 4614195 | (not in LDraw lib -- proxy box in model.ldr)

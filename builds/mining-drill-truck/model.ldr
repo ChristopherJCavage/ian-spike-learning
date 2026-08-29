@@ -1,0 +1,226 @@
+0 Mining Drill Truck
+0 Name: model.ldr
+0 Author: ian-spike-learning
+0 !LICENSE Licensed as content of this repo; parts from LDraw library
+0 !LDRCHECK GROUND 70
+0 !LDRCHECK FRONT +Z
+0 !LDRCHECK CLEARANCE 64179.dat 40
+0 !LDRCHECK FACES 73200.dat +Z
+0 !LDRCHECK RESTS 35394.dat ON 3738.dat
+0 !LDRCHECK JOINS 64179.dat 45601.dat
+0 !LDRCHECK JOINS 4079.dat 3738.dat
+
+0 // Geometry notes -- see builds/mining-drill-truck/geometry.md for the full
+0 // measured writeup. Quick reference:
+0 // +Y is DOWN. Truck front is +Z, rear is -Z. Ground plane is y = +70.
+0 // Every LDraw hole/stud points along ITS OWN Y axis -- a beam or frame
+0 // placed with the identity matrix lies flat with holes running Y
+0 // (vertical). To expose a horizontal hole line you must rotate the part;
+0 // see each step's comment for the exact matrix and why.
+0 // Architecture: two Large Motors side by side (skid steer, one wheel
+0 // each), Hub bolted on top of them. Six pins (not eight) -- the Hub's
+0 // z=60 bottom holes stay open so the sensor rails can pass the sides.
+
+0 // Step 1 -- rear motors. Output discs face outward (+-X) at the rear
+0 // axle line z=-80. Left motor: local Y -> +X. Right motor: local Y -> -X.
+1 16 -40 0 -80 0 1 0 -1 0 0 0 0 1 54675.dat
+1 16 40 0 -80 0 -1 0 1 0 0 0 0 1 54675.dat
+0 STEP
+0 // Step 2 -- rear axles and wheels. The wheel hub is recessed 7.5 LDU off
+0 // the flush motor disc, so a 3M axle (native axis X, identity) bridges
+0 // from inside the disc, through the recess, out through the whole wheel.
+0 // Wheel's native axis is Z (thin direction) -- 0 0 1 0 1 0 -1 0 0 maps
+0 // that onto X so the wheel rolls in Z and sits at x=+-107.5.
+0 // Colour 14 = Bright Yellow, the kit colour for 4519.
+1 14 -90 0 -80 1 0 0 0 1 0 0 0 1 4519.dat
+1 14 90 0 -80 1 0 0 0 1 0 0 0 1 4519.dat
+1 16 -107.5 0 -80 0 0 1 0 1 0 -1 0 0 39367.dat
+1 16 107.5 0 -80 0 0 1 0 1 0 -1 0 0 39367.dat
+0 STEP
+0 // Step 3 -- pins tying the Hub down to the motor tops. Pins stand on end
+0 // (local X -> +Y) at the motor/Hub interface y=-50. Six of the Hub's
+0 // 12 bottom holes land on the motor tops; the pair at z=60, x=+-60 is
+0 // left open so the sensor rails in Step 10 can pass the Hub sides.
+1 0 -60 -50 -100 0 1 0 1 0 0 0 0 -1 61332.dat
+1 0 -60 -50 -60 0 1 0 1 0 0 0 0 -1 61332.dat
+1 0 -20 -50 -100 0 1 0 1 0 0 0 0 -1 61332.dat
+1 0 60 -50 -100 0 1 0 1 0 0 0 0 -1 61332.dat
+1 0 60 -50 -60 0 1 0 1 0 0 0 0 -1 61332.dat
+1 0 20 -50 -100 0 1 0 1 0 0 0 0 -1 61332.dat
+0 STEP
+0 // Step 4 -- Hub. Bottom lands flush on the motor tops at y=-50, spans
+0 // y -130..-50, x -70..70, z -110..110.
+1 16 0 -50 0 1 0 0 0 1 0 0 0 1 45601.dat
+0 STEP
+0 // Step 5 -- front axle carrier. A 5x7 beam frame stands ON the Hub's
+0 // FRONT face (not hung from the bottom -- the bottom-to-axle drop is
+0 // 50 LDU, which is not a pin-hole grid). Matrix 1 0 0 0 0 -1 0 1 0
+0 // sends local Y -> +Z so the frame is a vertical 20 LDU shield at
+0 // z=110..130, flush against the Hub face at z=110. Two 2M pins along Z
+0 // at (+-40, -60) make a rigid mount -- parallel pins offset in X, not
+0 // a hinge. The frame centre is at y=-40 so its bottom clears the ground
+0 // plane (y=70) by 40 LDU; the axle still runs through a side-hole row
+0 // at y=0, two modules below the frame centre.
+1 0 -40 -60 115 0 0 1 0 1 0 -1 0 0 61332.dat
+1 0 40 -60 115 0 0 1 0 1 0 -1 0 0 61332.dat
+1 0 0 -40 120 1 0 0 0 0 -1 0 1 0 64179.dat
+0 STEP
+0 // Step 6 -- front axle. 11M axle (23948) is native along X (identity),
+0 // threaded through the 5x7 frame's side holes at z=120, y=0 -- two
+0 // hole-rows below the frame centre at y=-40.
+1 14 0 0 120 1 0 0 0 1 0 0 0 1 23948.dat
+0 STEP
+0 // Step 7 -- front wheels, same technique as the rear. Centres at
+0 // x=+-107.5, z=120. Front wheels span z 50..190; rear wheels span
+0 // z -150..-10 -- no contact between them.
+1 16 -107.5 0 120 0 0 1 0 1 0 -1 0 0 39367.dat
+1 16 107.5 0 120 0 0 1 0 1 0 -1 0 0 39367.dat
+0 STEP
+0 // Step 8 -- drill motor mount. The motor cannot sit in the axle line
+0 // (that is a collision) and cannot hang off a frame by face contact
+0 // (that is not a joint). A 7M beam across the frame front (local Z -> X,
+0 // local Y -> Z so its holes face Z) is pinned through the frame's
+0 // leftover Z-holes at y=-20. Two more pins then catch the motor's back
+0 // Z-holes at x=+-20. Motor matrix 1 0 0 0 0 1 0 -1 0 sends local Y -> -Z
+0 // so the disc faces +Z, entirely in front of the axle (motor z 150..230).
+1 322 0 -20 140 0 0 1 1 0 0 0 1 0 32524.dat
+1 0 -40 -20 130 0 0 1 0 1 0 -1 0 0 61332.dat
+1 0 40 -20 130 0 0 1 0 1 0 -1 0 0 61332.dat
+1 16 0 -20 180 1 0 0 0 0 1 0 -1 0 68488.dat
+1 0 -20 -20 155 0 0 1 0 1 0 -1 0 0 61332.dat
+1 0 20 -20 155 0 0 1 0 1 0 -1 0 0 61332.dat
+0 STEP
+0 // Step 9 -- drill bit. 8M axle (3707) native axis X; 0 0 -1 0 1 0 1 0 0
+0 // maps that onto +Z. Disc face is at z=230, y=-20. Back end sits 9 LDU
+0 // inside the motor housing; cones stack at 48 LDU pitch -- any tighter
+0 // and adjacent cones' own tapered bodies interpenetrate each other, not
+0 // just the bush. Bush sits flush on the last cone's face (z=375) at
+0 // z=380, right at the axle's own tip -- its hole engages backward into
+0 // 10 LDU of bare shaft (it was originally at z=370, 10 LDU inside the
+0 // last cone instead). Bush is IDENTITY so its annotated axle hole
+0 // stays along Z (the old 1 0 0 0 0 -1 0 1 0 put that hole along Y and
+0 // missed the axle).
+1 0 0 -20 300.5 0 0 -1 0 1 0 1 0 0 3707.dat
+1 25 0 -20 231 1 0 0 0 0 -1 0 1 0 14918.dat
+1 25 0 -20 279 1 0 0 0 0 -1 0 1 0 14918.dat
+1 25 0 -20 327 1 0 0 0 0 -1 0 1 0 14918.dat
+1 4 0 -20 380 1 0 0 0 1 0 0 0 1 4265c.dat
+0 STEP
+0 // Step 10 -- distance sensor. Eyes face -Z natively; -1 0 0 0 1 0 0 0 -1
+0 // is 180 about Y so they face +Z. Two rails per side, not one -- a single
+0 // rail only ever meets the sensor gantry on one shared (y,z) line, which
+0 // is still a hinge even once each rail's OWN Hub end is rigid. See
+0 // "Rigidity is a property of the subassembly" in context/ldraw-connections.md.
+0 //
+0 // Both rows sit at y=-80 and y=-100, one row lower than the naive
+0 // four-hole row at y=-60 -- the front wheels are 56dia. discs, solid
+0 // most of the way through, spanning y=-70..70, so y=-60 runs the rail
+0 // straight through wheel material for its whole length (measured: the
+0 // rail's face and the wheel's face land on the exact same x=90 plane,
+0 // zero clearance). y=-80 and y=-100 both clear the wheel's y<=-70 edge
+0 // by 10 and 30 LDU respectively -- the same margin the drill's bush
+0 // fix relies on elsewhere. This is the y-axis twin of "Surface
+0 // mounting" in ldraw-connections.md: check the *other* nearby solid,
+0 // not just the one you are pinning into.
+0 //
+0 // Both rails are 15M beams (64871, hole1..hole15): the 9M beam used
+0 // here before was long enough to reach the old z=40/80 holes at y=-60,
+0 // but z=-80 -- the only usable hole left in the z direction the rail
+0 // physically covers once it also has to reach z=80 and hand off at
+0 // z=200 -- sits outside a 9M beam's 180 LDU span entirely (checker:
+0 // pin at z=-80 joined the Hub and nothing else). 15M covers all of it.
+0 // Top row (y=-80), centred x=+-80 (Hub face 70 + half the rail's 20 LDU
+0 // thickness). Bottom row (y=-100), same beam, one row down. Both
+0 // pinned at the Hub's z=-80 and z=80 holes on their own row -- two
+0 // different lines per rail, so neither rail can hinge on the Hub by
+0 // itself. Both rails' far holes reach z=200, past the front wheel's
+0 // z=190 face.
+0 // They hand off at z=200 to a 3M pin (radial alignment only cares about
+0 // a pin's (y,z) line, not where along its own axis a part sits, so one
+0 // long pin can span from inside a rail to a beam sitting 20 LDU further
+0 // out, clearing the rail's silhouette): the top rail's pin also catches
+0 // the sensor's upper hole and the upright's top; the bottom rail's pin
+0 // catches the upright's middle hole (offset to x=+-100 so it does not
+0 // also reach into the sensor's body, which has no hole on that row). A
+0 // last pin at y=-120 catches the upright's bottom and the sensor's
+0 // lower hole. So the sensor gantry reaches the Hub-rigid rails through
+0 // two non-collinear rows (y=-80 and y=-100), not one -- it cannot hinge
+0 // either, and neither rail nor pin nor upright ever crosses y=-70, so
+0 // none of it touches the wheels.
+1 0 80 -80 60 0 1 0 -1 0 0 0 0 1 64871.dat
+1 0 -80 -80 60 0 1 0 -1 0 0 0 0 1 64871.dat
+1 0 70 -80 -80 1 0 0 0 1 0 0 0 1 61332.dat
+1 0 -70 -80 -80 1 0 0 0 1 0 0 0 1 61332.dat
+1 0 70 -80 80 1 0 0 0 1 0 0 0 1 61332.dat
+1 0 -70 -80 80 1 0 0 0 1 0 0 0 1 61332.dat
+1 0 80 -100 60 0 1 0 -1 0 0 0 0 1 64871.dat
+1 0 -80 -100 60 0 1 0 -1 0 0 0 0 1 64871.dat
+1 0 70 -100 -80 1 0 0 0 1 0 0 0 1 61332.dat
+1 0 -70 -100 -80 1 0 0 0 1 0 0 0 1 61332.dat
+1 0 70 -100 80 1 0 0 0 1 0 0 0 1 61332.dat
+1 0 -70 -100 80 1 0 0 0 1 0 0 0 1 61332.dat
+1 1 80 -80 200 1 0 0 0 1 0 0 0 1 42924.dat
+1 1 -80 -80 200 1 0 0 0 1 0 0 0 1 42924.dat
+1 1 100 -100 200 1 0 0 0 1 0 0 0 1 42924.dat
+1 1 -100 -100 200 1 0 0 0 1 0 0 0 1 42924.dat
+1 14 100 -100 200 0 1 0 0 0 1 1 0 0 32523.dat
+1 14 -100 -100 200 0 1 0 0 0 1 1 0 0 32523.dat
+1 1 80 -120 200 1 0 0 0 1 0 0 0 1 42924.dat
+1 1 -80 -120 200 1 0 0 0 1 0 0 0 1 42924.dat
+1 16 0 -100 200 -1 0 0 0 1 0 0 0 -1 37316.dat
+0 STEP
+0 // Step 11 -- cab deck pins. The Hub's 4 top holes (x=+-60, z=+-100,
+0 // axis Y) take vertical 2M pins: half into the Hub, half proud for a plate.
+1 0 -60 -130 100 0 1 0 1 0 0 0 0 -1 61332.dat
+1 0 60 -130 100 0 1 0 1 0 0 0 0 -1 61332.dat
+1 0 -60 -130 -100 0 1 0 1 0 0 0 0 -1 61332.dat
+1 0 60 -130 -100 0 1 0 1 0 0 0 0 -1 61332.dat
+0 STEP
+0 // Step 12 -- cab decks. PLATE 2X8 W. HOLES (3738), kit colour Black.
+0 // Two of its seven holes land on the two pins each side.
+1 0 0 -146 100 1 0 0 0 1 0 0 0 1 3738.dat
+1 0 0 -146 -100 1 0 0 0 1 0 0 0 1 3738.dat
+0 STEP
+0 // Step 13 -- seat. Standard stud connection onto the front deck: origin
+0 // is 8 LDU above the plate (one plate height) so the 2x2 sits ON the
+0 // studs instead of occupying the same y as the plate. Four annotated
+0 // underside tubes clutch the plate's corner studs. Backrest at local
+0 // z=-16 faces the rear.
+1 4 0 -154 100 1 0 0 0 1 0 0 0 1 4079.dat
+0 STEP
+0 // Step 14 -- radar dish. Laid flat on a rear-deck stud so its underside
+0 // tube forms a real stud joint. (Standing it on its rim as a windshield
+0 // cannot attach to anything.) Identity keeps it thin in Y. Origin 12 LDU
+0 // above the plate so the tube at local y=12 meets the stud.
+1 43 -10 -158 -110 1 0 0 0 1 0 0 0 1 35394.dat
+0 STEP
+0 // Step 15 -- driver. Legs/torso/wig are real parts; the head (26881)
+0 // isn't in this LDraw library, so a small brick proxies it -- swap in
+0 // the real printed head at the table. Standing on the front deck to the
+0 // right of the seat, facing +Z (180 about Y: -1 0 0 0 1 0 0 0 -1).
+0 // Minifig clutch is not in LDraw; sit them in the seat at the table.
+1 0 50 -186 90 -1 0 0 0 1 0 0 0 -1 73200.dat
+1 89 50 -218 90 -1 0 0 0 1 0 0 0 -1 76382.dat
+0 // PROXY: real part = MINI HEAD NO. 1966 (26881, kit 45678)
+1 14 50 -238 90 -1 0 0 0 1 0 0 0 -1 3005.dat
+1 0 50 -238 90 -1 0 0 0 1 0 0 0 -1 18228.dat
+0 STEP
+0 // Step 16 -- eyes. Round tiles rest on the 5x7 frame's front face
+0 // (z=130). Origin at z=138 so the 8 LDU tile sits ON the face, not
+0 // straddling it. Matrix 1 0 0 0 0 1 0 -1 0 lays them flat against that wall.
+1 0 -40 -80 138 1 0 0 0 0 1 0 -1 0 98138.dat
+1 0 40 -80 138 1 0 0 0 0 1 0 -1 0 98138.dat
+0 STEP
+0 // Step 17 -- antennae, one on each end stud of the rear deck (the front
+0 // deck's end studs sit next to the driver). Same y as the plate so the
+0 // whip's underside tube clutches the stud.
+1 15 -70 -146 -110 1 0 0 0 1 0 0 0 1 3957.dat
+1 15 70 -146 -110 1 0 0 0 1 0 0 0 1 3957.dat
+0 STEP
+0 // Step 18 -- sidekick. The dog mold (93239) isn't in this LDraw
+0 // library, so a small block proxies it on the rear deck, offset to
+0 // clear the dish. Origin 24 LDU above the plate (one brick).
+0 // PROXY: real part = DOG W. DECO (93239, kit 45345)
+1 268 50 -170 -110 1 0 0 0 1 0 0 0 1 3005.dat
+0 STEP
+0 // Step 19 -- program (no new bricks)
