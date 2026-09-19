@@ -1,0 +1,15 @@
+0 Fixture: the 2x2 round tile capping the slide shoe's four studs.
+0 Expected: clean.
+0
+0 Both parts are hand-annotated and both were wrong the first time. The
+0 slide shoe's studs are stud6a and the tile's underside is stud4h --
+0 neither spelling is in the primitive table, so LDraw reports both parts
+0 as having no clutch whatsoever. Everything joining them here is written
+0 by hand, which is exactly why it needs a fixture.
+0
+0 Slide shoe sitting on the floor, four studs pointing up from y = 0.
+1 26 0 0 0 1 0 0 0 1 0 0 0 1 2654.dat
+0
+0 Round tile dropped onto all four of them, underside at y = 0.
+1 0 0 -8 0 1 0 0 0 1 0 0 0 1 15535.dat
+0 STEP

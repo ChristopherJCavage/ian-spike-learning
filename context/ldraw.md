@@ -49,18 +49,30 @@ until someone looks at a PNG or the GUI.
 ```bash
 # One step (steps are 1-based). Exact binary path may be:
 #   /Applications/LeoCAD.app/Contents/MacOS/LeoCAD
-LeoCAD model.ldr -i renders/step-012.png -w 1920 -h 1080 -f 12 -t 12 --viewpoint home
+LeoCAD model.ldr -i renders/step-012.png -w 1600 -h 1100 -f 12 -t 12 --camera-angles 55 225 --fade-steps --highlight
 ```
 
 Flags (see <https://www.leocad.org/docs/cli.html>):
 
 - `-i` / `--image` -- write PNG/JPG and exit
-- `-w` `-h` -- pixel size
+- `-w` `-h` -- pixel size (this repo uses 1600x1100)
 - `-f` / `--from` and `-t` / `--to` -- step range
-- `--viewpoint home` -- isometric-ish default
-- `--fade-steps` -- previous parts faded (official-BI vibe), if your build
-  of LeoCAD supports it
+- `--viewpoint home` -- isometric-ish default. Ignored if `--camera-angles`
+  or `--camera` is set.
+- `--camera-angles <lat> <lon>` -- per-page camera, stored in `screens.md`
+- `--fade-steps` -- previous parts faded (official-BI vibe)
+- `--highlight` -- outline the parts added on this step
 - `-l` / `--libpath` -- parts library if not default
+
+The exported PNG is **RGBA with a transparent background**. `--fade-steps`
+writes prior parts at alpha 128. Composite onto a white page (the HTML
+preview, or Figma) and the history goes grey while the new piece stays
+in colour. There is no CLI background-colour flag; the installed binary
+does not honour `0 !LEOCAD MODEL BACKGROUND COLOR` either.
+
+Per-page cameras live in `screens.md`. Render them with
+`python3 tools/pages.py render builds/<slug>` (LeoCAD needs to run
+outside a sandbox -- it talks to WindowServer).
 
 If `LeoCAD` is not on `PATH`, the agent should try the `.app` path once, then
 stop: **do not invent PNGs**. Leave `renders/` empty.
@@ -88,9 +100,11 @@ Never BOM a part we do not own just because LDraw has a pretty file.
 |---|---|
 | Write/patch `model.ldr` + `steps.md` | Agent |
 | `python3 tools/ldrcheck.py check` until 0 problems | Agent |
+| `python3 tools/ldrcheck.py steps` until 0 problems | Agent |
+| `python3 tools/pages.py check` / `preview` | Agent |
 | `grep` BOM against `kits/*/parts.txt` | Agent |
 | Install LeoCAD + library | Chris (once) |
-| CLI export PNGs if binary exists | Agent |
+| `python3 tools/pages.py render` (LeoCAD CLI) | Agent, outside the sandbox |
 | Drag bricks in LeoCAD GUI | Chris, if a step is nonsense |
 | Figma chrome + Next | Agent (MCP) |
 | Table-build with Ian | Chris + Ian |

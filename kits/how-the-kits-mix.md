@@ -1,8 +1,9 @@
-# How the SPIKE Essential and SPIKE Prime kits mix
+# How the SPIKE kits mix
 
-Two kits, one App, one big bin of parts. This doc is the "why" and "how"
-behind combining SPIKE Essential (45345) and SPIKE Prime (45678) for
-Ian's builds, separate from the flat parts inventories in this folder.
+Three kits, one App, one big bin of parts. This doc is the "why" and "how"
+behind combining SPIKE Essential (45345), SPIKE Prime (45678), and the
+Prime Expansion (45681) for Ian's builds, separate from the flat parts
+inventories in this folder.
 
 ## The setup
 
@@ -12,6 +13,10 @@ Ian's builds, separate from the flat parts inventories in this folder.
 - **SPIKE Prime 45678** -- the "grow into it" set. 528 pieces on the box
   (557 in the detailed teardown). Bigger hub, more motors and sensors,
   built for upper-elementary/middle school.
+- **SPIKE Prime Expansion 45681** -- an add-on, not a standalone kit.
+  604 pieces on the box (606 in the detailed teardown). **No hub, no
+  battery, no USB cable.** It brings one more medium motor, one more
+  colour sensor, and otherwise gears, turntables, big wheels, and beams.
 
 Both run the **same SPIKE App** (iOS/Android/Chromebook/desktop). The app
 detects whichever hub connects over Bluetooth or USB and shows the right
@@ -25,15 +30,34 @@ account, no separate project format to worry about.
   the Prime hub. Same 6-wire connector, same protocol, both directions.
   See `combined-electronics.txt` for the full inventory.
 - **Studs and Technic pins are the same LEGO System/Technic standard**
-  across both sets, so beams, connectors, bricks, and plates from either
+  across all three sets, so beams, connectors, bricks, and plates from any
   box combine freely. There's no "Essential-only" stud pattern.
+- **The Expansion is pure parts.** Everything in it plugs into what we
+  already own. Its one motor and one colour sensor are duplicates of
+  parts from the base kits, so they work on either hub like any other.
 - **Batteries and hubs do NOT mix.** The Essential hub takes its own
   battery pack; the Prime hub takes a different one. Don't assume you
   can swap power packs between hubs -- check the connector shape first.
 - **Only one hub per build.** You pick either the Essential hub or the
   Prime hub as the "brain" for a given creation, then plug in whatever
   mix of motors/sensors from either box you want into that hub's ports
-  (4 ports on Essential, 6 on Prime).
+  (2 ports on Essential, 6 on Prime).
+
+## What the Expansion actually unlocks
+
+Worth knowing before designing, because these are things the two base
+kits genuinely could not do (full detail at the bottom of
+`45681-expansion/parts.txt`):
+
+- **Turntables** -- Z28 and Z60, top and bottom halves. The first real
+  rotating platform we own: crane cabs, turrets, radar.
+- **Big wheels** -- 4x 88mm with an integral tyre and a cross-axle hub,
+  much larger than Prime's 56mm.
+- **A proper gear train** -- bevel gears, conical wheels Z12/Z20/Z36,
+  angled gear wheels, a 7M rack, and a curved quarter-circle rack.
+- **Long axles** -- 32M and 12M, longer than anything in the base kits.
+- **Pins in bulk** -- 80 black friction pegs and 36 blue 3M pegs. In
+  practice this is now where the pins come from.
 
 ## What we're deliberately ignoring
 
@@ -41,10 +65,9 @@ account, no separate project format to worry about.
   LEGO Education Prime curriculum -- it assumes an older kid and a
   classroom pace. We're using the *hardware* freely and building our own
   projects/lessons around Ian's age and interests.
-- **Expansion Set 45681 (or any other add-on).** Nothing in these files
-  assumes we own it. If we ever pick one up, it gets its own
-  `kits/45681-expansion/parts.txt` file -- don't assume extra XL motors,
-  bigger wheels, etc. are on hand until that file exists.
+- **Any further add-on.** Nothing in these files assumes we own anything
+  beyond the three kits inventoried here. A new set gets its own
+  `kits/<number>-<name>/parts.txt` before any build may reference it.
 
 ## Practical mixing guidance
 
@@ -56,15 +79,17 @@ account, no separate project format to worry about.
 - **For at-home free-build time:** either hub is fair game. If a build
   wants more ports or more torque, start with the Prime hub instead of
   daisy-chaining or forcing it onto the smaller one.
-- **Storage:** it's fine to keep the two boxes' bins physically separate
-  (each kit ships its own sorting tray) or to combine them into one big
-  bin organized by part type -- this repo's parts lists work either way,
-  since every line item already says which kit it came from.
+- **Storage:** merge Prime and Expansion into one part-type-sorted pool;
+  keep Essential physically separate so the class kit stays Essential-only
+  and portable. Full plan, with tray counts computed from these
+  inventories, in [`storage.md`](storage.md). The parts lists work either
+  way, since every line already says which kit it came from.
 - **Piece IDs matter more than kit boundaries.** If Ian loses a part,
-  grep both `parts.txt` files by name (e.g. `grep -i "connector peg"
+  grep all three `parts.txt` files by name (e.g. `grep -i "connector peg"
   kits/*/parts.txt`) -- LEGO's Pick-a-Brick / Customer Service replacement
   parts lookup uses the element IDs listed here, not "which box it came
-  from."
+  from." Part names are spelled identically across the three files when
+  the design ID matches, so one grep really does span all three.
 
 ## Not a parts database
 

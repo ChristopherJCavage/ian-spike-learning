@@ -1,0 +1,14 @@
+0 Fixture: a pin sits in one beam on page 1, page 2 adds a third pin in
+0 the same beam (does not pick the first pins up), page 3 adds the second
+0 beam. The finished model is geometrically fine -- `check` is green --
+0 but the original pins lingered a whole page. Expected: `ldrcheck steps`
+0 fails.
+0
+1 14 -10 0 0 0 1 0 -1 0 0 0 0 1 32523.dat
+1 0 0 0 0 1 0 0 0 1 0 0 0 1 61332.dat
+1 0 0 0 20 1 0 0 0 1 0 0 0 1 61332.dat
+0 STEP
+1 0 0 0 -20 1 0 0 0 1 0 0 0 1 61332.dat
+0 STEP
+1 14 10 0 0 0 1 0 -1 0 0 0 0 1 32523.dat
+0 STEP

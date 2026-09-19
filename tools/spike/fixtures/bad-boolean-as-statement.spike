@@ -1,0 +1,10 @@
+# The table bug: a Distance Sensor block with a number on it, used as a
+# line of the program. isDistance is a hexagon. It reports true/false.
+# It never moves execution to the next block.
+# expect: BOOLEAN_AS_STATEMENT
+hub: prime
+extensions:
+
+flipperevents_whenProgramStarts
+  flippersensors_isDistance PORT=D COMPARATOR=closerThan VALUE=20 UNIT=cm
+  flippermotor_motorStartDirection PORT=A DIRECTION=clockwise

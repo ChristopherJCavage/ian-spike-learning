@@ -1,0 +1,27 @@
+0 Fixture: a hand-flicked helicopter rotor on a free-spinning axle.
+0 Expected: clean. The axle turns in the ROUND centre hole of the blue
+0 7M beam, while the green 2x4 brick's CROSS hole locks the rotor to it.
+0
+0 This is deliberately not a motorised rotor. On the Essential hub the
+0 colour sensor and seed-door motor use both ports. The child flicks this
+0 rotor by hand.
+0
+0 A multi-part rotor reaches the body through one rotation axis, which is
+0 intentional. PIVOT validates that the declared 4M axle really carries a
+0 joint about world Y rather than merely hiding a detached assembly.
+0 !LDRCHECK PIVOT 3705.dat +Y
+0
+0 Body-side bearing: one 7M beam, length along world Z, holes along Y.
+1 1 0 0 0 1 0 0 0 1 0 0 0 1 32524.dat
+0
+0 4M axle, native X turned onto world Y. It spans y=-59.5..+19.5,
+0 passing completely through the beam's 20-LDU-thick centre hole.
+1 0 0 -20 0 0 -1 0 1 0 0 0 0 1 3705.dat
+0
+0 Rotor hub above the beam. Its vertical cross bore locks to the axle.
+0 Bottom face is y=-10, exactly touching the beam's top face.
+1 28 0 -34 0 1 0 0 0 1 0 0 0 1 39789.dat
+0
+0 Broad two-blade rotor pressed onto the hub's top studs.
+1 10 0 -42 0 1 0 0 0 1 0 0 0 1 3738.dat
+0 STEP

@@ -1,0 +1,15 @@
+0 Fixture: colour sensor aimed at the ground, pinned to a 3M beam so it
+0 is not lonely. Expected: clean. FACES +Y (down). Not required to match
+0 FRONT -- faces_front is unset on 37308.
+0
+0 Matrix 1 0 0 / 0 0 -1 / 0 1 0 maps local -Z (the lens) onto world +Y.
+0
+0 !LDRCHECK FRONT +Z
+0 !LDRCHECK FACES 37308.dat +Y
+1 15 0 0 0 1 0 0 0 0 -1 0 1 0 37308.dat
+1 0 -30 0 -20 1 0 0 0 1 0 0 0 1 61332.dat
+1 0 30 0 -20 1 0 0 0 1 0 0 0 1 61332.dat
+0 // 3M beam is Bright Yellow in Essential. Holes face X.
+1 14 -40 0 -20 0 1 0 -1 0 0 0 0 1 32523.dat
+1 14 40 0 -20 0 -1 0 1 0 0 0 0 1 32523.dat
+0 STEP

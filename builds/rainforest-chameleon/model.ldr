@@ -1,0 +1,230 @@
+0 Chameleon Colour-Match
+0 Name: model.ldr
+0 Author: ian-spike-learning
+0 !LICENSE Licensed as content of this repo; parts from LDraw library
+0 !LDRCHECK GROUND 20
+0 !LDRCHECK FRONT +Z
+0 !LDRCHECK FACES 37308.dat +Y
+0 !LDRCHECK CLEARANCE 37308.dat 20
+0 !LDRCHECK JOINS 37308.dat 67351.dat
+0 !LDRCHECK FACES 47592.dat -Y
+0 !LDRCHECK JOINS 47592.dat 67351.dat
+0 !LDRCHECK JOINS 98138.dat 61332.dat
+
+0 // Step 1 -- Small Hub, Bright Yellow (colour 14). An earlier
+0 // build-tester draft called this White off a photo taken for the
+0 // eye-peg point (step 14); LEGO's own parts catalogue for this exact
+0 // element (6412840 / design 100885) lists it as Bright Yellow with no
+0 // white variant, and the LDraw part itself hardcodes yellow into the
+0 // body regardless of the placement colour, so that read is reverted.
+0 // Flipped 180 degrees about Y from the box's printed orientation
+0 // (matrix -1 0 0 / 0 1 0 / 0 0 -1). Bottom y=0, top y=-80 -- a Y-axis
+0 // spin never touches Y. The side holes and the two pairs of face
+0 // holes at x=+-60 are symmetric under the flip, so every part below
+0 // keeps the coordinates it always had: head at world z=+50, tail at
+0 // world z=-50. What actually moves is the hub's own printed features:
+0 // the two cable ports (local z=+49) land at world z=-49 -- the tail
+0 // wall now, not the head wall, so plugging in no longer competes with
+0 // the brow for finger room -- and the top pin-holes move from
+0 // local/world z=-40 to z=+40, carrying the deck and matrix from over
+0 // the tail to over the shoulders.
+1 14 0 0 0 -1 0 0 0 1 0 0 0 -1 67351.dat
+0 STEP
+
+0 // Step 2 -- four 2M pins in the lowest side holes.
+1 0 -70 -10 20 1 0 0 0 1 0 0 0 1 61332.dat
+1 0 -70 -10 -20 1 0 0 0 1 0 0 0 1 61332.dat
+1 0 70 -10 20 1 0 0 0 1 0 0 0 1 61332.dat
+1 0 70 -10 -20 1 0 0 0 1 0 0 0 1 61332.dat
+0 STEP
+
+0 // Step 3 -- 1x4 hips, studs pointing +Y (down).
+1 26 -80 0 0 0 0 1 0 -1 0 1 0 0 3701.dat
+1 26 80 0 0 0 0 -1 0 -1 0 -1 0 0 3701.dat
+0 STEP
+
+0 // Step 4 -- four socket plates, sockets facing out.
+1 71 -80 8 20 0 0 1 0 -1 0 1 0 0 14704.dat
+1 71 -80 8 -20 0 0 1 0 -1 0 1 0 0 14704.dat
+1 71 80 8 20 0 0 -1 0 -1 0 -1 0 0 14704.dat
+1 71 80 8 -20 0 0 -1 0 -1 0 -1 0 0 14704.dat
+0 STEP
+
+0 // Step 5 -- four ball-plate feet, yawed so front and rear do not graze.
+1 72 -118.126 8 28.4524 -0.4226 0 -0.9063 0 -1 0 -0.9063 0 0.4226 14417.dat
+1 72 -118.126 8 -28.4524 0.4226 0 -0.9063 0 -1 0 -0.9063 0 -0.4226 14417.dat
+1 72 118.126 8 28.4524 -0.4226 0 0.9063 0 -1 0 0.9063 0 0.4226 14417.dat
+1 72 118.126 8 -28.4524 0.4226 0 0.9063 0 -1 0 0.9063 0 -0.4226 14417.dat
+0 STEP
+
+0 // Step 6 -- two pins in the hub's front face (world z=+50). After the
+0 // flip this is the short wall with the little USB port moulded on it,
+0 // not the cable-port wall -- see step 1. The head goes on here because
+0 // it is now the wall with room to spare.
+1 0 -60 -30 50 0 0 1 0 1 0 -1 0 0 61332.dat
+1 0 60 -30 50 0 0 1 0 1 0 -1 0 0 61332.dat
+0 STEP
+
+0 // Step 7 -- the brow bricks. TWO separate orange 1x2 Technic bricks
+0 // press onto the front pins, studs up -- called out as two because in
+0 // an earlier combined picture Ian could not tell these were not one
+0 // long piece. A full-width 1x8 cannot stand in for the pair the way it
+0 // does on the tail shelf: z=50..70 is exactly where the next page's
+0 // plate needs its own two centre tubes over open air, for the shoes
+0 // that follow.
+0 //
+0 // Each brick hangs on ONE pin, so each can still twist on it. That is
+0 // why this used to be one page with the plate, under a "right away"
+0 // instruction. It is now two, to match the Seed Drone's nose, which is
+0 // the same three parts in the same arrangement -- one part type per
+0 // page reads better and a child builds both models. ldrcheck steps
+0 // grades the twist as a transient RIGID CLUSTER HINGE and would fail
+0 // if step 8 did not resolve it.
+1 25 -60 -40 60 1 0 0 0 1 0 0 0 1 3700.dat
+1 25 60 -40 60 1 0 0 0 1 0 0 0 1 3700.dat
+0 STEP
+
+0 // Step 8 -- the brow plate. The green 2x8 presses across BOTH orange
+0 // bricks at once, and that is what stops either one twisting: it is
+0 // clutched to two bricks' studs rather than one. Nothing here is
+0 // optional or cosmetic -- until this plate is on, the brow is two
+0 // independent hinges.
+1 10 0 -48 70 1 0 0 0 1 0 0 0 1 3738.dat
+0 STEP
+
+0 // Step 9 -- cheek bumps. Two purple round shoes press into the
+0 // plate's two open centre tubes (x=+-20) from underneath -- nothing
+0 // is in the way there yet, the bricks only cover the outer x=+-60
+0 // pair -- so the reach stays easy even though the plate mounted
+0 // first. Not eyes: there is no housing here for an eye to look out
+0 // of, just two round bumps for cheeks.
+1 26 -20 -40 70 1 0 0 0 1 0 0 0 1 2654.dat
+1 26 20 -40 70 1 0 0 0 1 0 0 0 1 2654.dat
+0 STEP
+
+0 // Step 10 -- brow horns, moved up from the very end of the old
+0 // sequence while the plate is still open and easy to reach. Two
+0 // cones each side, outermost stud column (x=+-70), one behind the
+0 // other. No cable lane to dodge on this wall any more -- the ports
+0 // moved to the tail wall, see step 20 -- this is just where they sit.
+1 26 -70 -72 60 1 0 0 0 1 0 0 0 1 59900.dat
+1 26 -70 -72 80 1 0 0 0 1 0 0 0 1 59900.dat
+1 26 70 -72 60 1 0 0 0 1 0 0 0 1 59900.dat
+1 26 70 -72 80 1 0 0 0 1 0 0 0 1 59900.dat
+0 STEP
+
+0 // Step 11 -- two T-beams on the brow, pin holes facing +Z.
+1 4 -20 -56 80 1 0 0 0 1 0 0 0 1 32530.dat
+1 4 20 -56 80 1 0 0 0 1 0 0 0 1 32530.dat
+0 STEP
+
+0 // Step 12 -- pins through the T-beam holes, pointing forward.
+1 0 -20 -58 90 0 0 1 0 1 0 -1 0 0 61332.dat
+1 0 20 -58 90 0 0 1 0 1 0 -1 0 0 61332.dat
+0 STEP
+
+0 // Step 13 -- colour sensor, lens aimed +Y (down at the pad). Its
+0 // cable does not go in yet -- both ports live on the tail wall now,
+0 // see step 20 -- so that waits until step 26.
+1 15 0 -58 120 0 1 0 0 0 -1 -1 0 0 37308.dat
+0 STEP
+
+0 // Step 14 -- eye pins. Two black pegs in the sensor's forward holes
+0 // (world x=+-20, y=-58, z=150 -- the pair opposite the ones the
+0 // snout pins already use at z=90). Half of each peg seats in the
+0 // housing, half stands proud for the eye tile in the next step. Not
+0 // a tongue -- Ian's table found a flex hose cannot actually mount on
+0 // the sensor; this is what the box can really do here.
+1 0 -20 -58 150 0 0 -1 0 1 0 1 0 0 61332.dat
+1 0 20 -58 150 0 0 -1 0 1 0 1 0 0 61332.dat
+0 STEP
+
+0 // Step 15 -- eyes. Press a white 1x1 round tile onto the tip of each
+0 // eye pin -- a peg's shaft is close enough to a stud's width that
+0 // the tile's underside tube grips it the same way it would grip a
+0 // stud.
+1 15 -20 -58 170 1 0 0 0 0 1 0 -1 0 98138.dat
+1 15 20 -58 170 1 0 0 0 0 1 0 -1 0 98138.dat
+0 STEP
+
+0 // Step 16 -- pins standing in the hub's top holes. These moved from
+0 // z=-40 to z=+40 with the flip -- see step 1 -- so the deck lands
+0 // over the shoulders, not the tail.
+1 0 -60 -80 40 0 1 0 1 0 0 0 0 -1 61332.dat
+1 0 60 -80 40 0 1 0 1 0 0 0 0 -1 61332.dat
+0 STEP
+
+0 // Step 17 -- 7M deck on top, holes along Y.
+1 1 0 -90 40 0 0 1 0 1 0 -1 0 0 32524.dat
+0 STEP
+
+0 // Step 18 -- pins up through the deck into the matrix.
+1 0 -20 -100 40 0 1 0 1 0 0 0 0 -1 61332.dat
+1 0 20 -100 40 0 1 0 1 0 0 0 0 -1 61332.dat
+0 STEP
+
+0 // Step 19 -- 3x3 light matrix, LEDs aimed -Y (up).
+1 322 0 -110 40 1 0 0 0 0 1 0 -1 0 47592.dat
+0 STEP
+
+0 // Step 20 -- two pins in the hub's rear face (world z=-50). This is
+0 // now the wall with the two cable ports (local z=+49 lands at world
+0 // z=-49 after the flip -- see step 1), so it is also the wall both
+0 // cables plug into at step 26.
+1 0 -60 -30 -50 0 0 1 0 1 0 -1 0 0 61332.dat
+1 0 60 -30 -50 0 0 1 0 1 0 -1 0 0 61332.dat
+0 STEP
+
+0 // Step 21 -- tail bar. The Dark Azur 1x8 alone, split from the shelf
+0 // plate into its own page.
+1 321 0 -40 -60 1 0 0 0 1 0 0 0 1 3702.dat
+0 STEP
+
+0 // Step 22 -- tail plate. Press the two orange round tiles onto the
+0 // green plate first, while it is still loose in hand, then press
+0 // the whole plate onto the bar -- much easier to decorate a loose
+0 // plate than one already clipped to the model. Unlike the brow's
+0 // bricks, the bar underneath is already rigid on its own (one part
+0 // bridging both rear pegs), so, unlike step 7, there is no structural
+0 // reason the tiles have to go on before mounting -- this order is
+0 // purely for easier hands, the same idea behind moving the brow's
+0 // cheek bumps to step 9 rather than doing them one-handed in step 7.
+1 10 0 -48 -70 1 0 0 0 1 0 0 0 1 3738.dat
+1 25 -40 -56 -70 1 0 0 0 1 0 0 0 1 15535.dat
+1 25 40 -56 -70 1 0 0 0 1 0 0 0 1 15535.dat
+0 STEP
+
+0 // Step 23 -- tail corners. Cap the plate's two far corners with the
+0 // flat tiles, laid front to back. Its own page (plate + round +
+0 // flat is three part types, one over the one-action budget) but
+0 // pressed on after mounting, unlike step 22 -- nothing sits near
+0 // these corners yet, so the reach is easy either way.
+1 25 -70 -56 -70 0 0 1 0 1 0 -1 0 0 3069.dat
+1 25 70 -56 -70 0 0 1 0 1 0 -1 0 0 3069.dat
+0 STEP
+
+0 // Step 24 -- tail base. A whole brick thick, turned to run back along
+0 // -Z, clutched on the four shelf studs at z=-60 and z=-80. The tail is
+0 // thickest here and thins every step after this one.
+1 2 0 -72 -90 0 0 1 0 1 0 -1 0 0 39789.dat
+0 STEP
+
+0 // Step 25 -- the curl. Three orange 2x4 plates turn 90 degrees and
+0 // run out to -X (the side the instruction cameras already look from).
+0 // The first grips four of the base brick's studs; each next plate
+0 // clutches the previous one's two free columns -- four studs, not a
+0 // hinge -- and steps up one plate. The slope sits on the far end.
+0 // A one-plate curl stayed inside the hub (x=-60) and vanished on
+0 // every front-left page; two plates cleared the hub but not the
+0 // splayed feet (x=-135). Three plates reach x=-140, past the feet,
+0 // so the animal has a tail in the pictures. It still turns a corner
+0 // instead of running further back -- a long straight taper read as
+0 // a second head from the side.
+1 191 -20 -80 -110 1 0 0 0 1 0 0 0 1 3709.dat
+1 191 -60 -88 -110 1 0 0 0 1 0 0 0 1 3709.dat
+1 191 -100 -96 -110 1 0 0 0 1 0 0 0 1 3709.dat
+1 26 -120 -120 -100 1 0 0 0 1 0 0 0 1 3039.dat
+0 STEP
+
+0 // Empty trailing STEP -- try-it and coding pages in steps.md / screens.md.
+0 STEP

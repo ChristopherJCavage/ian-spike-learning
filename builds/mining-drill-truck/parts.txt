@@ -44,7 +44,7 @@
 4 | Black | CONNECTOR PEG W. FRICTION -- 2 frame-to-beam, 2 beam-to-motor | 45678 | 6279875 | 61332.dat
 1 | Black | CROSS AXLE 8M | 45345 | 370726 | 3707.dat
 3 | Bright Orange | NOSE CONE 2X2X2 | 45345 | 6062601 | 14918.dat
-1 | Bright Red | BUSH FOR CROSS AXLE | 45345 | 6271820 | 4265c.dat
+1 | Bright Red | BUSH FOR CROSS AXLE | 45345 | 6271820 | 3713.dat
 
 ## Distance sensor
 # Two rails run forward from the Hub's side holes, one per row (y=-80

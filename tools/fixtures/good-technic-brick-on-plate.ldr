@@ -1,0 +1,16 @@
+0 Fixture: a 1x4 Technic brick stacked on a 2x4 Technic plate.
+0 Expected: clean. Proves the 1xN Technic brick underside annotations.
+0
+0 LDraw draws these bricks' undersides as hollow-stud rings sitting BETWEEN
+0 the top studs, and the extractor reads those rings as male studs pointing
+0 down. Two males never join, so before the annotation this stack rendered
+0 perfectly and shared no joint at all.
+0
+0 The brick is one stud wide, so it lands on ONE of the plate's two stud
+0 rows -- z=+10 here, not z=0. Sitting it on the centreline would look
+0 right and grip nothing.
+0
+0 !LDRCHECK FRONT +Z
+1 191 0 0 0 1 0 0 0 1 0 0 0 1 3709.dat
+1 5 0 -24 10 1 0 0 0 1 0 0 0 1 3701.dat
+0 STEP

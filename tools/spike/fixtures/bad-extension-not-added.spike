@@ -1,0 +1,9 @@
+# startDualSpeed lives in More Movement. The puzzle-piece tray has to
+# add that extension before the block is even on the palette.
+# expect: EXTENSION
+hub: prime
+extensions:
+
+flipperevents_whenProgramStarts
+  flippermove_setMovementPair PAIR=AB
+  flippermoremove_startDualSpeed LEFT=40 RIGHT=40

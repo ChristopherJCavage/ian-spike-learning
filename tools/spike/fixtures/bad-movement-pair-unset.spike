@@ -1,0 +1,8 @@
+# Every flippermove_* block drives the pair named by set movement motors.
+# Without that setter, the move block has no motors.
+# expect: MOVEMENT_PAIR
+hub: prime
+extensions:
+
+flipperevents_whenProgramStarts
+  flippermove_startMove DIRECTION=forward

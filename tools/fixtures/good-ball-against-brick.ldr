@@ -1,0 +1,12 @@
+0 Fixture: ball plate seated in a socket that is clutched to a brick.
+0 Expected: clean. The ball sphere sits 2 LDU from the brick; they share
+0 the socket plate as a joint neighbour, so the graze is not a missing
+0 joint.
+0
+0 3701 identity, 14704 clutched on the end studs, 14417 180-Y in the cup.
+0
+0 !LDRCHECK FRONT +Z
+1 26 0 0 0 1 0 0 0 1 0 0 0 1 3701.dat
+1 71 20 -8 0 1 0 0 0 1 0 0 0 1 14704.dat
+1 72 20 -8 -40 -1 0 0 0 1 0 0 0 -1 14417.dat
+0 STEP

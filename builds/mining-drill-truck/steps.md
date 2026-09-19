@@ -76,58 +76,98 @@ Step 7 -- front wheels
   Check: All 4 wheels now spin freely and the front pair doesn't touch the
       rear pair.
 
-Step 8 -- drill motor
+Step 8 -- drill-motor beam
+  Sub: drill
+  Bin: Prime
+  Add: 1x Medium Azur 7M beam | kit 45678
+       2x Black connector peg (friction) | kit 45678
+  Do: Pin the 7M beam across the front of the 5x7 frame (two pegs through
+      the frame into the beam), so it sits just above the front axle.
+  Check: The beam is level and doesn't wobble. You can still spin the
+      front axle by hand.
+
+Step 9 -- drill motor
   Sub: drill
   Bin: Prime + Essential
-  Add: 1x Medium Azur 7M beam | kit 45678
-       4x Black connector peg (friction) | kit 45678
+  Add: 2x Black connector peg (friction) | kit 45678
        1x White Small Angular Motor | kit 45345
-  Do: Pin the 7M beam across the front of the 5x7 frame (two pegs through
-      the frame into the beam). Then pin the Small Angular Motor onto that
-      beam, output disc facing forward, so the whole motor sits in front of
-      the axle -- not on it. Port C.
-  Check: The disc faces straight out the front. You can still spin the
-      front axle by hand without the motor moving. Turning the disc by
+  Do: Pin the Small Angular Motor onto that beam, output disc facing
+      forward, so the whole motor sits in front of the axle -- not on it.
+      Port C.
+  Check: The disc faces straight out the front. Turning the disc by
       hand doesn't rub on the frame or the wheels.
 
-Step 9 -- drill bit
+Step 10 -- drill axle
   Sub: drill
   Bin: Essential
   Add: 1x Black 8M cross axle | kit 45345
-       3x Bright Orange nose cone (2x2x2) | kit 45345
-       1x Bright Red bush | kit 45345
-  Do: Push the 8M axle into the motor's output disc (a longer axle than you'd
-      guess -- three cones need the extra length). Stack the 3 nose cones on
-      the axle, points facing away from the motor, nested snugly against
-      each other. Finish with the bush so they can't slide off the tip.
-  Check: Hand-turn the motor -- the whole cone stack spins with the disc, no
-      wobble, no gap between the first cone and the disc.
+  Do: Push the 8M axle into the motor's output disc (a longer axle than
+      you'd guess -- three cones need the extra length).
+  Check: The axle sticks straight out the front and turns with the disc.
 
-Step 10 -- distance sensor
+Step 11 -- drill bit
+  Sub: drill
+  Bin: Essential
+  Add: 3x Bright Orange nose cone (2x2x2) | kit 45345
+       1x Bright Red bush | kit 45345
+  Do: Stack the 3 nose cones on the axle, points facing away from the
+      motor, nested snugly against each other. Push the red bush on last,
+      right over the very point of the drill, so the cones can't slide off.
+  Check: Hand-turn the motor -- the whole cone stack spins with the disc,
+      no wobble, no gap between the first cone and the disc. The bush is
+      the wide one, and it should cover the drill's point rather than sit
+      behind it.
+
+Step 12 -- top sensor rails
   Sub: sensor
   Bin: Prime
-  Add: 4x Black 15M beam | kit 45678
-       2x Bright Yellow 3M beam | kit 45678
-       8x Black connector peg (friction) | kit 45678
-       6x Bright Blue connector peg 3M (friction) | kit 45678
-       1x White Distance Sensor | kit 45678
-  Do: Pin a 15M beam onto each side of the Hub, sticking forward from the
-      side pin-holes -- two pegs per beam, at the row's near and far
-      holes, so no single beam can swing. Use the row one below the
-      Hub's very top side-holes for one beam, and the row below that for
-      the other, so the two beams run forward on two different lines,
-      not stacked on the same one (that would let the whole gantry hinge
-      down even though each beam is pinned solid on its own). At the far
-      end, hand each beam off with a 3M peg to a short 3M beam standing
-      upright on each side; the Distance Sensor pins into both uprights,
-      eyes facing forward. A last 3M peg through the bottom of each
-      upright and the sensor locks that end down too.
-  Check: The sensor's eyes point out the front, above the wheel bottoms,
-      and don't touch the spinning cones -- and neither rail touches the
-      front wheels either; there should be a visible gap. Tug the
-      sensor -- it should not fold down.
+  Add: 2x Black 15M beam | kit 45678
+       4x Black connector peg (friction) | kit 45678
+  Do: Pin a 15M beam onto each side of the Hub, sticking forward from
+      the side pin-holes on the row one below the Hub's very top -- two
+      pegs per beam, at the row's near and far holes, so no single beam
+      can swing.
+  Check: Both rails sit at the same height, clear of the front wheels,
+      and don't fold down when you tug the far end.
 
-Step 11 -- cab deck pins
+Step 13 -- bottom sensor rails
+  Sub: sensor
+  Bin: Prime
+  Add: 2x Black 15M beam | kit 45678
+       4x Black connector peg (friction) | kit 45678
+  Do: Pin a second 15M beam onto each side, one row below the first,
+      same two-peg pattern. The two beams on a side must run on two
+      different lines, not stacked on the same one (that would let the
+      whole gantry hinge down even though each beam is pinned solid on
+      its own).
+  Check: There is a visible gap between each rail and the front wheel.
+      Tug -- neither pair of rails should fold.
+
+Step 14 -- sensor uprights
+  Sub: sensor
+  Bin: Prime
+  Add: 2x Bright Yellow 3M beam | kit 45678
+       4x Bright Blue connector peg 3M (friction) | kit 45678
+  Do: At the far end of the rails, stand a short 3M beam upright on
+      each side. A long peg through the top rail catches the upright's
+      top; a long peg through the bottom rail (a little further out)
+      catches the upright's middle. Two rows, so the uprights cannot
+      swing.
+  Check: Both uprights stand straight and don't wiggle.
+
+Step 15 -- distance sensor
+  Sub: sensor
+  Bin: Prime
+  Add: 2x Bright Blue connector peg 3M (friction) | kit 45678
+       1x White Distance Sensor | kit 45678
+  Do: Pin the Distance Sensor into both uprights, eyes facing forward.
+      A last long peg through the bottom of each upright and the sensor
+      locks that end down too.
+  Check: The sensor's eyes point out the front, above the wheel bottoms,
+      and don't touch the spinning cones. Tug the sensor -- it should
+      not fold down.
+
+Step 16 -- cab deck pins
   Sub: cab
   Bin: Prime
   Add: 4x Black connector peg (friction) | kit 45678
@@ -137,7 +177,7 @@ Step 11 -- cab deck pins
   Check: 4 pegs stand up evenly, 2 near the front edge and 2 near the back
       edge of the Hub's top.
 
-Step 12 -- cab decks
+Step 17 -- cab decks
   Sub: cab
   Bin: Prime
   Add: 2x Black PLATE 2X8 W. HOLES | kit 45678
@@ -147,7 +187,7 @@ Step 12 -- cab decks
   Check: Both plates sit flat and don't wiggle -- the front one is where the
       driver sits, the back one is where the dog rides.
 
-Step 13 -- seat
+Step 18 -- seat
   Sub: cab
   Bin: Essential
   Add: 1x Bright Red SEAT 2X2X2 | kit 45345
@@ -155,7 +195,7 @@ Step 13 -- seat
   Check: The seat is level and faces forward, up on the deck, not down on
       the Hub.
 
-Step 14 -- radar dish
+Step 19 -- radar dish
   Sub: cab
   Bin: Essential
   Add: 1x Transparent Light Blue round plate (D32) | kit 45345
@@ -163,7 +203,7 @@ Step 14 -- radar dish
       like a radar dish. (Standing it on its edge cannot snap to anything.)
   Check: The dish sits on a stud and doesn't slide off.
 
-Step 15 -- driver
+Step 20 -- driver
   Sub: cab
   Bin: Prime
   Add: 1x Black mini lower part | kit 45678
@@ -179,7 +219,7 @@ Step 15 -- driver
       the 3D preview shows a plain block for it -- use the real head at the
       table.
 
-Step 16 -- eyes
+Step 21 -- eyes
   Sub: face
   Bin: Prime
   Add: 2x Black 1x1 round tile | kit 45678
@@ -188,7 +228,7 @@ Step 16 -- eyes
   Check: The two "eyes" are level with each other and centered above the
       drill.
 
-Step 17 -- antennae
+Step 22 -- antennae
   Sub: face
   Bin: Essential
   Add: 2x White whip/aerial | kit 45345
@@ -196,7 +236,7 @@ Step 17 -- antennae
       stick up behind the driver, beside the radar dish.
   Check: Antennae wiggle when you tap them.
 
-Step 18 -- sidekick
+Step 23 -- sidekick
   Sub: face
   Bin: Essential
   Add: 1x Medium Nougat dog | kit 45345
@@ -206,7 +246,7 @@ Step 18 -- sidekick
       preview shows a plain block for it -- use the real dog piece at the
       table.
 
-Step 19 -- program
+Step 24 -- program
   Sub: code
   Bin: (SPIKE App -- no new bricks)
   Add: (none)

@@ -1,0 +1,19 @@
+# Seed Drone -- Icon Blocks (Saturday class).
+# The red patch in builds/rainforest-drop-zone is the target: three Bright Red
+# 2x4 tiles, 6 studs by 4, in the middle of the island. It used to be a square
+# of matte black card, because SPIKE Essential has no flat black part at all.
+# Red is the better target -- glossy black ABS reflects the sensor's own lamp
+# and can read as none rather than black.
+#
+# Icon Blocks have no plain wait tile, so the short "effect sound until done"
+# tile is both the drop cue and the hold-open interval. The sound comes from
+# the connected tablet.
+hub: essential
+canvas: icon
+extensions:
+
+horizontalevents_whenColor PORT=A COLOR=red
+  horizontalmotor_motorSetSpeed PORT=B SPEED=50
+  horizontalmotor_motorTurnClockwiseRotations PORT=B ROTATIONS=0.25
+  horizontalsound_playEffectSoundUntilDone SOUND=magic_wand
+  horizontalmotor_motorTurnCounterClockwiseRotations PORT=B ROTATIONS=0.25

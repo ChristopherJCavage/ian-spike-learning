@@ -5,11 +5,14 @@ Plain language. Not a dump of official PDFs.
 
 ## LEGO Education (classroom / App)
 
-- **Set / kit** -- the box. Ours: SPIKE Essential `45345`, SPIKE Prime `45678`.
-  Expansion `45681` exists; we do not own it.
-- **Hub** -- the programmable brick. Essential Small Hub: **2** I/O ports and a
-  built-in **3x3** light matrix. Prime Hub: **6** ports, **5x5** matrix, speaker,
-  IMU. Motors and sensors mix across hubs; battery packs do not.
+- **Set / kit** -- the box. Ours: SPIKE Essential `45345`, SPIKE Prime `45678`,
+  SPIKE Prime Expansion `45681`. The Expansion is an add-on: parts only, no
+  hub and no battery, so it never powers a build by itself.
+- **Hub** -- the programmable brick. Essential Small Hub: **2** I/O ports
+  (A and B) and **no built-in light matrix** -- that is why the set ships
+  a separate 3x3 Colour Light Matrix, which consumes one of the two ports.
+  Prime Hub: **6** ports, **5x5** matrix, speaker, IMU. Motors and sensors
+  mix across hubs; battery packs do not.
 - **Port** -- letter on the hub where a motor or sensor plugs in (Essential:
   A--B. Prime: A--F). Always name the port in `steps.md` and `code.md`.
 - **Unit** -- a themed sequence of official lessons (e.g. Great Adventures).
@@ -26,7 +29,9 @@ Plain language. Not a dump of official PDFs.
   minifig", "only parts from these two bins").
 - **Icon Blocks** -- picture coding, youngest.
 - **Word Blocks** -- Scratch-like words.
-- **Python** -- text coding in the same SPIKE App. Later, not Saturday class.
+- **Python** -- text coding in the same SPIKE App. Prime only; later, not
+  Saturday class. SPIKE 3 API (`hub`, `motor`, `runloop`), not the retired
+  `from spike import PrimeHub`. See `spike-blocks.md`.
 
 ## Brick catalog (already in `kits/`)
 

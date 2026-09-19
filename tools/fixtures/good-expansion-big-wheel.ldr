@@ -1,0 +1,10 @@
+0 Fixture: the Expansion's 88mm wheel on a cross axle.
+0 Expected: clean.
+0
+0 49295 has an integral tyre and takes an axle straight through the hub,
+0 with no separate rim. The hub bore is mesh only, so the axle_hole in
+0 connections.yml is the only thing making this a joint at all.
+1 4 0 0 0 1 0 0 0 1 0 0 0 1 3708.dat
+1 0 -60 0 0 0 0 1 0 1 0 -1 0 0 49295.dat
+1 0 60 0 0 0 0 1 0 1 0 -1 0 0 49295.dat
+0 STEP

@@ -1,0 +1,10 @@
+0 Fixture: T-beam clutched onto a 2x8 plate with holes.
+0 Expected: clean. Proves 32530 underside anti_stud annotations.
+0
+0 3738 identity: studs at z=+-10. 32530 at (20, -8, 10) covers the studs
+0 at (10, 0, 10) and (30, 0, 10).
+0
+0 !LDRCHECK FRONT +Z
+1 10 0 0 0 1 0 0 0 1 0 0 0 1 3738.dat
+1 4 20 -8 10 1 0 0 0 1 0 0 0 1 32530.dat
+0 STEP

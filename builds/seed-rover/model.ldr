@@ -1,0 +1,152 @@
+0 Seed-Planting Rover
+0 Name: model.ldr
+0 Author: ian-spike-learning
+0 !LICENSE Licensed as content of this repo; parts from LDraw library
+0 !LDRCHECK GROUND 8
+0 !LDRCHECK FRONT +Z
+0 // The gate axle is meant to turn. Without this the axle, its pulley and
+0 // its paddle read as a subassembly hanging off one joint.
+0 !LDRCHECK PIVOT 3707.dat +X
+
+0 // Geometry notes -- see builds/seed-rover/mechanism.md for the writeup.
+0 // +Y is DOWN. Front is +Z. Ground plane is y = +8.
+0 //
+0 // The drive wheel is a WEDGE-BELT WHEEL D24 (4185b) wearing a tyre
+0 // (2815), NOT the dia.43 wheel. That is forced, not chosen: 65834 has
+0 // four pin holes at radius 20 and NO central bore, so an axle cannot
+0 // pass through it, so it can never share a shaft with a belt pulley.
+0 // 4185b has a native axle bore, so wheel and pulley ride one axle.
+0 // Cost: the tyre is 76 LDU across, so one wheel turn is 9.6 cm of
+0 // ground, not the 13.6 cm a dia.43 wheel would have given.
+
+0 // Step 1 -- the Hub. Everything bolts to its two side faces, which
+0 // carry pin holes at y = -50, -30, -10 on the z = +-20 columns.
+1 16 0 0 0 1 0 0 0 1 0 0 0 1 67351.dat
+0 STEP
+
+0 // Step 2 -- four 2M pins into the Hub's side faces, two per side, on
+0 // the z = -20 column at y = -50 and y = -10. Two rows and not one:
+0 // a single pin would leave each motor free to swing about it.
+0 // A pin's shaft runs along ITS OWN X, so the identity matrix already
+0 // points it along world X. This is the one place the identity is
+0 // right -- everywhere else in this model it is the bug.
+1 0 -70 -50 -20 1 0 0 0 1 0 0 0 1 61332.dat
+1 0 -70 -10 -20 1 0 0 0 1 0 0 0 1 61332.dat
+1 0 70 -50 -20 1 0 0 0 1 0 0 0 1 61332.dat
+1 0 70 -10 -20 1 0 0 0 1 0 0 0 1 61332.dat
+0 STEP
+
+0 // Step 3 -- the two Small Angular Motors, one per flank, output bores
+0 // pointing OUTWARD so the wheels end up on the outside.
+0 //
+0 // The motor's output bore is at its local (0,-50,0) along local Y, and
+0 // its back-face mounting holes sit on the opposite local face at
+0 // y = +30. So the motor's local Y is the axis that has to become world
+0 // X. 0 1 0 / -1 0 0 / 0 0 1 does that for the left motor and
+0 // 0 -1 0 / 1 0 0 / 0 0 1 mirrors it for the right.
+0 //
+0 // Placing them at x = -+100 puts each back face exactly on the Hub's
+0 // side face at x = -+70, and y = -30 is the ONLY height that works:
+0 // the back face offers holes at y-20, y and y+20, and the Hub offers
+0 // -50, -30, -10, so the two patterns line up at one value and no other.
+1 15 -100 -30 -20 0 1 0 -1 0 0 0 0 1 68488.dat
+1 15 100 -30 -20 0 -1 0 1 0 0 0 0 1 68488.dat
+0 STEP
+
+0 // Step 4 -- a 4M axle out of each motor's bore. Native length is on the
+0 // part's own X, which is already world X here, so identity again.
+0 // Centred at x = -+170 the axle runs -210..-130 on the left: its inner
+0 // end stops exactly on the bore floor at -130. Any deeper and it is
+0 // driving through solid motor.
+1 0 -170 -30 -20 1 0 0 0 1 0 0 0 1 3705.dat
+1 0 170 -30 -20 1 0 0 0 1 0 0 0 1 3705.dat
+0 STEP
+
+0 // Step 5 -- the belt pulley, LEFT SIDE ONLY. This is the power takeoff
+0 // for the seed gate. A pulley's bore is on its own Z, so 0 0 1 / 0 1 0
+0 // / -1 0 0 turns it onto world X to sit on the axle.
+0 //
+0 // Spacing is not free. A pulley's bore is 20 LDU deep and starts 5 LDU
+0 // behind the part's own centre, so a pulley at x claims the axle from
+0 // x-5 to x+15. At -168 that is -173..-153, which clears the motor's own
+0 // bore (-150..-130) by 3. Sitting it at -160, as a first pass did, put
+0 // 5 LDU of axle inside both at once -- PIN SLICE CONFLICT.
+1 15 -168 -30 -20 0 0 1 0 1 0 -1 0 0 4185b.dat
+0 STEP
+
+0 // Step 6 -- the two drive wheels, each a D24 pulley wearing a tyre.
+0 // Tyre outer radius is 38 and the axle is at y = -30, so the tread
+0 // meets the ground plane at y = +8. At -190 the wheel claims the axle
+0 // from -195 to -175, clearing the belt pulley's claim by 2.
+1 15 -190 -30 -20 0 0 1 0 1 0 -1 0 0 4185b.dat
+1 15 190 -30 -20 0 0 1 0 1 0 -1 0 0 4185b.dat
+1 0 -190 -30 -20 0 0 1 0 1 0 -1 0 0 2815.dat
+1 0 190 -30 -20 0 0 1 0 1 0 -1 0 0 2815.dat
+0 STEP
+
+0 // ===================== THE SEED GATE =====================
+0 // Everything from here up is driven by the belt off the left drive
+0 // wheel, so seeds are metered by DISTANCE, not by time. That is what
+0 // makes this a seed drill rather than a timer with a hopper.
+
+0 // Step 7 -- four pins standing on world Y, into the motors' top faces.
+0 // The Hub has NO studs anywhere and only two upward holes, 120 apart,
+0 // so the motor tops are the real anchor on this rover: four holes each
+0 // on a 40 x 40 rectangle. A pin's shaft is on its own X, so
+0 // 0 -1 0 / 1 0 0 / 0 0 1 stands it up.
+1 0 -120 -60 -40 0 -1 0 1 0 0 0 0 1 61332.dat
+1 0 -120 -60 0 0 -1 0 1 0 0 0 0 1 61332.dat
+1 0 120 -60 -40 0 -1 0 1 0 0 0 0 1 61332.dat
+1 0 120 -60 0 0 -1 0 1 0 0 0 0 1 61332.dat
+0 STEP
+
+0 // Step 8 -- a 2x8 plate with holes down each flank, turned fore-and-aft
+0 // so its 20 LDU hole pitch lies along Z and picks up both motor pins.
+0 // These reach back to z=-140 and carry the whole tail.
+0 // Expect SHALLOW ENGAGEMENT here: a 12-thick plate cannot give a pin
+0 // 20 LDU of grip. It is a warning, not a fault -- a plate really does
+0 // hold a pin less firmly than a brick.
+1 10 -120 -68 -60 0 0 1 0 1 0 -1 0 0 3738.dat
+1 10 120 -68 -60 0 0 1 0 1 0 -1 0 0 3738.dat
+0 STEP
+
+0 // Step 9 -- the gate axle's bearing: two 1x4 Technic bricks laid
+0 // fore-and-aft on the left plate's studs.
+0 // This orientation is the whole trick. 0 0 1 / 0 1 0 / -1 0 0 sends the
+0 // brick's length down Z and its holes out along X, while leaving its
+0 // studs up and its underside down -- so it is the only part in the
+0 // Essential kit that offers a transverse hole AND still sits on studs.
+0 // A 1x4 Technic brick's holes are at -20, 0 and +20 -- three of them,
+0 // centred -- NOT at -+30/-+10 where its studs are. A first pass assumed
+0 // the stud spacing and put the axle at z=-90, which is between two
+0 // holes: the axle joined nothing and the whole gate floated off as a
+0 // DETACHED SUBASSEMBLY. One brick, and the axle on its centre hole.
+1 26 -130 -92 -100 0 0 1 0 1 0 -1 0 0 3701.dat
+0 STEP
+
+0 // Step 10 -- the gate axle, an 8M cross axle at y=-82, z=-90. Native
+0 // length is already on world X, so identity. Centred at -150 it stops
+0 // at x=-70.5, half a unit clear of the Hub's flank; any further inboard
+0 // and it drives straight through the Hub's shoulder.
+1 0 -150 -82 -100 1 0 0 0 1 0 0 0 1 3707.dat
+0 STEP
+
+0 // Step 11 -- the driven pulley, in the same x=-168 plane as the one on
+0 // the drive axle. Centres are 87 LDU apart, comfortably past the 60 LDU
+0 // floor where two D24 pulleys foul each other.
+1 15 -168 -82 -100 0 0 1 0 1 0 -1 0 0 4185b.dat
+0 STEP
+
+0 // Step 12 -- the knock-off paddle: a 2x4 brick with three VERTICAL axle
+0 // holes, turned so one of them takes the gate axle. Its own Y becomes
+0 // world X, same as the motors: 0 1 0 / -1 0 0 / 0 0 1.
+0 // Hung on its end hole the brick reaches 60 LDU past the axle, which is
+0 // the arm. Cross holes, so it is driven and not free-spinning.
+1 1 -205 -62 -100 0 1 0 -1 0 0 0 0 1 39789.dat
+0 STEP
+
+0 // Step 13 -- the belt. It is a rigid ring in LDraw and decorative to the
+0 // checker, so placing it proves nothing; it is here so the render reads.
+0 // Whether it physically reaches at this span is a table check.
+1 14 -168 -56 -60 0 0 1 0 1 0 -1 0 0 85546.dat
+0 STEP

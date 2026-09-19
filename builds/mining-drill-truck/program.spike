@@ -1,0 +1,19 @@
+# Digger — Word Blocks. One port per motor line; distance is a hexagon
+# inside if/else, not a hat and not a line of its own.
+# See context/spike-blocks.md.
+hub: prime
+extensions:
+
+flipperevents_whenProgramStarts
+  flipperlight_lightDisplayImageOn IMAGE=smile
+  control_forever
+    flippermotor_motorStartDirection PORT=A DIRECTION=clockwise
+    flippermotor_motorStartDirection PORT=B DIRECTION=clockwise
+    control_if_else
+      @condition flippersensors_isDistance PORT=D COMPARATOR=closerThan VALUE=10 UNIT=cm
+      @then
+        flippermotor_motorStartDirection PORT=C DIRECTION=clockwise
+        flipperlight_lightDisplayImageOn IMAGE=focused
+      @else
+        flippermotor_motorStop PORT=C
+        flipperlight_lightDisplayImageOn IMAGE=smile

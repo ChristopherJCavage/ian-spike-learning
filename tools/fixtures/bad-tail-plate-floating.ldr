@@ -1,0 +1,11 @@
+0 Fixture: 2x4 Technic plate hovering one plate above the brick's studs.
+0 Expected: problems -- the plate has no joint and nothing under it.
+0
+0 The anti_stud annotation is only worth having if it fails when the part
+0 is out of reach. Raising 3709 by another 8 LDU lifts its tubes clear of
+0 the 4 LDU studs; a render would still show two parts nearly touching.
+0
+0 !LDRCHECK FRONT +Z
+1 25 0 0 0 1 0 0 0 1 0 0 0 1 3700.dat
+1 191 0 -16 10 1 0 0 0 1 0 0 0 1 3709.dat
+0 STEP

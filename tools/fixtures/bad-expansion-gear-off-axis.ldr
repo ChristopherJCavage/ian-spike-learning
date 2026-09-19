@@ -1,0 +1,10 @@
+0 Fixture: the same gear left in its native orientation on the same axle.
+0 Expected: problems -- the bore points along Z, the axle runs along X,
+0 so nothing engages and the gear is a detached, jointless part.
+0
+0 This is the negative control for good-expansion-gears-on-axle.ldr. It
+0 exists so that a wrong axis in connections.yml cannot pass by accident:
+0 if the checker ever "finds" a joint here, the annotation is meaningless.
+1 4 0 0 0 1 0 0 0 1 0 0 0 1 3708.dat
+1 0 -40 0 0 1 0 0 0 1 0 0 0 1 32270.dat
+0 STEP

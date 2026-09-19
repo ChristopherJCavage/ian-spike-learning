@@ -1,0 +1,24 @@
+0 Fixture: a GRIP naming an item the figure is no longer holding.
+0 Expected: problems. GRIP must fail closed when it excuses nothing.
+0
+0 GRIP tells the interpenetration pass to look away from one pair of
+0 parts, which is exactly the kind of directive that turns into a licence
+0 to hide a real collision once someone moves a part and forgets the line.
+0 So GRIP is also an assertion: if the two named parts no longer share so
+0 much as a bounding box, the claim fails instead of quietly doing
+0 nothing. Here the camera has been slid 60 LDU clear of the hand.
+0
+0 The camera is decorative, so nothing else in the checker objects to it
+0 floating -- the GRIP assertion is the only thing that catches this.
+0
+0 !LDRCHECK GROUND 8
+0 !LDRCHECK FRONT +Z
+0 !LDRCHECK GRIP 30089.dat 76382.dat
+1 15 0 0 0 1 0 0 0 1 0 0 0 1 91405.dat
+0 STEP
+1 25 0 -40 0 -1 0 0 0 1 0 0 0 -1 73200b.dat
+1 10 0 -72 0 -1 0 0 0 1 0 0 0 -1 76382.dat
+1 14 0 -96 0 -1 0 0 0 1 0 0 0 -1 3626c.dat
+0 STEP
+1 0 83.69 -45.226 9.898 -1 0 0 0 1 0 0 0 -1 30089.dat
+0 STEP

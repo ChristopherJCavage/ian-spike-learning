@@ -1,0 +1,11 @@
+0 Fixture: 2x4 flat tile laid on a 2x8 plate with holes.
+0 Expected: clean. Proves 87079 underside anti_stud annotations.
+0
+0 A tile has no stud of its own, so if its underside emits nothing the
+0 tile can only ever be decorative. These are the colour-band tiles on the
+0 chameleon, and they carry no load -- but they are still clutched parts.
+0
+0 !LDRCHECK FRONT +Z
+1 10 0 0 0 1 0 0 0 1 0 0 0 1 3738.dat
+1 322 -40 -8 0 1 0 0 0 1 0 0 0 1 87079.dat
+0 STEP

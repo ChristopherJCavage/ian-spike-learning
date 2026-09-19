@@ -1,0 +1,37 @@
+0 Fixture: Small Angular Motor driving a tipping seed bay.
+0 Expected: clean. In the closed pose the tray is horizontal and the red
+0 ball sits between three low walls. A quarter-turn tips the tray so the
+0 seed rolls through its open edge. This is mechanically simpler than a
+0 trap door and does not need a belt, spring, or third port.
+0
+0 The tray is a multi-part moving subassembly on one powered axis.
+0 !LDRCHECK PIVOT 3706.dat +X
+0
+0 Motor output bore is turned onto world X and placed at (-50, 0, 50).
+1 15 0 0 50 0 1 0 -1 0 0 0 0 1 68488.dat
+0
+0 6M axle along world X, spanning -149.5..-30.5. The extra module keeps
+0 the 60-LDU-clear tray away from the motor body.
+1 4 -90 0 50 1 0 0 0 1 0 0 0 1 3706.dat
+0
+0 Yellow 1x2 brick with cross hole, locked to the axle. Local Z becomes
+0 world X while its studs still point up (world -Y). Its origin is 10
+0 LDU above the axle because the hole runs through the brick at local y=10.
+1 14 -110 -10 50 0 0 1 0 1 0 -1 0 0 31493.dat
+0
+0 Three fore-and-aft 2x4 plates make a 120x80 tray. A fourth plate under
+0 the rear half clutches all three and makes one rigid moving assembly.
+1 191 -160 -18 30 0 0 1 0 1 0 -1 0 0 3709.dat
+1 191 -120 -18 30 0 0 1 0 1 0 -1 0 0 3709.dat
+1 191 -80 -18 30 0 0 1 0 1 0 -1 0 0 3709.dat
+1 191 -120 -10 10 1 0 0 0 1 0 0 0 1 3709.dat
+0
+0 The walls are 80 LDU centre-to-centre, leaving 60 LDU clear around the
+0 41.6-LDU ball. Their length runs along Z and leaves z=-10 open.
+1 26 -170 -42 30 0 0 1 0 1 0 -1 0 0 3701.dat
+1 26 -90 -42 30 0 0 1 0 1 0 -1 0 0 3701.dat
+1 25 -120 -42 60 1 0 0 0 1 0 0 0 1 3700.dat
+0
+0 Red D16.5 ball. It rests on the tray between the walls but has no clutch.
+1 4 -130 -42 28 1 0 0 0 1 0 0 0 1 54821.dat
+0 STEP

@@ -1,0 +1,18 @@
+0 Fixture: dual-shaft connectors -- friction pin one end, cross axle the
+0 other. Expected: clean.
+0
+0 43093 and 11214 are the parts most likely to be annotated wrong, because
+0 each carries TWO male shafts of different types that must land in two
+0 different kinds of bore. The pin end goes into a beam's peg hole; the
+0 axle end goes into a gear or bush. If either extent is off, the part
+0 stops joining two distinct parts and the connector rule fires.
+1 14 -10 0 0 0 1 0 -1 0 0 0 0 1 32523.dat
+0
+0 Axle pin: pin -20..0 into the beam, cross axle 0..19.5 into the gear.
+1 1 0 0 -20 1 0 0 0 1 0 0 0 1 43093.dat
+1 0 10 0 -20 0 0 1 0 1 0 -1 0 0 32270.dat
+0
+0 Long axle pin: 2M of pin -30..10, then 1M of cross axle 10..29.5.
+1 4 0 0 20 1 0 0 0 1 0 0 0 1 11214.dat
+1 71 20 0 20 0 0 1 0 1 0 -1 0 0 3713.dat
+0 STEP

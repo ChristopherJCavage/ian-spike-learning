@@ -1,0 +1,7 @@
+0 Fixture: 1x2 socket plate clutched onto a 1x4 Technic brick's top studs.
+0 Expected: clean. Proves 14704 underside anti_stud annotations.
+0
+0 !LDRCHECK FRONT +Z
+1 26 0 0 0 1 0 0 0 1 0 0 0 1 3701.dat
+1 71 20 -8 0 1 0 0 0 1 0 0 0 1 14704.dat
+0 STEP

@@ -1,0 +1,30 @@
+0 Fixture: two 16x16 baseplates laid edge to edge, then bridged.
+0 Expected: clean. Proves a bare seam between two table-resting parts is
+0 a buildable state, not a missing joint.
+0
+0 The diorama is two plates wide, so somewhere in the build order there is
+0 a page where both plates are down and nothing yet spans them. Every
+0 other CONTACT WITHOUT JOINT in this repo is a real defect -- a part
+0 resting on another part that does not hold it -- but here neither plate
+0 holds the other up. The table does. Both carry ground_contact: true in
+0 connections.yml, and that pairing is what excuses the seam.
+0
+0 ground_contact also keeps the plates out of the GROUND CLEARANCE report.
+0 Their undersides are the ground plane, so without it they both read as
+0 scraping by 0 LDU.
+0
+0 The three red tiles are the real fix and go on the next page, one stud
+0 row onto each plate. Their anti-studs sit at z=-10 and z=+10, so each
+0 tile straddles the seam. JOINS proves they reach the plates rather than
+0 hovering over the gap.
+0
+0 !LDRCHECK GROUND 8
+0 !LDRCHECK FRONT +Z
+0 !LDRCHECK JOINS 87079.dat 91405.dat
+1 15 0 0 -160 1 0 0 0 1 0 0 0 1 91405.dat
+1 15 0 0 160 1 0 0 0 1 0 0 0 1 91405.dat
+0 STEP
+1 4 -80 -8 0 1 0 0 0 1 0 0 0 1 87079.dat
+1 4 0 -8 0 1 0 0 0 1 0 0 0 1 87079.dat
+1 4 80 -8 0 1 0 0 0 1 0 0 0 1 87079.dat
+0 STEP

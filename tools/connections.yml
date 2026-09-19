@@ -1,4 +1,5 @@
-# Connection annotations for SPIKE Prime (45678) + Essential (45345).
+# Connection annotations for SPIKE Prime (45678) + Essential (45345)
+# + Prime Expansion (45681).
 #
 # LDraw encodes female holes as named primitives, but not male shafts, and
 # some electronics/wheels have bespoke mesh with no primitives at all.
@@ -174,15 +175,49 @@
 
 45601.dat:
   role: structural
+  # Six sockets, three down each long side at y = -68, z = -40 / 0 / 40.
+  # Same 23807 socket and same plug as the Essential hub, so the same
+  # 34 x 18 x 20 block of air has to stay empty in front of each one --
+  # and on this hub they point sideways, straight into whatever gets
+  # bolted to the flanks. Names are geometric; see the note on 67351.
+  ports:
+    - {name: "+x rear",  origin: [69, -68, -40], axis: [1, 0, 0], up: [0, 1, 0]}
+    - {name: "+x mid",   origin: [69, -68, 0], axis: [1, 0, 0], up: [0, 1, 0]}
+    - {name: "+x front", origin: [69, -68, 40], axis: [1, 0, 0], up: [0, 1, 0]}
+    - {name: "-x rear",  origin: [-69, -68, -40], axis: [-1, 0, 0], up: [0, 1, 0]}
+    - {name: "-x mid",   origin: [-69, -68, 0], axis: [-1, 0, 0], up: [0, 1, 0]}
+    - {name: "-x front", origin: [-69, -68, 40], axis: [-1, 0, 0], up: [0, 1, 0]}
 
 67351.dat:
   role: structural
+  # Both cable ports are on the same face. LDraw draws the sockets
+  # (23807.dat at (+-40, -68, 49), turned 180 degrees about Y so the bore
+  # runs inward), but nothing in the file says a plug needs room in front
+  # of them, so a head built onto the brow will happily seal them shut.
+  # Origin is the mouth of the socket, axis points the way the plug comes
+  # in, up is the short side of the rectangular opening.
+  #
+  # Names are geometric on purpose. Which socket is lettered A and which
+  # is B is printed on the plastic and is not recoverable from the part
+  # file, so calling them A and B here would be inventing a fact. Read
+  # the letters off the real hub.
+  ports:
+    - {name: "+x", origin: [40, -68, 49], axis: [0, 0, 1], up: [0, 1, 0]}
+    - {name: "-x", origin: [-40, -68, 49], axis: [0, 0, 1], up: [0, 1, 0]}
 
 37316.dat:
   role: structural
 
 37308.dat:
   role: structural
+  # Lens sits at local z = -49, so native 'front' is -Z. The chameleon
+  # aims this at the ground (+Y); that is a FACES assertion, not FRONT.
+  facing: -Z
+
+47592.dat:
+  role: structural
+  # Same housing as the colour sensor; LEDs face local -Z.
+  facing: -Z
 
 37312.dat:
   role: structural
@@ -198,6 +233,19 @@
   ground_contact: true
   features:
     - {kind: axle_hole, gender: female, origin: [0, 0, 0], axis: [0, 0, 1], depth: 35}
+
+# ---------------------------------------------------------------------------
+# Wedge-belt wheel D24 -- the Essential kit's pulley, and with tyre 2815
+# stretched over it, also its drive wheel. LDraw already emits the centre
+# cross bore as a primitive, so no features are needed here; what LDraw
+# cannot say is that the thing SPINS. Without rotates, every pulley on an
+# axle reads as a one-joint subassembly and trips the rigid cluster hinge
+# rule -- which is the same reason 39367 carries it.
+# Proved by tools/fixtures/good-belt-on-pulleys.ldr.
+# ---------------------------------------------------------------------------
+4185b.dat:
+  role: structural
+  rotates: true
 
 # ---------------------------------------------------------------------------
 # Drill bit cone -- reused here as the spinning tip of the mining drill,
@@ -223,24 +271,273 @@
 35394.dat:
   role: structural
 
-# Minifig legs face -Z natively (identity looks toward -Z). The model's
-# FRONT axis is compared against this after the placement matrix.
+# The kit's big white baseplates. LDraw emits all 256 top studs via nested
+# stud groups, so nothing needs declaring; they only need to be allowed to
+# touch the table, the same way the drone's slide shoes are.
+91405.dat:
+  role: structural
+  ground_contact: true
+92438.dat:
+  role: structural
+  ground_contact: true
+41539.dat:
+  role: structural
+  ground_contact: true
+
+# Minifig legs face -Z natively (identity looks toward -Z). faces_front
+# opts this part into the automatic FACING vs FRONT check; a colour
+# sensor has facing: too but is allowed to aim at the ground.
 73200.dat:
   role: decorative
   facing: -Z
+  faces_front: true
 76382.dat:
   role: decorative
 18228.dat:
+  role: decorative
+# The alias target of kit 73200. Plain 73200.dat above is the obsolete
+# physical-colour shortcut, which bakes Yellow in LeoCAD however the model
+# colours it, so models that care about leg colour write 73200b.dat and
+# need the same annotation.
+73200b.dat:
+  role: decorative
+  facing: -Z
+  faces_front: true
+# Real minifig head geometry, the alias target of the kit's four printed
+# heads (26881 / 96004 / 21463 / 23094 / 23177). Sits on the torso's neck
+# peg, which LDraw does not emit, and a head is never load-bearing.
+3626c.dat:
+  role: decorative
+# The kit's two cameras. 30089b is already below; 30089 is the other mould
+# and is what the kit's 30089 resolves to directly. Held in a minifig hand,
+# which always shares a little volume with the hand's clip.
+30089.dat:
+  role: decorative
+# "=Plant Grass Stem" -- an alias of 15279 below, but models that use both
+# kit design IDs (31576 and 2659) write both names.
+31576.dat:
   role: decorative
 # 3005 is only a head/dog proxy in this repo (real 26881 / 93239 have no .dat).
 3005.dat:
   role: decorative
 
+14417.dat:
+  role: structural
+  ground_contact: true
+  features:
+    - {kind: anti_stud, gender: female, origin: [10, 8, 0], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [-10, 8, 0], axis: [0, -1, 0], depth: 8}
+
+14704.dat:
+  role: structural
+  features:
+    - {kind: anti_stud, gender: female, origin: [10, 8, 0], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [-10, 8, 0], axis: [0, -1, 0], depth: 8}
+
+# 2x8 plate with holes. LDraw emits the Technic bores (stud4 at y=4) and
+# the top studs, not the 16 underside tubes. Same missing-tube pattern as
+# 14704. Origins at the underside face (y=8) so a 4 LDU stud overlaps.
+3738.dat:
+  role: structural
+  features:
+    - {kind: anti_stud, gender: female, origin: [-70, 8, -10], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [-70, 8, 10], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [-50, 8, -10], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [-50, 8, 10], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [-30, 8, -10], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [-30, 8, 10], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [-10, 8, -10], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [-10, 8, 10], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [10, 8, -10], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [10, 8, 10], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [30, 8, -10], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [30, 8, 10], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [50, 8, -10], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [50, 8, 10], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [70, 8, -10], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [70, 8, 10], axis: [0, -1, 0], depth: 8}
+
+# T-beam with 1x2 plate. LDraw draws the plate as boxes, not tubes, so the
+# two underside bores that clutch a plate's studs are missing. Same pattern
+# as 3738 / 14704. Origins at the underside face (y=8).
+32530.dat:
+  role: structural
+  features:
+    - {kind: anti_stud, gender: female, origin: [10, 8, 0], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [-10, 8, 0], axis: [0, -1, 0], depth: 8}
+
+# The tail parts. LDraw draws a plain plate/brick underside as boxes plus a
+# `stud4a` tube sitting BETWEEN four studs, which never lines up with a stud
+# below it. Same missing-tube pattern as 3738: list one anti_stud directly
+# under each top stud, origin on the underside face so a 4 LDU stud overlaps.
+# 3709 and 87079 are plates (underside at y=8); 39789, 3039, 3040 and 59900
+# are bricks and slopes (underside at y=24).
+3709.dat:
+  role: structural
+  features:
+    - {kind: anti_stud, gender: female, origin: [-30, 8, -10], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [-30, 8, 10], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [-10, 8, -10], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [-10, 8, 10], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [10, 8, -10], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [10, 8, 10], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [30, 8, -10], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [30, 8, 10], axis: [0, -1, 0], depth: 8}
+
+# 1x8 flat tile. One row of eight, so its origin must land on a stud
+# column: x = +/-10, +/-30, +/-50, +/-70 about the centre.
+4162.dat:
+  role: structural
+  features:
+    - {kind: anti_stud, gender: female, origin: [-70, 8, 0], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [-50, 8, 0], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [-30, 8, 0], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [-10, 8, 0], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [10, 8, 0], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [30, 8, 0], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [50, 8, 0], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [70, 8, 0], axis: [0, -1, 0], depth: 8}
+
+87079.dat:
+  role: structural
+  features:
+    - {kind: anti_stud, gender: female, origin: [-30, 8, -10], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [-30, 8, 10], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [-10, 8, -10], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [-10, 8, 10], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [10, 8, -10], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [10, 8, 10], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [30, 8, -10], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [30, 8, 10], axis: [0, -1, 0], depth: 8}
+
+# ---------------------------------------------------------------------------
+# The 1xN Technic bricks. LDraw draws their undersides with hollow-stud
+# rings sitting BETWEEN the top studs, and the extractor reads those rings
+# as male studs pointing down -- so out of the box these bricks could not
+# stack on anything. A brick really grips a stud row directly below its own
+# top studs, which is what these say. Same convention as 39789 below: the
+# bottom face is y=24 and each anti-stud is 8 deep.
+#
+# This matters more than it looks. Laid with its length fore-and-aft a
+# Technic brick is the only thing in the Essential kit that offers a
+# transverse (world X) hole while still sitting on studs, which makes it
+# the bearing for any cross-model axle. Proved by
+# tools/fixtures/good-technic-brick-on-plate.ldr.
+# ---------------------------------------------------------------------------
+3700.dat:
+  role: structural
+  features:
+    - {kind: anti_stud, gender: female, origin: [-10, 24, 0], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [10, 24, 0], axis: [0, -1, 0], depth: 8}
+
+3701.dat:
+  role: structural
+  features:
+    - {kind: anti_stud, gender: female, origin: [-30, 24, 0], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [-10, 24, 0], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [10, 24, 0], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [30, 24, 0], axis: [0, -1, 0], depth: 8}
+
+3702.dat:
+  role: structural
+  features:
+    - {kind: anti_stud, gender: female, origin: [-70, 24, 0], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [-50, 24, 0], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [-30, 24, 0], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [-10, 24, 0], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [10, 24, 0], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [30, 24, 0], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [50, 24, 0], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [70, 24, 0], axis: [0, -1, 0], depth: 8}
+
+39789.dat:
+  role: structural
+  features:
+    - {kind: anti_stud, gender: female, origin: [-30, 24, -10], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [-30, 24, 10], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [-10, 24, -10], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [-10, 24, 10], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [10, 24, -10], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [10, 24, 10], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [30, 24, -10], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [30, 24, 10], axis: [0, -1, 0], depth: 8}
+
+# 2x2 45-degree slope. Footprint is x -20..20, z -30..10, so the two stud
+# rows it covers are z = 0 (under the tall end) and z = -20 (under the ramp).
+3039.dat:
+  role: structural
+  features:
+    - {kind: anti_stud, gender: female, origin: [-10, 24, 0], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [10, 24, 0], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [-10, 24, -20], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [10, 24, -20], axis: [0, -1, 0], depth: 8}
+
+# 2x2 round brick with an axle hole. LDraw emits a 2x2 stud group on top
+# but nothing underneath, because the single stud4a it does draw is the
+# axle-hole liner, not a grip. The real part grips four studs, so a stack
+# of these is a rigid trunk rather than a pole that spins.
+6143.dat:
+  role: structural
+  features:
+    - {kind: anti_stud, gender: female, origin: [-10, 24, -10], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [-10, 24, 10], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [10, 24, -10], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [10, 24, 10], axis: [0, -1, 0], depth: 8}
+
+# 1x16 Technic brick -- the 1x8 pattern at 3702 above, twice as long.
+3703.dat:
+  role: structural
+  features:
+    - {kind: anti_stud, gender: female, origin: [-150, 24, 0], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [-130, 24, 0], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [-110, 24, 0], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [-90, 24, 0], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [-70, 24, 0], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [-50, 24, 0], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [-30, 24, 0], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [-10, 24, 0], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [10, 24, 0], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [30, 24, 0], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [50, 24, 0], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [70, 24, 0], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [90, 24, 0], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [110, 24, 0], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [130, 24, 0], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [150, 24, 0], axis: [0, -1, 0], depth: 8}
+
+# 1x2 45-degree slope. Same footprint one stud narrow.
+3040.dat:
+  role: structural
+  features:
+    - {kind: anti_stud, gender: female, origin: [0, 24, 0], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [0, 24, -20], axis: [0, -1, 0], depth: 8}
+
+# 1x1 cone. One tube, dead centre.
+59900.dat:
+  role: structural
+  features:
+    - {kind: anti_stud, gender: female, origin: [0, 24, 0], axis: [0, -1, 0], depth: 8}
+
 # ---------------------------------------------------------------------------
 # Decorative -- joint-exempt
 # ---------------------------------------------------------------------------
+# 1x1 round tile. Stays decorative -- the mining-drill-truck uses two of
+# these as eyes glued flat against a beam face with nothing plugged into
+# them, and making the role structural would demand a joint that build
+# does not have. But the chameleon presses these onto the bare tip of a
+# friction peg (a real MOC trick: a peg's shank is close enough to a
+# stud's diameter that a tile's underside tube grips it), and that
+# connection is worth verifying where it is claimed. So: add the tube as
+# a `pin_hole` rather than the usual `anti_stud` -- COMPAT only lets
+# friction_pin mate with pin_hole, and stud already mates with both, so
+# pin_hole covers this part's two real use cases (capping a peg, or its
+# ordinary job sitting on a stud) without forcing the joint requirement
+# onto the truck's decal-style eyes. One tube, dead centre, underside at
+# y=8 -- same convention as every other single-tile annotation above.
 98138.dat:
   role: decorative
+  features:
+    - {kind: pin_hole, gender: female, origin: [0, 8, 0], axis: [0, -1, 0], depth: 8}
 # Antenna -- LDraw emits the underside tube; it clutches a stud.
 3957.dat:
   role: structural
@@ -289,4 +586,215 @@
 45610.dat:
   role: decorative
 66757.dat:
+  role: decorative
+
+# ===========================================================================
+# Expansion Set 45681. Extents below are measured with `ldrcheck measure`,
+# not guessed: a pin's shaft runs the part's own X extent unless noted.
+# ===========================================================================
+
+# --- Smooth (frictionless) pins. Same bore as a friction pin, but they are
+# --- meant to spin, so anything hanging off one is not a rigid hinge.
+3673.dat:
+  role: connector
+  rotates: true
+  shafts:
+    - {type: smooth_pin, origin: [0, 0, 0], axis: [1, 0, 0], t0: -20, t1: 20}
+
+39888.dat:
+  role: connector
+  rotates: true
+  shafts:
+    - {type: smooth_pin, origin: [0, 0, 0], axis: [1, 0, 0], t0: -30, t1: 30}
+
+# Pin 1/2: one module of pin with a stud on the end. LDraw already emits
+# the stud, so only the shaft is missing.
+4274.dat:
+  role: connector
+  rotates: true
+  shafts:
+    - {type: smooth_pin, origin: [0, 0, 0], axis: [1, 0, 0], t0: -20, t1: 0}
+
+# --- Axle-pin combinations: friction pin one end, cross axle the other.
+43093.dat:
+  role: connector
+  shafts:
+    - {type: friction_pin, origin: [0, 0, 0], axis: [1, 0, 0], t0: -20, t1: 0}
+    - {type: cross_axle,   origin: [0, 0, 0], axis: [1, 0, 0], t0: 0, t1: 19.5}
+
+11214.dat:
+  role: connector
+  shafts:
+    - {type: friction_pin, origin: [0, 0, 0], axis: [1, 0, 0], t0: -30, t1: 10}
+    - {type: cross_axle,   origin: [0, 0, 0], axis: [1, 0, 0], t0: 10, t1: 29.5}
+
+# 1M beam with an axle stub. Structural, not connector -- it is regularly
+# used as an end stop with only one joint.
+22961.dat:
+  role: structural
+  shafts:
+    - {type: cross_axle, origin: [0, 0, 0], axis: [1, 0, 0], t0: 9, t1: 29.5}
+
+# Catch with a 1.5M axle, native along +Y.
+6553.dat:
+  role: structural
+  shafts:
+    - {type: cross_axle, origin: [0, 0, 0], axis: [0, 1, 0], t0: 9, t1: 49.5}
+
+# --- Plain cross axles.
+3708.dat:
+  role: connector
+  shafts:
+    - {type: cross_axle, origin: [0, 0, 0], axis: [1, 0, 0], t0: -119.5, t1: 119.5}
+
+50450.dat:
+  role: connector
+  shafts:
+    - {type: cross_axle, origin: [0, 0, 0], axis: [1, 0, 0], t0: -319.5, t1: 319.5}
+
+# --- Axles with an end stop. The stop flange is the last half module and
+# --- cannot enter a hole, so the shaft stops short of it.
+87083.dat:
+  role: connector
+  shafts:
+    - {type: cross_axle, origin: [0, 0, 0], axis: [1, 0, 0], t0: -39.5, t1: 30}
+
+15462.dat:
+  role: connector
+  shafts:
+    - {type: cross_axle, origin: [0, 0, 0], axis: [1, 0, 0], t0: -49.5, t1: 40}
+
+55013.dat:
+  role: connector
+  shafts:
+    - {type: cross_axle, origin: [0, 0, 0], axis: [1, 0, 0], t0: -79.5, t1: 70}
+
+# --- Gears whose centre bore is mesh only. Native gear axis is Z.
+# --- Gears are driven members, so a lone axle reaching one is not a hinge.
+32270.dat:
+  role: structural
+  rotates: true
+  features:
+    - {kind: axle_hole, gender: female, origin: [0, 0, 0], axis: [0, 0, 1], depth: 20}
+
+# --- Wheels and rims.
+# The 88mm expansion wheel takes a cross axle straight through the hub.
+49295.dat:
+  role: structural
+  rotates: true
+  ground_contact: true
+  features:
+    - {kind: axle_hole, gender: female, origin: [0, 0, 0], axis: [0, 0, 1], depth: 35}
+
+56903.dat:
+  role: structural
+  rotates: true
+  features:
+    - {kind: axle_hole, gender: female, origin: [0, 0, 0], axis: [0, 0, 1], depth: 20}
+
+# Ball caster: it drops loose into the 39370 cup and is held by gravity,
+# so it has no clutch to find. Exempt, but it does touch the ground.
+52629.dat:
+  role: decorative
+  ground_contact: true
+
+# --- Turntables. Both halves are real Technic parts with pin holes that
+# --- LDraw already emits; the point of annotating them is that the top
+# --- is meant to spin relative to the base.
+18938.dat:
+  role: structural
+  rotates: true
+18939.dat:
+  role: structural
+  rotates: true
+99009.dat:
+  role: structural
+  rotates: true
+99010.dat:
+  role: structural
+  rotates: true
+
+# --- Tiles: no stud on top, and the underside clutch is mesh only.
+3069.dat:
+  role: structural
+  features:
+    - {kind: anti_stud, gender: female, origin: [10, 8, 0], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [-10, 8, 0], axis: [0, -1, 0], depth: 8}
+
+# 2x2 round tile with a hole straight through the middle. The underside is
+# a single centre tube (stud4h), and a centre tube grips studs at the four
+# CORNERS -- nothing ever sits at a 2x2's centre. Annotating the tube where
+# LDraw draws it gave a part that could not clutch to anything.
+15535.dat:
+  role: structural
+  features:
+    - {kind: anti_stud, gender: female, origin: [10, 8, 10], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [10, 8, -10], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [-10, 8, 10], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [-10, 8, -10], axis: [0, -1, 0], depth: 8}
+    - {kind: pin_hole, gender: female, origin: [0, 4, 0], axis: [0, 1, 0], depth: 8}
+
+# Same 2x2 round tile without the through-hole -- LDraw's "Tile 2x2 Round
+# with Round Underside Stud", the drone's eyes. LDraw emits only the
+# underside holder's bore as a lone centre pin_hole, which joins nothing,
+# because nothing ever sits at a 2x2's centre. The holder actually grips
+# the four studs around it, exactly as on 15535 above.
+14769.dat:
+  role: structural
+  features:
+    - {kind: anti_stud, gender: female, origin: [10, 8, 10], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [10, 8, -10], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [-10, 8, 10], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [-10, 8, -10], axis: [0, -1, 0], depth: 8}
+
+# LDraw calls this a dish; the kits call it a slide shoe, and the kit name
+# is the useful one. Domed bottom that slides on the floor, four studs on
+# TOP that hold it to the model. Those studs are stud6a, a spelling the
+# primitive table does not carry, so the part read as having no clutch at
+# all -- and the first annotation guessed a female pocket underneath,
+# which is the wrong gender on the wrong face.
+2654.dat:
+  role: structural
+  ground_contact: true
+  shafts:
+    - {type: stud, origin: [10, 0, 10], axis: [0, -1, 0], t0: 0, t1: 4}
+    - {type: stud, origin: [10, 0, -10], axis: [0, -1, 0], t0: 0, t1: 4}
+    - {type: stud, origin: [-10, 0, 10], axis: [0, -1, 0], t0: 0, t1: 4}
+    - {type: stud, origin: [-10, 0, -10], axis: [0, -1, 0], t0: 0, t1: 4}
+
+# --- Rubber and soft goods: they stretch onto a wheel or pulley and have
+# --- no modelled clutch of their own.
+# 2815 is the tyre for the D24 wedge-belt wheel. On the Essential driving
+# base it IS the tread -- 4185b plus this tyre is the drive wheel -- so it
+# meets the ground on purpose, the same way 24314 and 61254 do.
+2815.dat:
+  role: decorative
+  ground_contact: true
+61254.dat:
+  role: decorative
+  ground_contact: true
+85543.dat:
+  role: decorative
+85544.dat:
+  role: decorative
+
+# --- Small wheels and their holders (Essential's cart/skid parts).
+2496.dat:
+  role: decorative
+24314.dat:
+  role: decorative
+  ground_contact: true
+
+# --- Figure and accessory bits with no clutch primitive.
+30162.dat:
+  role: decorative
+41879.dat:
+  role: decorative
+48267.dat:
+  role: decorative
+# Bright Red D16.5 ball from Essential. In the seed drone it is loose
+# payload riding in a tipping tray: gravity holds it and no clutch feature
+# should be invented merely to silence NO JOINT. Proved by
+# tools/fixtures/good-seed-ball-payload.ldr and good-drone-tipping-bay.ldr.
+54821.dat:
   role: decorative

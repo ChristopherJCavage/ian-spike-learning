@@ -1,0 +1,36 @@
+0 Fixture: a minifig holding the camera, and the GRIP line that says so.
+0 Expected: clean. Proves GRIP suppresses the hand's grip volume.
+0
+0 A minifig hand is a C-clip. It closes *around* what it holds, so in
+0 LDraw the hand's solid and the item's solid genuinely share space --
+0 about 800 LDU^3 here, well past even DECORATIVE_OVERLAP_TOLERANCE. That
+0 is the fit, exactly like a pin inside its own hole, and there is no way
+0 to place a held item clear of the fingers without it floating.
+0
+0 76382.dat puts its two hands at local (+/-23.69, 26.774, -9.898). The
+0 half-turn below negates x and z, so relative to the torso the hands land
+0 at (-/+23.69, +26.774, +9.898). Get that sign wrong and the item lands
+0 in the hip instead, which is a real collision that GRIP would then hide
+0 -- see bad-grip-not-touching.ldr for the stale-directive case.
+0
+0 The half-turn is also what makes the figure face +Z. 73200b carries
+0 facing: -Z in connections.yml, so an identity matrix here would fail the
+0 FACING check.
+0
+0 The red tile is not decoration. A whole minifig is decorative, legs
+0 included, so with the figure alone on the plate nothing in the model
+0 clutches anything and the baseplate itself reports NO JOINT.
+0
+0 !LDRCHECK GROUND 8
+0 !LDRCHECK FRONT +Z
+0 !LDRCHECK GRIP 30089.dat 76382.dat
+0 !LDRCHECK FACES 73200b.dat +Z
+1 15 0 0 0 1 0 0 0 1 0 0 0 1 91405.dat
+1 4 80 -8 0 1 0 0 0 1 0 0 0 1 87079.dat
+0 STEP
+1 25 0 -40 0 -1 0 0 0 1 0 0 0 -1 73200b.dat
+1 10 0 -72 0 -1 0 0 0 1 0 0 0 -1 76382.dat
+1 14 0 -96 0 -1 0 0 0 1 0 0 0 -1 3626c.dat
+0 STEP
+1 0 23.69 -45.226 9.898 -1 0 0 0 1 0 0 0 -1 30089.dat
+0 STEP

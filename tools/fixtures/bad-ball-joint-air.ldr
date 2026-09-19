@@ -1,0 +1,7 @@
+0 Fixture: a socket plate and a ball plate far apart, nothing seated.
+0 Expected: problems -- neither part has a joint, two components.
+0
+0 !LDRCHECK FRONT +Z
+1 71 0 0 0 1 0 0 0 1 0 0 0 1 14704.dat
+1 72 0 0 200 1 0 0 0 1 0 0 0 1 14417.dat
+0 STEP

@@ -1,0 +1,24 @@
+0 Fixture: the same axle, one part later, now locked.
+0 Expected: clean.
+0
+0 bad-axle-in-round-holes-only.ldr with the dark-green 2x4 brick added under
+0 the plate. 39789 has three vertical CROSS holes at x=-20, 0, +20, so the
+0 axle at x=-20 now passes through the plate's round hole and its splines
+0 bite the brick beneath. That single joint is what retention means: the
+0 axle cannot turn and cannot pull out, so the beam it carries stays on.
+0
+0 The axle's other two joints are still free-running round holes, and that is
+0 fine -- NOT RETAINED asks whether ANY joint grips, not whether all of them
+0 do. A bearing hole and a locking hole on one shaft is the normal Technic
+0 arrangement, and the drone's drive axle is exactly that: free in the blue
+0 beam it spins in, locked in this brick.
+0
+0 The black friction peg at x=-60 is the other half of the real rotor: ribbed,
+0 so the plate's round hole grips it, and there is no cross hole out there for
+0 an axle to use anyway. Two fasteners, two different reasons they hold.
+1 2 0 0 0 1 0 0 0 1 0 0 0 1 39789.dat
+1 10 0 -8 0 1 0 0 0 1 0 0 0 1 3738.dat
+1 14 -20 -14.5 0 0 -1 0 1 0 0 0 0 1 4519.dat
+1 0 -60 -24 0 0 -1 0 1 0 0 0 0 1 61332.dat
+1 26 -120 -34 0 0 0 1 0 1 0 -1 0 0 64290.dat
+0 STEP

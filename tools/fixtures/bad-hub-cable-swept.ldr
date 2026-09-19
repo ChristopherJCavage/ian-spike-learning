@@ -1,0 +1,22 @@
+0 Fixture: cones that leave the plug room and then stand in the wire.
+0 Expected: problems -- the cable zone of both ports is fouled.
+0
+0 This is the subtler half of the port problem. At x = +-50 a cone misses
+0 the plug's 34-wide shell (x = 23..57 only for the first 20 LDU, and the
+0 cone starts at z = 70, one LDU past it). It then sits squarely in the
+0 ribbon that leaves the plug along the same axis, x = 31..49. You can
+0 seat the plug; the wire then leans on a 1x1 cone held by one stud.
+0
+0 The cones two studs further out, at x = +-70, are the version that
+0 works -- see good-hub-ports-clear.ldr.
+0
+0 !LDRCHECK FRONT +Z
+1 14 0 0 0 1 0 0 0 1 0 0 0 1 67351.dat
+1 0 -60 -30 50 0 0 1 0 1 0 -1 0 0 61332.dat
+1 0 60 -30 50 0 0 1 0 1 0 -1 0 0 61332.dat
+1 25 -60 -40 60 1 0 0 0 1 0 0 0 1 3700.dat
+1 25 60 -40 60 1 0 0 0 1 0 0 0 1 3700.dat
+1 10 0 -48 70 1 0 0 0 1 0 0 0 1 3738.dat
+1 26 -50 -72 80 1 0 0 0 1 0 0 0 1 59900.dat
+1 26 50 -72 80 1 0 0 0 1 0 0 0 1 59900.dat
+0 STEP

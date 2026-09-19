@@ -1,0 +1,11 @@
+0 Fixture: 2x4 brick with cross hole stacked on a 2x4 Technic plate.
+0 Expected: clean. Proves 39789 underside anti_stud annotations.
+0
+0 A brick's underside sits 24 LDU below its top face, not 8. If that offset
+0 were wrong the two parts would still look stacked in a render and share
+0 no joint at all, which is the whole reason this fixture exists.
+0
+0 !LDRCHECK FRONT +Z
+1 191 0 0 0 1 0 0 0 1 0 0 0 1 3709.dat
+1 14 0 -24 0 1 0 0 0 1 0 0 0 1 39789.dat
+0 STEP

@@ -1,0 +1,15 @@
+0 Fixture: a pivot declared about the wrong axis.
+0 Expected: problems -- the assertion fails AND the hinge is still reported.
+0
+0 A PIVOT is an assertion, so it fails closed. The shaft here really does
+0 turn, but about +X, not +Y. A declaration that no longer matches the
+0 model must not go on quietly silencing the hinge rule -- that is exactly
+0 how a stale claim outlives the arm it was written for.
+0 !LDRCHECK PIVOT 3705.dat +Y
+1 16 0 0 0 0 1 0 -1 0 0 0 0 1 54675.dat
+1 0 -70 0 0 1 0 0 0 1 0 0 0 1 3705.dat
+1 26 -70 0 40 0 1 0 -1 0 0 0 0 1 32316.dat
+1 26 -100 0 40 0 1 0 -1 0 0 0 0 1 32316.dat
+1 1 -85 0 40 1 0 0 0 1 0 0 0 1 42924.dat
+1 1 -85 0 80 1 0 0 0 1 0 0 0 1 42924.dat
+0 STEP

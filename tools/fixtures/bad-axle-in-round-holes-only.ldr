@@ -1,0 +1,21 @@
+0 Fixture: a cross axle whose every hole is round.
+0 Expected: problems -- NOT RETAINED.
+0
+0 This is the Seed Drone's first rotor mount, reduced to three parts, and it
+0 is the reason the NOT RETAINED rule exists. A yellow 3M cross axle stands
+0 in a round hole of the green 2x8 plate and carries the purple beam by
+0 another round hole. Both joints are real: an axle fits a pin hole, and
+0 ldrcheck reported them as 20-LDU joints. Neither joint holds anything.
+0
+0 A cross axle is smooth for its whole length, so a round bore cannot stop
+0 it turning and cannot stop it sliding out. On the physical model the beam
+0 lifted straight off. Every other check passed -- no interpenetration, no
+0 detached subassembly, no shallow engagement -- because fitting and holding
+0 are different questions and only one of them was being asked.
+0
+0 Compare good-axle-locked-in-cross-hole.ldr, which is this fixture plus the
+0 dark-green 2x4 brick whose CROSS holes give the same axle something to bite.
+1 10 0 -8 0 1 0 0 0 1 0 0 0 1 3738.dat
+1 14 -20 -14.5 0 0 -1 0 1 0 0 0 0 1 4519.dat
+1 26 -120 -34 0 0 0 1 0 1 0 -1 0 0 64290.dat
+0 STEP

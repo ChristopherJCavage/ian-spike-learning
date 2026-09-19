@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>rainforest-chameleon instructions</title>
+<style>
+  html, body { margin: 0; background: #fff; color: #111;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+  /* `display` on .page beats the browser's own rule for the hidden
+     attribute, so the flipbook needs this or every page shows at once. */
+  .page[hidden] { display: none; }
+  .page { min-height: 100vh; display: flex; flex-direction: column;
+    padding: 24px 32px 16px; box-sizing: border-box; }
+  header { display: flex; align-items: center; gap: 16px; }
+  .badge { background: #e31c3d; color: #fff; font-size: 28px; font-weight: 700;
+    min-width: 56px; height: 56px; border-radius: 12px; display: flex;
+    align-items: center; justify-content: center; }
+  h1 { font-size: 28px; margin: 0; flex: 1; }
+  .bin { font-size: 16px; color: #444; }
+  .body { flex: 1; display: grid; grid-template-columns: 280px 1fr;
+    gap: 24px; align-items: center; min-height: 0; }
+  aside { background: #f4f4f4; border-radius: 12px; padding: 16px; }
+  aside h2 { margin: 0 0 8px; font-size: 14px; text-transform: uppercase;
+    letter-spacing: .06em; color: #666; }
+  aside ul { margin: 0; padding-left: 18px; }
+  .copy { margin-top: 16px; font-size: 18px; line-height: 1.35; }
+  .hero { width: 100%; height: auto; background: #fff; }
+  .placeholder { min-height: 360px; display: flex; align-items: center;
+    justify-content: center; background: #f4f4f4; border-radius: 12px;
+    font-size: 22px; padding: 24px; text-align: center; }
+  footer { display: flex; align-items: center; justify-content: space-between;
+    gap: 16px; margin-top: 12px; }
+  .check { flex: 1; font-size: 16px; color: #333; }
+  .slide { background: #06341f; color: #fff; cursor: pointer; }
+  .slide .scene { flex: 1; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 20px; min-height: 0; }
+  .slide .stage { position: relative; display: inline-block; min-height: 0; }
+  .slide .art { display: block; max-width: 100%; max-height: 68vh;
+    border-radius: 16px; }
+  .slide .plate { background: #fff; padding: 12px; box-sizing: border-box; }
+  /* The cartoon chameleon leans in on the build slide to look at its own
+     LEGO self. It must not cover the model, so it sits on the corner. */
+  .slide .peek { position: absolute; right: -6%; bottom: -8%; width: 30%;
+    max-width: 280px; }
+  .slide .tell { margin: 0; max-width: 22ch; text-align: center;
+    font-size: 40px; line-height: 1.2; font-weight: 700; }
+  .slide .check { color: #9fd9b6; font-size: 16px; }
+  .slide footer { justify-content: flex-start; }
+  @media print {
+    @page { size: landscape; margin: 10mm; }
+    html, body { background: #fff; }
+    /* On screen only one page is shown at a time; on paper print them all,
+       one per sheet, and drop the buttons. */
+    .page[hidden] { display: flex !important; }
+    .page { min-height: auto; height: 100vh; page-break-after: always;
+      break-after: page; }
+    .page:last-child { page-break-after: auto; break-after: auto; }
+    .nav { display: none !important; }
+    .slide { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .slide .art { max-height: 60vh; }
+  }
+  .nav button { font-size: 22px; padding: 12px 28px; border: 0; border-radius: 10px;
+    background: #111; color: #fff; cursor: pointer; }
+  .nav button:disabled { background: #bbb; cursor: default; }
+  @media (max-width: 900px) {
+    .body { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<section class="page slide" data-slide="1" hidden>
+  <div class="scene">
+    <div class="stage"><img class="art" src="renders/story-01.png" alt="Sofie, Daniel, Maria and Leo went to see a rainforest."></div>
+    <p class="tell">Sofie, Daniel, Maria and Leo went to see a rainforest.</p>
+  </div>
+  <footer><p class="check">Sofie, Daniel, Maria, Leo</p></footer>
+</section>
+<section class="page slide" data-slide="2" hidden>
+  <div class="scene">
+    <div class="stage"><img class="art" src="renders/story-02.png" alt="Leo started counting colours. He ran out of fingers."></div>
+    <p class="tell">Leo started counting colours. He ran out of fingers.</p>
+  </div>
+  <footer><p class="check">Leo</p></footer>
+</section>
+<section class="page slide" data-slide="3" hidden>
+  <div class="scene">
+    <div class="stage"><img class="art" src="renders/story-03.png" alt="Leo held still. Then a leaf blinked at him."></div>
+    <p class="tell">Leo held still. Then a leaf blinked at him.</p>
+  </div>
+  <footer><p class="check">Leo</p></footer>
+</section>
+<section class="page slide" data-slide="4" hidden>
+  <div class="scene">
+    <div class="stage"><img class="art" src="renders/story-04.png" alt="Leo learned its name. A chameleon changes colour to match where it sits."></div>
+    <p class="tell">Leo learned its name. A chameleon changes colour to match where it sits.</p>
+  </div>
+  <footer><p class="check">Leo</p></footer>
+</section>
+<section class="page slide" data-slide="5" hidden>
+  <div class="scene">
+    <div class="stage"><img class="art plate" src="renders/story-05.png" alt="Build a chameleon that changes colour too."><img class="peek" src="renders/story-peek.png" alt="" aria-hidden="true"></div>
+    <p class="tell">Build a chameleon that changes colour too.</p>
+  </div>
+  <footer><p class="check">Maria</p></footer>
+</section>
+<section class="page" data-step="1" hidden>
+  <header>
+    <span class="badge">1</span>
+    <h1>hub</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>1x Bright Yellow Small Hub | kit 45345</li></ul>
+      <p class="copy">Stand the yellow hub on the table, the little USB shape facing you.</p>
+    </aside>
+    <img class="hero" src="renders/step-001.png" alt="Step 1: hub">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> The hub sits flat and does not rock. Looking at the wall facing you, you see the little USB shape, not the two round ports.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="2" hidden>
+  <header>
+    <span class="badge">2</span>
+    <h1>hip pins</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>4x Black connector peg (friction) | kit 45345</li></ul>
+      <p class="copy">Four pegs go into the BOTTOM row only -- two per side.</p>
+    </aside>
+    <img class="hero" src="renders/step-002.png" alt="Step 2: hip pins">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Four pegs stick out low on the hub, two on the left and two on the right, all at the same height, just above the table.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="3" hidden>
+  <header>
+    <span class="badge">3</span>
+    <h1>hips</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>2x Bright Reddish Violet 1x4 Technic brick | kit 45345</li></ul>
+      <p class="copy">Press a purple 1x4 onto each pair, studs pointing down.</p>
+    </aside>
+    <img class="hero" src="renders/step-003.png" alt="Step 3: hips">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Both hips sit flush on the hub sides. The studs face the table.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="4" hidden>
+  <header>
+    <span class="badge">4</span>
+    <h1>sockets</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>4x Medium Stone Grey ball-cup plate | kit 45345</li></ul>
+      <p class="copy">Press a grey cup onto each end of each hip, cups facing out.</p>
+    </aside>
+    <img class="hero" src="renders/step-004.png" alt="Step 4: sockets">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Four cups stick out, two per side, front and back. They do not wiggle off.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="5" hidden>
+  <header>
+    <span class="badge">5</span>
+    <h1>feet</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>4x Dark Stone Grey ball-plate | kit 45345</li></ul>
+      <p class="copy">Pop a ball-plate into each cup and splay the feet.</p>
+    </aside>
+    <img class="hero" src="renders/step-005.png" alt="Step 5: feet">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> The chameleon stands on four ball-joint feet. You can pose a leg and it stays.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="6" hidden>
+  <header>
+    <span class="badge">6</span>
+    <h1>front pins</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>2x Black connector peg (friction) | kit 45345</li></ul>
+      <p class="copy">Push two pegs into the short wall with the little USB shape.</p>
+    </aside>
+    <img class="hero" src="renders/step-006.png" alt="Step 6: front pins">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Two pegs stick straight forward, level with each other.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="7" hidden>
+  <header>
+    <span class="badge">7</span>
+    <h1>brow bricks</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>2x Bright Orange 1x2 Technic brick | kit 45345</li></ul>
+      <p class="copy">Two separate orange bricks on the pegs. They can still twist -- that is fine.</p>
+    </aside>
+    <img class="hero" src="renders/step-007.png" alt="Step 7: brow bricks">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Two small orange bricks, one on each peg, with a thin gap between them.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="8" hidden>
+  <header>
+    <span class="badge">8</span>
+    <h1>brow plate</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>1x Bright Green 2x8 plate with holes | kit 45345</li></ul>
+      <p class="copy">The green plate presses across both bricks at once. Now nothing twists.</p>
+    </aside>
+    <img class="hero" src="renders/step-008.png" alt="Step 8: brow plate">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Two separate orange bricks sit side by side under the green plate, which lies flat across both of them. Nothing wiggles.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="9" hidden>
+  <header>
+    <span class="badge">9</span>
+    <h1>cheek bumps</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>2x Bright Reddish Violet round slide shoe 2x2 | kit 45345</li></ul>
+      <p class="copy">Press a purple bump into each open tube under the middle of the plate. Cheeks, not eyes.</p>
+    </aside>
+    <img class="hero" src="renders/step-009.png" alt="Step 9: cheek bumps">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Two round purple bumps peek out from under the middle of the plate, one on each side of the centre line. Not eyes -- there is no housing here for an eye to look out of, just two cheeks.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="10" hidden>
+  <header>
+    <span class="badge">10</span>
+    <h1>brow horns</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>4x Bright Reddish Violet 1x1 cone | kit 45345</li></ul>
+      <p class="copy">Two purple horns stand down each outside edge of the brow.</p>
+    </aside>
+    <img class="hero" src="renders/step-010.png" alt="Step 10: brow horns">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> A row of two purple horns down each outside edge of the brow.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="11" hidden>
+  <header>
+    <span class="badge">11</span>
+    <h1>T-beams</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>2x Bright Red T-beam with 1x2 plate | kit 45345</li></ul>
+      <p class="copy">Press two red T-beams onto the brow, holes facing you.</p>
+    </aside>
+    <img class="hero" src="renders/step-011.png" alt="Step 11: T-beams">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Two red T&#x27;s stand on the brow, holes looking at you.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="12" hidden>
+  <header>
+    <span class="badge">12</span>
+    <h1>snout pins</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>2x Black connector peg (friction) | kit 45345</li></ul>
+      <p class="copy">Push a peg into each T-beam so they point forward.</p>
+    </aside>
+    <img class="hero" src="renders/step-012.png" alt="Step 12: snout pins">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Two pegs stick out of the T&#x27;s, same height, ready for the sensor.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="13" hidden>
+  <header>
+    <span class="badge">13</span>
+    <h1>colour sensor</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>1x White Colour Sensor | kit 45345</li></ul>
+      <p class="copy">Press the sensor on, lens pointing down. No cable yet.</p>
+    </aside>
+    <img class="hero" src="renders/step-013.png" alt="Step 13: colour sensor">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> The lens looks at the floor, not at you. Peek under the belly -- you should see the dark window.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="14" hidden>
+  <header>
+    <span class="badge">14</span>
+    <h1>eye pins</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>2x Black connector peg (friction) | kit 45345</li></ul>
+      <p class="copy">Two short pegs into the sensor&#x27;s face, pointing straight at you.</p>
+    </aside>
+    <img class="hero" src="renders/step-014.png" alt="Step 14: eye pins">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Two short pegs stick out of the sensor&#x27;s face, side by side, the same length.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="15" hidden>
+  <header>
+    <span class="badge">15</span>
+    <h1>eyes</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>2x White round tile 1x1 | kit 45345</li></ul>
+      <p class="copy">Press a white eye onto the tip of each peg.</p>
+    </aside>
+    <img class="hero" src="renders/step-015.png" alt="Step 15: eyes">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Two white eyes look out from the front of the sensor. A gentle twist is fine; they stay on.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="16" hidden>
+  <header>
+    <span class="badge">16</span>
+    <h1>top pins</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>2x Black connector peg (friction) | kit 45345</li></ul>
+      <p class="copy">Stand two pegs up on top of the hub, near the brow end.</p>
+    </aside>
+    <img class="hero" src="renders/step-016.png" alt="Step 16: top pins">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Two pegs stand up on top of the hub, near the head.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="17" hidden>
+  <header>
+    <span class="badge">17</span>
+    <h1>deck</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>1x Bright Blue 7-module beam | kit 45345</li></ul>
+      <p class="copy">Lower the blue beam onto those two pegs.</p>
+    </aside>
+    <img class="hero" src="renders/step-017.png" alt="Step 17: deck">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> The beam sits level, just behind the brow. It does not see-saw.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="18" hidden>
+  <header>
+    <span class="badge">18</span>
+    <h1>matrix pins</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>2x Black connector peg (friction) | kit 45345</li></ul>
+      <p class="copy">Stand two more pegs up, closer together, in the middle of the beam.</p>
+    </aside>
+    <img class="hero" src="renders/step-018.png" alt="Step 18: matrix pins">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Two pegs stand up from the blue beam, closer together than the top pins.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="19" hidden>
+  <header>
+    <span class="badge">19</span>
+    <h1>light matrix</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>1x Medium Azur 3x3 Colour Light Matrix | kit 45345</li></ul>
+      <p class="copy">Press the lights on, facing up. No cable yet.</p>
+    </aside>
+    <img class="hero" src="renders/step-019.png" alt="Step 19: light matrix">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> You can see all nine lights from above, sitting over the shoulders, just behind the brow.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="20" hidden>
+  <header>
+    <span class="badge">20</span>
+    <h1>rear pins</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>2x Black connector peg (friction) | kit 45345</li></ul>
+      <p class="copy">Push two pegs into the wall with the two round ports, one on each side.</p>
+    </aside>
+    <img class="hero" src="renders/step-020.png" alt="Step 20: rear pins">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Two pegs stick straight back, level with each other, framing the two ports.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="21" hidden>
+  <header>
+    <span class="badge">21</span>
+    <h1>tail bar</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>1x Dark Azur 1x8 Technic brick | kit 45345</li></ul>
+      <p class="copy">One long blue brick across both pegs at once.</p>
+    </aside>
+    <img class="hero" src="renders/step-021.png" alt="Step 21: tail bar">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> The blue bar runs the full width of the hub. It does not teeter.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="22" hidden>
+  <header>
+    <span class="badge">22</span>
+    <h1>tail plate</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>1x Bright Green 2x8 plate with holes | kit 45345</li><li>2x Bright Orange round tile 2x2 with hole | kit 45345</li></ul>
+      <p class="copy">Press an orange circle onto each end of the green plate first, then press the plate onto the bar.</p>
+    </aside>
+    <img class="hero" src="renders/step-022.png" alt="Step 22: tail plate">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> The green plate sits flat on the bar with an orange circle near each end. It does not teeter.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="23" hidden>
+  <header>
+    <span class="badge">23</span>
+    <h1>tail corners</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>2x Bright Orange flat tile 1x2 | kit 45345</li></ul>
+      <p class="copy">Cap the plate&#x27;s two far corners with the flat orange tiles.</p>
+    </aside>
+    <img class="hero" src="renders/step-023.png" alt="Step 23: tail corners">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Four orange patches on the tail shelf: two round circles near the hub, two flat rectangles at the far corners.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="24" hidden>
+  <header>
+    <span class="badge">24</span>
+    <h1>tail base</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>1x Dark Green 2x4 brick with cross hole | kit 45345</li></ul>
+      <p class="copy">Turn the dark green 2x4 brick the long way and press it onto the shelf.</p>
+    </aside>
+    <img class="hero" src="renders/step-024.png" alt="Step 24: tail base">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> The brick sticks out behind the chameleon and does not rock. This is the thickest part of the tail -- everything after it gets thinner.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="25" hidden>
+  <header>
+    <span class="badge">25</span>
+    <h1>the curl</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>3x Flame Yellowish Orange 2x4 plate with holes | kit 45345</li><li>1x Bright Reddish Violet 2x2 roof tile | kit 45345</li></ul>
+      <p class="copy">Three orange plates turn the tail sideways, each on the last four studs of the one before. Purple slope on the end.</p>
+    </aside>
+    <img class="hero" src="renders/step-025.png" alt="Step 25: the curl">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> The tail turns a corner and steps up three orange plates, ending in a purple point past the feet. Dark green, then orange, then orange, then orange, then purple.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="26" hidden>
+  <header>
+    <span class="badge">26</span>
+    <h1>plug in and try it</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>(none -- use the colour pads Chris brought)</li></ul>
+      <p class="copy">Plug both cables into the back wall. Pose the legs. Slide a coloured pad under the belly.</p>
+    </aside>
+    <div class="hero placeholder"><p>Plug the sensor&#x27;s cable into port A and the light matrix&#x27;s cable into port B, both on the hub&#x27;s back wall. Pose the legs. Slide a coloured pad under the belly, in front of the lens.</p></div>
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Both cables reach the back wall and plug in easily. The feet stay where you put them. The pad fits under the belly without knocking the sensor.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="27" hidden>
+  <header>
+    <span class="badge">27</span>
+    <h1>code</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>(none)</li></ul>
+      <p class="copy">Read the pad. Light the back to match -- red means warning!</p>
+    </aside>
+    <div class="hero placeholder"><p>In Icon Blocks, make four separate stacks -- one yellow &quot;when colour&quot; hat per pad (green, blue, yellow, red), each lighting the matrix on port B the same colour. Do not snap the hats into one row.</p></div>
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Blue pad -&gt; blue back. Yellow pad -&gt; yellow back. Green pad -&gt; green back. Red pad -&gt; bright warning-red back.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<script>
+const pages = [...document.querySelectorAll('.page')];
+let i = 0;
+function show(n) {
+  i = Math.max(0, Math.min(n, pages.length - 1));
+  pages.forEach((p, k) => p.hidden = k !== i);
+  // Story slides have no buttons -- they are printed, not clicked.
+  const back = pages[i].querySelector('.back');
+  const next = pages[i].querySelector('.next');
+  if (back) back.disabled = i === 0;
+  if (next) {
+    next.disabled = i === pages.length - 1;
+    next.textContent = i === pages.length - 1 ? 'Done' : 'Next';
+  }
+}
+document.body.addEventListener('click', e => {
+  if (e.target.classList.contains('next')) return show(i + 1);
+  if (e.target.classList.contains('back')) return show(i - 1);
+  // Buttonless pages still need a way forward on screen.
+  if (pages[i].classList.contains('slide')) show(i + 1);
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); show(i + 1); }
+  if (e.key === 'ArrowLeft') { e.preventDefault(); show(i - 1); }
+});
+show(0);
+</script>
+</body>
+</html>

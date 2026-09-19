@@ -1,0 +1,9 @@
+# The boolean used correctly: dropped inside wait-until.
+hub: prime
+extensions:
+
+flipperevents_whenProgramStarts
+  flippermotor_motorStartDirection PORT=A DIRECTION=clockwise
+  control_wait_until
+    @condition flippersensors_isDistance PORT=D COMPARATOR=closerThan VALUE=10 UNIT=cm
+  flippermotor_motorStop PORT=A

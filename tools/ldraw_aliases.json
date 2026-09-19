@@ -14,7 +14,11 @@
   "42134": {"ldraw": "32034.dat", "name": "ANGLE ELEMENT, 180 DEGREES [2]"},
   "42155": {"ldraw": "32014.dat", "name": "ANGLE ELEMENT, 90 DEGREES [6]"},
   "42156": {"ldraw": "32192.dat", "name": "ANGLE ELEMENT 135 DEG. [4]"},
-  "42798": {"ldraw": "32123b.dat", "name": "BUSH FOR CROSS AXLE", "note": "4265c redirects here; model files may still say 4265c.dat"},
+  "42798": {"ldraw": "3713.dat", "name": "BUSH FOR CROSS AXLE", "note": "the FULL bush. BrickLink 3713 lists 6590 and 42798 as alternates. Do not confuse with 42136, the 1/2 bush."},
+  "42136": {"ldraw": "32123b.dat", "name": "1/2 BUSH", "note": "BrickLink 4265c lists 32123 and 42136 as alternates; 4265c.dat redirects to 32123"},
+
+  "41488": {"ldraw": "32015.dat", "name": "ANGLE ELEMENT, 112,5 DEGR. [5]"},
+  "42128": {"ldraw": "32016.dat", "name": "ANGLE ELEMENT, 157,5 DEGR. [3]"},
 
   "42137": {"ldraw": "32140.dat", "name": "TECHNIC ANG. BEAM 4X2 90 DEG"},
   "42149": {"ldraw": "6629.dat", "name": "TECHNIC ANGULAR BEAM 4X6"},
@@ -23,6 +27,21 @@
   "40147": {"ldraw": "60483.dat", "name": "BEAM 1X2 W/CROSS AND HOLE"},
   "42142": {"ldraw": "41678.dat", "name": "DOUBLE CROSS BLOCK"},
 
+  "_comment_45681_crossblocks": "Expansion 45681. LEGO renumbered the cross-block family; LDraw still uses the original mold numbers. Verified against BrickLink 'Alternate Item No'.",
+  "40146": {"ldraw": "6536.dat", "name": "CROSS BLOCK 90 DEG"},
+  "42163": {"ldraw": "32291.dat", "name": "TECHNIC CROSS BLOCK 2X1"},
+  "42191": {"ldraw": "63869.dat", "name": "CROSS BLOCK 3X2"},
+  "42796": {"ldraw": "42003.dat", "name": "CROSS BLOCK 3M"},
+  "49137": {"ldraw": "87408.dat", "name": "BEAM 3M D4.85 W. FORK", "note": "LEGO Pick-a-Brick 49137 = BrickLink 87408 toggle joint double"},
+  "65193": {"ldraw": "99773.dat", "name": "TRIANGEL", "note": "3x5 triangle liftarm, short-support mold"},
+
+  "_comment_45681_gears": "Expansion 45681 gear train and turntables.",
+  "13927": {"ldraw": "50450.dat", "name": "CROSS AXLE 32M"},
+  "43038": {"ldraw": "24121.dat", "name": "1/4 CIRCLE GEAR RACK 11X11"},
+  "65127": {"ldraw": "87761.dat", "name": "RACK 7 M"},
+  "39892": {"ldraw": "99010.dat", "name": "UPPER PART FOR TURNTABLE Z28"},
+  "88738": {"ldraw": "18938.dat", "name": "UPPER PART FOR TURNTABLE Z60, NO. 2", "note": "straight-tooth mold variant; LDraw only ships the bevel-tooth 18938. Same footprint and pin holes, so it stands in for clearance and clutch."},
+
   "40995": {"ldraw": "45411.dat", "name": "SHELL 6X8X2 W/BOW/ANGLE"},
   "6834":  {"ldraw": "14918.dat", "name": "NOSE CONE 2X2X2 (mold rev.)"},
   "39223": {"ldraw": "6143.dat", "name": "BRICK D16 W. CROSS (transparent mold)"},
@@ -30,9 +49,9 @@
   "32732": {"ldraw": "98138.dat", "name": "FLAT TILE 1X1, ROUND, NO. 76", "note": "printed; unprinted geometry"},
   "37006": {"ldraw": "14769.dat", "name": "FLAT TILE 2X2, ROUND, NO. 1099", "note": "printed; unprinted geometry"},
   "73811": {"ldraw": "98138.dat", "name": "FLAT TILE 1X1, ROUND, NO. 151", "note": "printed; unprinted geometry"},
-  "44690": {"ldraw": "14769.dat", "name": "FLAT TILE 2X2, ROUND, NO. 1116", "note": "printed; unprinted geometry"},
-  "13360": {"ldraw": "98138.dat", "name": "FLAT TILE 1X1 - ROUND NO. 8", "note": "printed; unprinted geometry"},
-  "113420": {"ldraw": "14769.dat", "name": "FLAT TILE 2X2, ROUND, NO. 1116 (mold rev.)"},
+  "44690": {"ldraw": "14769.dat", "name": "FLAT TILE 2X2, ROUND, NO. 1116", "note": "print 1116 = 14769pr1116, a big cartoon EYE: blue iris, black pupil. Renders as a blank white disc here, so a render can never show the face -- trust the part number, not the picture. 2 of these plus 2 mold-revision 113420 = four large eyes in kit 45345"},
+  "13360": {"ldraw": "98138.dat", "name": "FLAT TILE 1X1 - ROUND NO. 8", "note": "also an EYE print: black iris with pupil, 1x1. Four in kit 45345. The small-creature eye; the 2x2 above is the big cartoon eye"},
+  "113420": {"ldraw": "14769.dat", "name": "FLAT TILE 2X2, ROUND, NO. 1116 (mold rev.)", "note": "same blue-iris eye print as 44690; different mold generation, interchangeable"},
 
   "53504": {"ldraw": "64781.dat", "name": "RACK 13M"},
   "49750": {"ldraw": "4185b.dat", "name": "WEDGE-BELT WHEEL D24"},
@@ -40,7 +59,7 @@
   "14925": {"ldraw": "57539.dat", "name": "FLEX HOSE 19M W/3.18 STICK"},
   "14770": {"ldraw": "57539.dat", "name": "FLEXHOSE 19M W/3.18 STICK C.I"},
 
-  "2659":  {"ldraw": "15279.dat", "name": "GRASS, W/ 3.2 TUBE (mold rev.)"},
+  "31576": {"ldraw": "15279.dat", "name": "GRASS, W/ 3.2 TUBE"},
   "31577": {"ldraw": "33121.dat", "name": "CRAB"},
   "28841": {"ldraw": "33320.dat", "name": "FROG"},
   "93239": {"ldraw": null, "name": "DOG W. DECO", "note": "SPIKE dog mold not in LDraw"},
@@ -48,11 +67,13 @@
   "38648": {"ldraw": "10830.dat", "name": "MAGNIFYING GLASS"},
   "28623": {"ldraw": "11127.dat", "name": "ROCK CRYSTAL, TRANSPARENT"},
 
-  "26881": {"ldraw": null, "name": "MINI HEAD NO. 1966", "note": "printed head not in LDraw"},
-  "96004": {"ldraw": null, "name": "MINI HEAD NO. 752", "note": "printed head not in LDraw"},
-  "21463": {"ldraw": null, "name": "MINI HEAD NO. 1675", "note": "printed head not in LDraw"},
-  "23094": {"ldraw": null, "name": "MINI HEAD NO. 1762", "note": "printed head not in LDraw"},
-  "23177": {"ldraw": null, "name": "MINI HEAD NO. 1771", "note": "printed head not in LDraw"},
+  "73200": {"ldraw": "73200b.dat", "name": "MINI LOWER PART", "note": "plain 73200.dat is the obsolete physical-colour shortcut and bakes Yellow; the b alias inherits, so Bright Orange / Dark Azur / Medium Lilac legs render in their real colour"},
+
+  "26881": {"ldraw": "3626c.dat", "name": "MINI HEAD NO. 1966", "note": "face print not in LDraw; plain hollow-stud head has the right geometry"},
+  "96004": {"ldraw": "3626c.dat", "name": "MINI HEAD NO. 752", "note": "face print not in LDraw; plain hollow-stud head has the right geometry"},
+  "21463": {"ldraw": "3626c.dat", "name": "MINI HEAD NO. 1675", "note": "face print not in LDraw; plain hollow-stud head has the right geometry"},
+  "23094": {"ldraw": "3626c.dat", "name": "MINI HEAD NO. 1762", "note": "face print not in LDraw; plain hollow-stud head has the right geometry"},
+  "23177": {"ldraw": "3626c.dat", "name": "MINI HEAD NO. 1771", "note": "face print not in LDraw; plain hollow-stud head has the right geometry"},
   "18226": {"ldraw": null, "name": "MINI WIG NO. 6", "note": "specific wig not confirmed in LDraw"},
   "27058": {"ldraw": null, "name": "WIG LADY PAGE"},
   "29066": {"ldraw": null, "name": "MINI WIG NO. 63"}

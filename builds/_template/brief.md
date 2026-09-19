@@ -19,7 +19,8 @@ Status: **empty**. Fill this before `steps.md` / `model.ldr`.
 
 ## Constraints
 
-- Only `kits/45345-essential/parts.txt` and/or `kits/45678-prime/parts.txt`
-- No expansion 45681
-- One hub
+- Only parts listed in `kits/*/parts.txt` (Essential 45345, Prime 45678,
+  Expansion 45681). Say here if this build is deliberately Essential-only,
+  which is the default for Ian's Saturday class.
+- One hub (the Expansion has none of its own)
 - Kid screens: Icon or Word Blocks unless this brief says Python

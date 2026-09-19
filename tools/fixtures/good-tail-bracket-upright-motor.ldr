@@ -1,0 +1,35 @@
+0 Fixture: standing a motor up on the tail centreline with an angle beam.
+0 Expected: clean. This is the seed drone's rear seed bay mount.
+0
+0 The problem it solves: the motor's back face offers mounting holes 40
+0 LDU apart, and the only rear anchor on the Hub is a 1x8 Technic brick
+0 whose holes all sit at one height. Bolting the motor straight to that
+0 brick forces the output bore sideways, which is what pushed the first
+0 draft of this bay out onto the drone's left flank.
+0
+0 The 3x5 right-angle beam is the one part in the Essential kit that turns
+0 a horizontal row of holes into a vertical column. Stood on edge, its
+0 short arm pins to the spine and its long arm climbs, so the motor can
+0 take two holes 40 LDU apart in Y and point its bore straight aft.
+0
+0 !LDRCHECK FRONT +Z
+0 !LDRCHECK JOINS 68488.dat 32526.dat
+0
+0 Tail spine, standing in for the brick across the Hub's rear wall.
+1 321 0 -40 -60 1 0 0 0 1 0 0 0 1 3702.dat
+0
+0 Two pins aft, 40 LDU apart, in the holes the bracket can reach.
+1 0 0 -30 -70 0 0 1 0 1 0 -1 0 0 61332.dat
+1 0 -40 -30 -70 0 0 1 0 1 0 -1 0 0 61332.dat
+0
+0 Angle beam on edge: holes face aft, short arm along -X at y=-30, long
+0 arm climbing to y=-110.
+1 10 0 -110 -80 -1 0 0 0 0 1 0 1 0 32526.dat
+0
+0 Two more pins, every other hole up the climbing arm.
+1 0 0 -50 -90 0 0 1 0 1 0 -1 0 0 61332.dat
+1 0 0 -90 -90 0 0 1 0 1 0 -1 0 0 61332.dat
+0
+0 Motor upright, bore pointing aft along world -Z.
+1 15 0 -70 -120 0 0 -1 -1 0 0 0 1 0 68488.dat
+0 STEP

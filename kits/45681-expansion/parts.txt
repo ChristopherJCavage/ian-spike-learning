@@ -1,0 +1,171 @@
+# LEGO Education SPIKE Prime Expansion Set 45681 -- Parts Inventory
+#
+# Official LEGO box count: 604 pieces.
+# This teardown (LEGO's own Customer Service replacement-parts registry,
+# via Brickset, retrieved 2024-10-27): 606 pieces / 105 unique elements.
+# Same +2 gap story as the other two kits -- LEGO's replacement registry
+# counts a couple of items the box blurb rounds off. Treat this file as
+# the accurate source for "what's actually in the bin."
+#
+# This is an ADD-ON, not a standalone kit. It has no hub and no battery.
+# It ships one extra Medium Angular Motor and one extra Color Sensor, and
+# otherwise it is gears, turntables, big wheels, and a lot of beams.
+#
+# Format (pipe-delimited, grep-friendly):
+#   QTY | COLOR | PART NAME | CATEGORY | DESIGN_ID | ELEMENT_ID
+#
+# Examples:
+#   grep -i "turntable" parts.txt
+#   grep -i "gear" parts.txt
+#   awk -F'|' '{print $2}' parts.txt | sort | uniq -c   # pieces per color
+#
+# Part names are deliberately spelled the same as in the Essential and
+# Prime files when the DESIGN_ID matches, so one grep spans all three
+# kits. Two rows sharing a DESIGN_ID/name/color are LEGO manufacturing-
+# revision variants of the same physical part.
+
+## Power Functions (2 pcs, 2 unique -- no hub, no battery, no USB cable)
+1 | Medium Azur | MOTOR, NO. 11 (Medium Angular Motor) | Power Functions | 99085 | 6384811
+1 | White | SENSOR COLOUR, NO. 2 | Power Functions | 37308 | 6217705
+
+## Connectors (320 pcs, 30 unique -- over half the box by piece count)
+4 | Black | ANGLE ELEMENT, 112,5 DEGR. [5] | Connectors | 41488 | 6271346
+6 | Black | CATCH W. CROSS HOLE | Connectors | 42135 | 6331716
+80 | Black | CONNECTOR PEG W. FRICTION | Connectors | 61332 | 6279875
+2 | Black | CROSS AXLE 32M | Connectors | 13927 | 6210821
+4 | Black | CROSS AXLE 4M | Connectors | 3705 | 370526
+8 | Brick Yellow | 3M CONNECTOR PEG | Connectors | 39888 | 6321305
+24 | Bright Blue | CONN.BUSH W.FRIC./CROSSALE | Connectors | 43093 | 4206482
+36 | Bright Blue | CONNECTOR PEG W. FRICTION 3M | Connectors | 42924 | 6299413
+16 | Bright Blue | CONNECTOR PEG W. KNOB | Connectors | 4274 | 4143005
+8 | Bright Red | 2M CROSS AXLE W. GROOVE | Connectors | 32062 | 4142865
+6 | Bright Red | 2M FRIC. SNAP W/CROSS HOLE | Connectors | 65304 | 6347789
+8 | Bright Red | CON. BUSH 2M FR. + CROSS AXLE | Connectors | 11214 | 6209519
+2 | Bright Red | CROSS AXLE 12M | Connectors | 3708 | 6147702
+4 | Bright Red | CROSS AXLE 6M | Connectors | 3706 | 6130002
+4 | Bright Red | CROSS AXLE, EXTENSION, 2M | Connectors | 59443 | 4513174
+16 | Bright Yellow | 1/2 BUSH | Connectors | 42136 | 6271167
+12 | Bright Yellow | ANGLE ELEMENT, 90 DEGREES [6] | Connectors | 42155 | 6268925
+14 | Bright Yellow | CROSS AXLE 3M | Connectors | 4519 | 6130007
+6 | Bright Yellow | TUBE, W/ DOUBLE 4.85 HOLE | Connectors | 29219 | 6173122
+4 | Dark Stone Grey | CROSS AXLE 4M WITH END STOP | Connectors | 87083 | 6083620
+2 | Dark Stone Grey | CROSS AXLE 8M WITH END STOP | Connectors | 55013 | 4499858
+4 | Medium Azur | ANGLE ELEMENT, 157,5 DEGR. [3] | Connectors | 42128 | 6261392
+6 | Medium Stone Grey | 2M FRIC. SNAP W/CROSS HOLE | Connectors | 65304 | 6321747
+12 | Medium Stone Grey | BUSH FOR CROSS AXLE | Connectors | 42798 | 6275844
+6 | Medium Stone Grey | CATCH | Connectors | 6553 | 4211536
+12 | Medium Stone Grey | CONNECTOR PEG | Connectors | 3673 | 4211807
+4 | Medium Stone Grey | CROSS AXLE 5M | Connectors | 32073 | 4211639
+2 | Reddish Brown | CROSS AXLE 5M WITH END STOP | Connectors | 15462 | 6159763
+4 | White | BEAM 1M W/CROSS AXLE | Connectors | 22961 | 6179606
+4 | White | CROSS AXLE, EXTENSION, 2M | Connectors | 59443 | 6212049
+
+## Technic Beams (193 pcs, 35 unique)
+4 | Black | BEAM 1X1 | Technic Beams | 18654 | 6121485
+2 | Black | BEAM 3M D4.85 W. FORK | Technic Beams | 49137 | 6278412
+8 | Black | BEAM FRAME 5X7 D4.85 | Technic Beams | 64179 | 6016154
+4 | Black | BOWED PANEL 3X7X2 W/ 4.85 HOLE | Technic Beams | 24119 | 6150082
+16 | Black | CROSS BLOCK 90 DEG | Technic Beams | 40146 | 6261371
+4 | Black | DOUBLE ANGULAR BEAM 3X7 45 DEG | Technic Beams | 41486 | 6271152
+6 | Black | TECHNIC 15M BEAM | Technic Beams | 64871 | 4542573
+8 | Black | TECHNIC 9M BEAM | Technic Beams | 64289 | 4645732
+4 | Black | TECHNIC ANGULAR BEAM 4X4 | Technic Beams | 42165 | 6278125
+4 | Black | TECHNIC CROSS BLOCK 2X1 | Technic Beams | 42163 | 6280394
+4 | Black | WEAPON BARREL | Technic Beams | 31511 | 6186133
+12 | Bright Red | CROSS BLOCK 3M | Technic Beams | 42796 | 6273712
+4 | Bright Red | TECHNIC CROSS BLOCK, FORK 2X2 | Technic Beams | 69819 | 6349275
+4 | Bright Reddish Violet | FRAME 3X3 | Technic Beams | 39793 | 6252656
+4 | Bright Reddish Violet | FRAME 7X11 | Technic Beams | 39794 | 6252663
+1 | Bright Reddish Violet | PANEL 11X15 W/ PCB HOLES | Technic Beams | 65817 | 6318207
+6 | Bright Reddish Violet | TECHNIC 11M BEAM | Technic Beams | 64290 | 6261634
+8 | Bright Reddish Violet | TECHNIC 5M BEAM | Technic Beams | 32316 | 6261642
+4 | Bright Yellow | T-BEAM 3X3 W/HOLE D4.8 | Technic Beams | 60484 | 6072627
+6 | Bright Yellow | TECHNIC 3M BEAM | Technic Beams | 32523 | 4153707
+8 | Bright Yellow | TECHNIC ANG. BEAM 4X2 90 DEG | Technic Beams | 42137 | 6271828
+4 | Bright Yellow | TECHNIC ANGULAR BEAM 3X7 | Technic Beams | 42160 | 6276838
+4 | Bright Yellow | TRIANGEL | Technic Beams | 65193 | 6331435
+2 | Medium Azur | FRAME 11X15 | Technic Beams | 39790 | 6245375
+6 | Medium Azur | TECHNIC 13M BEAM | Technic Beams | 41239 | 6261643
+6 | Medium Azur | TECHNIC 7M BEAM | Technic Beams | 32524 | 6261638
+4 | Medium Azur | TECHNIC ANG. BEAM 3X5 90 DEG | Technic Beams | 32526 | 6173003
+6 | Medium Stone Grey | ANGULAR BEAM 90 DEGR. W. 4 SNAPS | Technic Beams | 49130 | 6313453
+10 | Medium Stone Grey | BEAM 3 MODULE W/ 4 SNAP | Technic Beams | 65489 | 6282158
+6 | Medium Stone Grey | BEAM I-FRAME 3X5 90 DEGR. HOLE D4.85 | Technic Beams | 14720 | 6055519
+8 | Medium Stone Grey | CROSS BLOCK 3X2 | Technic Beams | 42191 | 6331441
+4 | White | DOUBLE CROSS BLOCK | Technic Beams | 42142 | 6276981
+4 | White | TECHNIC 3M BEAM | Technic Beams | 32523 | 4208160
+6 | White | TECHNIC ANG. BEAM 3X5 90 DEG | Technic Beams | 32526 | 4585040
+2 | White | TECHNIC ANGULAR BEAM 4X6 | Technic Beams | 42149 | 6279886
+
+## Bricks (28 pcs, 12 unique)
+2 | Black | BRICK 2X2 | Bricks | 3003 | 300326
+2 | Bright Blue | BRICK 2X4 W/ CROSS HOLE | Bricks | 39789 | 6244916
+2 | Bright Red | BRICK 2X4 W/ CROSS HOLE | Bricks | 39789 | 6244918
+2 | Bright Reddish Violet | BRICK 2X4 W/ CROSS HOLE | Bricks | 39789 | 6252647
+4 | Bright Yellow | BRICK 1X6 W/BOW | Bricks | 42022 | 4160392
+2 | Bright Yellow | BRICK 2X4 W/ CROSS HOLE | Bricks | 39789 | 6244914
+4 | Bright Yellow | BRICK D16 W. CROSS | Bricks | 6143 | 614324
+2 | Dark Green | BRICK 2X4 W/ CROSS HOLE | Bricks | 39789 | 6244915
+2 | Medium Azur | BRICK 2X2 | Bricks | 3003 | 4653970
+2 | Transparent Light Blue | BRICK D16 W. CROSS | Bricks | 39223 | 6273153
+2 | White | BRICK 2X2 | Bricks | 3003 | 300301
+2 | White | STONE 1X2X1 1/3 W. 2 PLATES 2X2 | Bricks | 11215 | 6053026
+
+## Plates (10 pcs, 3 unique)
+4 | Black | FLAT TILE 2X2 ROUND W. HOLE D4.85 | Plates | 15535 | 6143850
+2 | Bright Red | FLAT TILE 2X2 ROUND W. HOLE D4.85 | Plates | 15535 | 6102138
+4 | Medium Azur | PLATE ROUND W. 1 KNOB | Plates | 18674 | 6136419
+
+## Vehicles & Transportation (30 pcs, 10 unique -- the gear train)
+8 | Black | 1/4 CIRCLE GEAR RACK 11X11 | Vehicles & Transportation | 43038 | 6322255
+2 | Black | DOUBLE CONICAL WHEEL Z12 1M | Vehicles & Transportation | 32270 | 4177431
+2 | Black | DOUBLE CONICAL WHEEL Z36 | Vehicles & Transportation | 32498 | 4255563
+2 | Black | RACK 7 M | Vehicles & Transportation | 65127 | 6327430
+2 | Brick Yellow | BEVEL GEAR Z20 | Vehicles & Transportation | 32198 | 6031962
+4 | Brick Yellow | CONICAL WHEEL Z12 | Vehicles & Transportation | 6589 | 4565452
+2 | Brick Yellow | DOUBLE CONICAL WHEEL Z20 1M | Vehicles & Transportation | 18575 | 6346517
+2 | Bright Blue | ANGLED GEAR WHEEL Z20, W/ 4.85 HOLE | Vehicles & Transportation | 35185 | 6224999
+2 | Medium Stone Grey | ANGLED GEAR WHEEL Z28 | Vehicles & Transportation | 46372 | 6259270
+4 | Multicombination | WHEEL DIA. 88X14.34, W/ CROSS HOLE | Vehicles & Transportation | 49295 | 6261593
+
+## Miscellaneous (18 pcs, 10 unique -- turntables are the headline)
+2 | Black | UPPER PART FOR TURNTABLE Z28 | Miscellaneous | 39892 | 6326620
+2 | Black | UPPER PART FOR TURNTABLE Z60 | Miscellaneous | 18938 | 6109283
+2 | Black | UPPER PART FOR TURNTABLE Z60, NO. 2 | Miscellaneous | 88738 | 6413529
+2 | Bright Red | WIRE CLIP, W/ CROSS HOLE | Miscellaneous | 49283 | 6263067
+2 | Bright Yellow | WIRE CLIP, W/ CROSS HOLE | Miscellaneous | 49283 | 6263069
+1 | Medium Azur | BEAM 3X5 W/ DIA. 19 WHEEL CUP | Miscellaneous | 39370 | 6261590
+2 | Medium Azur | WIRE CLIP, W/ CROSS HOLE | Miscellaneous | 49283 | 6263192
+2 | Medium Stone Grey | LOWER PART FOR TURNTABLE Z28 | Miscellaneous | 99009 | 4652235
+2 | Medium Stone Grey | LOWER PART FOR TURNTABLE Z60 | Miscellaneous | 18939 | 6109285
+1 | White | DIA. 19 WHEEL BALL | Miscellaneous | 52629 | 6261647
+
+## Cables, Hoses & Strings (4 pcs, 2 unique)
+2 | Bright Red | V-BELT D24, RED | Cables, Hoses & Strings | 85544 | 4544143
+2 | White | V-BELT D15, WHITE | Cables, Hoses & Strings | 85543 | 4544140
+
+## Animals & Nature (1 pc, 1 unique)
+1 | White | CHICKEN | Animals & Nature | 95342 | 6063271
+
+# --- Colour summary (per Brickset teardown) ---
+# Black 186 | Brick Yellow 16 | Bright Blue 80 | Bright Red 56
+# Bright Reddish Violet 25 | Bright Yellow 86 | Dark Green 2
+# Dark Stone Grey 6 | Medium Azur 32 | Medium Stone Grey 76
+# Multicombination 4 | Reddish Brown 2 | Transparent Light Blue 2
+# White 33 | TOTAL 606
+
+# --- What this set actually adds that the other two bins do not have ---
+# - Turntables: Z28 and Z60 (two revisions of the Z60 top), upper + lower
+#   halves. This is the first real rotating platform in the collection --
+#   crane cabs, radar dishes, tank turrets.
+# - Big wheels: 4x WHEEL DIA. 88X14.34 W/ CROSS HOLE (49295). Much larger
+#   than Prime's DIA.56 wheels. Note they take a cross axle directly, no
+#   separate rim/tyre pair.
+# - Gear variety: bevel gears (32198), conical wheels Z12/Z20/Z36,
+#   angled gear wheels Z20 and Z28, 7M rack, and 8x quarter-circle gear
+#   rack 11X11 (43038) -- a curved rack is new to the collection.
+# - Volume connectors: 80x black friction peg, 36x blue 3M peg, 24x blue
+#   friction bush w/ cross (43093), 16x 1/2 bush. Realistically this set
+#   is where the pins come from now.
+# - Long axles: 32M (13927) and 12M (3708) beat anything in the base kits.
+# - A chicken.

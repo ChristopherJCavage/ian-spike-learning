@@ -1,0 +1,12 @@
+0 Fixture: 2x2 and 1x2 45-degree roof tiles clutched onto a 2x8 plate.
+0 Expected: clean. Proves 3039 and 3040 underside anti_stud annotations.
+0
+0 Both slopes have their footprint offset from their origin: the tall end
+0 sits over z=0 and the ramp runs back to z=-20, so the tubes are not
+0 symmetric about the origin the way a plain plate's are.
+0
+0 !LDRCHECK FRONT +Z
+1 10 0 0 0 1 0 0 0 1 0 0 0 1 3738.dat
+1 26 -40 -24 10 1 0 0 0 1 0 0 0 1 3039.dat
+    10|1 10 30 -24 10 1 0 0 0 1 0 0 0 1 3040.dat
+0 STEP

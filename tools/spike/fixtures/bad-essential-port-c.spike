@@ -1,0 +1,7 @@
+# Essential hub only has ports A and B.
+# expect: PORT
+hub: essential
+extensions:
+
+flipperevents_whenProgramStarts
+  flippermotor_motorStartDirection PORT=C DIRECTION=clockwise

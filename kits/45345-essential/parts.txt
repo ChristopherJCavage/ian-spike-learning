@@ -19,6 +19,14 @@
 # Two rows sharing a DESIGN_ID/name/color (e.g. the two "HUB, NO. 12" rows)
 # are LEGO manufacturing-revision variants of the same physical part --
 # only one revision ships in any given box, they are not both present.
+#
+# Build-tester note (chameleon build-test, Sep 2026): a draft pass briefly
+# recoloured both hub rows to White off a table photo taken for an
+# unrelated point (the eye-peg build). Checked against LEGO's own parts
+# catalogue (Brickset, element 6412840 / design 100885): Bright Yellow,
+# RGB #FAC80A, "no white variant" for this element. Left as Bright
+# Yellow below, matching the teardown source and the LDraw library's
+# "Yellow Bottom" part.
 
 ## Power Functions / Electronics (9 pcs, 8 unique -- the "brains" of the kit)
 1 | Bright Yellow | HUB, NO. 12 (SPIKE Prime Small Hub) | Power Functions | 100885 | 6412840
@@ -69,7 +77,10 @@
 6 | Bright Orange | FLAT TILE 1X2 | Plates | 3069 | 4188771
 6 | Bright Orange | FLAT TILE 2X2 ROUND W. HOLE D4.85 | Plates | 15535 | 6147052
 6 | Bright Red | T-BEAM W. PLATE 1X2 W. TUBE | Plates | 32530 | 4207715
-3 | Bright Red | FLAT TILE 2X4 | Plates | 87079 | 4560179
+# Counted in the physical box: TWO Bright Red 2x4 tiles, not three. The other
+# colours of 87079 on the lines above and below have not been recounted, so
+# treat their 3s as unverified too.
+2 | Bright Red | FLAT TILE 2X4 | Plates | 87079 | 4560179
 3 | Bright Reddish Violet | PLATE 4X4 ROUND W. SNAP | Plates | 60474 | 6096210
 6 | Bright Reddish Violet | SLIDE SHOE ROUND 2X2 | Plates | 2654 | 6143445
 3 | Bright Yellow | FLAT TILE 2X4 | Plates | 87079 | 4560181
@@ -102,7 +113,9 @@
 4 | Bright Red | CROSS AXLE, EXTENSION, 2M | Connectors | 59443 | 4513174
 3 | Bright Red | CROSS AXLE 6M | Connectors | 3706 | 6130002
 8 | Bright Red | BUSH FOR CROSS AXLE | Connectors | 42798 | 6271820
-4 | Bright Yellow | CROSS AXLE 3M | Connectors | 4519 | 6130007
+# Counted in the physical box: TWO, not four. The drone's rotor was designed
+# against the wrong number and used all four.
+2 | Bright Yellow | CROSS AXLE 3M | Connectors | 4519 | 6130007
 3 | Bright Yellow | CROSS AXLE 7M | Connectors | 44294 | 6130009
 12 | White | 4.85 BUSH, W/ 2 MODULE CROSS AXLE | Connectors | 65249 | 6289797
 4 | White | ANGLE ELEMENT, 0 DEGREES [1] | Connectors | 42127 | 6332573
@@ -132,8 +145,16 @@
 
 ## Animals & Nature (14 pcs)
 2 | Bright Green | FLOWER, STALK | Animals & Nature | 4727 | 4143562
+# Counted in the physical box: TWO grass stems, not four. This used to be two
+# lines of 2 -- design 31576 (element 6188693) and design 2659 (element
+# 6413056) -- which invented a phantom pair. They are one part under two IDs:
+# LDraw settles it, because 31576.dat is flagged "!LDRAW_ORG Part Alias" with
+# the title "=Plant Grass Stem", and a leading = means it redirects to another
+# part, here 15279.dat. Same shape, same bounding box to two decimals. A kit
+# list that carries both a design ID and its mould revision as separate rows
+# will double any part it does that to, so treat matching descriptions with
+# different IDs as suspect until someone counts the bag.
 2 | Bright Green | GRASS, W/ 3.2 TUBE | Animals & Nature | 31576 | 6188693
-2 | Bright Green | GRASS, W/ 3.2 TUBE | Animals & Nature | 2659 | 6413056
 2 | Bright Purple | FLOWER, W/ 3.2 SHAFT, 1.5 HOLE, NO. 1 | Animals & Nature | 32606 | 6206151
 2 | Dark Green | BUSH | Animals & Nature | 6064 | 6269009
 1 | Flame Yellowish Orange | CRAB | Animals & Nature | 31577 | 6253362

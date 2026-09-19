@@ -1,0 +1,22 @@
+0 Fixture: Expansion gear train on a 12M axle -- two gears and both bushes.
+0 Expected: clean.
+0
+0 Every one of these parts has a mesh-only or primitive axle bore whose
+0 native axis is the part's own Z. The matrix 0 0 1 / 0 1 0 / -1 0 0 maps
+0 that Z onto world X so it lies along the axle. If any of the annotated
+0 axle_hole axes in connections.yml is wrong, these stop joining.
+1 4 0 0 0 1 0 0 0 1 0 0 0 1 3708.dat
+0
+0 Double conical wheel Z12 -- mesh-only bore, annotated by hand.
+1 0 -40 0 0 0 0 1 0 1 0 -1 0 0 32270.dat
+0
+0 Bevel gear Z20 -- bore is an axlehol6 "tooth" primitive, which the
+0 checker only started seeing when that spelling entered PRIMITIVES.
+1 19 -80 0 0 0 0 1 0 1 0 -1 0 0 32198.dat
+0
+0 Full bush 3713 (kit design 42798) -- 20 LDU long.
+1 4 40 0 0 0 0 1 0 1 0 -1 0 0 3713.dat
+0
+0 Half bush 32123b (kit design 42136, Expansion only) -- 10 LDU long.
+1 14 80 0 0 0 0 1 0 1 0 -1 0 0 32123b.dat
+0 STEP

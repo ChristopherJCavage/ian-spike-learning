@@ -1,0 +1,18 @@
+0 Fixture: two 2x2 round tiles on the outer corners of a 2x8 plate.
+0 Expected: clean. Proves the 14769 underside annotation.
+0
+0 These are the seed drone's eyes. LDraw draws this tile's underside as a
+0 single round holder and emits only its bore, dead centre -- and nothing
+0 ever sits at the centre of a 2x2 footprint, so the tile read as a part
+0 that could not clutch to anything. The holder really grips the four
+0 studs around it, which is what the annotation says, and it is the same
+0 correction already made for 15535 next door in connections.yml.
+0
+0 Four studs, not one, is also why the eyes sit square on the face plate
+0 instead of being free to spin.
+0
+0 !LDRCHECK FRONT +Z
+1 10 0 0 0 1 0 0 0 1 0 0 0 1 3738.dat
+1 15 -60 -8 0 1 0 0 0 1 0 0 0 1 14769.dat
+1 15 60 -8 0 1 0 0 0 1 0 0 0 1 14769.dat
+0 STEP

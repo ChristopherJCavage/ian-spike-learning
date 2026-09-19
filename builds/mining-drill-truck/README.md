@@ -19,3 +19,17 @@ minifig driver, and a cute face (hood "eyes" + hub light-matrix expressions
 Needs the **Prime hub** — this build uses 4 ports (3 motors + 1 sensor) and
 Essential only has 2. See `brief.md` for the full spec, `steps.md` for the
 build, `code.md` for the program.
+
+Click through the pages before Figma:
+
+```
+python3 tools/pages.py preview builds/mining-drill-truck
+open builds/mining-drill-truck/preview.html
+```
+
+Word Blocks picture (shape-checked):
+
+```
+python3 tools/blocks.py preview builds/mining-drill-truck
+open builds/mining-drill-truck/program.html
+```

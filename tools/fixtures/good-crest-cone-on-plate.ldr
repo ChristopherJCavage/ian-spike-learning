@@ -1,0 +1,11 @@
+0 Fixture: 1x1 cones standing on a 2x8 plate.
+0 Expected: clean. Proves the 59900 underside anti_stud annotation.
+0
+0 A cone grips one stud and nothing else. That is a real LEGO connection,
+0 so it has to read as a joint rather than as a part resting on air.
+0
+0 !LDRCHECK FRONT +Z
+1 10 0 0 0 1 0 0 0 1 0 0 0 1 3738.dat
+1 26 -70 -24 10 1 0 0 0 1 0 0 0 1 59900.dat
+1 26 70 -24 -10 1 0 0 0 1 0 0 0 1 59900.dat
+    10|0 STEP

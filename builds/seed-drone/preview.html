@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>seed-drone instructions</title>
+<style>
+  html, body { margin: 0; background: #fff; color: #111;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+  /* `display` on .page beats the browser's own rule for the hidden
+     attribute, so the flipbook needs this or every page shows at once. */
+  .page[hidden] { display: none; }
+  .page { min-height: 100vh; display: flex; flex-direction: column;
+    padding: 24px 32px 16px; box-sizing: border-box; }
+  header { display: flex; align-items: center; gap: 16px; }
+  .badge { background: #e31c3d; color: #fff; font-size: 28px; font-weight: 700;
+    min-width: 56px; height: 56px; border-radius: 12px; display: flex;
+    align-items: center; justify-content: center; }
+  h1 { font-size: 28px; margin: 0; flex: 1; }
+  .bin { font-size: 16px; color: #444; }
+  .body { flex: 1; display: grid; grid-template-columns: 280px 1fr;
+    gap: 24px; align-items: center; min-height: 0; }
+  aside { background: #f4f4f4; border-radius: 12px; padding: 16px; }
+  aside h2 { margin: 0 0 8px; font-size: 14px; text-transform: uppercase;
+    letter-spacing: .06em; color: #666; }
+  aside ul { margin: 0; padding-left: 18px; }
+  .copy { margin-top: 16px; font-size: 18px; line-height: 1.35; }
+  .hero { width: 100%; height: auto; background: #fff; }
+  .placeholder { min-height: 360px; display: flex; align-items: center;
+    justify-content: center; background: #f4f4f4; border-radius: 12px;
+    font-size: 22px; padding: 24px; text-align: center; }
+  footer { display: flex; align-items: center; justify-content: space-between;
+    gap: 16px; margin-top: 12px; }
+  .check { flex: 1; font-size: 16px; color: #333; }
+  .slide { background: #06341f; color: #fff; cursor: pointer; }
+  .slide .scene { flex: 1; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 20px; min-height: 0; }
+  .slide .stage { position: relative; display: inline-block; min-height: 0; }
+  .slide .art { display: block; max-width: 100%; max-height: 68vh;
+    border-radius: 16px; }
+  .slide .plate { background: #fff; padding: 12px; box-sizing: border-box; }
+  /* The cartoon chameleon leans in on the build slide to look at its own
+     LEGO self. It must not cover the model, so it sits on the corner. */
+  .slide .peek { position: absolute; right: -6%; bottom: -8%; width: 30%;
+    max-width: 280px; }
+  .slide .tell { margin: 0; max-width: 22ch; text-align: center;
+    font-size: 40px; line-height: 1.2; font-weight: 700; }
+  .slide .check { color: #9fd9b6; font-size: 16px; }
+  .slide footer { justify-content: flex-start; }
+  @media print {
+    @page { size: landscape; margin: 10mm; }
+    html, body { background: #fff; }
+    /* On screen only one page is shown at a time; on paper print them all,
+       one per sheet, and drop the buttons. */
+    .page[hidden] { display: flex !important; }
+    .page { min-height: auto; height: 100vh; page-break-after: always;
+      break-after: page; }
+    .page:last-child { page-break-after: auto; break-after: auto; }
+    .nav { display: none !important; }
+    .slide { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .slide .art { max-height: 60vh; }
+  }
+  .nav button { font-size: 22px; padding: 12px 28px; border: 0; border-radius: 10px;
+    background: #111; color: #fff; cursor: pointer; }
+  .nav button:disabled { background: #bbb; cursor: default; }
+  @media (max-width: 900px) {
+    .body { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<section class="page" data-step="1" hidden>
+  <header>
+    <span class="badge">1</span>
+    <h1>hub</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>1x Bright Yellow Small Hub | kit 45345</li></ul>
+      <p class="copy">USB shape toward you; two round ports away.</p>
+    </aside>
+    <img class="hero" src="renders/step-001.png" alt="Step 1: hub">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> The Hub sits flat. You see the USB shape, not the round ports.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="2" hidden>
+  <header>
+    <span class="badge">2</span>
+    <h1>landing pins</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>4x Black connector peg with friction | kit 45345</li></ul>
+      <p class="copy">Four matching corner holes underneath -- skip the one-sided middle hole.</p>
+    </aside>
+    <img class="hero" src="renders/step-002.png" alt="Step 2: landing pins">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Four pegs point down from the Hub, two on each side, making a rectangle. The left and right pairs match.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="3" hidden>
+  <header>
+    <span class="badge">3</span>
+    <h1>landing plates</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>2x Bright Green 2x8 plate with holes | kit 45345</li></ul>
+      <p class="copy">Two long green rails run nose-to-back under the Hub.</p>
+    </aside>
+    <img class="hero" src="renders/step-003.png" alt="Step 3: landing plates">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Two green rails run beside the Hub from nose to back. They are level and do not touch the yellow shell.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="4" hidden>
+  <header>
+    <span class="badge">4</span>
+    <h1>skid shoes</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>2x Bright Reddish Violet round slide shoe 2x2 | kit 45345</li></ul>
+      <p class="copy">Press one round shoe under the middle of each rail.</p>
+    </aside>
+    <img class="hero" src="renders/step-004.png" alt="Step 4: skid shoes">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Turn the drone upright. It stands on two purple shoes; the Hub, green plates, and nose do not scrape the table.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="5" hidden>
+  <header>
+    <span class="badge">5</span>
+    <h1>tail pins</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>2x Black connector peg with friction | kit 45345</li></ul>
+      <p class="copy">Two rear pegs frame the round cable ports.</p>
+    </aside>
+    <img class="hero" src="renders/step-005.png" alt="Step 5: tail pins">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Two pegs point backward and frame the ports without covering either opening.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="6" hidden>
+  <header>
+    <span class="badge">6</span>
+    <h1>tail spine</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>1x Dark Azur 1x8 Technic brick | kit 45345</li></ul>
+      <p class="copy">One long blue brick across the back: the spine the bay hangs from.</p>
+    </aside>
+    <img class="hero" src="renders/step-006.png" alt="Step 6: tail spine">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> The brick spans the full back of the Hub and does not teeter. You can still reach both round ports underneath it.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="7" hidden>
+  <header>
+    <span class="badge">7</span>
+    <h1>spine pins</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>2x Black connector peg with friction | kit 45345</li></ul>
+      <p class="copy">Both end holes are full. Find the middle hole; fill the two beside it on one side.</p>
+    </aside>
+    <img class="hero" src="renders/step-007.png" alt="Step 7: spine pins">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Two new pegs point straight back from two holes that touch each other. On one side of the pair is a full end hole; on the other side is the empty middle hole.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="8" hidden>
+  <header>
+    <span class="badge">8</span>
+    <h1>tail bracket</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>1x Bright Green 3x5 right-angle beam | kit 45345</li></ul>
+      <p class="copy">Green L on edge: long arm flat, short arm climbing, holes facing you.</p>
+    </aside>
+    <img class="hero" src="renders/step-008.png" alt="Step 8: tail bracket">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> The long arm is horizontal and the short arm climbs. Its holes look straight back at you, not up at the ceiling.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="9" hidden>
+  <header>
+    <span class="badge">9</span>
+    <h1>bracket pins</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>2x Black connector peg with friction | kit 45345</li></ul>
+      <p class="copy">Top and bottom hole of the climbing arm; skip the middle.</p>
+    </aside>
+    <img class="hero" src="renders/step-009.png" alt="Step 9: bracket pins">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Two pegs stick straight back, one above the other, with one empty hole between them.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="10" hidden>
+  <header>
+    <span class="badge">10</span>
+    <h1>seed-bay motor</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>1x White Small Angular Motor | kit 45345</li></ul>
+      <p class="copy">Stand the motor up. Turquoise output points straight back.</p>
+    </aside>
+    <img class="hero" src="renders/step-010.png" alt="Step 10: seed-bay motor">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> The motor sits flush against the green bracket and does not swivel. The turquoise output is centred behind the drone.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="11" hidden>
+  <header>
+    <span class="badge">11</span>
+    <h1>tray axle</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>1x Bright Red 6M cross axle | kit 45345</li></ul>
+      <p class="copy">Push the long red axle straight back into the motor.</p>
+    </aside>
+    <img class="hero" src="renders/step-011.png" alt="Step 11: tray axle">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> The axle points straight back down the middle of the drone and turns only when the motor turns.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="12" hidden>
+  <header>
+    <span class="badge">12</span>
+    <h1>tray hinge</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>1x Bright Yellow 1x2 Technic brick with cross hole | kit 45345</li></ul>
+      <p class="copy">Slide the yellow brick onto the axle end, studs up. No turning needed.</p>
+    </aside>
+    <img class="hero" src="renders/step-012.png" alt="Step 12: tray hinge">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> The axle passes through the cross hole. Both yellow studs are level and face the ceiling.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="13" hidden>
+  <header>
+    <span class="badge">13</span>
+    <h1>first tray plate</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>1x Flame Yellowish Orange 2x4 plate with holes | kit 45345</li></ul>
+      <p class="copy">Turn the plate front-to-back and press it onto the hinge studs.</p>
+    </aside>
+    <img class="hero" src="renders/step-013.png" alt="Step 13: first tray plate">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> The plate lies flat and front-to-back, and the yellow hinge brick is hidden underneath the middle of it.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="14" hidden>
+  <header>
+    <span class="badge">14</span>
+    <h1>tray walls</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>2x Bright Reddish Violet 1x4 Technic brick | kit 45345</li></ul>
+      <p class="copy">A purple wall on each long edge. Two studs hang off -- that is for the next plate.</p>
+    </aside>
+    <img class="hero" src="renders/step-014.png" alt="Step 14: tray walls">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Two purple walls face each other. Two studs of each wall hang into empty space -- that is what the next plate clicks onto.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="15" hidden>
+  <header>
+    <span class="badge">15</span>
+    <h1>make it square</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>1x Flame Yellowish Orange 2x4 plate with holes | kit 45345</li></ul>
+      <p class="copy">Second plate clicks onto the hanging studs and makes a square.</p>
+    </aside>
+    <img class="hero" src="renders/step-015.png" alt="Step 15: make it square">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> The floor is a square, not a long strip. The hanging wall studs now sit on the new plate, so nothing flaps.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="16" hidden>
+  <header>
+    <span class="badge">16</span>
+    <h1>end stop</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>1x Bright Orange 1x2 Technic brick | kit 45345</li></ul>
+      <p class="copy">The orange brick fills the left end. Three sides now; right end open.</p>
+    </aside>
+    <img class="hero" src="renders/step-016.png" alt="Step 16: end stop">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> The tray now has three sides: two long purple walls and this short orange one. The right-hand end -- the one farthest from the drone&#x27;s middle -- is wide open.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="17" hidden>
+  <header>
+    <span class="badge">17</span>
+    <h1>seed</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>1x Bright Red D16.5 ball | kit 45345</li></ul>
+      <p class="copy">Press the seed down between the walls. It grips -- that is right.</p>
+    </aside>
+    <img class="hero" src="renders/step-017.png" alt="Step 17: seed">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> The ball sits proud of the walls and does not touch the floor. Shake the drone gently: the seed stays put. Now tip the tray over by hand and the seed rolls out the open end.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="18" hidden>
+  <header>
+    <span class="badge">18</span>
+    <h1>grip pins</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>4x Black connector peg with friction | kit 45345</li></ul>
+      <p class="copy">Middle row of each side wall: front and back holes, middle empty.</p>
+    </aside>
+    <img class="hero" src="renders/step-018.png" alt="Step 18: grip pins">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Four pegs stick straight out sideways, two on the left and two on the right, all at the same height.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="19" hidden>
+  <header>
+    <span class="badge">19</span>
+    <h1>hand grips</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>2x Bright Reddish Violet 1x4 Technic brick | kit 45345</li></ul>
+      <p class="copy">One short bar per side. Pinch both and the drone lifts level.</p>
+    </aside>
+    <img class="hero" src="renders/step-019.png" alt="Step 19: hand grips">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> One short purple bar sticks out from each side, level with the other. Now pick the drone up: cup a hand around each side of the yellow Hub and rest each thumb on top of a purple bar. The drone comes up flat and level, and both hands stay well below the top of the Hub.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="20" hidden>
+  <header>
+    <span class="badge">20</span>
+    <h1>nose pins</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>2x Black connector peg with friction | kit 45345</li></ul>
+      <p class="copy">Two pegs into the short wall with the USB shape.</p>
+    </aside>
+    <img class="hero" src="renders/step-020.png" alt="Step 20: nose pins">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Two pegs point straight forward at the same height.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="21" hidden>
+  <header>
+    <span class="badge">21</span>
+    <h1>nose bricks</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>2x Bright Orange 1x2 Technic brick | kit 45345</li></ul>
+      <p class="copy">One orange brick on each nose peg. They can still swivel -- that is fine.</p>
+    </aside>
+    <img class="hero" src="renders/step-021.png" alt="Step 21: nose bricks">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Two orange bricks, one on each peg, with a gap between them.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="22" hidden>
+  <header>
+    <span class="badge">22</span>
+    <h1>the face</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>1x Bright Green 2x8 plate with holes | kit 45345</li></ul>
+      <p class="copy">One green shelf across both bricks. This is the face.</p>
+    </aside>
+    <img class="hero" src="renders/step-022.png" alt="Step 22: the face">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Two separate orange bricks sitting under one flat green shelf. Neither brick can swivel now. This shelf is going to be the drone&#x27;s face -- the sensor and the eyes go on it.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="23" hidden>
+  <header>
+    <span class="badge">23</span>
+    <h1>sensor brackets</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>2x Bright Red T-beam with 1x2 plate | kit 45345</li></ul>
+      <p class="copy">Two red T-beams inside the centre; leave both outer corners bare.</p>
+    </aside>
+    <img class="hero" src="renders/step-023.png" alt="Step 23: sensor brackets">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> The two red holes look at you like a pair of eyebrows, and there is a clear 2x2 patch of green studs beyond each one.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="24" hidden>
+  <header>
+    <span class="badge">24</span>
+    <h1>sensor pins</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>2x Black connector peg with friction | kit 45345</li></ul>
+      <p class="copy">Push both pegs forward through the red holes.</p>
+    </aside>
+    <img class="hero" src="renders/step-024.png" alt="Step 24: sensor pins">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Two black pegs stand parallel, ready for the sensor.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="25" hidden>
+  <header>
+    <span class="badge">25</span>
+    <h1>colour sensor</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>1x White Colour Sensor | kit 45345</li></ul>
+      <p class="copy">Press on the white sensor with its dark lens pointing down.</p>
+    </aside>
+    <img class="hero" src="renders/step-025.png" alt="Step 25: colour sensor">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Peek under the nose: you can see the lens. It does not point forward, sideways, or up.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="26" hidden>
+  <header>
+    <span class="badge">26</span>
+    <h1>eye pins</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>2x Black connector peg with friction | kit 45345</li></ul>
+      <p class="copy">Two pegs into the FRONT face of the sensor. The back holes are already used.</p>
+    </aside>
+    <img class="hero" src="renders/step-026.png" alt="Step 26: eye pins">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Two short black pegs point out of the front of the sensor, level with each other, like two little stalks. They do not touch the red brackets behind them.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="27" hidden>
+  <header>
+    <span class="badge">27</span>
+    <h1>eyes</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>2x White 1x1 round tile with printed eye | kit 45345</li></ul>
+      <p class="copy">One little eye pressed onto each peg tip. Blank in the picture, an eye on the real tile.</p>
+    </aside>
+    <img class="hero" src="renders/step-027.png" alt="Step 27: eyes">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> The sensor now has two eyes and the drone is looking at you. Wiggle one gently: it grips the peg and stays on.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="28" hidden>
+  <header>
+    <span class="badge">28</span>
+    <h1>rotor-deck pins</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>2x Black connector peg with friction | kit 45345</li></ul>
+      <p class="copy">Stand two pegs in the top pair nearest the nose.</p>
+    </aside>
+    <img class="hero" src="renders/step-028.png" alt="Step 28: rotor-deck pins">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Both pegs point straight up from the yellow Hub.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="29" hidden>
+  <header>
+    <span class="badge">29</span>
+    <h1>rotor bearing</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>1x Bright Blue 7M beam | kit 45345</li></ul>
+      <p class="copy">Blue beam across the Hub; centre ROUND hole stays open.</p>
+    </aside>
+    <img class="hero" src="renders/step-029.png" alt="Step 29: rotor bearing">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> The beam lies left-to-right across the Hub. Its centre round hole is directly above the middle of the drone.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="30" hidden>
+  <header>
+    <span class="badge">30</span>
+    <h1>free-spin axle</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>1x Black 4M cross axle | kit 45345</li></ul>
+      <p class="copy">Stand the black axle through the centre round hole. Round means it spins.</p>
+    </aside>
+    <img class="hero" src="renders/step-030.png" alt="Step 30: free-spin axle">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> The axle can turn inside the round beam hole when you twist it.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="31" hidden>
+  <header>
+    <span class="badge">31</span>
+    <h1>lock the hub</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>1x Dark Green 2x4 brick with cross holes | kit 45345</li></ul>
+      <p class="copy">Lock the brick onto the axle. A cross hole grips.</p>
+    </aside>
+    <img class="hero" src="renders/step-031.png" alt="Step 31: lock the hub">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Turn the brick. The black axle turns with it, and the blue beam underneath stays still. That is the point of a cross hole: it grips the axle instead of letting it spin.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="32" hidden>
+  <header>
+    <span class="badge">32</span>
+    <h1>the rotor plate</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>1x Bright Green 2x8 plate with holes | kit 45345</li></ul>
+      <p class="copy">Press the green plate on top. Seven holes in a row.</p>
+    </aside>
+    <img class="hero" src="renders/step-032.png" alt="Step 32: the rotor plate">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Seven round holes in a row along the top, with the same number of holes past the brick on the left as on the right. The plate and brick turn together with the axle.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="33" hidden>
+  <header>
+    <span class="badge">33</span>
+    <h1>blade fasteners</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>2x Bright Yellow 3M cross axle | kit 45345</li><li>2x Black connector peg with friction | kit 45345</li></ul>
+      <p class="copy">Yellow beside the middle -- it locks. Black at the far ends -- it grips.</p>
+    </aside>
+    <img class="hero" src="renders/step-033.png" alt="Step 33: blade fasteners">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Four posts standing up: two yellow either side of the middle, one black at each end. Tug a yellow axle upward -- it should not come out. If it slides out easily, it is not in far enough, or it missed the hole in the dark-green brick underneath.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="34" hidden>
+  <header>
+    <span class="badge">34</span>
+    <h1>rotor blades</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>2x Bright Reddish Violet 11M beam | kit 45345</li></ul>
+      <p class="copy">One long blade onto each axle-and-peg pair; flick gently to spin the rotor.</p>
+    </aside>
+    <img class="hero" src="renders/step-034.png" alt="Step 34: rotor blades">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> The two blades form one long straight rotor, sitting level and floating just above the plate&#x27;s studs -- beams have no bumps underneath, so they are held by the pegs, not by the plate. Flick a blade gently: the whole rotor turns, but neither blade swivels alone, and neither blade lifts off. It passes over the loaded seed tray at the back.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="35" hidden>
+  <header>
+    <span class="badge">35</span>
+    <h1>plug in and survey</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>(none -- use the red drop zone on the rainforest island)</li></ul>
+      <p class="copy">Sensor A, motor B. One grip per hand, skim low over the red drop zone.</p>
+    </aside>
+    <div class="hero placeholder"><p>Plug the downward Colour Sensor into port A and the seed-bay motor into port B. Put the red ball in the level tray. Hold one purple side grip in each hand and skim the skids just above the red patch.</p></div>
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Both plugs and cables clear the tail spine. The lens stays close to the target, the rotor is clear of fingers, and the seed stays loaded.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="36" hidden>
+  <header>
+    <span class="badge">36</span>
+    <h1>code the drop</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>(none)</li></ul>
+      <p class="copy">See red, tip the tray, play the drop sound, then return it level.</p>
+    </aside>
+    <div class="hero placeholder"><p>In Icon Blocks, start a stack with the yellow &quot;when colour&quot; block set to RED on port A. Set motor B to half speed, turn it clockwise one quarter-turn to tip the tray, play one short effect sound until done, then turn motor B counterclockwise one quarter-turn.</p></div>
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Move the sensor over the red drop zone once. One seed rolls out the open end of the tray, then the empty tray returns level for reloading.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<script>
+const pages = [...document.querySelectorAll('.page')];
+let i = 0;
+function show(n) {
+  i = Math.max(0, Math.min(n, pages.length - 1));
+  pages.forEach((p, k) => p.hidden = k !== i);
+  // Story slides have no buttons -- they are printed, not clicked.
+  const back = pages[i].querySelector('.back');
+  const next = pages[i].querySelector('.next');
+  if (back) back.disabled = i === 0;
+  if (next) {
+    next.disabled = i === pages.length - 1;
+    next.textContent = i === pages.length - 1 ? 'Done' : 'Next';
+  }
+}
+document.body.addEventListener('click', e => {
+  if (e.target.classList.contains('next')) return show(i + 1);
+  if (e.target.classList.contains('back')) return show(i - 1);
+  // Buttonless pages still need a way forward on screen.
+  if (pages[i].classList.contains('slide')) show(i + 1);
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); show(i + 1); }
+  if (e.key === 'ArrowLeft') { e.preventDefault(); show(i - 1); }
+});
+show(0);
+</script>
+</body>
+</html>

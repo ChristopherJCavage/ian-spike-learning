@@ -1,0 +1,12 @@
+0 Fixture: ball plate 14417 seated in socket plate 14704.
+0 Expected: clean. Origins of joint8ball and joint8socket1 coincide.
+0
+0 14417 identity: ball at local (0, 4, -20).
+0 14704 rotated 180 about Y and shifted -40 in Z: socket at the same
+0 world point. A splayed pose would still join -- matching is by origin,
+0 not by coaxial axes.
+0
+0 !LDRCHECK FRONT +Z
+1 72 0 0 0 1 0 0 0 1 0 0 0 1 14417.dat
+1 71 0 0 -40 -1 0 0 0 1 0 0 0 -1 14704.dat
+0 STEP

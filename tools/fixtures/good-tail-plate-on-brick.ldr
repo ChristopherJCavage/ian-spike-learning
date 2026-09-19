@@ -1,0 +1,10 @@
+0 Fixture: 2x4 Technic plate clutched onto a 1x2 Technic brick.
+0 Expected: clean. Proves 3709 underside anti_stud annotations.
+0
+0 3700 identity: studs at (10, 0, 0) and (-10, 0, 0). 3709 at (0, -8, 10)
+0 puts two of its eight tubes over exactly those studs.
+0
+0 !LDRCHECK FRONT +Z
+1 25 0 0 0 1 0 0 0 1 0 0 0 1 3700.dat
+1 191 0 -8 10 1 0 0 0 1 0 0 0 1 3709.dat
+0 STEP

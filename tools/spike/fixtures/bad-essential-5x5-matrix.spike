@@ -1,0 +1,9 @@
+# The 5x5 face is on the Prime hub. The Essential hub has no built-in
+# matrix at all -- its 3x3 Colour Light Matrix is an accessory that plugs
+# into one of the two ports (flipperlight_lightColorMatrix*).
+# expect: HUB_BLOCK
+hub: essential
+extensions:
+
+flipperevents_whenProgramStarts
+  flipperlight_lightDisplayImageOn IMAGE=smile

@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="586" viewBox="0 0 420 586">
+<rect width="100%" height="100%" fill="#f5f5f5"/>
+<g transform="translate(16,16)">
+<path d="M 8 -18 C 40 -32, 90 -32, 130 -18 L 376.6 -18 Q 384.6 -18 384.6 -10 L 384.6 40 L 28 40 L 28 44 L 16 44 L 16 40 L 12 40 L 12 496.0 L 16 496.0 L 16 500.0 L 28 500.0 L 28 496.0 L 376.6 496.0 Q 384.6 496.0 384.6 504.0 L 384.6 504.0 Q 384.6 512.0 376.6 512.0 L 28 512.0 L 28 516.0 L 16 516.0 L 16 512.0 L 8 512.0 Q 0 512.0 0 504.0 L 0 8 Z" fill="#F5C402" stroke="#B09400" stroke-width="1" transform="translate(0,18)"/>
+<text x="14" y="42" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#fff">when program starts</text>
+<g transform="translate(16,54)">
+<path d="M 0 8 Q 0 0 8 0 L 16 0 L 16 4 L 28 4 L 28 0 L 116.2 0 Q 124.2 0 124.2 8 L 124.2 32 Q 124.2 40 116.2 40 L 28 40 L 28 44 L 16 44 L 16 40 L 8 40 Q 0 40 0 32 Z" fill="#9B6AF6" stroke="#571CC1" stroke-width="1" transform="translate(0,0)"/>
+<text x="10" y="24" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#fff">turn on smile</text>
+</g>
+<g transform="translate(16,94)">
+<path d="M 0 8 Q 0 0 8 0 L 16 0 L 16 4 L 28 4 L 28 0 L 340.6 0 Q 348.6 0 348.6 8 L 348.6 40 L 28 40 L 28 44 L 16 44 L 16 40 L 12 40 L 12 396.0 L 16 396.0 L 16 400.0 L 28 400.0 L 28 396.0 L 340.6 396.0 Q 348.6 396.0 348.6 404.0 L 348.6 404.0 Q 348.6 412.0 340.6 412.0 L 28 412.0 L 28 416.0 L 16 416.0 L 16 412.0 L 8 412.0 Q 0 412.0 0 404.0 L 0 8 Z" fill="#FFB515" stroke="#C98A01" stroke-width="1" transform="translate(0,0)"/>
+<text x="14" y="24" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#fff">forever</text>
+<g transform="translate(16,36)">
+<path d="M 0 8 Q 0 0 8 0 L 16 0 L 16 4 L 28 4 L 28 0 L 190.2 0 Q 198.2 0 198.2 8 L 198.2 32 Q 198.2 40 190.2 40 L 28 40 L 28 44 L 16 44 L 16 40 L 8 40 Q 0 40 0 32 Z" fill="#0090F5" stroke="#0062A6" stroke-width="1" transform="translate(0,0)"/>
+<text x="10" y="24" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#fff">A start motor clockwise</text>
+</g>
+<g transform="translate(16,76)">
+<path d="M 0 8 Q 0 0 8 0 L 16 0 L 16 4 L 28 4 L 28 0 L 190.2 0 Q 198.2 0 198.2 8 L 198.2 32 Q 198.2 40 190.2 40 L 28 40 L 28 44 L 16 44 L 16 40 L 8 40 Q 0 40 0 32 Z" fill="#0090F5" stroke="#0062A6" stroke-width="1" transform="translate(0,0)"/>
+<text x="10" y="24" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#fff">B start motor clockwise</text>
+</g>
+<g transform="translate(16,116)">
+<path d="M 0 8 Q 0 0 8 0 L 16 0 L 16 4 L 28 4 L 28 0 L 304.6 0 Q 312.6 0 312.6 8 L 312.6 40 L 28 40 L 28 44 L 16 44 L 16 40 L 12 40 L 12 128.0 L 16 128.0 L 16 132.0 L 28 132.0 L 28 128.0 L 304.6 128.0 Q 312.6 128.0 312.6 136.0 L 312.6 168.0 L 28 168.0 L 28 172.0 L 16 172.0 L 16 168.0 L 12 168.0 L 12 256.0 L 16 256.0 L 16 260.0 L 28 260.0 L 28 256.0 L 304.6 256.0 Q 312.6 256.0 312.6 264.0 L 312.6 264.0 Q 312.6 272.0 304.6 272.0 L 28 272.0 L 28 276.0 L 16 276.0 L 16 272.0 L 8 272.0 Q 0 272.0 0 264.0 L 0 8 Z" fill="#FFB515" stroke="#C98A01" stroke-width="1" transform="translate(0,0)"/>
+<text x="14" y="24" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#fff">if</text>
+<g transform="translate(36.8,4)">
+<path d="M 12 0 L 202.2 0 L 214.2 16.0 L 202.2 32 L 12 32 L 0 16.0 Z" fill="#34CCF1" stroke="#368FA9" stroke-width="1" transform="translate(0,0)"/>
+<text x="14" y="21.76" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#fff">D is closer than 10 cm?</text>
+</g>
+<text x="261.0" y="24" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#fff">then</text>
+<g transform="translate(16,36)">
+<path d="M 0 8 Q 0 0 8 0 L 16 0 L 16 4 L 28 4 L 28 0 L 190.2 0 Q 198.2 0 198.2 8 L 198.2 32 Q 198.2 40 190.2 40 L 28 40 L 28 44 L 16 44 L 16 40 L 8 40 Q 0 40 0 32 Z" fill="#0090F5" stroke="#0062A6" stroke-width="1" transform="translate(0,0)"/>
+<text x="10" y="24" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#fff">C start motor clockwise</text>
+</g>
+<g transform="translate(16,76)">
+<path d="M 0 8 Q 0 0 8 0 L 16 0 L 16 4 L 28 4 L 28 0 L 131.0 0 Q 139.0 0 139.0 8 L 139.0 32 Q 139.0 40 131.0 40 L 28 40 L 28 44 L 16 44 L 16 40 L 8 40 Q 0 40 0 32 Z" fill="#9B6AF6" stroke="#571CC1" stroke-width="1" transform="translate(0,0)"/>
+<text x="10" y="24" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#fff">turn on focused</text>
+</g>
+<text x="14" y="152.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#fff">else</text>
+<g transform="translate(16,164.0)">
+<path d="M 0 8 Q 0 0 8 0 L 16 0 L 16 4 L 28 4 L 28 0 L 108.8 0 Q 116.8 0 116.8 8 L 116.8 32 Q 116.8 40 108.8 40 L 28 40 L 28 44 L 16 44 L 16 40 L 8 40 Q 0 40 0 32 Z" fill="#0090F5" stroke="#0062A6" stroke-width="1" transform="translate(0,0)"/>
+<text x="10" y="24" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#fff">C stop motor</text>
+</g>
+<g transform="translate(16,204.0)">
+<path d="M 0 8 Q 0 0 8 0 L 16 0 L 16 4 L 28 4 L 28 0 L 116.2 0 Q 124.2 0 124.2 8 L 124.2 32 Q 124.2 40 116.2 40 L 28 40 L 28 44 L 16 44 L 16 40 L 8 40 Q 0 40 0 32 Z" fill="#9B6AF6" stroke="#571CC1" stroke-width="1" transform="translate(0,0)"/>
+<text x="10" y="24" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="bold" fill="#fff">turn on smile</text>
+</g>
+</g>
+</g>
+</g>
+</svg>

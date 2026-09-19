@@ -1,0 +1,11 @@
+0 Fixture: the Expansion's two frictionless pins through a pair of beams.
+0 Expected: clean.
+0
+0 3673 is the 2M smooth peg and 39888 the 3M. Both are annotated
+0 smooth_pin + rotates, because unlike a friction pin they are meant to
+0 turn in the bore -- anything hanging off one is a bearing, not a hinge.
+1 14 -10 0 0 0 1 0 -1 0 0 0 0 1 32523.dat
+1 14 10 0 0 0 1 0 -1 0 0 0 0 1 32523.dat
+1 71 0 0 0 1 0 0 0 1 0 0 0 1 3673.dat
+1 19 0 0 20 1 0 0 0 1 0 0 0 1 39888.dat
+0 STEP

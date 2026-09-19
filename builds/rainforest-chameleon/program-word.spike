@@ -1,0 +1,31 @@
+# Chameleon Colour-Match — Word Blocks (home / if-else version).
+# Saturday class uses Icon Blocks in program.spike.
+# Colour hexagon lives inside if/else, not as a line of its own.
+# 3x3 accessory on port B, not the Prime 5x5 face.
+# See context/spike-blocks.md.
+hub: essential
+extensions:
+
+flipperevents_whenProgramStarts
+  control_forever
+    control_if_else
+      @condition flippersensors_isColor PORT=A VALUE=red
+      @then
+        flipperlight_lightColorMatrixImageOn PORT=B MATRIX=red
+      @else
+        control_if_else
+          @condition flippersensors_isColor PORT=A VALUE=blue
+          @then
+            flipperlight_lightColorMatrixImageOn PORT=B MATRIX=blue
+          @else
+            control_if_else
+              @condition flippersensors_isColor PORT=A VALUE=yellow
+              @then
+                flipperlight_lightColorMatrixImageOn PORT=B MATRIX=yellow
+              @else
+                control_if_else
+                  @condition flippersensors_isColor PORT=A VALUE=green
+                  @then
+                    flipperlight_lightColorMatrixImageOn PORT=B MATRIX=green
+                  @else
+                    flipperlight_lightColorMatrixOff PORT=B

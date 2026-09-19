@@ -1,0 +1,20 @@
+0 Fixture: a brow built on the hub's front face that still leaves both
+0 cable ports reachable.
+0 Expected: clean.
+0
+0 The sockets sit at (+-40, -68, 49) and a seated plug stands 20 LDU proud
+0 of them, 34 wide and 18 tall. The cones here are at x = +-10, so their
+0 bodies span x = -20..20 and stop well short of the plug box's inner edge
+0 at x = 23. The brow bricks are wide enough to be beside the ports but
+0 they sit at y = -44..-16, below the ports' y = -77..-59 band.
+0
+0 !LDRCHECK FRONT +Z
+1 14 0 0 0 1 0 0 0 1 0 0 0 1 67351.dat
+1 0 -60 -30 50 0 0 1 0 1 0 -1 0 0 61332.dat
+1 0 60 -30 50 0 0 1 0 1 0 -1 0 0 61332.dat
+1 25 -60 -40 60 1 0 0 0 1 0 0 0 1 3700.dat
+1 25 60 -40 60 1 0 0 0 1 0 0 0 1 3700.dat
+1 10 0 -48 70 1 0 0 0 1 0 0 0 1 3738.dat
+1 26 -10 -72 60 1 0 0 0 1 0 0 0 1 59900.dat
+1 26 10 -72 60 1 0 0 0 1 0 0 0 1 59900.dat
+0 STEP

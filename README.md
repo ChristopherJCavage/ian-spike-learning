@@ -15,17 +15,19 @@ Not a parts database. Not official LEGO curriculum.
 |---|---|---|---|
 | [45345](kits/45345-essential/) | SPIKE Essential | 449 | Saturday ASU class (Ian is 6) |
 | [45678](kits/45678-prime/) | SPIKE Prime | 528 | Grow-into set -- more motors, sensors, ports |
+| [45681](kits/45681-expansion/) | SPIKE Prime Expansion | 604 | Add-on: no hub, no battery. Turntables, gears, big wheels |
 
 Same **SPIKE App**; motors/sensors mix; batteries/hubs do not. Details:
 [`kits/how-the-kits-mix.md`](kits/how-the-kits-mix.md).
 
 We are **not** using Prime's official middle-school lessons -- hardware only.
-We do **not** own Expansion `45681`.
 
 - `kits/45345-essential/parts.txt`
 - `kits/45678-prime/parts.txt`
+- `kits/45681-expansion/parts.txt`
 - `kits/combined-electronics.txt`
 - `kits/how-the-kits-mix.md`
+- `kits/storage.md` -- what to put the pieces in, sized from the inventories
 
 Piece counts in `parts.txt` come from LEGO's replacement-parts registry via
 [Brickset](https://brickset.com/) (2024-10-27) and can differ from the box
@@ -46,6 +48,17 @@ exists. Pretty instruction pages: LDraw/LeoCAD PNGs + Figma chrome --
 - [`context/connection-language.md`](context/connection-language.md) -- how we write steps
 - [`context/ldraw.md`](context/ldraw.md) -- LDraw text + LeoCAD CLI (no MCP)
 - [`context/instruction-screens.md`](context/instruction-screens.md) -- Figma BI chrome
+- [`context/spike-blocks.md`](context/spike-blocks.md) -- Word/Icon/Python blocks; shape is the contract
+
+## Setup
+
+The checkers in [`tools/`](tools/) are stdlib-only and need nothing. Only
+rendering instruction pages needs more: LeoCAD at
+`/Applications/LeoCAD.app`, and
+
+```bash
+python3 -m pip install -r requirements.txt
+```
 
 ## Grep
 

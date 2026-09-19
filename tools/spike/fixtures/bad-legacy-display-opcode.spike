@@ -1,0 +1,12 @@
+# flipperdisplay_ledImage is the OLD opcode for the hub face. The shipped
+# app keeps the name only to migrate projects saved by an older release;
+# there is no such block in the palette. Today it is
+# flipperlight_lightDisplayImageOn. Anything written against a tutorial or
+# an older repo note must fail here rather than render a block that the
+# app will not show.
+# expect: UNKNOWN
+hub: prime
+extensions:
+
+flipperevents_whenProgramStarts
+  flipperdisplay_ledImage MATRIX=smile

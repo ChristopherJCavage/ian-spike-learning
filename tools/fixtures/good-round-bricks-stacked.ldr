@@ -1,0 +1,28 @@
+0 Fixture: two 2x2 round bricks stacked on a baseplate, as a tree trunk.
+0 Expected: clean. Proves the round-brick top studs are seen.
+0
+0 A 2x2 round part does not use stud.dat. It uses stud15.dat, one of the
+0 laterally-truncated studs drawn to fit inside a 40-diameter cylinder,
+0 and none of that family was in ldrcheck's PRIMITIVES table. So a 2x2
+0 round brick emitted its four underside anti-studs (annotated by hand in
+0 connections.yml) but no top studs at all. The lower brick therefore
+0 looked fine -- it grips the plate -- while the upper one reported
+0 NO JOINT and the pair reported CONTACT WITHOUT JOINT, on a stack that
+0 is obviously legal. Same class of miss as the axl3ho* family.
+0
+0 JOINS names the two bricks directly, so this fixture fails rather than
+0 passes if that table entry is ever removed again.
+0
+0 Heights: the baseplate's top face is y=0, and a brick is 24 LDU with its
+0 origin at its own top face, so the first brick sits at y=-24 and the
+0 second at y=-48. Using the plate rule (-8) here instead put the brick
+0 16 LDU into the baseplate.
+0
+0 !LDRCHECK GROUND 8
+0 !LDRCHECK FRONT +Z
+0 !LDRCHECK JOINS 6143.dat 6143.dat
+1 15 0 0 0 1 0 0 0 1 0 0 0 1 91405.dat
+0 STEP
+1 288 0 -24 0 1 0 0 0 1 0 0 0 1 6143.dat
+1 288 0 -48 0 1 0 0 0 1 0 0 0 1 6143.dat
+0 STEP

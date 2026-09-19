@@ -1,0 +1,22 @@
+0 Fixture: the same belt drive with the pulleys at the span the belt
+0 equation asks for, ignoring the size of the pulleys themselves.
+0 Expected: problems -- INTERPENETRATION, pulley inside pulley.
+0
+0 This is the negative control for good-belt-on-pulleys.ldr, and it is a
+0 real mistake, not an invented one. A D33 belt round two D24 pulleys
+0 solves to a centre distance near 40 LDU. The seed rover's first draft
+0 wrote that number straight into the design. A D24 pulley is 60 LDU
+0 across, so at 40 apart the two overlap -- 304 LDU^3 here, and 1440 at
+0 the 41 LDU the rover first used. The exact figure moves with how the
+0 span lands on the voxel grid; that it is non-zero is the point.
+    10|0
+0 It exists so the four-stud span in the good fixture cannot quietly
+0 revert to a number that only satisfies the belt.
+0
+1 321 0 0 0 1 0 0 0 1 0 0 0 1 3702.dat
+1 4 -20 10 0 0 0 -1 0 1 0 1 0 0 3706.dat
+1 4 20 10 0 0 0 -1 0 1 0 1 0 0 3706.dat
+1 15 -20 10 40 1 0 0 0 1 0 0 0 1 4185b.dat
+1 15 20 10 40 1 0 0 0 1 0 0 0 1 4185b.dat
+1 14 0 10 40 1 0 0 0 1 0 0 0 1 85546.dat
+    20|0 STEP

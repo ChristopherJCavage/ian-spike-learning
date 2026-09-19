@@ -1,0 +1,193 @@
+0 Rainforest Drop Zone
+0 Name: model.ldr
+0 Author: ian-spike-learning
+0 !LDRAW_ORG Model
+0 BFC CERTIFY CCW
+
+0 // Ground target for the Seed Drone, built to fit a 60-minute class.
+0 //
+0 // One white 8x16 plate stood on end: 8 studs wide, 16 deep. The two 1x16
+0 // green bricks run down the long edges as walls, which leaves a corridor
+0 // 6 studs wide straight up the middle. The red drop zone fills that
+0 // corridor wall to wall, so the drone flies away from the builder down the
+0 // corridor and cannot miss the target left or right.
+0 //
+0 // That corridor is the whole idea, and it came out of the time limit
+0 // rather than in spite of it. On the 16x16 island the red was a patch in
+0 // open ground and aiming was the hard part; here the scenery does the
+0 // aiming. 20 parts, 9 steps.
+0 //
+0 // +Y is down. The plate rests on the table, so its underside is the ground
+0 // plane at y=8 and every top surface is a multiple of 8 above it:
+0 //   plate or tile on a surface whose top face is y=T -> origin y = T-8
+0 //   brick on that same surface                       -> origin y = T-24
+0 //
+0 // The plate carries the quarter turn 0 0 1 / 0 1 0 / -1 0 0 because
+0 // 92438.dat is drawn 16 studs along x and 8 along z, and this model wants
+0 // it the other way round. A quarter turn does not change stud parity --
+0 // every stud is still at 20k+10 in both axes.
+0 //
+0 // STUD PARITY, and a trap the checker cannot catch.
+0 // Studs sit at +-10, +-30 ... so:
+0 //   a part with anti-studs at +-10 (2x2, 2x4, 1x16) needs an origin on a
+0 //     multiple of 20 in that axis;
+0 //   a part with ONE anti-stud at its origin (grass, frog, minifig legs)
+0 //     needs an origin at 20k+10 in BOTH axes.
+0 // The second group is annotated role: decorative in connections.yml with
+0 // no features at all, which means ldrcheck never asks whether they landed
+0 // on a stud -- an earlier version of this model had grass and the ranger
+0 // sitting between stud rows and reported 0 problems. Every position below
+0 // is on a real stud; that is a hand check, not a machine one.
+0 //
+0 // Nothing here is shared with builds/seed-drone, so the two models can
+0 // sit on the table at the same time out of one 45345 box.
+
+0 !LDRCHECK GROUND 8
+0 !LDRCHECK FRONT +Z
+0 !LDRCHECK JOINS 87079.dat 92438.dat
+0 !LDRCHECK FACES 73200b.dat +Z
+0 !LDRCHECK GRIP 30089.dat 76382.dat
+
+0 // Step 1 -- the island: one 8x16 plate, turned so it is narrow and deep.
+0 // The 16x16 plate this build used to sit on is a bigger canvas than a
+0 // 60-minute class can fill, and both of them stay in the box now.
+1 15 0 0 0 0 0 1 0 1 0 -1 0 0 92438.dat
+0 STEP
+
+0 // Step 2 -- THE DROP ZONE. TWO red 2x4 tiles, side by side, making one
+0 // 4x4 patch: 32 mm x 32 mm of solid red.
+0 //
+0 // Two, not three. The box holds two Bright Red 2x4 tiles; the kit's parts
+0 // list said three, the same over-count that claimed four grass stems and
+0 // four yellow 3M axles. See README, "the kit list can invent parts."
+0 //
+0 // Losing a tile cost the corridor a stud of width, not the property that
+0 // makes it work. Three tiles filled a 6-stud lane wall to wall; two fill a
+0 // 4-stud lane wall to wall, so the walls moved in from x=+-70 to x=+-50 and
+0 // the red still touches both. That is the whole point of the layout: the
+0 // drone flies straight down the corridor, and with red spanning wall to
+0 // wall there is no left-right aim to get wrong -- only height and speed.
+0 // A centred 4x4 patch with a stud of white either side would have been the
+0 // lazy fix, and it would have handed the class back an aiming error.
+0 //
+0 // These sit unrotated, long axis along x, one at z=-20 and one at z=+20 --
+0 // the three-tile version was quarter-turned to reach across a wider lane.
+0 // A 2x4 tile has anti-studs at x=+-10,+-30 and z=+-10, so the origin must
+0 // be 20k in both axes: x=0, z=+-20.
+0 //
+0 // Tiles, not plates: a tile is smooth, so nothing casts a stud shadow that
+0 // could break up the colour the sensor reads.
+0 //
+0 // Why red at all. SPIKE Essential contains no flat black part -- not a
+0 // tile, not a plate, in any size. Every black piece in the box is an axle,
+0 // a peg, a damper, a camera or a wig. So the target used to be a square of
+0 // matte black card, which worked but was not LEGO and had to be cut. Red
+0 // is better twice over: the sensor gets a bright hue with no reflection
+0 // problem, where glossy black ABS bounces the sensor's own lamp back and
+0 // can read as none rather than black; and orange-red is what bare tropical
+0 // soil actually looks like, because cleared rainforest exposes laterite
+0 // clay in very nearly this colour.
+1 4 0 -8 -20 1 0 0 0 1 0 0 0 1 87079.dat
+1 4 0 -8 20 1 0 0 0 1 0 0 0 1 87079.dat
+0 STEP
+
+0 // Step 3 -- both 1x16 green bricks, one down each side of the red, one
+0 // stud in from the plate's edge. They are the forest closing in on the
+0 // corridor and the rails that keep a rolling seed on the island.
+0 //
+0 // At x=+-50, not the outermost column at +-70, so the clear lane between
+0 // them is x -40..40 -- exactly the two red tiles. The spare column outside
+0 // each wall becomes a verge, and the grass moved out onto it in step 9.
+0 //
+0 // Quarter-turned to run along z. Their anti-studs then sit at z=20k+10
+0 // with x at the origin, so the origin must be 20k+10 in x: -50 and +50
+0 // both qualify, as -70 and +70 did.
+1 10 -50 -24 0 0 0 1 0 1 0 -1 0 0 3703.dat
+1 10 50 -24 0 0 0 1 0 1 0 -1 0 0 3703.dat
+0 STEP
+
+0 // Step 4 -- both trees, one at each end of the corridor, on the
+0 // centreline. Trunk and canopy together: one round brick, one bush.
+0 //
+0 // ONE brick per trunk, not two. Shorter is better on every count here --
+0 // two fewer pieces to fit in the hour, a lower centre of gravity so a
+0 // knocked table does not fell the tree, and 58 LDU of rotor clearance
+0 // instead of the 34 a two-brick trunk left. The bush grips all four studs
+0 // of the brick either way, so nothing is given up for it.
+0 //
+0 // The canopy is 77 wide on a 40-wide trunk and overhangs the ends of the
+0 // plate. That is fine: it lives at y -140..-24, well clear of everything
+0 // at ground level, so only the 40x40 trunk footprint constrains anything.
+1 288 0 -24 -140 1 0 0 0 1 0 0 0 1 6143.dat
+1 288 0 -24 -140 1 0 0 0 1 0 0 0 1 6064.dat
+1 288 0 -24 140 1 0 0 0 1 0 0 0 1 6143.dat
+1 288 0 -24 140 1 0 0 0 1 0 0 0 1 6064.dat
+0 STEP
+
+0 // Step 5 -- the ranger, standing in the corridor between the drop zone and
+0 // the far tree, where she can watch the drop. Legs first, then the torso
+0 // 32 LDU above them. The matrix -1 0 0 0 1 0 0 0 -1 turns her to face +Z,
+0 // the front of this model, which is what FACES 73200b.dat +Z asserts.
+0 //
+0 // z=70 puts her feet on a stud row. Her legs have two anti-studs at x=+-10
+0 // with z at the origin, so x must be a multiple of 20 and z must be
+0 // 20k+10 -- and because 73200b is decorative, nothing would have told me
+0 // if I had put her at z=60 instead.
+0 //
+0 // 73200b, not plain 73200: the short name is the obsolete physical-colour
+0 // shortcut and bakes Yellow into the part, so orange legs would quietly
+0 // render yellow in every picture.
+1 25 0 -40 70 -1 0 0 0 1 0 0 0 -1 73200b.dat
+1 10 0 -72 70 -1 0 0 0 1 0 0 0 -1 76382.dat
+0 STEP
+
+0 // Step 6 -- head 24 LDU above the torso, which drops the torso's neck peg
+0 // into the head's socket, then the wig at the same height as the head
+0 // origin, because LDraw puts a head's origin at its own top face.
+1 14 0 -96 70 -1 0 0 0 1 0 0 0 -1 3626c.dat
+1 84 0 -96 70 -1 0 0 0 1 0 0 0 -1 18228.dat
+0 STEP
+
+0 // Step 7 -- the controller. This is the kit's black camera, the closest
+0 // thing in the box to a handheld transmitter: a small dark slab held up in
+0 // front of the pilot. 76382.dat puts its two hands at local
+0 // (+/-23.69, 26.774, -9.898); the half-turn negates x and z, so from a
+0 // torso at (0, -72, 70) the hands land at world x -23.69 and 23.69,
+0 // y -45.226, z 79.898. Either would do.
+0 //
+0 // A hand is a C-clip that closes around what it holds, so even the correct
+0 // position shares about 800 LDU^3 with the torso -- that is the grip, and
+0 // the GRIP line at the top of this file is what says so.
+1 0 23.69 -45.226 79.898 -1 0 0 0 1 0 0 0 -1 30089.dat
+0 STEP
+
+0 // Step 8 -- the frog, behind the drop zone and off to one side. LDraw puts
+0 // this animal's origin at its own base, so y=0 stands it on the plate.
+0 // One frog, not two: the second is a piece to find and place, and the
+0 // island only needs one to have an animal in it.
+1 288 30 0 -70 1 0 0 0 1 0 0 0 1 33320.dat
+0 STEP
+
+0 // Step 9 -- two grass stems, one behind the drop zone and one in front,
+0 // both clear of the corridor's middle so neither leans over the red.
+0 //
+0 // TWO, not four. The kit's parts list used to carry this stem on two rows
+0 // of 2 -- design 31576 and design 2659 -- and the two rows were the same
+0 // physical piece under a design ID and its mould revision, so the list
+0 // invented a pair that is not in the box. LDraw settles it: 31576.dat is
+0 // flagged Part Alias with the title "=Plant Grass Stem", and a leading =
+0 // means it redirects, here to 15279.dat. Counted in the box: two.
+0 //
+0 // 15279.dat is the real part and 31576.dat is the redirect, so the model
+0 // names 15279 -- the same rule that put 3713 rather than 4265c in the
+0 // mining truck. kits/45345-essential/parts.txt now carries one row of 2,
+0 // and tools/ldraw_aliases.json maps design 31576 onto this name.
+0 //
+0 // Both stems moved out to the verge at x=+-70 when the walls came in to
+0 // +-50; at +-50 they would now be standing where a wall is.
+0 //
+0 // A stem is a hollow tube that drops over one stud, so both origins are at
+0 // 20k+10 in both x and z. Decorative, so this is unchecked.
+1 10 -70 0 -70 1 0 0 0 1 0 0 0 1 15279.dat
+1 10 70 0 70 1 0 0 0 1 0 0 0 1 15279.dat
+0 STEP

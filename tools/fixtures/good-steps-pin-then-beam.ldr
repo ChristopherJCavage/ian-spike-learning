@@ -1,0 +1,10 @@
+0 Fixture: a pin sits in one beam on page 1 and the second beam arrives
+0 on page 2. The loose connector is a legal transient; the next page
+0 picks it up. Expected: `ldrcheck steps` clean.
+0
+1 14 -10 0 0 0 1 0 -1 0 0 0 0 1 32523.dat
+1 0 0 0 0 1 0 0 0 1 0 0 0 1 61332.dat
+1 0 0 0 20 1 0 0 0 1 0 0 0 1 61332.dat
+0 STEP
+1 14 10 0 0 0 1 0 -1 0 0 0 0 1 32523.dat
+0 STEP

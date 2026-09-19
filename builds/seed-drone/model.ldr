@@ -1,0 +1,349 @@
+0 Seed Drone -- Handheld Reforestation Survey Drone
+0 Name: model.ldr
+0 Author: ian-spike-learning
+0 !LICENSE Licensed as content of this repo; parts from LDraw library
+0 !LDRCHECK GROUND 32
+0 !LDRCHECK FRONT +Z
+0 !LDRCHECK FACES 37308.dat +Y
+0 !LDRCHECK CLEARANCE 37308.dat 40
+0 !LDRCHECK JOINS 37308.dat 67351.dat
+0 !LDRCHECK JOINS 68488.dat 32526.dat
+0 !LDRCHECK JOINS 98138.dat 61332.dat
+0 !LDRCHECK PIVOT 3706.dat +Z
+0 !LDRCHECK PIVOT 3705.dat +Y
+
+0 // Step 1 -- Small Hub, Bright Yellow. A 180-degree turn about Y puts
+0 // both cable ports on the rear wall (world -Z), where the tail spine
+0 // shields them. The short wall with the little USB shape is the nose.
+1 14 0 0 0 -1 0 0 0 1 0 0 0 -1 67351.dat
+0 STEP
+
+0 // Step 2 -- four downward pins in the Hub's underside holes. Two per
+0 // side, at z=-40 and z=+40. Those are the matching pair on both sides;
+0 // only the left side has a centre hole, so z=0 is not symmetric.
+1 0 -60 0 -40 0 -1 0 1 0 0 0 0 1 61332.dat
+1 0 -60 0 40 0 -1 0 1 0 0 0 0 1 61332.dat
+1 0 60 0 -40 0 -1 0 1 0 0 0 0 1 61332.dat
+1 0 60 0 40 0 -1 0 1 0 0 0 0 1 61332.dat
+0 STEP
+
+0 // Step 3 -- two 2x8 plates with holes, turned fore-and-aft. Their
+0 // z=-40/+40 holes pick up the matching Hub pins. A 12-LDU gap keeps
+0 // the Hub and plate from claiming the same slice of each 2M pin.
+1 10 -60 16 0 0 0 1 0 1 0 -1 0 0 3738.dat
+1 10 60 16 0 0 0 1 0 1 0 -1 0 0 3738.dat
+0 STEP
+
+0 // Step 4 -- two round slide shoes press upward into the plates. Their
+0 // lower faces define the y=32 ground plane and keep the sensor lens,
+0 // the flank grips and the whole tail bay off the table.
+1 26 -60 24 0 1 0 0 0 1 0 0 0 1 2654.dat
+1 26 60 24 0 1 0 0 0 1 0 0 0 1 2654.dat
+0 STEP
+
+0 // Step 5 -- two pins in the rear wall (world -Z), one to either side
+0 // of the cable ports. Both plugs stay reachable between them.
+1 0 -60 -30 -50 0 0 1 0 1 0 -1 0 0 61332.dat
+1 0 60 -30 -50 0 0 1 0 1 0 -1 0 0 61332.dat
+0 STEP
+
+0 // Step 6 -- Dark Azur 1x8 Technic brick across both rear pins. This is
+0 // the tail spine: it protects the port wall and carries the whole seed
+0 // bay on the drone's centreline.
+1 321 0 -40 -60 1 0 0 0 1 0 0 0 1 3702.dat
+0 STEP
+
+0 // Step 7 -- two pins in the spine, pointing aft, at x=20 and x=40.
+0 // Two constraints pick that pair. The spine's x=+-60 holes are already
+0 // full of the step-5 pins, which run right through the brick into the
+0 // Hub. And the bracket's corner hole belongs to both of its arms at
+0 // once, so it has to stay free for the motor in step 9 -- putting a pin
+0 // in it from each side is two pins in one hole.
+1 0 40 -30 -70 0 0 1 0 1 0 -1 0 0 61332.dat
+1 0 20 -30 -70 0 0 1 0 1 0 -1 0 0 61332.dat
+0 STEP
+
+0 // Step 8 -- Bright Green 3x5 right-angle beam, stood on edge so its
+0 // holes face aft and its long arm climbs. This is the only part in the
+0 // kit that turns the spine's single row of holes into a vertical
+0 // column, which is what lets the motor sit on the centreline instead
+0 // of hanging off a flank.
+1 10 80 -30 -80 0 0 -1 -1 0 0 0 1 0 32526.dat
+0 STEP
+
+0 // Step 9 -- two pins in the bracket's climbing arm, at y=-30 and -70,
+0 // skipping y=-50. Every other hole, because the motor's back face wants
+0 // its two mounting holes exactly 40 LDU apart. The lower of these two
+0 // is the arm's corner hole, which is why step 7 had to leave it alone.
+1 0 0 -30 -90 0 0 1 0 1 0 -1 0 0 61332.dat
+1 0 0 -70 -90 0 0 1 0 1 0 -1 0 0 61332.dat
+0 STEP
+
+0 // Step 10 -- Small Angular Motor, stood upright on the tail bracket.
+0 // Its output bore now points straight aft along world -Z, so the seed
+0 // tray hangs behind the drone rather than out to one side.
+1 15 0 -50 -120 0 0 -1 -1 0 0 0 1 0 68488.dat
+0 STEP
+
+0 // Step 11 -- red 6M axle aft from the motor. The extra module carries
+0 // the tray clear of the motor body while keeping full engagement.
+1 4 0 -50 -210 0 0 -1 0 1 0 1 0 0 3706.dat
+0 STEP
+
+0 // Step 12 -- yellow 1x2 brick with cross hole. Its cross bore already
+0 // runs along Z, so it needs no turning: it locks to the axle with its
+0 // two studs facing up.
+1 14 0 -60 -230 1 0 0 0 1 0 0 0 1 31493.dat
+0 STEP
+
+0 // Step 13 -- the inboard half of the tray floor. Quarter-turned, so it
+0 // lies 2 studs across (x -20..20) and 4 deep (z -260..-180), and it is
+0 // centred on the hinge: the yellow brick's two studs at x=+-10, z=-230
+0 // are this plate's own two anti-stud columns.
+1 191 0 -68 -220 0 0 -1 0 1 0 1 0 0 3709.dat
+0 STEP
+
+0 // Step 14 -- two purple 1x4 side walls on the FIRST plate only. Each
+0 // wall is 4 studs long and the plate is 2 studs wide, so two studs
+0 // clutch the plate and two hang off into +x. Those hanging studs are
+0 // what the second plate clicks onto; put the plate down first and it
+0 // has nothing to attach to and falls off. ldrcheck steps treats that
+0 // as CONTACT WITHOUT JOINT, a hard fail, not a one-page transient.
+0 //
+0 // Inner faces at z=-240 and z=-200: a channel 40 LDU wide. The seed
+0 // is 41.6 LDU across, so it does NOT reach the floor -- it wedges
+0 // between the two wall tops. The old 6x4 tray gave the ball a 60-LDU
+0 // well with 18.4 LDU of slack; a loose ball in a handheld model
+0 // rattles out early.
+1 26 20 -92 -250 1 0 0 0 1 0 0 0 1 3701.dat
+1 26 20 -92 -190 1 0 0 0 1 0 0 0 1 3701.dat
+0 STEP
+
+0 // Step 15 -- the outboard half of the floor, pressed onto the hanging
+0 // wall studs. Two 2x4 plates side by side make one 4x4 SQUARE,
+0 // x -20..60 by z -260..-180. The plates still do not clutch each
+0 // other; the walls are what join them. Same rigidity as the old four-
+0 // plate floor (three in a row plus a bridge underneath), two fewer
+0 // parts, 3709 usage 2 of 5 instead of 4 of 5.
+1 191 40 -68 -220 0 0 -1 0 1 0 1 0 0 3709.dat
+0 STEP
+
+0 // Step 16 -- the orange 1x2 end stop, closing the inboard end of that
+0 // channel. A 1x2 is exactly 2 studs long and the channel is exactly 2
+0 // studs wide, so it fits the gap with nothing over and nothing short.
+0 // Quarter-turned to run along z at x -20..0.
+0 //
+0 // Three sides now: two purple walls and this. The outboard end at x=+60
+0 // stays open, and that is where the seed leaves.
+1 25 -10 -92 -220 0 0 -1 0 1 0 1 0 0 3700.dat
+0 STEP
+
+0 // Step 17 -- loose Bright Red D16.5 seed ball, wedged in the channel
+0 // near the closed end.
+0 //
+0 // y=-98 is not a free choice. The ball's radius is 20.79 and the channel
+0 // half-width is 20, so it rides on the two wall top edges at y=-92 with
+0 // its centre sqrt(20.79^2 - 20^2) = 5.7 LDU above them. At -98 the
+0 // centre-to-edge distance is 20.88, just clear of the radius, so no
+0 // interpenetration is reported. Its underside sits at y=-78.5, a full
+0 // 10.5 LDU above the floor it never touches.
+0 //
+0 // Whether a wedged ball still rolls out under a 90-degree tip is exactly
+0 // the sort of thing CAD cannot answer. preflight.md tests it by hand.
+1 4 24 -98 -220 1 0 0 0 1 0 0 0 1 54821.dat
+0 STEP
+
+0 // Step 18 -- four pins in the Hub's flanks, two per side, in the
+0 // z=-20 and z=+20 holes of the y=-30 row.
+1 0 -70 -30 -20 1 0 0 0 1 0 0 0 1 61332.dat
+1 0 -70 -30 20 1 0 0 0 1 0 0 0 1 61332.dat
+1 0 70 -30 -20 1 0 0 0 1 0 0 0 1 61332.dat
+1 0 70 -30 20 1 0 0 0 1 0 0 0 1 61332.dat
+0 STEP
+
+0 // Step 19 -- two purple 1x4 Technic bricks turned fore-and-aft: one
+0 // finger grip per side. Four studs is a six-year-old's grip, and
+0 // holding both hands level is what keeps the rotor away from fingers.
+1 26 -80 -40 0 0 0 1 0 1 0 -1 0 0 3701.dat
+1 26 80 -40 0 0 0 1 0 1 0 -1 0 0 3701.dat
+0 STEP
+
+0 // Step 20 -- two pins in the short front wall (world +Z). This is the
+0 // wall with the small USB shape, not the rear wall with both ports.
+1 0 -60 -30 50 0 0 1 0 1 0 -1 0 0 61332.dat
+1 0 60 -30 50 0 0 1 0 1 0 -1 0 0 61332.dat
+0 STEP
+
+0 // Step 21 -- two separate orange 1x2 Technic bricks, one on each nose
+0 // peg. Each brick has exactly ONE pin holding it, so each is a hinge and
+0 // can swivel: this page is deliberately an incomplete state, and step 22
+0 // is what fixes it. ldrcheck steps grades it as a transient and would
+0 // fail if the next page did not resolve it.
+1 25 -60 -40 60 1 0 0 0 1 0 0 0 1 3700.dat
+1 25 60 -40 60 1 0 0 0 1 0 0 0 1 3700.dat
+0 STEP
+
+0 // Step 22 -- one green 2x8 plate across both orange bricks. It spans the
+0 // gap between them, so the pair stops being two independent hinges and
+0 // becomes one rigid frame. This shelf is the drone's face, and the
+0 // sensor and eyes mount on it.
+1 10 0 -48 70 1 0 0 0 1 0 0 0 1 3738.dat
+0 STEP
+
+0 // Step 23 -- two red T-beams on the front row, holes facing +Z.
+1 4 -20 -56 80 1 0 0 0 1 0 0 0 1 32530.dat
+1 4 20 -56 80 1 0 0 0 1 0 0 0 1 32530.dat
+0 STEP
+
+0 // Step 24 -- pins through the T-beam holes, pointing forward.
+1 0 -20 -58 90 0 0 1 0 1 0 -1 0 0 61332.dat
+1 0 20 -58 90 0 0 1 0 1 0 -1 0 0 61332.dat
+0 STEP
+
+0 // Step 25 -- Colour Sensor, lens aimed world +Y (down). At this height
+0 // the lens sits 41 LDU (16.4 mm) above the y=32 target plane.
+1 15 0 -58 120 0 1 0 0 0 -1 -1 0 0 37308.dat
+0 STEP
+
+0 // Step 26 -- eye pins, in the two holes on the sensor's forward face at
+0 // z=150. This is the chameleon's trick, and the sensor is placed at the
+0 // identical (0, -58, 120) with the identical matrix in both models, so
+0 // the numbers carry over unchanged.
+0 //
+0 // The sensor's own mounting pins are at z=90, in the REAR face, so the
+0 // forward pair is free. Note these are not the same holes: a pin here
+0 // would clash with the T-beams if it pointed back.
+0 //
+0 // This replaces two 2x2 printed eye tiles that used to lie flat on the
+0 // face plate at (+/-60, -56, 70). Those were 120 LDU apart and facing
+0 // the sky, so from in front they read as instrument dials rather than
+0 // eyes, and giving the drone both pairs would have given it four eyes.
+0 // They go back in the box.
+1 0 -20 -58 150 0 0 -1 0 1 0 1 0 0 61332.dat
+1 0 20 -58 150 0 0 -1 0 1 0 1 0 0 61332.dat
+0 STEP
+
+0 // Step 27 -- the eyes. Kit part 13360 is 98138pr0008: a 1x1 round tile
+0 // with a black iris and pupil PRINTED on it. LDraw has no print, so
+0 // these render as blank white discs -- as with the chameleon, the render
+0 // can never show the face, and that is a limit of the drawing.
+0 //
+0 // A peg's shaft is close enough to a stud's width that the tile's
+0 // underside tube grips it the way it would grip a stud. 98138 is
+0 // annotated decorative, so nothing in the checker would notice one of
+0 // these floating in mid-air -- JOINS 98138.dat 61332.dat is what does.
+0 //
+0 // The kit ships four of these. The chameleon uses two and this uses the
+0 // other two, so both models can wear eyes at the same time and there is
+0 // no spare pair.
+1 15 -20 -58 170 1 0 0 0 0 1 0 -1 0 98138.dat
+1 15 20 -58 170 1 0 0 0 0 1 0 -1 0 98138.dat
+0 STEP
+
+0 // Step 28 -- two pins stand in the Hub's top holes near the nose.
+1 0 -60 -80 40 0 1 0 1 0 0 0 0 -1 61332.dat
+1 0 60 -80 40 0 1 0 1 0 0 0 0 -1 61332.dat
+0 STEP
+
+0 // Step 29 -- blue 7M beam across the Hub. Its centre hole is ROUND,
+0 // not cross-shaped, and that single fact is what lets the rotor spin.
+1 1 0 -90 40 0 0 1 0 1 0 -1 0 0 32524.dat
+0 STEP
+
+0 // Step 30 -- vertical black 4M axle through that centre round hole. A
+0 // cross axle turns freely in a round hole and locks solid in a cross
+0 // hole; this end is the free end. PIVOT +Y declares the intent.
+0 // Its lower tip stops half an LDU above the Hub roof at y=-80. A first
+0 // draft centred it 10 LDU lower, which looked fine because connectors
+0 // are excluded from voxel collisions but drove the axle into solid Hub.
+1 0 0 -120 40 0 -1 0 1 0 0 0 0 1 3705.dat
+0 STEP
+
+0 // Step 31 -- the dark-green 2x4 cross-hole brick locks onto the vertical
+0 // axle. This is the LOCKING end of that axle: the hole is cross-shaped,
+0 // so the brick and the axle now turn as one piece.
+1 2 0 -124 40 1 0 0 0 1 0 0 0 1 39789.dat
+0 STEP
+
+0 // Step 32 -- the last green 2x8 plate clutches across all eight studs of
+0 // that brick. Its row of seven holes at 20-LDU spacing is what the rotor
+0 // blades fasten into, and having seven means each blade can use two of
+0 // them instead of swivelling around one.
+1 10 0 -132 40 1 0 0 0 1 0 0 0 1 3738.dat
+0 STEP
+
+0 // Step 33 -- four fasteners, two per blade: one YELLOW CROSS AXLE deep at
+0 // x=+-20, and one BLACK FRICTION PEG at x=+-60. Which fastener goes in
+0 // which hole is the whole content of this step, and getting it wrong is
+0 // what took two tries.
+0 //
+0 // TWO yellow axles, not four. The kit contains two, counted in the box;
+0 // the parts list said four and the first version of this rotor used all
+0 // four -- one at each of x=-40, -20, 20, 40, two per blade. It did not
+0 // hold, for a reason the CAD showed all along:
+0 //
+0 //   3738, the green 2x8 plate -- SEVEN ROUND HOLES, x=-60..60 spaced 20 apart.
+0 //   39789, the dark-green 2x4 brick under it -- THREE CROSS HOLES,
+0 //     vertical, at x=-20, 0, +20. (`ldrcheck holes 39789.dat`.)
+0 //
+0 // A cross axle is smooth along its length. Drop one into a ROUND hole and
+0 // it neither locks nor stays: it spins and slides straight back out. That
+0 // free fit is exactly what step 30 wants, where the whole rotor turns on a
+0 // round bearing hole, and exactly wrong for fastening a blade. All four
+0 // original axles sat in round plate holes only, so the blades were held on
+0 // by nothing but friction against smooth walls, and they came off.
+0 //
+0 // Drop the same axle into the brick's CROSS hole and its splines bite: it
+0 // cannot turn and it will not pull out. Only x=+-20 has a cross hole under
+0 // it, which is why the axles moved inboard to +-20 -- they now pass
+0 // through the plate's round hole and lock in the brick beneath it. The
+0 // centre cross hole at x=0 is already taken by the drive axle.
+0 //
+0 // 61332 is a CONNECTOR PEG W. FRICTION: ribbed, so a round hole grips it.
+0 // That makes it the right fastener for the plate, and it goes in the
+0 // outermost hole at x=+-60 -- as far out as the plate allows, because a
+0 // blade reaching to x=229 is a long lever and a 40-LDU base between the
+0 // two fasteners resists it far better than 20 would.
+0 //
+0 // Heights. The peg spans y -168..-128, so it stops 4 LDU short of the
+0 // plate underside and never reaches the brick -- which matters at x=+-60,
+0 // where there is no cross hole to receive it. The axle runs -168..-109:
+0 // beam, plate, and 15 LDU into the brick's cross hole, well past the 8 LDU
+0 // ldrcheck wants to call a joint.
+0 //
+0 // Axles and pegs go in together rather than on two pages because ldrcheck
+0 // steps will not let a connector sit loose for a whole page: put the axles
+0 // in alone and the next page reports "lingered loose_connector". Four parts of
+0 // two types is inside the page budget, and it is one action anyway.
+1 14 -20 -138.5 40 0 -1 0 1 0 0 0 0 1 4519.dat
+1 14 20 -138.5 40 0 -1 0 1 0 0 0 0 1 4519.dat
+1 0 -60 -148 40 0 -1 0 1 0 0 0 0 1 61332.dat
+1 0 60 -148 40 0 -1 0 1 0 0 0 0 1 61332.dat
+0 STEP
+
+0 // Step 34 -- two purple 11M beams, one extending left and one right. Each
+0 // drops onto one axle and one peg, so neither blade can swivel alone.
+0 //
+0 // The heights here are forced, not chosen. ldrcheck models EVERY pin hole
+0 // as a full 20-LDU bore, even one through an 8-LDU plate, so the plate
+0 // claims y -148..-128 of each shaft. A 40-LDU peg is exactly two bores
+0 // long, which leaves no slack: the beam's bore has to sit precisely back
+0 // to back with the plate's, from -168 to -148. That fixes the beam centre
+0 // at -158 and both fasteners at -148, and it is the only arrangement that
+0 // clears PIN SLICE CONFLICT. Sweeping the beam from -146 to -154 first and
+0 // watching the overlap shrink 8, 6, 4 is what gave the number away.
+0 //
+0 // Lowered from the -166 the four-axle version used -- a 40-LDU peg could
+0 // not have bridged a beam that high, since the reach was 52. The beam body
+0 // now runs y -168..-148, which is 12 LDU clear of the plate's stud tops at
+0 // -136. Beams have no anti-studs underneath, so they cannot clutch a plate
+0 // and must float above the studs with the fasteners holding them; the
+0 // four-axle version floated 20 LDU for the same reason.
+0 //
+0 // Together they sweep 458 LDU (18.3 cm). The tallest thing under that disc
+0 // is the seed ball at y=-113, so the blades pass 35 LDU over the loaded
+0 // tray rather than 43. Tighter, still clear, and preflight re-checks it by
+0 // hand with the tray loaded.
+1 26 -120 -158 40 0 0 1 0 1 0 -1 0 0 64290.dat
+1 26 120 -158 40 0 0 1 0 1 0 -1 0 0 64290.dat
+0 STEP

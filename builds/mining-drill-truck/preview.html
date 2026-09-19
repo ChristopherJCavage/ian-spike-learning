@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>mining-drill-truck instructions</title>
+<style>
+  html, body { margin: 0; background: #fff; color: #111;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+  /* `display` on .page beats the browser's own rule for the hidden
+     attribute, so the flipbook needs this or every page shows at once. */
+  .page[hidden] { display: none; }
+  .page { min-height: 100vh; display: flex; flex-direction: column;
+    padding: 24px 32px 16px; box-sizing: border-box; }
+  header { display: flex; align-items: center; gap: 16px; }
+  .badge { background: #e31c3d; color: #fff; font-size: 28px; font-weight: 700;
+    min-width: 56px; height: 56px; border-radius: 12px; display: flex;
+    align-items: center; justify-content: center; }
+  h1 { font-size: 28px; margin: 0; flex: 1; }
+  .bin { font-size: 16px; color: #444; }
+  .body { flex: 1; display: grid; grid-template-columns: 280px 1fr;
+    gap: 24px; align-items: center; min-height: 0; }
+  aside { background: #f4f4f4; border-radius: 12px; padding: 16px; }
+  aside h2 { margin: 0 0 8px; font-size: 14px; text-transform: uppercase;
+    letter-spacing: .06em; color: #666; }
+  aside ul { margin: 0; padding-left: 18px; }
+  .copy { margin-top: 16px; font-size: 18px; line-height: 1.35; }
+  .hero { width: 100%; height: auto; background: #fff; }
+  .placeholder { min-height: 360px; display: flex; align-items: center;
+    justify-content: center; background: #f4f4f4; border-radius: 12px;
+    font-size: 22px; padding: 24px; text-align: center; }
+  footer { display: flex; align-items: center; justify-content: space-between;
+    gap: 16px; margin-top: 12px; }
+  .check { flex: 1; font-size: 16px; color: #333; }
+  .slide { background: #06341f; color: #fff; cursor: pointer; }
+  .slide .scene { flex: 1; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 20px; min-height: 0; }
+  .slide .stage { position: relative; display: inline-block; min-height: 0; }
+  .slide .art { display: block; max-width: 100%; max-height: 68vh;
+    border-radius: 16px; }
+  .slide .plate { background: #fff; padding: 12px; box-sizing: border-box; }
+  /* The cartoon chameleon leans in on the build slide to look at its own
+     LEGO self. It must not cover the model, so it sits on the corner. */
+  .slide .peek { position: absolute; right: -6%; bottom: -8%; width: 30%;
+    max-width: 280px; }
+  .slide .tell { margin: 0; max-width: 22ch; text-align: center;
+    font-size: 40px; line-height: 1.2; font-weight: 700; }
+  .slide .check { color: #9fd9b6; font-size: 16px; }
+  .slide footer { justify-content: flex-start; }
+  @media print {
+    @page { size: landscape; margin: 10mm; }
+    html, body { background: #fff; }
+    /* On screen only one page is shown at a time; on paper print them all,
+       one per sheet, and drop the buttons. */
+    .page[hidden] { display: flex !important; }
+    .page { min-height: auto; height: 100vh; page-break-after: always;
+      break-after: page; }
+    .page:last-child { page-break-after: auto; break-after: auto; }
+    .nav { display: none !important; }
+    .slide { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .slide .art { max-height: 60vh; }
+  }
+  .nav button { font-size: 22px; padding: 12px 28px; border: 0; border-radius: 10px;
+    background: #111; color: #fff; cursor: pointer; }
+  .nav button:disabled { background: #bbb; cursor: default; }
+  @media (max-width: 900px) {
+    .body { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<section class="page" data-step="1" hidden>
+  <header>
+    <span class="badge">1</span>
+    <h1>rear motors</h1>
+    <span class="bin">Prime</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>2x White Large Motor | kit 45678</li></ul>
+      <p class="copy">Stand two motors side by side, discs facing out -- one for each rear wheel.</p>
+    </aside>
+    <img class="hero" src="renders/step-001.png" alt="Step 1: rear motors">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> The two motors sit flush against each other in the middle, discs facing opposite ways, both at the same height.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="2" hidden>
+  <header>
+    <span class="badge">2</span>
+    <h1>rear axles and wheels</h1>
+    <span class="bin">Prime</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>2x Bright Yellow 3M cross axle | kit 45678</li><li>2x Multicombination WHEEL DIA.56 | kit 45678</li></ul>
+      <p class="copy">Push a short axle and a wheel onto each motor&#x27;s disc.</p>
+    </aside>
+    <img class="hero" src="renders/step-002.png" alt="Step 2: rear axles and wheels">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Hand-turn a wheel -- the matching motor&#x27;s disc turns with it, and the other motor doesn&#x27;t move.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="3" hidden>
+  <header>
+    <span class="badge">3</span>
+    <h1>tie the Hub to the motors</h1>
+    <span class="bin">Prime</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>6x Black connector peg (friction) | kit 45678</li></ul>
+      <p class="copy">Stand 6 pegs up across the motor tops -- leave the front pair empty.</p>
+    </aside>
+    <img class="hero" src="renders/step-003.png" alt="Step 3: tie the Hub to the motors">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> 6 pegs stand up evenly, 3 on each motor, with a gap at the front of each motor top.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="4" hidden>
+  <header>
+    <span class="badge">4</span>
+    <h1>Hub</h1>
+    <span class="bin">Prime</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>1x Bright Yellow SPIKE Prime Hub | kit 45678</li></ul>
+      <p class="copy">Lower the Hub down onto the pegs, right on top of the motors.</p>
+    </aside>
+    <img class="hero" src="renders/step-004.png" alt="Step 4: Hub">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> The Hub sits level and doesn&#x27;t rock. Peek underneath -- both motor discs and wheels are still free to spin.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="5" hidden>
+  <header>
+    <span class="badge">5</span>
+    <h1>front axle carrier</h1>
+    <span class="bin">Prime</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>2x Black connector peg (friction) | kit 45678</li><li>1x Black BEAM FRAME 5X7 | kit 45678</li></ul>
+      <p class="copy">Pin a 5x7 frame onto the Hub&#x27;s front face, up off the floor -- that&#x27;s the front axle shelf.</p>
+    </aside>
+    <img class="hero" src="renders/step-005.png" alt="Step 5: front axle carrier">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> The frame sits flush on the Hub&#x27;s front, doesn&#x27;t wobble, doesn&#x27;t scrape the table, and you can see a hole going through from left to right at wheel height.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="6" hidden>
+  <header>
+    <span class="badge">6</span>
+    <h1>front axle</h1>
+    <span class="bin">Prime</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>1x Bright Yellow 11-module cross axle | kit 45678</li></ul>
+      <p class="copy">Slide an axle through the frame.</p>
+    </aside>
+    <img class="hero" src="renders/step-006.png" alt="Step 6: front axle">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> The axle spins freely and sticks out the same amount on each side.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="7" hidden>
+  <header>
+    <span class="badge">7</span>
+    <h1>front wheels</h1>
+    <span class="bin">Prime</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>2x Multicombination WHEEL DIA.56 | kit 45678</li></ul>
+      <p class="copy">Push a wheel onto each end -- 4 wheels now!</p>
+    </aside>
+    <img class="hero" src="renders/step-007.png" alt="Step 7: front wheels">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> All 4 wheels now spin freely and the front pair doesn&#x27;t touch the rear pair.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="8" hidden>
+  <header>
+    <span class="badge">8</span>
+    <h1>drill-motor beam</h1>
+    <span class="bin">Prime</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>1x Medium Azur 7M beam | kit 45678</li><li>2x Black connector peg (friction) | kit 45678</li></ul>
+      <p class="copy">Pin a beam across the front of the frame, just above the axle.</p>
+    </aside>
+    <img class="hero" src="renders/step-008.png" alt="Step 8: drill-motor beam">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> The beam is level and doesn&#x27;t wobble. You can still spin the front axle by hand.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="9" hidden>
+  <header>
+    <span class="badge">9</span>
+    <h1>drill motor</h1>
+    <span class="bin">Prime + Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>2x Black connector peg (friction) | kit 45678</li><li>1x White Small Angular Motor | kit 45345</li></ul>
+      <p class="copy">Pin the drill motor onto that beam, disc facing out.</p>
+    </aside>
+    <img class="hero" src="renders/step-009.png" alt="Step 9: drill motor">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> The disc faces straight out the front. Turning the disc by hand doesn&#x27;t rub on the frame or the wheels.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="10" hidden>
+  <header>
+    <span class="badge">10</span>
+    <h1>drill axle</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>1x Black 8M cross axle | kit 45345</li></ul>
+      <p class="copy">Push a long axle into the disc.</p>
+    </aside>
+    <img class="hero" src="renders/step-010.png" alt="Step 10: drill axle">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> The axle sticks straight out the front and turns with the disc.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="11" hidden>
+  <header>
+    <span class="badge">11</span>
+    <h1>drill bit</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>3x Bright Orange nose cone (2x2x2) | kit 45345</li><li>1x Bright Red bush | kit 45345</li></ul>
+      <p class="copy">Stack the pointy cones on the axle and lock them with a bush.</p>
+    </aside>
+    <img class="hero" src="renders/step-011.png" alt="Step 11: drill bit">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Hand-turn the motor -- the whole cone stack spins with the disc, no wobble, no gap between the first cone and the disc. The bush is the wide one, and it should cover the drill&#x27;s point rather than sit behind it.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="12" hidden>
+  <header>
+    <span class="badge">12</span>
+    <h1>top sensor rails</h1>
+    <span class="bin">Prime</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>2x Black 15M beam | kit 45678</li><li>4x Black connector peg (friction) | kit 45678</li></ul>
+      <p class="copy">Pin a long rail onto each side of the Hub, on the row below the very top.</p>
+    </aside>
+    <img class="hero" src="renders/step-012.png" alt="Step 12: top sensor rails">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Both rails sit at the same height, clear of the front wheels, and don&#x27;t fold down when you tug the far end.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="13" hidden>
+  <header>
+    <span class="badge">13</span>
+    <h1>bottom sensor rails</h1>
+    <span class="bin">Prime</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>2x Black 15M beam | kit 45678</li><li>4x Black connector peg (friction) | kit 45678</li></ul>
+      <p class="copy">Pin a second rail on each side, one row down, so the pair cannot fold.</p>
+    </aside>
+    <img class="hero" src="renders/step-013.png" alt="Step 13: bottom sensor rails">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> There is a visible gap between each rail and the front wheel. Tug -- neither pair of rails should fold.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="14" hidden>
+  <header>
+    <span class="badge">14</span>
+    <h1>sensor uprights</h1>
+    <span class="bin">Prime</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>2x Bright Yellow 3M beam | kit 45678</li><li>4x Bright Blue connector peg 3M (friction) | kit 45678</li></ul>
+      <p class="copy">Stand a short beam up at the far end of each rail pair.</p>
+    </aside>
+    <img class="hero" src="renders/step-014.png" alt="Step 14: sensor uprights">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Both uprights stand straight and don&#x27;t wiggle.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="15" hidden>
+  <header>
+    <span class="badge">15</span>
+    <h1>distance sensor</h1>
+    <span class="bin">Prime</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>2x Bright Blue connector peg 3M (friction) | kit 45678</li><li>1x White Distance Sensor | kit 45678</li></ul>
+      <p class="copy">Pin the sensor onto both uprights, eyes looking ahead.</p>
+    </aside>
+    <img class="hero" src="renders/step-015.png" alt="Step 15: distance sensor">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> The sensor&#x27;s eyes point out the front, above the wheel bottoms, and don&#x27;t touch the spinning cones. Tug the sensor -- it should not fold down.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="16" hidden>
+  <header>
+    <span class="badge">16</span>
+    <h1>cab deck pins</h1>
+    <span class="bin">Prime</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>4x Black connector peg (friction) | kit 45678</li></ul>
+      <p class="copy">Stand 4 pegs up on the Hub&#x27;s top.</p>
+    </aside>
+    <img class="hero" src="renders/step-016.png" alt="Step 16: cab deck pins">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> 4 pegs stand up evenly, 2 near the front edge and 2 near the back edge of the Hub&#x27;s top.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="17" hidden>
+  <header>
+    <span class="badge">17</span>
+    <h1>cab decks</h1>
+    <span class="bin">Prime</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>2x Black PLATE 2X8 W. HOLES | kit 45678</li></ul>
+      <p class="copy">Press a plate onto the front pegs and one onto the back pegs.</p>
+    </aside>
+    <img class="hero" src="renders/step-017.png" alt="Step 17: cab decks">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Both plates sit flat and don&#x27;t wiggle -- the front one is where the driver sits, the back one is where the dog rides.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="18" hidden>
+  <header>
+    <span class="badge">18</span>
+    <h1>seat</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>1x Bright Red SEAT 2X2X2 | kit 45345</li></ul>
+      <p class="copy">Add a seat up on the front deck.</p>
+    </aside>
+    <img class="hero" src="renders/step-018.png" alt="Step 18: seat">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> The seat is level and faces forward, up on the deck, not down on the Hub.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="19" hidden>
+  <header>
+    <span class="badge">19</span>
+    <h1>radar dish</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>1x Transparent Light Blue round plate (D32) | kit 45345</li></ul>
+      <p class="copy">Press the clear dish down onto a rear-deck stud.</p>
+    </aside>
+    <img class="hero" src="renders/step-019.png" alt="Step 19: radar dish">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> The dish sits on a stud and doesn&#x27;t slide off.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="20" hidden>
+  <header>
+    <span class="badge">20</span>
+    <h1>driver</h1>
+    <span class="bin">Prime</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>1x Black mini lower part | kit 45678</li><li>1x Light Royal Blue mini upper part | kit 45678</li><li>1x Bright Yellow mini head | kit 45678</li><li>1x Black mini wig | kit 45678</li></ul>
+      <p class="copy">Build the driver and sit them in the seat, facing the drill.</p>
+    </aside>
+    <img class="hero" src="renders/step-020.png" alt="Step 20: driver">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> The driver sits in the seat facing forward, up on the deck, above the Hub. (The 3D preview shows them standing beside the seat -- minifig clutch isn&#x27;t in the CAD. Sit them at the table.)</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="21" hidden>
+  <header>
+    <span class="badge">21</span>
+    <h1>eyes</h1>
+    <span class="bin">Prime</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>2x Black 1x1 round tile | kit 45678</li></ul>
+      <p class="copy">Give the truck two eyes on the front frame.</p>
+    </aside>
+    <img class="hero" src="renders/step-021.png" alt="Step 21: eyes">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> The two &quot;eyes&quot; are level with each other and centered above the drill.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="22" hidden>
+  <header>
+    <span class="badge">22</span>
+    <h1>antennae</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>2x White whip/aerial | kit 45345</li></ul>
+      <p class="copy">Add wiggly antennae on the rear deck, beside the dish.</p>
+    </aside>
+    <img class="hero" src="renders/step-022.png" alt="Step 22: antennae">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Antennae wiggle when you tap them.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="23" hidden>
+  <header>
+    <span class="badge">23</span>
+    <h1>sidekick</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>1x Medium Nougat dog | kit 45345</li></ul>
+      <p class="copy">Tuck in a riding buddy on the back deck.</p>
+    </aside>
+    <img class="hero" src="renders/step-023.png" alt="Step 23: sidekick">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Does Digger look like it&#x27;s smiling? Good -- that&#x27;s the point.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="24" hidden>
+  <header>
+    <span class="badge">24</span>
+    <h1>program</h1>
+    <span class="bin">(SPIKE App -- no new bricks)</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>(none)</li></ul>
+      <p class="copy">Now let&#x27;s teach Digger to dig!</p>
+    </aside>
+    <div class="hero placeholder"><p>Open the SPIKE App, connect to the Prime hub, and build the program in `code.md`.</p></div>
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> See `code.md` &quot;Success.&quot;</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<script>
+const pages = [...document.querySelectorAll('.page')];
+let i = 0;
+function show(n) {
+  i = Math.max(0, Math.min(n, pages.length - 1));
+  pages.forEach((p, k) => p.hidden = k !== i);
+  // Story slides have no buttons -- they are printed, not clicked.
+  const back = pages[i].querySelector('.back');
+  const next = pages[i].querySelector('.next');
+  if (back) back.disabled = i === 0;
+  if (next) {
+    next.disabled = i === pages.length - 1;
+    next.textContent = i === pages.length - 1 ? 'Done' : 'Next';
+  }
+}
+document.body.addEventListener('click', e => {
+  if (e.target.classList.contains('next')) return show(i + 1);
+  if (e.target.classList.contains('back')) return show(i - 1);
+  // Buttonless pages still need a way forward on screen.
+  if (pages[i].classList.contains('slide')) show(i + 1);
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); show(i + 1); }
+  if (e.key === 'ArrowLeft') { e.preventDefault(); show(i - 1); }
+});
+show(0);
+</script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+0 Fixture: a V-belt drive, two D24 pulleys on parallel axles in one beam.
+0 Expected: clean.
+0
+0 This exists to pin down the one number a belt drive cannot be designed
+0 without: how far apart the two pulleys may sit.
+0
+0 Solving the belt equation alone gives the wrong answer. A D33 belt
+0 (85546, 86.31 LDU across relaxed) round two D24 pulleys wants a centre
+0 distance near 40 LDU -- but a D24 pulley is 60 LDU ACROSS, so two of
+    10|0 them at 40 apart are inside one another. The first draft of the seed
+0 rover had exactly that, and the checker found 1440 LDU^3 of pulley-on-
+0 pulley interpenetration.
+0
+0 60 LDU is tangent, which still reports CONTACT WITHOUT JOINT. Beam
+0 holes come on a 20 LDU pitch, so the first span that is both clear and
+0 buildable is 80 LDU -- four studs. That is the number this fixture
+0 locks in.
+0
+0 Note what is NOT tested here: 85546 is role: decorative in
+    20|0 connections.yml, so the checker never looks at the belt itself. The
+0 LDraw part is a rigid ring and cannot be drawn wrapped round anything.
+0 It is placed here the way it would be placed in a build -- floating
+0 between the pulleys, geometrically wrong, and silently tolerated.
+0 Whether the real rubber belt reaches at four studs is a table check.
+0
+0 1x8 Technic brick. Holes at x = -60,-40,-20,0,20,40,60, axis Z.
+1 321 0 0 0 1 0 0 0 1 0 0 0 1 3702.dat
+0
+0 Two 6M axles through the holes at x = -40 and x = +40, turned to run
+    30|0 along Z by 0 0 -1 / 0 1 0 / 1 0 0.
+1 4 -40 10 0 0 0 -1 0 1 0 1 0 0 3706.dat
+1 4 40 10 0 0 0 -1 0 1 0 1 0 0 3706.dat
+0
+0 A D24 pulley on each axle, outboard of the beam and coplanar with each
+0 other. Native axis is already Z, so no rotation.
+1 15 -40 10 40 1 0 0 0 1 0 0 0 1 4185b.dat
+1 15 40 10 40 1 0 0 0 1 0 0 0 1 4185b.dat
+0
+0 The belt, centred between them.
+    40|1 14 0 10 40 1 0 0 0 1 0 0 0 1 85546.dat
+0 STEP

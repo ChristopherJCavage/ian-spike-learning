@@ -1,0 +1,18 @@
+# Digger: two drive motors as separate lines (not the multi-select),
+# drill on C, distance on D, Prime 5x5 face.
+hub: prime
+extensions:
+
+flipperevents_whenProgramStarts
+  flipperlight_lightDisplayImageOn IMAGE=smile
+  control_forever
+    flippermotor_motorStartDirection PORT=A DIRECTION=clockwise
+    flippermotor_motorStartDirection PORT=B DIRECTION=clockwise
+    control_if_else
+      @condition flippersensors_isDistance PORT=D COMPARATOR=closerThan VALUE=10 UNIT=cm
+      @then
+        flippermotor_motorStartDirection PORT=C DIRECTION=clockwise
+        flipperlight_lightDisplayImageOn IMAGE=focused
+      @else
+        flippermotor_motorStop PORT=C
+        flipperlight_lightDisplayImageOn IMAGE=smile

@@ -1,0 +1,25 @@
+0 Fixture: a two-part boom swinging on a motor shaft, declared.
+0 Expected: clean.
+0
+0 A powered arm is a multi-part subassembly reaching the machine through
+0 one rotation axis. That is the definition of RIGID CLUSTER HINGE, and
+0 the `rotates: true` exemption does not help -- it only forgives a SINGLE
+0 part on a shaft, and a boom is never one part. Without the declaration
+0 below this model reports a defect for doing exactly what an excavator
+0 is supposed to do. See bad-pivot-undeclared.ldr.
+0 !LDRCHECK PIVOT 3705.dat +X
+0
+0 Large motor, output disc facing -X at (-50, 0, 0).
+1 16 0 0 0 0 1 0 -1 0 0 0 0 1 54675.dat
+0
+0 4M axle out of the disc, along X.
+1 0 -70 0 0 1 0 0 0 1 0 0 0 1 3705.dat
+0
+0 Two side plates of the boom, holes along X, the axle through both.
+1 26 -70 0 40 0 1 0 -1 0 0 0 0 1 32316.dat
+1 26 -100 0 40 0 1 0 -1 0 0 0 0 1 32316.dat
+0
+0 Two 3M pins bracing the plates into one rigid boom.
+1 1 -85 0 40 1 0 0 0 1 0 0 0 1 42924.dat
+1 1 -85 0 80 1 0 0 0 1 0 0 0 1 42924.dat
+0 STEP

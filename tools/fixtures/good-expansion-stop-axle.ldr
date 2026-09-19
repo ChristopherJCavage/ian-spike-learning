@@ -1,0 +1,11 @@
+0 Fixture: an axle with an end stop carrying a bush and a gear.
+0 Expected: clean.
+0
+0 The stop flange is the last half module and cannot enter a bore, so the
+0 annotated shaft deliberately stops short of the part's own extent
+0 (-39.5..30 on a part that measures -39.5..40). 15462 and 55013 are the
+0 same mould in other lengths and are annotated the same way.
+1 72 0 0 0 1 0 0 0 1 0 0 0 1 87083.dat
+1 71 -20 0 0 0 0 1 0 1 0 -1 0 0 3713.dat
+1 0 10 0 0 0 0 1 0 1 0 -1 0 0 32270.dat
+0 STEP

@@ -1,0 +1,19 @@
+# Chameleon Colour-Match — Icon Blocks (Saturday class).
+# Four hats, four stacks. Two hats in one row wait for the first
+# colour then the second; they do not match either colour on their own.
+# See context/spike-blocks.md.
+hub: essential
+canvas: icon
+extensions:
+
+horizontalevents_whenColor PORT=A COLOR=green
+  horizontaldisplay_ledMatrix PORT=B MATRIX=green
+
+horizontalevents_whenColor PORT=A COLOR=blue
+  horizontaldisplay_ledMatrix PORT=B MATRIX=blue
+
+horizontalevents_whenColor PORT=A COLOR=yellow
+  horizontaldisplay_ledMatrix PORT=B MATRIX=yellow
+
+horizontalevents_whenColor PORT=A COLOR=red
+  horizontaldisplay_ledMatrix PORT=B MATRIX=red

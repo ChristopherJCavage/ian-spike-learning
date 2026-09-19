@@ -1,0 +1,20 @@
+0 Fixture: tiles clutched onto a plate's studs.
+0 Expected: clean.
+0
+0 Tiles emit no primitives at all -- no stud on top, and an underside the
+0 LDraw mesh never spells out. Everything holding these down comes from
+0 hand-written anti_stud features, so this fixture is the only thing
+0 standing between a guessed origin and a silently unglued tile.
+0
+0 2x8 plate with holes, studs on a 20 LDU grid at y = 0. This was a plain
+0 2x4 plate (3020) until PART vs KIT pointed out that Essential has no
+0 plain 2x4 plate at all -- only the 2x4 tile 87079 and the 2x4 plate with
+0 three holes, 3709. Both tiles below still land on studs either way.
+1 10 0 0 0 1 0 0 0 1 0 0 0 1 3738.dat
+0
+0 1x2 tile over the studs at x = -30 and x = -10, z = -10.
+1 25 -20 -8 -10 1 0 0 0 1 0 0 0 1 3069.dat
+0
+0 1x2 tile over the studs at x = 10 and x = 30, z = 10.
+1 25 20 -8 10 1 0 0 0 1 0 0 0 1 3069.dat
+0 STEP

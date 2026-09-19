@@ -1,0 +1,10 @@
+# Two separate colour stacks. Not one row.
+hub: essential
+canvas: icon
+extensions:
+
+horizontalevents_whenColor PORT=A COLOR=green
+  horizontaldisplay_ledMatrix PORT=B MATRIX=green
+
+horizontalevents_whenColor PORT=A COLOR=blue
+  horizontaldisplay_ledMatrix PORT=B MATRIX=blue

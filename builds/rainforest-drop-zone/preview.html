@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>rainforest-drop-zone instructions</title>
+<style>
+  html, body { margin: 0; background: #fff; color: #111;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+  /* `display` on .page beats the browser's own rule for the hidden
+     attribute, so the flipbook needs this or every page shows at once. */
+  .page[hidden] { display: none; }
+  .page { min-height: 100vh; display: flex; flex-direction: column;
+    padding: 24px 32px 16px; box-sizing: border-box; }
+  header { display: flex; align-items: center; gap: 16px; }
+  .badge { background: #e31c3d; color: #fff; font-size: 28px; font-weight: 700;
+    min-width: 56px; height: 56px; border-radius: 12px; display: flex;
+    align-items: center; justify-content: center; }
+  h1 { font-size: 28px; margin: 0; flex: 1; }
+  .bin { font-size: 16px; color: #444; }
+  .body { flex: 1; display: grid; grid-template-columns: 280px 1fr;
+    gap: 24px; align-items: center; min-height: 0; }
+  aside { background: #f4f4f4; border-radius: 12px; padding: 16px; }
+  aside h2 { margin: 0 0 8px; font-size: 14px; text-transform: uppercase;
+    letter-spacing: .06em; color: #666; }
+  aside ul { margin: 0; padding-left: 18px; }
+  .copy { margin-top: 16px; font-size: 18px; line-height: 1.35; }
+  .hero { width: 100%; height: auto; background: #fff; }
+  .placeholder { min-height: 360px; display: flex; align-items: center;
+    justify-content: center; background: #f4f4f4; border-radius: 12px;
+    font-size: 22px; padding: 24px; text-align: center; }
+  footer { display: flex; align-items: center; justify-content: space-between;
+    gap: 16px; margin-top: 12px; }
+  .check { flex: 1; font-size: 16px; color: #333; }
+  .slide { background: #06341f; color: #fff; cursor: pointer; }
+  .slide .scene { flex: 1; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 20px; min-height: 0; }
+  .slide .stage { position: relative; display: inline-block; min-height: 0; }
+  .slide .art { display: block; max-width: 100%; max-height: 68vh;
+    border-radius: 16px; }
+  .slide .plate { background: #fff; padding: 12px; box-sizing: border-box; }
+  /* The cartoon chameleon leans in on the build slide to look at its own
+     LEGO self. It must not cover the model, so it sits on the corner. */
+  .slide .peek { position: absolute; right: -6%; bottom: -8%; width: 30%;
+    max-width: 280px; }
+  .slide .tell { margin: 0; max-width: 22ch; text-align: center;
+    font-size: 40px; line-height: 1.2; font-weight: 700; }
+  .slide .check { color: #9fd9b6; font-size: 16px; }
+  .slide footer { justify-content: flex-start; }
+  @media print {
+    @page { size: landscape; margin: 10mm; }
+    html, body { background: #fff; }
+    /* On screen only one page is shown at a time; on paper print them all,
+       one per sheet, and drop the buttons. */
+    .page[hidden] { display: flex !important; }
+    .page { min-height: auto; height: 100vh; page-break-after: always;
+      break-after: page; }
+    .page:last-child { page-break-after: auto; break-after: auto; }
+    .nav { display: none !important; }
+    .slide { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .slide .art { max-height: 60vh; }
+  }
+  .nav button { font-size: 22px; padding: 12px 28px; border: 0; border-radius: 10px;
+    background: #111; color: #fff; cursor: pointer; }
+  .nav button:disabled { background: #bbb; cursor: default; }
+  @media (max-width: 900px) {
+    .body { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<section class="page" data-step="1" hidden>
+  <header>
+    <span class="badge">1</span>
+    <h1>the island</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>1x White 8x16 plate | kit 45345</li></ul>
+      <p class="copy">The long white plate, narrow across and long away from you.</p>
+    </aside>
+    <img class="hero" src="renders/step-001.png" alt="Step 1: the island">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> A white rectangle 8 studs wide and 16 studs deep, pointing away from you.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="2" hidden>
+  <header>
+    <span class="badge">2</span>
+    <h1>the drop zone</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>2x Bright Red 2x4 tile | kit 45345</li></ul>
+      <p class="copy">Two red tiles side by side in the middle. One solid square, no gaps.</p>
+    </aside>
+    <img class="hero" src="renders/step-002.png" alt="Step 2: the drop zone">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> A red square in the middle of the plate, four studs each way, with two studs of white left on each side. Run a finger over it -- flat and smooth all the way.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="3" hidden>
+  <header>
+    <span class="badge">3</span>
+    <h1>the walls</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>2x Bright Green 1x16 Technic brick | kit 45345</li></ul>
+      <p class="copy">A green wall each side of the red, one white row outside each. Red touches both.</p>
+    </aside>
+    <img class="hero" src="renders/step-003.png" alt="Step 3: the walls">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Two green walls with a lane between them, and one bare white row outside each wall. The red square now reaches from one wall to the other, touching both.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="4" hidden>
+  <header>
+    <span class="badge">4</span>
+    <h1>the trees</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>2x Dark Green round 2x2 brick, 2x Dark Green bush | kit 45345</li></ul>
+      <p class="copy">One brick and one bush at each end of the lane, both on the middle.</p>
+    </aside>
+    <img class="hero" src="renders/step-004.png" alt="Step 4: the trees">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Two trees, one at each end, both in the middle of the lane. Look down the lane from one end -- the other tree is straight ahead and the red band is between them. That is the flight path.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="5" hidden>
+  <header>
+    <span class="badge">5</span>
+    <h1>the ranger</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>1x Bright Orange minifigure legs, 1x Bright Green minifigure torso | kit 45345</li></ul>
+      <p class="copy">Stand her in the lane past the red, facing you.</p>
+    </aside>
+    <img class="hero" src="renders/step-005.png" alt="Step 5: the ranger">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> A figure with no head yet, standing on its own, facing you, with the red band in front of her feet.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="6" hidden>
+  <header>
+    <span class="badge">6</span>
+    <h1>her head</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>1x Bright Yellow minifigure head, 1x Medium Nougat wig | kit 45345</li></ul>
+      <p class="copy">Head onto the neck peg, then the hair.</p>
+    </aside>
+    <img class="hero" src="renders/step-006.png" alt="Step 6: her head">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> She stands without wobbling and looks down the lane at the drop zone.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="7" hidden>
+  <header>
+    <span class="badge">7</span>
+    <h1>the controller</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>1x Black camera | kit 45345</li></ul>
+      <p class="copy">Clip the black block into both hands, held up in front.</p>
+    </aside>
+    <img class="hero" src="renders/step-007.png" alt="Step 7: the controller">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Both hands are on it and it stays put when you turn her round.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="8" hidden>
+  <header>
+    <span class="badge">8</span>
+    <h1>the frog</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>1x Dark Green frog | kit 45345</li></ul>
+      <p class="copy">The frog goes on the white behind the red, off to one side.</p>
+    </aside>
+    <img class="hero" src="renders/step-008.png" alt="Step 8: the frog">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> The frog is on the white, not the red.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="9" hidden>
+  <header>
+    <span class="badge">9</span>
+    <h1>the grass</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>2x Bright Green grass stem | kit 45345</li></ul>
+      <p class="copy">One tuft on the bare row outside each wall. Neither in the lane.</p>
+    </aside>
+    <img class="hero" src="renders/step-009.png" alt="Step 9: the grass">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Two green tufts, both outside the walls, neither in the lane and neither leaning over the red.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="10" hidden>
+  <header>
+    <span class="badge">10</span>
+    <h1>fly the mission</h1>
+    <span class="bin">(none -- the island is finished)</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>(none)</li></ul>
+      <p class="copy">Load a red ball, fly in over one tree and straight down the lane.</p>
+    </aside>
+    <div class="hero placeholder"><p>Put the finished Seed Drone in your hands, load one red ball in its tray, and start the program. Fly in low over one tree and straight down the lane, keeping the sensor under the drone pointing down.</p></div>
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> As the sensor crosses the red, the tray tips, the ball drops on the drop zone, and the drone plays its sound. Lift away, and it is ready to go again.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<script>
+const pages = [...document.querySelectorAll('.page')];
+let i = 0;
+function show(n) {
+  i = Math.max(0, Math.min(n, pages.length - 1));
+  pages.forEach((p, k) => p.hidden = k !== i);
+  // Story slides have no buttons -- they are printed, not clicked.
+  const back = pages[i].querySelector('.back');
+  const next = pages[i].querySelector('.next');
+  if (back) back.disabled = i === 0;
+  if (next) {
+    next.disabled = i === pages.length - 1;
+    next.textContent = i === pages.length - 1 ? 'Done' : 'Next';
+  }
+}
+document.body.addEventListener('click', e => {
+  if (e.target.classList.contains('next')) return show(i + 1);
+  if (e.target.classList.contains('back')) return show(i - 1);
+  // Buttonless pages still need a way forward on screen.
+  if (pages[i].classList.contains('slide')) show(i + 1);
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); show(i + 1); }
+  if (e.key === 'ArrowLeft') { e.preventDefault(); show(i - 1); }
+});
+show(0);
+</script>
+</body>
+</html>

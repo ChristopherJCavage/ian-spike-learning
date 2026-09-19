@@ -1,0 +1,13 @@
+0 Fixture: the same boom with no PIVOT declaration.
+0 Expected: problems -- RIGID CLUSTER HINGE.
+0
+0 The negative control for good-pivot-boom.ldr. If this ever passes, the
+0 pivot declaration has stopped meaning anything and every genuinely
+0 floppy subassembly gets a free pass with it.
+1 16 0 0 0 0 1 0 -1 0 0 0 0 1 54675.dat
+1 0 -70 0 0 1 0 0 0 1 0 0 0 1 3705.dat
+1 26 -70 0 40 0 1 0 -1 0 0 0 0 1 32316.dat
+1 26 -100 0 40 0 1 0 -1 0 0 0 0 1 32316.dat
+1 1 -85 0 40 1 0 0 0 1 0 0 0 1 42924.dat
+1 1 -85 0 80 1 0 0 0 1 0 0 0 1 42924.dat
+0 STEP

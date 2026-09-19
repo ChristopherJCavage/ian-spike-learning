@@ -1,0 +1,9 @@
+# Python deps for tools/. Everything else is stdlib on purpose.
+#
+#   python3 -m pip install -r requirements.txt
+#
+# Pillow is used by tools/pages.py to trim the transparent margin off
+# LeoCAD renders and pad them to one hero size. LeoCAD frames every step
+# against the whole model, so an early step lands at ~11% of the canvas;
+# without this the printed page is mostly white.
+Pillow>=10.0

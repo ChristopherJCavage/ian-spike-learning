@@ -1,0 +1,12 @@
+0 Fixture: a loose red D16.5 ball riding on a connected tray.
+0 Expected: clean. The ball is payload, not structure: it rests by gravity
+0 and must not be required to form a clutch joint. This locks in the
+0 role: decorative annotation for 54821.dat.
+0
+0 A 2x8 plate and 1x4 Technic brick form a real connected base.
+1 10 0 0 0 1 0 0 0 1 0 0 0 1 3738.dat
+1 26 -40 -24 10 1 0 0 0 1 0 0 0 1 3701.dat
+0
+0 The red ball is loose and sits clear of the wall.
+1 4 40 -24 -10 1 0 0 0 1 0 0 0 1 54821.dat
+0 STEP

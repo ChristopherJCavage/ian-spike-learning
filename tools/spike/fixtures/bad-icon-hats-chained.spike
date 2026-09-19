@@ -1,0 +1,9 @@
+# expect: HAT_NESTED
+# Two colour hats in one row: waits for green, then blue.
+hub: essential
+canvas: icon
+extensions:
+
+horizontalevents_whenColor PORT=A COLOR=green
+  horizontalevents_whenColor PORT=A COLOR=blue
+    horizontaldisplay_ledMatrix PORT=B MATRIX=blue

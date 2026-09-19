@@ -1,0 +1,4084 @@
+{
+  "source": {
+    "app": "https://spike.legoeducation.com/",
+    "bundle": "index.dbbcd12a.js",
+    "extracted": "2026-08-29",
+    "note": "Derived index of an interface. Not LEGO artwork, not a dumped PDF."
+  },
+  "canvases": [
+    "iconBlocks",
+    "wordBlocks",
+    "python"
+  ],
+  "python": {
+    "hubs": [
+      "prime"
+    ],
+    "api": "SPIKE 3 MicroPython (hub, motor, motor_pair, distance_sensor, runloop)",
+    "retired_api": "from spike import PrimeHub — zero occurrences in the shipped bundle. Tutorials that still teach it are stale.",
+    "essential": "The Essential hub has no Python canvas."
+  },
+  "hubs": {
+    "essential": {
+      "ports": [
+        "A",
+        "B"
+      ],
+      "mode": "streaming",
+      "matrix": "none-on-hub; 3x3 colour matrix is a port accessory",
+      "speaker": false,
+      "python": false
+    },
+    "prime": {
+      "ports": [
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F"
+      ],
+      "mode": "download",
+      "matrix": "built-in 5x5",
+      "speaker": true,
+      "python": true
+    }
+  },
+  "shape_contract": {
+    "hat": "Starts its own stack. Nothing snaps above it. The rest of the stack runs when the event fires — it does not 'wait' inside another stack.",
+    "stack": "A command. Snaps under a hat or another stack block and moves execution to the next block when it finishes. Blocks whose name starts with 'start' finish immediately and leave the motor/sound running.",
+    "boolean": "A hexagon. Reports true/false. Does nothing on its own. Must be dropped inside wait-until, if, or repeat-until.",
+    "reporter": "An oval. Reports a number or string. Must be dropped into a number/string slot. Does nothing on its own.",
+    "c": "A C-shaped wrapper (forever / if / repeat). Holds a stack in its mouth.",
+    "cap": "A stack that nothing can snap under (stop all)."
+  },
+  "categories": [
+    {
+      "id": "event",
+      "label": "Events",
+      "palette_index": 0,
+      "colors": {
+        "primary": "#F5C402",
+        "secondary": "#C8A300",
+        "tertiary": "#B09400"
+      }
+    },
+    {
+      "id": "control",
+      "label": "Control",
+      "palette_index": 1,
+      "colors": {
+        "primary": "#FFB515",
+        "secondary": "#ECA100",
+        "tertiary": "#C98A01"
+      }
+    },
+    {
+      "id": "motor",
+      "label": "Motors",
+      "palette_index": 2,
+      "colors": {
+        "primary": "#0090F5",
+        "secondary": "#0078CC",
+        "tertiary": "#0062A6"
+      }
+    },
+    {
+      "id": "movement",
+      "label": "Movement",
+      "palette_index": 3,
+      "colors": {
+        "primary": "#FF4CCD",
+        "secondary": "#C80090",
+        "tertiary": "#B2248A"
+      }
+    },
+    {
+      "id": "light",
+      "label": "Lights",
+      "palette_index": 4,
+      "colors": {
+        "primary": "#9B6AF6",
+        "secondary": "#691FF0",
+        "tertiary": "#571CC1"
+      }
+    },
+    {
+      "id": "sounds",
+      "label": "Sound",
+      "palette_index": 5,
+      "colors": {
+        "primary": "#C061F1",
+        "secondary": "#8A40AF",
+        "tertiary": "#642E7F"
+      }
+    },
+    {
+      "id": "sensing",
+      "label": "Sensors",
+      "palette_index": 6,
+      "colors": {
+        "primary": "#34CCF1",
+        "secondary": "#00A8C9",
+        "tertiary": "#368FA9"
+      }
+    },
+    {
+      "id": "operators",
+      "label": "Operators",
+      "palette_index": 7,
+      "colors": {
+        "primary": "#00B94D",
+        "secondary": "#00963E",
+        "tertiary": "#006A2A"
+      }
+    },
+    {
+      "id": "data",
+      "label": "Variables",
+      "palette_index": 8,
+      "colors": {
+        "primary": "#FF9835",
+        "secondary": "#FF7B00",
+        "tertiary": "#C46000"
+      }
+    },
+    {
+      "id": "more",
+      "label": "More (extensions)",
+      "palette_index": 9,
+      "colors": {
+        "primary": "#FF6680",
+        "secondary": "#FF4D6A",
+        "tertiary": "#FF3355"
+      }
+    },
+    {
+      "id": "music",
+      "label": "Music",
+      "palette_index": 10,
+      "colors": {
+        "primary": "#00B4AF",
+        "secondary": "#008683",
+        "tertiary": "#005654"
+      }
+    },
+    {
+      "id": "weather",
+      "label": "Weather",
+      "palette_index": 11,
+      "colors": {
+        "primary": "#00B4AF",
+        "secondary": "#008683",
+        "tertiary": "#005654"
+      }
+    }
+  ],
+  "menus": {
+    "distanceComparator": {
+      "closerThan": "closer than",
+      "fartherThan": "farther than",
+      "exactlyAt": "exactly at"
+    },
+    "nearOrFar": {
+      "near": "near (< 20cm)",
+      "far": "far (> 20cm)",
+      "changed": "changed"
+    },
+    "unitDistance": {
+      "percent": "%",
+      "cm": "cm",
+      "inches": "inches"
+    }
+  },
+  "blocks": {
+    "flippercontrol_stop": {
+      "opcode": "flippercontrol_stop",
+      "short": "stop",
+      "category": "control",
+      "bundle_order": 0,
+      "shape": "cap",
+      "shape_contract": "A stack that nothing can snap under (stop all).",
+      "message": "stop [STOP_OPTION]",
+      "colors": {
+        "primary": "#FFB515",
+        "secondary": "#ECA100",
+        "tertiary": "#C98A01"
+      },
+      "arguments": [
+        {
+          "name": "STOP_OPTION",
+          "helper": "stopArgument",
+          "default": "all",
+          "menu": "stopOption",
+          "options": [
+            "all",
+            "this script",
+            "other scripts"
+          ]
+        }
+      ],
+      "is_terminal": true,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": null,
+      "python_prime_only": true,
+      "notes": []
+    },
+    "flippercontrol_stopOtherStacks": {
+      "opcode": "flippercontrol_stopOtherStacks",
+      "short": "stopOtherStacks",
+      "category": "control",
+      "bundle_order": 1,
+      "shape": "stack",
+      "shape_contract": "A command. Snaps under a hat or another stack block and moves execution to the next block when it finishes. Blocks whose name starts with 'start' finish immediately and leave the motor/sound running.",
+      "message": "stop other stacks",
+      "colors": {
+        "primary": "#FFB515",
+        "secondary": "#ECA100",
+        "tertiary": "#C98A01"
+      },
+      "arguments": [],
+      "is_terminal": false,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": null,
+      "python_prime_only": true,
+      "notes": []
+    },
+    "flipperevents_whenButton": {
+      "opcode": "flipperevents_whenButton",
+      "short": "whenButton",
+      "category": "event",
+      "bundle_order": 2,
+      "shape": "hat",
+      "shape_contract": "Starts its own stack. Nothing snaps above it. The rest of the stack runs when the event fires — it does not 'wait' inside another stack.",
+      "message": "when [BUTTON] Button [EVENT]",
+      "colors": {
+        "primary": "#F5C402",
+        "secondary": "#C8A300",
+        "tertiary": "#B09400"
+      },
+      "arguments": [
+        {
+          "name": "BUTTON",
+          "helper": "buttonArgument"
+        },
+        {
+          "name": "EVENT",
+          "helper": "buttonEventArgument"
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": null,
+      "python_prime_only": true,
+      "notes": []
+    },
+    "flipperevents_whenColor": {
+      "opcode": "flipperevents_whenColor",
+      "short": "whenColor",
+      "category": "event",
+      "bundle_order": 3,
+      "shape": "hat",
+      "shape_contract": "Starts its own stack. Nothing snaps above it. The rest of the stack runs when the event fires — it does not 'wait' inside another stack.",
+      "message": "[PORT] when color is [OPTION]",
+      "colors": {
+        "primary": "#F5C402",
+        "secondary": "#C8A300",
+        "tertiary": "#B09400"
+      },
+      "arguments": [
+        {
+          "name": "PORT",
+          "helper": "colorSensorArgument",
+          "default": "A",
+          "field": "ColorSensorSelector"
+        },
+        {
+          "name": "OPTION",
+          "helper": "colorOptionArgument"
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": null,
+      "python_prime_only": true,
+      "notes": []
+    },
+    "flipperevents_whenCondition": {
+      "opcode": "flipperevents_whenCondition",
+      "short": "whenCondition",
+      "category": "event",
+      "bundle_order": 4,
+      "shape": "hat",
+      "shape_contract": "Starts its own stack. Nothing snaps above it. The rest of the stack runs when the event fires — it does not 'wait' inside another stack.",
+      "message": "when [CONDITION]",
+      "colors": {
+        "primary": "#F5C402",
+        "secondary": "#C8A300",
+        "tertiary": "#B09400"
+      },
+      "arguments": [
+        {
+          "name": "CONDITION",
+          "type": "boolean"
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": null,
+      "python_prime_only": true,
+      "notes": []
+    },
+    "flipperevents_whenDistance": {
+      "opcode": "flipperevents_whenDistance",
+      "short": "whenDistance",
+      "category": "event",
+      "bundle_order": 5,
+      "shape": "hat",
+      "shape_contract": "Starts its own stack. Nothing snaps above it. The rest of the stack runs when the event fires — it does not 'wait' inside another stack.",
+      "message": "[PORT] when [COMPARATOR] [VALUE] [UNIT]",
+      "colors": {
+        "primary": "#F5C402",
+        "secondary": "#C8A300",
+        "tertiary": "#B09400"
+      },
+      "arguments": [
+        {
+          "name": "COMPARATOR",
+          "helper": "distanceComparatorArgument",
+          "default": "closerThan",
+          "menu": "distanceComparator",
+          "options": [
+            "closerThan",
+            "fartherThan",
+            "exactlyAt"
+          ]
+        },
+        {
+          "name": "PORT",
+          "helper": "distanceSensorArgument",
+          "default": "A",
+          "field": "DistanceSensorSelector"
+        },
+        {
+          "name": "UNIT",
+          "helper": "unitDistanceArgument",
+          "default": "percent",
+          "menu": "unitDistance",
+          "options": [
+            "percent",
+            "cm",
+            "inches"
+          ],
+          "note": "percent is % of the sensor's 200 cm range, not % of anything on screen. 20% = 40 cm."
+        },
+        {
+          "name": "VALUE",
+          "default": 8,
+          "type": "number"
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": null,
+      "python": {
+        "api": [
+          "distance_sensor",
+          "runloop",
+          "hub.port"
+        ],
+        "code": "async def on_close():\n    ...\n# hats become tasks; or await runloop.until(lambda: distance_sensor.distance(port.D) < 100)"
+      },
+      "python_prime_only": true,
+      "notes": [
+        "HAT. Starts its own stack when the condition becomes true. It does not sit inside forever. Default value is 8, default unit percent (≈ 16 cm). If you wanted 'when something is close', this is the right *family*, but wait-until + isDistance is the version that lives inside a driving loop."
+      ]
+    },
+    "flipperevents_whenGesture": {
+      "opcode": "flipperevents_whenGesture",
+      "short": "whenGesture",
+      "category": "event",
+      "bundle_order": 6,
+      "shape": "hat",
+      "shape_contract": "Starts its own stack. Nothing snaps above it. The rest of the stack runs when the event fires — it does not 'wait' inside another stack.",
+      "message": "when [EVENT]",
+      "colors": {
+        "primary": "#F5C402",
+        "secondary": "#C8A300",
+        "tertiary": "#B09400"
+      },
+      "arguments": [
+        {
+          "name": "EVENT",
+          "helper": "gestureOptionArgument"
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": null,
+      "python_prime_only": true,
+      "notes": []
+    },
+    "flipperevents_whenOrientation": {
+      "opcode": "flipperevents_whenOrientation",
+      "short": "whenOrientation",
+      "category": "event",
+      "bundle_order": 7,
+      "shape": "hat",
+      "shape_contract": "Starts its own stack. Nothing snaps above it. The rest of the stack runs when the event fires — it does not 'wait' inside another stack.",
+      "message": "when [VALUE] is up",
+      "colors": {
+        "primary": "#F5C402",
+        "secondary": "#C8A300",
+        "tertiary": "#B09400"
+      },
+      "arguments": [
+        {
+          "name": "VALUE",
+          "helper": "orientation"
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": null,
+      "python_prime_only": true,
+      "notes": []
+    },
+    "flipperevents_whenPressed": {
+      "opcode": "flipperevents_whenPressed",
+      "short": "whenPressed",
+      "category": "event",
+      "bundle_order": 8,
+      "shape": "hat",
+      "shape_contract": "Starts its own stack. Nothing snaps above it. The rest of the stack runs when the event fires — it does not 'wait' inside another stack.",
+      "message": "[PORT] when [OPTION]",
+      "colors": {
+        "primary": "#F5C402",
+        "secondary": "#C8A300",
+        "tertiary": "#B09400"
+      },
+      "arguments": [
+        {
+          "name": "OPTION",
+          "helper": "pressureOptionArgument"
+        },
+        {
+          "name": "PORT",
+          "helper": "forceSensorArgument",
+          "default": "A",
+          "field": "ForceSensorSelector"
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": null,
+      "python_prime_only": true,
+      "notes": []
+    },
+    "flipperevents_whenProgramStarts": {
+      "opcode": "flipperevents_whenProgramStarts",
+      "short": "whenProgramStarts",
+      "category": "event",
+      "bundle_order": 9,
+      "shape": "hat",
+      "shape_contract": "Starts its own stack. Nothing snaps above it. The rest of the stack runs when the event fires — it does not 'wait' inside another stack.",
+      "message": "when program starts",
+      "colors": {
+        "primary": "#F5C402",
+        "secondary": "#C8A300",
+        "tertiary": "#B09400"
+      },
+      "arguments": [],
+      "is_terminal": false,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": null,
+      "python": {
+        "api": [
+          "runloop"
+        ],
+        "code": "async def main():\n    ...\nrunloop.run(main())"
+      },
+      "python_prime_only": true,
+      "notes": []
+    },
+    "flipperevents_whenTimer": {
+      "opcode": "flipperevents_whenTimer",
+      "short": "whenTimer",
+      "category": "event",
+      "bundle_order": 10,
+      "shape": "hat",
+      "shape_contract": "Starts its own stack. Nothing snaps above it. The rest of the stack runs when the event fires — it does not 'wait' inside another stack.",
+      "message": "when timer > [VALUE]",
+      "colors": {
+        "primary": "#F5C402",
+        "secondary": "#C8A300",
+        "tertiary": "#B09400"
+      },
+      "arguments": [
+        {
+          "name": "VALUE",
+          "default": 10,
+          "type": "number"
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": null,
+      "python_prime_only": true,
+      "notes": []
+    },
+    "flipperlight_centerButtonLight": {
+      "opcode": "flipperlight_centerButtonLight",
+      "short": "centerButtonLight",
+      "category": "light",
+      "bundle_order": 19,
+      "shape": "stack",
+      "shape_contract": "A command. Snaps under a hat or another stack block and moves execution to the next block when it finishes. Blocks whose name starts with 'start' finish immediately and leave the motor/sound running.",
+      "message": "set Power Button light to [COLOR]",
+      "colors": {
+        "primary": "#9B6AF6",
+        "secondary": "#691FF0",
+        "tertiary": "#571CC1"
+      },
+      "arguments": [
+        {
+          "name": "COLOR",
+          "helper": "colorVerticalOptionArgument"
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime"
+      ],
+      "extension": null,
+      "python_prime_only": true,
+      "notes": []
+    },
+    "flipperlight_lightColorMatrixImageOn": {
+      "opcode": "flipperlight_lightColorMatrixImageOn",
+      "short": "lightColorMatrixImageOn",
+      "category": "light",
+      "bundle_order": 20,
+      "shape": "stack",
+      "shape_contract": "A command. Snaps under a hat or another stack block and moves execution to the next block when it finishes. Blocks whose name starts with 'start' finish immediately and leave the motor/sound running.",
+      "message": "[PORT] turn on [MATRIX]",
+      "colors": {
+        "primary": "#9B6AF6",
+        "secondary": "#691FF0",
+        "tertiary": "#571CC1"
+      },
+      "arguments": [
+        {
+          "name": "PORT",
+          "helper": "colorMatrixPortArgument"
+        },
+        {
+          "name": "MATRIX",
+          "helper": "matrix3x3Argument"
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": null,
+      "python": {
+        "api": [
+          "color_matrix",
+          "hub.port"
+        ],
+        "code": "color_matrix.show(port.A, pixels)  # 3x3 accessory"
+      },
+      "python_prime_only": true,
+      "notes": [
+        "Drives the 3x3 Colour Light Matrix accessory on a port, not the Prime hub's 5x5. Consumes a port on whichever hub it is plugged into."
+      ]
+    },
+    "flipperlight_lightColorMatrixImageOnForTime": {
+      "opcode": "flipperlight_lightColorMatrixImageOnForTime",
+      "short": "lightColorMatrixImageOnForTime",
+      "category": "light",
+      "bundle_order": 21,
+      "shape": "stack",
+      "shape_contract": "A command. Snaps under a hat or another stack block and moves execution to the next block when it finishes. Blocks whose name starts with 'start' finish immediately and leave the motor/sound running.",
+      "message": "[PORT] turn on [MATRIX] for [VALUE] seconds",
+      "colors": {
+        "primary": "#9B6AF6",
+        "secondary": "#691FF0",
+        "tertiary": "#571CC1"
+      },
+      "arguments": [
+        {
+          "name": "PORT",
+          "helper": "colorMatrixPortArgument"
+        },
+        {
+          "name": "MATRIX",
+          "helper": "matrix3x3Argument"
+        },
+        {
+          "name": "VALUE",
+          "default": 2,
+          "type": "number"
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": null,
+      "python_prime_only": true,
+      "notes": [
+        "Drives the 3x3 Colour Light Matrix accessory on a port, not the Prime hub's 5x5. Consumes a port on whichever hub it is plugged into."
+      ]
+    },
+    "flipperlight_lightColorMatrixOff": {
+      "opcode": "flipperlight_lightColorMatrixOff",
+      "short": "lightColorMatrixOff",
+      "category": "light",
+      "bundle_order": 22,
+      "shape": "stack",
+      "shape_contract": "A command. Snaps under a hat or another stack block and moves execution to the next block when it finishes. Blocks whose name starts with 'start' finish immediately and leave the motor/sound running.",
+      "message": "[PORT] turn off pixels",
+      "colors": {
+        "primary": "#9B6AF6",
+        "secondary": "#691FF0",
+        "tertiary": "#571CC1"
+      },
+      "arguments": [
+        {
+          "name": "PORT",
+          "helper": "colorMatrixPortArgument"
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": null,
+      "python_prime_only": true,
+      "notes": [
+        "Drives the 3x3 Colour Light Matrix accessory on a port, not the Prime hub's 5x5. Consumes a port on whichever hub it is plugged into."
+      ]
+    },
+    "flipperlight_lightColorMatrixRotate": {
+      "opcode": "flipperlight_lightColorMatrixRotate",
+      "short": "lightColorMatrixRotate",
+      "category": "light",
+      "bundle_order": 23,
+      "shape": "stack",
+      "shape_contract": "A command. Snaps under a hat or another stack block and moves execution to the next block when it finishes. Blocks whose name starts with 'start' finish immediately and leave the motor/sound running.",
+      "message": "[PORT] rotate [DIRECTION]",
+      "colors": {
+        "primary": "#9B6AF6",
+        "secondary": "#691FF0",
+        "tertiary": "#571CC1"
+      },
+      "arguments": [
+        {
+          "name": "PORT",
+          "helper": "colorMatrixPortArgument"
+        },
+        {
+          "name": "DIRECTION",
+          "helper": "directionArgument",
+          "default": "clockwise",
+          "field": "Direction"
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": null,
+      "python_prime_only": true,
+      "notes": [
+        "Drives the 3x3 Colour Light Matrix accessory on a port, not the Prime hub's 5x5. Consumes a port on whichever hub it is plugged into."
+      ]
+    },
+    "flipperlight_lightColorMatrixSetBrightness": {
+      "opcode": "flipperlight_lightColorMatrixSetBrightness",
+      "short": "lightColorMatrixSetBrightness",
+      "category": "light",
+      "bundle_order": 24,
+      "shape": "stack",
+      "shape_contract": "A command. Snaps under a hat or another stack block and moves execution to the next block when it finishes. Blocks whose name starts with 'start' finish immediately and leave the motor/sound running.",
+      "message": "[PORT] set pixel brightness to [BRIGHTNESS] %",
+      "colors": {
+        "primary": "#9B6AF6",
+        "secondary": "#691FF0",
+        "tertiary": "#571CC1"
+      },
+      "arguments": [
+        {
+          "name": "PORT",
+          "helper": "colorMatrixPortArgument"
+        },
+        {
+          "name": "BRIGHTNESS",
+          "default": 75,
+          "type": "number"
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": null,
+      "python_prime_only": true,
+      "notes": [
+        "Drives the 3x3 Colour Light Matrix accessory on a port, not the Prime hub's 5x5. Consumes a port on whichever hub it is plugged into."
+      ]
+    },
+    "flipperlight_lightColorMatrixSetOrientation": {
+      "opcode": "flipperlight_lightColorMatrixSetOrientation",
+      "short": "lightColorMatrixSetOrientation",
+      "category": "light",
+      "bundle_order": 25,
+      "shape": "stack",
+      "shape_contract": "A command. Snaps under a hat or another stack block and moves execution to the next block when it finishes. Blocks whose name starts with 'start' finish immediately and leave the motor/sound running.",
+      "message": "[PORT] set orientation to [ORIENTATION]",
+      "colors": {
+        "primary": "#9B6AF6",
+        "secondary": "#691FF0",
+        "tertiary": "#571CC1"
+      },
+      "arguments": [
+        {
+          "name": "PORT",
+          "helper": "colorMatrixPortArgument"
+        },
+        {
+          "name": "ORIENTATION",
+          "helper": "displayOrientationArgument"
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": null,
+      "python_prime_only": true,
+      "notes": [
+        "Drives the 3x3 Colour Light Matrix accessory on a port, not the Prime hub's 5x5. Consumes a port on whichever hub it is plugged into."
+      ]
+    },
+    "flipperlight_lightColorMatrixSetPixel": {
+      "opcode": "flipperlight_lightColorMatrixSetPixel",
+      "short": "lightColorMatrixSetPixel",
+      "category": "light",
+      "bundle_order": 26,
+      "shape": "stack",
+      "shape_contract": "A command. Snaps under a hat or another stack block and moves execution to the next block when it finishes. Blocks whose name starts with 'start' finish immediately and leave the motor/sound running.",
+      "message": "[PORT] set pixel at [X], [Y] to [COLOR] at [BRIGHTNESS] %",
+      "colors": {
+        "primary": "#9B6AF6",
+        "secondary": "#691FF0",
+        "tertiary": "#571CC1"
+      },
+      "arguments": [
+        {
+          "name": "PORT",
+          "helper": "colorMatrixPortArgument"
+        },
+        {
+          "name": "COLOR",
+          "helper": "colorVerticalOptionArgument"
+        },
+        {
+          "name": "BRIGHTNESS",
+          "default": 100,
+          "type": "number"
+        },
+        {
+          "name": "X",
+          "helper": "matrixPixelIndexArgument"
+        },
+        {
+          "name": "Y",
+          "helper": "matrixPixelIndexArgument"
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": null,
+      "python_prime_only": true,
+      "notes": [
+        "Drives the 3x3 Colour Light Matrix accessory on a port, not the Prime hub's 5x5. Consumes a port on whichever hub it is plugged into."
+      ]
+    },
+    "flipperlight_lightDisplayImageOn": {
+      "opcode": "flipperlight_lightDisplayImageOn",
+      "short": "lightDisplayImageOn",
+      "category": "light",
+      "bundle_order": 27,
+      "shape": "stack",
+      "shape_contract": "A command. Snaps under a hat or another stack block and moves execution to the next block when it finishes. Blocks whose name starts with 'start' finish immediately and leave the motor/sound running.",
+      "message": "turn on [MATRIX]",
+      "colors": {
+        "primary": "#9B6AF6",
+        "secondary": "#691FF0",
+        "tertiary": "#571CC1"
+      },
+      "arguments": [
+        {
+          "name": "MATRIX",
+          "helper": "matrix5x5Argument"
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime"
+      ],
+      "extension": null,
+      "python": {
+        "api": [
+          "hub.light_matrix"
+        ],
+        "code": "light_matrix.show_image(light_matrix.IMAGE_HAPPY)  # Prime 5x5"
+      },
+      "python_prime_only": true,
+      "notes": [
+        "Drives the Prime hub's built-in 5x5 matrix. Essential has no 5x5."
+      ]
+    },
+    "flipperlight_lightDisplayImageOnForTime": {
+      "opcode": "flipperlight_lightDisplayImageOnForTime",
+      "short": "lightDisplayImageOnForTime",
+      "category": "light",
+      "bundle_order": 28,
+      "shape": "stack",
+      "shape_contract": "A command. Snaps under a hat or another stack block and moves execution to the next block when it finishes. Blocks whose name starts with 'start' finish immediately and leave the motor/sound running.",
+      "message": "turn on [MATRIX] for [VALUE] seconds",
+      "colors": {
+        "primary": "#9B6AF6",
+        "secondary": "#691FF0",
+        "tertiary": "#571CC1"
+      },
+      "arguments": [
+        {
+          "name": "MATRIX",
+          "helper": "matrix5x5Argument"
+        },
+        {
+          "name": "VALUE",
+          "default": 2,
+          "type": "number"
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime"
+      ],
+      "extension": null,
+      "python_prime_only": true,
+      "notes": [
+        "Drives the Prime hub's built-in 5x5 matrix. Essential has no 5x5."
+      ]
+    },
+    "flipperlight_lightDisplayOff": {
+      "opcode": "flipperlight_lightDisplayOff",
+      "short": "lightDisplayOff",
+      "category": "light",
+      "bundle_order": 29,
+      "shape": "stack",
+      "shape_contract": "A command. Snaps under a hat or another stack block and moves execution to the next block when it finishes. Blocks whose name starts with 'start' finish immediately and leave the motor/sound running.",
+      "message": "turn off pixels",
+      "colors": {
+        "primary": "#9B6AF6",
+        "secondary": "#691FF0",
+        "tertiary": "#571CC1"
+      },
+      "arguments": [],
+      "is_terminal": false,
+      "hubs": [
+        "prime"
+      ],
+      "extension": null,
+      "python_prime_only": true,
+      "notes": [
+        "Drives the Prime hub's built-in 5x5 matrix. Essential has no 5x5."
+      ]
+    },
+    "flipperlight_lightDisplayRotate": {
+      "opcode": "flipperlight_lightDisplayRotate",
+      "short": "lightDisplayRotate",
+      "category": "light",
+      "bundle_order": 30,
+      "shape": "stack",
+      "shape_contract": "A command. Snaps under a hat or another stack block and moves execution to the next block when it finishes. Blocks whose name starts with 'start' finish immediately and leave the motor/sound running.",
+      "message": "rotate [DIRECTION]",
+      "colors": {
+        "primary": "#9B6AF6",
+        "secondary": "#691FF0",
+        "tertiary": "#571CC1"
+      },
+      "arguments": [
+        {
+          "name": "DIRECTION",
+          "helper": "directionArgument",
+          "default": "clockwise",
+          "field": "Direction"
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime"
+      ],
+      "extension": null,
+      "python_prime_only": true,
+      "notes": [
+        "Drives the Prime hub's built-in 5x5 matrix. Essential has no 5x5."
+      ]
+    },
+    "flipperlight_lightDisplaySetBrightness": {
+      "opcode": "flipperlight_lightDisplaySetBrightness",
+      "short": "lightDisplaySetBrightness",
+      "category": "light",
+      "bundle_order": 31,
+      "shape": "stack",
+      "shape_contract": "A command. Snaps under a hat or another stack block and moves execution to the next block when it finishes. Blocks whose name starts with 'start' finish immediately and leave the motor/sound running.",
+      "message": "set pixel brightness to [BRIGHTNESS] %",
+      "colors": {
+        "primary": "#9B6AF6",
+        "secondary": "#691FF0",
+        "tertiary": "#571CC1"
+      },
+      "arguments": [
+        {
+          "name": "BRIGHTNESS",
+          "default": 75,
+          "type": "number"
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime"
+      ],
+      "extension": null,
+      "python_prime_only": true,
+      "notes": [
+        "Drives the Prime hub's built-in 5x5 matrix. Essential has no 5x5."
+      ]
+    },
+    "flipperlight_lightDisplaySetOrientation": {
+      "opcode": "flipperlight_lightDisplaySetOrientation",
+      "short": "lightDisplaySetOrientation",
+      "category": "light",
+      "bundle_order": 32,
+      "shape": "stack",
+      "shape_contract": "A command. Snaps under a hat or another stack block and moves execution to the next block when it finishes. Blocks whose name starts with 'start' finish immediately and leave the motor/sound running.",
+      "message": "set orientation to [ORIENTATION]",
+      "colors": {
+        "primary": "#9B6AF6",
+        "secondary": "#691FF0",
+        "tertiary": "#571CC1"
+      },
+      "arguments": [
+        {
+          "name": "ORIENTATION",
+          "helper": "displayOrientationArgument"
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime"
+      ],
+      "extension": null,
+      "python_prime_only": true,
+      "notes": [
+        "Drives the Prime hub's built-in 5x5 matrix. Essential has no 5x5."
+      ]
+    },
+    "flipperlight_lightDisplaySetPixel": {
+      "opcode": "flipperlight_lightDisplaySetPixel",
+      "short": "lightDisplaySetPixel",
+      "category": "light",
+      "bundle_order": 33,
+      "shape": "stack",
+      "shape_contract": "A command. Snaps under a hat or another stack block and moves execution to the next block when it finishes. Blocks whose name starts with 'start' finish immediately and leave the motor/sound running.",
+      "message": "set pixel at [X], [Y] to [BRIGHTNESS] %",
+      "colors": {
+        "primary": "#9B6AF6",
+        "secondary": "#691FF0",
+        "tertiary": "#571CC1"
+      },
+      "arguments": [
+        {
+          "name": "BRIGHTNESS",
+          "default": 100,
+          "type": "number"
+        },
+        {
+          "name": "X",
+          "helper": "matrixPixelIndexArgument"
+        },
+        {
+          "name": "Y",
+          "helper": "matrixPixelIndexArgument"
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime"
+      ],
+      "extension": null,
+      "python_prime_only": true,
+      "notes": [
+        "Drives the Prime hub's built-in 5x5 matrix. Essential has no 5x5."
+      ]
+    },
+    "flipperlight_lightDisplayText": {
+      "opcode": "flipperlight_lightDisplayText",
+      "short": "lightDisplayText",
+      "category": "light",
+      "bundle_order": 34,
+      "shape": "stack",
+      "shape_contract": "A command. Snaps under a hat or another stack block and moves execution to the next block when it finishes. Blocks whose name starts with 'start' finish immediately and leave the motor/sound running.",
+      "message": "write [TEXT]",
+      "colors": {
+        "primary": "#9B6AF6",
+        "secondary": "#691FF0",
+        "tertiary": "#571CC1"
+      },
+      "arguments": [
+        {
+          "name": "TEXT",
+          "default": "Hello",
+          "type": "string"
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime"
+      ],
+      "extension": null,
+      "python": {
+        "api": [
+          "hub.light_matrix"
+        ],
+        "code": "light_matrix.write('Hi')"
+      },
+      "python_prime_only": true,
+      "notes": [
+        "Drives the Prime hub's built-in 5x5 matrix. Essential has no 5x5."
+      ]
+    },
+    "flipperlight_ultrasonicLightUp": {
+      "opcode": "flipperlight_ultrasonicLightUp",
+      "short": "ultrasonicLightUp",
+      "category": "light",
+      "bundle_order": 35,
+      "shape": "stack",
+      "shape_contract": "A command. Snaps under a hat or another stack block and moves execution to the next block when it finishes. Blocks whose name starts with 'start' finish immediately and leave the motor/sound running.",
+      "message": "[PORT] light up [VALUE]",
+      "colors": {
+        "primary": "#9B6AF6",
+        "secondary": "#691FF0",
+        "tertiary": "#571CC1"
+      },
+      "arguments": [
+        {
+          "name": "PORT",
+          "helper": "distanceSensorArgument",
+          "default": "A",
+          "field": "DistanceSensorSelector"
+        },
+        {
+          "name": "VALUE",
+          "default": "100 100 100 100",
+          "type": "customfieldtype",
+          "field": "LedSelector"
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": null,
+      "python_prime_only": true,
+      "notes": []
+    },
+    "flippermotor_absolutePosition": {
+      "opcode": "flippermotor_absolutePosition",
+      "short": "motorAbsolutePosition",
+      "category": "motor",
+      "bundle_order": 36,
+      "shape": "reporter",
+      "shape_contract": "An oval. Reports a number or string. Must be dropped into a number/string slot. Does nothing on its own.",
+      "message": "[PORT] position",
+      "colors": {
+        "primary": "#0090F5",
+        "secondary": "#0078CC",
+        "tertiary": "#0062A6"
+      },
+      "arguments": [
+        {
+          "name": "PORT",
+          "helper": "singleMotorArgument",
+          "default": "A",
+          "field": "SingleMotorSelector"
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": null,
+      "python": {
+        "api": [
+          "motor",
+          "hub.port"
+        ],
+        "code": "motor.absolute_position(port.A)"
+      },
+      "python_prime_only": true,
+      "notes": []
+    },
+    "flippermotor_motorGoDirectionToPosition": {
+      "opcode": "flippermotor_motorGoDirectionToPosition",
+      "short": "motorGoDirectionToPosition",
+      "category": "motor",
+      "bundle_order": 37,
+      "shape": "stack",
+      "shape_contract": "A command. Snaps under a hat or another stack block and moves execution to the next block when it finishes. Blocks whose name starts with 'start' finish immediately and leave the motor/sound running.",
+      "message": "[PORT] go [DIRECTION] to position [POSITION]",
+      "colors": {
+        "primary": "#0090F5",
+        "secondary": "#0078CC",
+        "tertiary": "#0062A6"
+      },
+      "arguments": [
+        {
+          "name": "PORT",
+          "helper": "portsArgument",
+          "default": "A",
+          "field": "MultiplePortSelector"
+        },
+        {
+          "name": "POSITION",
+          "helper": "angleArgument"
+        },
+        {
+          "name": "DIRECTION",
+          "helper": "motorDirectionArgument",
+          "default": "shortest",
+          "menu": "motorDirection",
+          "options": [
+            "shortest",
+            "clockwise",
+            "counterclockwise"
+          ]
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": null,
+      "python": {
+        "api": [
+          "motor",
+          "hub.port"
+        ],
+        "code": "await motor.run_to_absolute_position(port.A, degrees, velocity)"
+      },
+      "python_prime_only": true,
+      "notes": [
+        "PORT is a multi-select. The app pre-checks every connected motor. One line can spin the drill and a wheel. Un-tick the ports you did not mean, or use SingleMotorSelector blocks one port at a time."
+      ]
+    },
+    "flippermoremotor_motorGoToRelativePosition": {
+      "opcode": "flippermoremotor_motorGoToRelativePosition",
+      "short": "motorGoToRelativePosition",
+      "category": "more",
+      "bundle_order": 38,
+      "shape": "stack",
+      "shape_contract": "A command. Snaps under a hat or another stack block and moves execution to the next block when it finishes. Blocks whose name starts with 'start' finish immediately and leave the motor/sound running.",
+      "message": "[PORT] go to relative position [POSITION] at [SPEED] % speed",
+      "colors": {
+        "primary": "#FF6680",
+        "secondary": "#FF4D6A",
+        "tertiary": "#FF3355"
+      },
+      "arguments": [
+        {
+          "name": "PORT",
+          "helper": "portsArgument",
+          "default": "A",
+          "field": "MultiplePortSelector"
+        },
+        {
+          "name": "POSITION",
+          "default": 0,
+          "type": "number"
+        },
+        {
+          "name": "SPEED",
+          "default": 100,
+          "type": "number"
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": "more-motors",
+      "python": {
+        "api": [
+          "motor",
+          "hub.port"
+        ],
+        "code": "await motor.run_to_relative_position(port.A, degrees, velocity)"
+      },
+      "python_prime_only": true,
+      "notes": [
+        "PORT is a multi-select. The app pre-checks every connected motor. One line can spin the drill and a wheel. Un-tick the ports you did not mean, or use SingleMotorSelector blocks one port at a time.",
+        "Hidden until you add the matching extension from the bottom of the palette (the puzzle-piece tray)."
+      ]
+    },
+    "flippermoremotor_motorSetAcceleration": {
+      "opcode": "flippermoremotor_motorSetAcceleration",
+      "short": "motorSetAcceleration",
+      "category": "more",
+      "bundle_order": 39,
+      "shape": "stack",
+      "shape_contract": "A command. Snaps under a hat or another stack block and moves execution to the next block when it finishes. Blocks whose name starts with 'start' finish immediately and leave the motor/sound running.",
+      "message": "[PORT] set acceleration to [ACCELERATION]",
+      "colors": {
+        "primary": "#FF6680",
+        "secondary": "#FF4D6A",
+        "tertiary": "#FF3355"
+      },
+      "arguments": [
+        {
+          "name": "PORT",
+          "helper": "portsArgument",
+          "default": "A",
+          "field": "MultiplePortSelector"
+        },
+        {
+          "name": "ACCELERATION",
+          "helper": "motorAccelerationArgument"
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": "more-motors",
+      "python_prime_only": true,
+      "notes": [
+        "PORT is a multi-select. The app pre-checks every connected motor. One line can spin the drill and a wheel. Un-tick the ports you did not mean, or use SingleMotorSelector blocks one port at a time.",
+        "Hidden until you add the matching extension from the bottom of the palette (the puzzle-piece tray)."
+      ]
+    },
+    "flippermoremotor_motorSetDegreeCounted": {
+      "opcode": "flippermoremotor_motorSetDegreeCounted",
+      "short": "motorSetDegreeCounted",
+      "category": "more",
+      "bundle_order": 40,
+      "shape": "stack",
+      "shape_contract": "A command. Snaps under a hat or another stack block and moves execution to the next block when it finishes. Blocks whose name starts with 'start' finish immediately and leave the motor/sound running.",
+      "message": "[PORT] set relative position to [VALUE]",
+      "colors": {
+        "primary": "#FF6680",
+        "secondary": "#FF4D6A",
+        "tertiary": "#FF3355"
+      },
+      "arguments": [
+        {
+          "name": "PORT",
+          "helper": "portsArgument",
+          "default": "A",
+          "field": "MultiplePortSelector"
+        },
+        {
+          "name": "VALUE",
+          "default": 0,
+          "type": "number"
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": "more-motors",
+      "python_prime_only": true,
+      "notes": [
+        "PORT is a multi-select. The app pre-checks every connected motor. One line can spin the drill and a wheel. Un-tick the ports you did not mean, or use SingleMotorSelector blocks one port at a time.",
+        "Hidden until you add the matching extension from the bottom of the palette (the puzzle-piece tray)."
+      ]
+    },
+    "flippermotor_motorSetSpeed": {
+      "opcode": "flippermotor_motorSetSpeed",
+      "short": "motorSetSpeed",
+      "category": "motor",
+      "bundle_order": 41,
+      "shape": "stack",
+      "shape_contract": "A command. Snaps under a hat or another stack block and moves execution to the next block when it finishes. Blocks whose name starts with 'start' finish immediately and leave the motor/sound running.",
+      "message": "[PORT] set speed to [SPEED] %",
+      "colors": {
+        "primary": "#0090F5",
+        "secondary": "#0078CC",
+        "tertiary": "#0062A6"
+      },
+      "arguments": [
+        {
+          "name": "PORT",
+          "helper": "portsArgument",
+          "default": "A",
+          "field": "MultiplePortSelector"
+        },
+        {
+          "name": "SPEED",
+          "default": 75,
+          "type": "number"
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": null,
+      "python": {
+        "api": [
+          "motor"
+        ],
+        "code": "# default velocity for later motor.run / run_for_* calls; Word Block only — Python passes velocity each call"
+      },
+      "python_prime_only": true,
+      "notes": [
+        "PORT is a multi-select. The app pre-checks every connected motor. One line can spin the drill and a wheel. Un-tick the ports you did not mean, or use SingleMotorSelector blocks one port at a time."
+      ]
+    },
+    "flippermoremotor_motorSetStopMethod": {
+      "opcode": "flippermoremotor_motorSetStopMethod",
+      "short": "motorSetStopMethod",
+      "category": "more",
+      "bundle_order": 42,
+      "shape": "stack",
+      "shape_contract": "A command. Snaps under a hat or another stack block and moves execution to the next block when it finishes. Blocks whose name starts with 'start' finish immediately and leave the motor/sound running.",
+      "message": "[PORT] set motor to [STOP] at stop",
+      "colors": {
+        "primary": "#FF6680",
+        "secondary": "#FF4D6A",
+        "tertiary": "#FF3355"
+      },
+      "arguments": [
+        {
+          "name": "PORT",
+          "helper": "portsArgument",
+          "default": "A",
+          "field": "MultiplePortSelector"
+        },
+        {
+          "name": "STOP",
+          "helper": "motorStopMethodArgument",
+          "default": "brake",
+          "menu": "motorSetStopMethod",
+          "options": [
+            "brake",
+            "hold",
+            "coast"
+          ]
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": "more-motors",
+      "python_prime_only": true,
+      "notes": [
+        "PORT is a multi-select. The app pre-checks every connected motor. One line can spin the drill and a wheel. Un-tick the ports you did not mean, or use SingleMotorSelector blocks one port at a time.",
+        "Hidden until you add the matching extension from the bottom of the palette (the puzzle-piece tray)."
+      ]
+    },
+    "flippermotor_motorStartDirection": {
+      "opcode": "flippermotor_motorStartDirection",
+      "short": "motorStartDirection",
+      "category": "motor",
+      "bundle_order": 43,
+      "shape": "stack",
+      "shape_contract": "A command. Snaps under a hat or another stack block and moves execution to the next block when it finishes. Blocks whose name starts with 'start' finish immediately and leave the motor/sound running.",
+      "message": "[PORT] start motor [DIRECTION]",
+      "colors": {
+        "primary": "#0090F5",
+        "secondary": "#0078CC",
+        "tertiary": "#0062A6"
+      },
+      "arguments": [
+        {
+          "name": "DIRECTION",
+          "helper": "directionArgument",
+          "default": "clockwise",
+          "field": "Direction"
+        },
+        {
+          "name": "PORT",
+          "helper": "portsArgument",
+          "default": "A",
+          "field": "MultiplePortSelector"
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": null,
+      "python": {
+        "api": [
+          "motor",
+          "hub.port"
+        ],
+        "code": "motor.run(port.A, velocity)  # velocity sign is direction"
+      },
+      "python_prime_only": true,
+      "notes": [
+        "PORT is a multi-select. The app pre-checks every connected motor. One line can spin the drill and a wheel. Un-tick the ports you did not mean, or use SingleMotorSelector blocks one port at a time."
+      ]
+    },
+    "flippermoremotor_motorStartPower": {
+      "opcode": "flippermoremotor_motorStartPower",
+      "short": "motorStartPower",
+      "category": "more",
+      "bundle_order": 44,
+      "shape": "stack",
+      "shape_contract": "A command. Snaps under a hat or another stack block and moves execution to the next block when it finishes. Blocks whose name starts with 'start' finish immediately and leave the motor/sound running.",
+      "message": "[PORT] start motor at [POWER]% power",
+      "colors": {
+        "primary": "#FF6680",
+        "secondary": "#FF4D6A",
+        "tertiary": "#FF3355"
+      },
+      "arguments": [
+        {
+          "name": "PORT",
+          "helper": "portsArgument",
+          "default": "A",
+          "field": "MultiplePortSelector"
+        },
+        {
+          "name": "POWER",
+          "default": 100,
+          "type": "number"
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": "more-motors",
+      "python": {
+        "api": [
+          "motor",
+          "hub.port"
+        ],
+        "code": "motor.run(port.A, duty)  # power, not speed"
+      },
+      "python_prime_only": true,
+      "notes": [
+        "PORT is a multi-select. The app pre-checks every connected motor. One line can spin the drill and a wheel. Un-tick the ports you did not mean, or use SingleMotorSelector blocks one port at a time.",
+        "Hidden until you add the matching extension from the bottom of the palette (the puzzle-piece tray)."
+      ]
+    },
+    "flippermotor_motorStop": {
+      "opcode": "flippermotor_motorStop",
+      "short": "motorStop",
+      "category": "motor",
+      "bundle_order": 45,
+      "shape": "stack",
+      "shape_contract": "A command. Snaps under a hat or another stack block and moves execution to the next block when it finishes. Blocks whose name starts with 'start' finish immediately and leave the motor/sound running.",
+      "message": "[PORT] stop motor",
+      "colors": {
+        "primary": "#0090F5",
+        "secondary": "#0078CC",
+        "tertiary": "#0062A6"
+      },
+      "arguments": [
+        {
+          "name": "PORT",
+          "helper": "portsArgument",
+          "default": "A",
+          "field": "MultiplePortSelector"
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": null,
+      "python": {
+        "api": [
+          "motor",
+          "hub.port"
+        ],
+        "code": "motor.stop(port.A)"
+      },
+      "python_prime_only": true,
+      "notes": [
+        "PORT is a multi-select. The app pre-checks every connected motor. One line can spin the drill and a wheel. Un-tick the ports you did not mean, or use SingleMotorSelector blocks one port at a time."
+      ]
+    },
+    "flippermotor_motorTurnForDirection": {
+      "opcode": "flippermotor_motorTurnForDirection",
+      "short": "motorTurnForDirection",
+      "category": "motor",
+      "bundle_order": 46,
+      "shape": "stack",
+      "shape_contract": "A command. Snaps under a hat or another stack block and moves execution to the next block when it finishes. Blocks whose name starts with 'start' finish immediately and leave the motor/sound running.",
+      "message": "[PORT] run [DIRECTION] for [VALUE] [UNIT]",
+      "colors": {
+        "primary": "#0090F5",
+        "secondary": "#0078CC",
+        "tertiary": "#0062A6"
+      },
+      "arguments": [
+        {
+          "name": "DIRECTION",
+          "helper": "directionArgument",
+          "default": "clockwise",
+          "field": "Direction"
+        },
+        {
+          "name": "PORT",
+          "helper": "portsArgument",
+          "default": "A",
+          "field": "MultiplePortSelector"
+        },
+        {
+          "name": "UNIT",
+          "helper": "unitMotorArgument",
+          "default": "rotations",
+          "menu": "unitMotor",
+          "options": [
+            "rotations",
+            "degrees",
+            "seconds"
+          ]
+        },
+        {
+          "name": "VALUE",
+          "default": 1,
+          "type": "number"
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": null,
+      "python": {
+        "api": [
+          "motor",
+          "hub.port"
+        ],
+        "code": "await motor.run_for_degrees(port.A, degrees, velocity)\n# or await motor.run_for_time(port.A, ms, velocity)"
+      },
+      "python_prime_only": true,
+      "notes": [
+        "PORT is a multi-select. The app pre-checks every connected motor. One line can spin the drill and a wheel. Un-tick the ports you did not mean, or use SingleMotorSelector blocks one port at a time."
+      ]
+    },
+    "flippermoremotor_position": {
+      "opcode": "flippermoremotor_position",
+      "short": "motorPosition",
+      "category": "more",
+      "bundle_order": 47,
+      "shape": "reporter",
+      "shape_contract": "An oval. Reports a number or string. Must be dropped into a number/string slot. Does nothing on its own.",
+      "message": "[PORT] relative position",
+      "colors": {
+        "primary": "#FF6680",
+        "secondary": "#FF4D6A",
+        "tertiary": "#FF3355"
+      },
+      "arguments": [
+        {
+          "name": "PORT",
+          "helper": "singleMotorArgument",
+          "default": "A",
+          "field": "SingleMotorSelector"
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": "more-motors",
+      "python_prime_only": true,
+      "notes": [
+        "Hidden until you add the matching extension from the bottom of the palette (the puzzle-piece tray)."
+      ]
+    },
+    "flippermoremotor_power": {
+      "opcode": "flippermoremotor_power",
+      "short": "motorPower",
+      "category": "more",
+      "bundle_order": 48,
+      "shape": "reporter",
+      "shape_contract": "An oval. Reports a number or string. Must be dropped into a number/string slot. Does nothing on its own.",
+      "message": "[PORT] power",
+      "colors": {
+        "primary": "#FF6680",
+        "secondary": "#FF4D6A",
+        "tertiary": "#FF3355"
+      },
+      "arguments": [
+        {
+          "name": "PORT",
+          "helper": "singleMotorArgument",
+          "default": "A",
+          "field": "SingleMotorSelector"
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": "more-motors",
+      "python_prime_only": true,
+      "notes": [
+        "Hidden until you add the matching extension from the bottom of the palette (the puzzle-piece tray)."
+      ]
+    },
+    "flippermotor_speed": {
+      "opcode": "flippermotor_speed",
+      "short": "motorSpeed",
+      "category": "motor",
+      "bundle_order": 49,
+      "shape": "reporter",
+      "shape_contract": "An oval. Reports a number or string. Must be dropped into a number/string slot. Does nothing on its own.",
+      "message": "[PORT] speed",
+      "colors": {
+        "primary": "#0090F5",
+        "secondary": "#0078CC",
+        "tertiary": "#0062A6"
+      },
+      "arguments": [
+        {
+          "name": "PORT",
+          "helper": "singleMotorArgument",
+          "default": "A",
+          "field": "SingleMotorSelector"
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": null,
+      "python": {
+        "api": [
+          "motor",
+          "hub.port"
+        ],
+        "code": "motor.velocity(port.A)"
+      },
+      "python_prime_only": true,
+      "notes": []
+    },
+    "flippermoremove_movementSetAcceleration": {
+      "opcode": "flippermoremove_movementSetAcceleration",
+      "short": "movementSetAcceleration",
+      "category": "more",
+      "bundle_order": 50,
+      "shape": "stack",
+      "shape_contract": "A command. Snaps under a hat or another stack block and moves execution to the next block when it finishes. Blocks whose name starts with 'start' finish immediately and leave the motor/sound running.",
+      "message": "set movement acceleration to [ACCELERATION]",
+      "colors": {
+        "primary": "#FF6680",
+        "secondary": "#FF4D6A",
+        "tertiary": "#FF3355"
+      },
+      "arguments": [
+        {
+          "name": "ACCELERATION",
+          "helper": "motorAccelerationArgument"
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": "more-movement",
+      "python_prime_only": true,
+      "notes": [
+        "Hidden until you add the matching extension from the bottom of the palette (the puzzle-piece tray)."
+      ]
+    },
+    "flippermove_move": {
+      "opcode": "flippermove_move",
+      "short": "move",
+      "category": "movement",
+      "bundle_order": 51,
+      "shape": "stack",
+      "shape_contract": "A command. Snaps under a hat or another stack block and moves execution to the next block when it finishes. Blocks whose name starts with 'start' finish immediately and leave the motor/sound running.",
+      "message": "move [DIRECTION] for [VALUE] [UNIT]",
+      "colors": {
+        "primary": "#FF4CCD",
+        "secondary": "#C80090",
+        "tertiary": "#B2248A"
+      },
+      "arguments": [
+        {
+          "name": "DIRECTION",
+          "helper": "directionArgument",
+          "default": "forward",
+          "menu": "moveDirection",
+          "options": [
+            "forward",
+            "backward"
+          ]
+        },
+        {
+          "name": "UNIT",
+          "helper": "moveUnitAllArgument"
+        },
+        {
+          "name": "VALUE",
+          "default": 10,
+          "type": "number"
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": null,
+      "python": {
+        "api": [
+          "motor_pair"
+        ],
+        "code": "await motor_pair.move_for_degrees(motor_pair.PAIR_1, degrees, steering, velocity=360)"
+      },
+      "python_prime_only": true,
+      "notes": [
+        "Acts on the pair from set movement motors, not on a port named here. Without that pair-set block earlier in the stack, the move does nothing useful."
+      ]
+    },
+    "flippermove_setMovementPair": {
+      "opcode": "flippermove_setMovementPair",
+      "short": "setMovementPair",
+      "category": "movement",
+      "bundle_order": 52,
+      "shape": "stack",
+      "shape_contract": "A command. Snaps under a hat or another stack block and moves execution to the next block when it finishes. Blocks whose name starts with 'start' finish immediately and leave the motor/sound running.",
+      "message": "set movement motors to [PAIR]",
+      "colors": {
+        "primary": "#FF4CCD",
+        "secondary": "#C80090",
+        "tertiary": "#B2248A"
+      },
+      "arguments": [
+        {
+          "name": "PAIR",
+          "helper": "movementPairArgument",
+          "default": "AB",
+          "field": "MovementPortSelector"
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": null,
+      "python": {
+        "api": [
+          "motor_pair",
+          "hub.port"
+        ],
+        "code": "motor_pair.pair(motor_pair.PAIR_1, port.A, port.B)"
+      },
+      "python_prime_only": true,
+      "notes": [
+        "This names the two motors every flippermove_* block will drive. The move blocks themselves have no port dropdown."
+      ]
+    },
+    "flippermove_movementSpeed": {
+      "opcode": "flippermove_movementSpeed",
+      "short": "movementSpeed",
+      "category": "movement",
+      "bundle_order": 53,
+      "shape": "stack",
+      "shape_contract": "A command. Snaps under a hat or another stack block and moves execution to the next block when it finishes. Blocks whose name starts with 'start' finish immediately and leave the motor/sound running.",
+      "message": "set movement speed to [SPEED]%",
+      "colors": {
+        "primary": "#FF4CCD",
+        "secondary": "#C80090",
+        "tertiary": "#B2248A"
+      },
+      "arguments": [
+        {
+          "name": "SPEED",
+          "default": 50,
+          "type": "number"
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": null,
+      "python_prime_only": true,
+      "notes": [
+        "Acts on the pair from set movement motors, not on a port named here. Without that pair-set block earlier in the stack, the move does nothing useful."
+      ]
+    },
+    "flippermove_startMove": {
+      "opcode": "flippermove_startMove",
+      "short": "startMove",
+      "category": "movement",
+      "bundle_order": 54,
+      "shape": "stack",
+      "shape_contract": "A command. Snaps under a hat or another stack block and moves execution to the next block when it finishes. Blocks whose name starts with 'start' finish immediately and leave the motor/sound running.",
+      "message": "start moving [DIRECTION]",
+      "colors": {
+        "primary": "#FF4CCD",
+        "secondary": "#C80090",
+        "tertiary": "#B2248A"
+      },
+      "arguments": [
+        {
+          "name": "DIRECTION",
+          "helper": "directionArgument",
+          "default": "forward",
+          "menu": "moveDirection",
+          "options": [
+            "forward",
+            "backward"
+          ]
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": null,
+      "python": {
+        "api": [
+          "motor_pair"
+        ],
+        "code": "motor_pair.move(motor_pair.PAIR_1, 0, velocity=360)  # steering 0 = straight"
+      },
+      "python_prime_only": true,
+      "notes": [
+        "Acts on the pair from set movement motors, not on a port named here. Without that pair-set block earlier in the stack, the move does nothing useful."
+      ]
+    },
+    "flippermoremove_movementSetStopMethod": {
+      "opcode": "flippermoremove_movementSetStopMethod",
+      "short": "movementSetStopMethod",
+      "category": "more",
+      "bundle_order": 55,
+      "shape": "stack",
+      "shape_contract": "A command. Snaps under a hat or another stack block and moves execution to the next block when it finishes. Blocks whose name starts with 'start' finish immediately and leave the motor/sound running.",
+      "message": "set movement motors to [STOP] at stop",
+      "colors": {
+        "primary": "#FF6680",
+        "secondary": "#FF4D6A",
+        "tertiary": "#FF3355"
+      },
+      "arguments": [
+        {
+          "name": "STOP",
+          "helper": "motorStopMethodArgument",
+          "default": "brake",
+          "menu": "motorSetStopMethod",
+          "options": [
+            "brake",
+            "hold",
+            "coast"
+          ]
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": "more-movement",
+      "python_prime_only": true,
+      "notes": [
+        "Hidden until you add the matching extension from the bottom of the palette (the puzzle-piece tray)."
+      ]
+    },
+    "flippermove_setDistance": {
+      "opcode": "flippermove_setDistance",
+      "short": "setDistance",
+      "category": "movement",
+      "bundle_order": 56,
+      "shape": "stack",
+      "shape_contract": "A command. Snaps under a hat or another stack block and moves execution to the next block when it finishes. Blocks whose name starts with 'start' finish immediately and leave the motor/sound running.",
+      "message": "set 1 motor rotation to [DISTANCE] [UNIT] moved",
+      "colors": {
+        "primary": "#FF4CCD",
+        "secondary": "#C80090",
+        "tertiary": "#B2248A"
+      },
+      "arguments": [
+        {
+          "name": "DISTANCE",
+          "default": 17,
+          "type": "number"
+        },
+        {
+          "name": "UNIT",
+          "helper": "moveDistanceUnitArgument",
+          "default": "cm",
+          "menu": "moveDistanceUnit",
+          "options": [
+            "cm",
+            "inches"
+          ]
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": null,
+      "python_prime_only": true,
+      "notes": [
+        "Acts on the pair from set movement motors, not on a port named here. Without that pair-set block earlier in the stack, the move does nothing useful."
+      ]
+    },
+    "flippermoremove_startDualSpeed": {
+      "opcode": "flippermoremove_startDualSpeed",
+      "short": "startDualSpeed",
+      "category": "more",
+      "bundle_order": 57,
+      "shape": "stack",
+      "shape_contract": "A command. Snaps under a hat or another stack block and moves execution to the next block when it finishes. Blocks whose name starts with 'start' finish immediately and leave the motor/sound running.",
+      "message": "start moving at [LEFT] [RIGHT] % speed",
+      "colors": {
+        "primary": "#FF6680",
+        "secondary": "#FF4D6A",
+        "tertiary": "#FF3355"
+      },
+      "arguments": [
+        {
+          "name": "LEFT",
+          "default": 50,
+          "type": "number"
+        },
+        {
+          "name": "RIGHT",
+          "default": 50,
+          "type": "number"
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": "more-movement",
+      "python": {
+        "api": [
+          "motor_pair"
+        ],
+        "code": "motor_pair.move_tank(motor_pair.PAIR_1, left_velocity, right_velocity)"
+      },
+      "python_prime_only": true,
+      "notes": [
+        "Hidden until you add the matching extension from the bottom of the palette (the puzzle-piece tray)."
+      ]
+    },
+    "flippermove_startSteer": {
+      "opcode": "flippermove_startSteer",
+      "short": "startSteer",
+      "category": "movement",
+      "bundle_order": 58,
+      "shape": "stack",
+      "shape_contract": "A command. Snaps under a hat or another stack block and moves execution to the next block when it finishes. Blocks whose name starts with 'start' finish immediately and leave the motor/sound running.",
+      "message": "start moving [STEERING]",
+      "colors": {
+        "primary": "#FF4CCD",
+        "secondary": "#C80090",
+        "tertiary": "#B2248A"
+      },
+      "arguments": [
+        {
+          "name": "STEERING",
+          "type": "customfieldtype",
+          "field": "RotationWheel"
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": null,
+      "python": {
+        "api": [
+          "motor_pair"
+        ],
+        "code": "motor_pair.move(motor_pair.PAIR_1, steering, velocity=360)"
+      },
+      "python_prime_only": true,
+      "notes": [
+        "Acts on the pair from set movement motors, not on a port named here. Without that pair-set block earlier in the stack, the move does nothing useful."
+      ]
+    },
+    "flippermove_steer": {
+      "opcode": "flippermove_steer",
+      "short": "steer",
+      "category": "movement",
+      "bundle_order": 59,
+      "shape": "stack",
+      "shape_contract": "A command. Snaps under a hat or another stack block and moves execution to the next block when it finishes. Blocks whose name starts with 'start' finish immediately and leave the motor/sound running.",
+      "message": "move [STEERING] for [VALUE] [UNIT]",
+      "colors": {
+        "primary": "#FF4CCD",
+        "secondary": "#C80090",
+        "tertiary": "#B2248A"
+      },
+      "arguments": [
+        {
+          "name": "STEERING",
+          "type": "customfieldtype",
+          "field": "RotationWheel"
+        },
+        {
+          "name": "UNIT",
+          "helper": "moveUnitArgument"
+        },
+        {
+          "name": "VALUE",
+          "default": 10,
+          "type": "number"
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": null,
+      "python": {
+        "api": [
+          "motor_pair"
+        ],
+        "code": "await motor_pair.move_for_degrees(motor_pair.PAIR_1, degrees, steering, velocity=360)"
+      },
+      "python_prime_only": true,
+      "notes": [
+        "Acts on the pair from set movement motors, not on a port named here. Without that pair-set block earlier in the stack, the move does nothing useful."
+      ]
+    },
+    "flippermove_stopMove": {
+      "opcode": "flippermove_stopMove",
+      "short": "stopMove",
+      "category": "movement",
+      "bundle_order": 60,
+      "shape": "stack",
+      "shape_contract": "A command. Snaps under a hat or another stack block and moves execution to the next block when it finishes. Blocks whose name starts with 'start' finish immediately and leave the motor/sound running.",
+      "message": "stop moving",
+      "colors": {
+        "primary": "#FF4CCD",
+        "secondary": "#C80090",
+        "tertiary": "#B2248A"
+      },
+      "arguments": [],
+      "is_terminal": false,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": null,
+      "python": {
+        "api": [
+          "motor_pair"
+        ],
+        "code": "motor_pair.stop(motor_pair.PAIR_1)"
+      },
+      "python_prime_only": true,
+      "notes": [
+        "Acts on the pair from set movement motors, not on a port named here. Without that pair-set block earlier in the stack, the move does nothing useful."
+      ]
+    },
+    "flipperoperator_isInBetween": {
+      "opcode": "flipperoperator_isInBetween",
+      "short": "isInBetween",
+      "category": "operators",
+      "bundle_order": 61,
+      "shape": "boolean",
+      "shape_contract": "A hexagon. Reports true/false. Does nothing on its own. Must be dropped inside wait-until, if, or repeat-until.",
+      "message": "is [VALUE] in between [LOW] and [HIGH]?",
+      "colors": {
+        "primary": "#00B94D",
+        "secondary": "#00963E",
+        "tertiary": "#006A2A"
+      },
+      "arguments": [
+        {
+          "name": "VALUE",
+          "default": 0,
+          "type": "number"
+        },
+        {
+          "name": "LOW",
+          "type": "number"
+        },
+        {
+          "name": "HIGH",
+          "default": 10,
+          "type": "number"
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": null,
+      "python_prime_only": true,
+      "notes": []
+    },
+    "flippermoresensors_acceleration": {
+      "opcode": "flippermoresensors_acceleration",
+      "short": "acceleration",
+      "category": "more",
+      "bundle_order": 62,
+      "shape": "reporter",
+      "shape_contract": "An oval. Reports a number or string. Must be dropped into a number/string slot. Does nothing on its own.",
+      "message": "acceleration [AXIS]",
+      "colors": {
+        "primary": "#FF6680",
+        "secondary": "#FF4D6A",
+        "tertiary": "#FF3355"
+      },
+      "arguments": [
+        {
+          "name": "AXIS",
+          "helper": "axisArgument"
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": "more-sensors",
+      "python_prime_only": true,
+      "notes": [
+        "Hidden until you add the matching extension from the bottom of the palette (the puzzle-piece tray)."
+      ]
+    },
+    "flippermoresensors_angularVelocity": {
+      "opcode": "flippermoresensors_angularVelocity",
+      "short": "angularVelocity",
+      "category": "more",
+      "bundle_order": 63,
+      "shape": "reporter",
+      "shape_contract": "An oval. Reports a number or string. Must be dropped into a number/string slot. Does nothing on its own.",
+      "message": "angular velocity [AXIS]",
+      "colors": {
+        "primary": "#FF6680",
+        "secondary": "#FF4D6A",
+        "tertiary": "#FF3355"
+      },
+      "arguments": [
+        {
+          "name": "AXIS",
+          "helper": "axisArgument"
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": "more-sensors",
+      "python_prime_only": true,
+      "notes": [
+        "Hidden until you add the matching extension from the bottom of the palette (the puzzle-piece tray)."
+      ]
+    },
+    "flippersensors_buttonIsPressed": {
+      "opcode": "flippersensors_buttonIsPressed",
+      "short": "buttonIsPressed",
+      "category": "sensing",
+      "bundle_order": 64,
+      "shape": "boolean",
+      "shape_contract": "A hexagon. Reports true/false. Does nothing on its own. Must be dropped inside wait-until, if, or repeat-until.",
+      "message": "is [BUTTON] button [EVENT]?",
+      "colors": {
+        "primary": "#34CCF1",
+        "secondary": "#00A8C9",
+        "tertiary": "#368FA9"
+      },
+      "arguments": [
+        {
+          "name": "BUTTON",
+          "helper": "buttonArgument"
+        },
+        {
+          "name": "EVENT",
+          "helper": "buttonEventArgument"
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": null,
+      "python_prime_only": true,
+      "notes": []
+    },
+    "flippersensors_isColor": {
+      "opcode": "flippersensors_isColor",
+      "short": "iscolor",
+      "category": "sensing",
+      "bundle_order": 65,
+      "shape": "boolean",
+      "shape_contract": "A hexagon. Reports true/false. Does nothing on its own. Must be dropped inside wait-until, if, or repeat-until.",
+      "message": "[PORT] is color [VALUE]?",
+      "colors": {
+        "primary": "#34CCF1",
+        "secondary": "#00A8C9",
+        "tertiary": "#368FA9"
+      },
+      "arguments": [
+        {
+          "name": "PORT",
+          "helper": "colorSensorArgument",
+          "default": "A",
+          "field": "ColorSensorSelector"
+        },
+        {
+          "name": "VALUE",
+          "helper": "colorOptionArgument"
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": null,
+      "python": {
+        "api": [
+          "color_sensor",
+          "color",
+          "hub.port"
+        ],
+        "code": "color_sensor.color(port.A) is color.RED"
+      },
+      "python_prime_only": true,
+      "notes": []
+    },
+    "flippermoresensors_rawColor": {
+      "opcode": "flippermoresensors_rawColor",
+      "short": "rawColor",
+      "category": "more",
+      "bundle_order": 66,
+      "shape": "reporter",
+      "shape_contract": "An oval. Reports a number or string. Must be dropped into a number/string slot. Does nothing on its own.",
+      "message": "[PORT] raw [COLOR]",
+      "colors": {
+        "primary": "#FF6680",
+        "secondary": "#FF4D6A",
+        "tertiary": "#FF3355"
+      },
+      "arguments": [
+        {
+          "name": "PORT",
+          "helper": "colorSensorArgument",
+          "default": "A",
+          "field": "ColorSensorSelector"
+        },
+        {
+          "name": "COLOR",
+          "helper": "colorRawArgument"
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": "more-sensors",
+      "python_prime_only": true,
+      "notes": [
+        "Hidden until you add the matching extension from the bottom of the palette (the puzzle-piece tray)."
+      ]
+    },
+    "flippersensors_color": {
+      "opcode": "flippersensors_color",
+      "short": "color",
+      "category": "sensing",
+      "bundle_order": 67,
+      "shape": "reporter",
+      "shape_contract": "An oval. Reports a number or string. Must be dropped into a number/string slot. Does nothing on its own.",
+      "message": "[PORT] color",
+      "colors": {
+        "primary": "#34CCF1",
+        "secondary": "#00A8C9",
+        "tertiary": "#368FA9"
+      },
+      "arguments": [
+        {
+          "name": "PORT",
+          "helper": "colorSensorArgument",
+          "default": "A",
+          "field": "ColorSensorSelector"
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": null,
+      "python": {
+        "api": [
+          "color_sensor",
+          "hub.port"
+        ],
+        "code": "color_sensor.color(port.A)"
+      },
+      "python_prime_only": true,
+      "notes": []
+    },
+    "flippersensors_isDistance": {
+      "opcode": "flippersensors_isDistance",
+      "short": "isDistance",
+      "category": "sensing",
+      "bundle_order": 69,
+      "shape": "boolean",
+      "shape_contract": "A hexagon. Reports true/false. Does nothing on its own. Must be dropped inside wait-until, if, or repeat-until.",
+      "message": "[PORT] is [COMPARATOR] [VALUE] [UNIT]?",
+      "colors": {
+        "primary": "#34CCF1",
+        "secondary": "#00A8C9",
+        "tertiary": "#368FA9"
+      },
+      "arguments": [
+        {
+          "name": "COMPARATOR",
+          "helper": "distanceComparatorArgument",
+          "default": "closerThan",
+          "menu": "distanceComparator",
+          "options": [
+            "closerThan",
+            "fartherThan",
+            "exactlyAt"
+          ]
+        },
+        {
+          "name": "PORT",
+          "helper": "distanceSensorArgument",
+          "default": "A",
+          "field": "DistanceSensorSelector"
+        },
+        {
+          "name": "UNIT",
+          "helper": "unitDistanceArgument",
+          "default": "percent",
+          "menu": "unitDistance",
+          "options": [
+            "percent",
+            "cm",
+            "inches"
+          ],
+          "note": "percent is % of the sensor's 200 cm range, not % of anything on screen. 20% = 40 cm."
+        },
+        {
+          "name": "VALUE",
+          "default": 15,
+          "type": "number"
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": null,
+      "python": {
+        "api": [
+          "distance_sensor",
+          "hub.port"
+        ],
+        "code": "distance_sensor.distance(port.D) < 100  # mm; None if nothing seen"
+      },
+      "python_prime_only": true,
+      "notes": [
+        "BOOLEAN. Does not move the program forward. Drop it inside 'wait until' or 'if then'. Default unit is percent of 200 cm, default value 15 (≈ 30 cm), not 20 cm."
+      ]
+    },
+    "flippersensors_distance": {
+      "opcode": "flippersensors_distance",
+      "short": "distance",
+      "category": "sensing",
+      "bundle_order": 70,
+      "shape": "reporter",
+      "shape_contract": "An oval. Reports a number or string. Must be dropped into a number/string slot. Does nothing on its own.",
+      "message": "[PORT] distance in [UNIT]",
+      "colors": {
+        "primary": "#34CCF1",
+        "secondary": "#00A8C9",
+        "tertiary": "#368FA9"
+      },
+      "arguments": [
+        {
+          "name": "PORT",
+          "helper": "distanceSensorArgument",
+          "default": "A",
+          "field": "DistanceSensorSelector"
+        },
+        {
+          "name": "UNIT",
+          "helper": "unitDistanceArgument",
+          "default": "percent",
+          "menu": "unitDistance",
+          "options": [
+            "percent",
+            "cm",
+            "inches"
+          ],
+          "note": "percent is % of the sensor's 200 cm range, not % of anything on screen. 20% = 40 cm."
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": null,
+      "python": {
+        "api": [
+          "distance_sensor",
+          "hub.port"
+        ],
+        "code": "distance_sensor.distance(port.D)  # millimetres, or None"
+      },
+      "python_prime_only": true,
+      "notes": [
+        "REPORTER oval. A number. Drop it into a compare slot. Unit dropdown: %, cm, inches."
+      ]
+    },
+    "flippersensors_isPressed": {
+      "opcode": "flippersensors_isPressed",
+      "short": "isPressed",
+      "category": "sensing",
+      "bundle_order": 71,
+      "shape": "boolean",
+      "shape_contract": "A hexagon. Reports true/false. Does nothing on its own. Must be dropped inside wait-until, if, or repeat-until.",
+      "message": "[PORT] is [OPTION]?",
+      "colors": {
+        "primary": "#34CCF1",
+        "secondary": "#00A8C9",
+        "tertiary": "#368FA9"
+      },
+      "arguments": [
+        {
+          "name": "PORT",
+          "helper": "forceSensorArgument",
+          "default": "A",
+          "field": "ForceSensorSelector"
+        },
+        {
+          "name": "OPTION",
+          "helper": "pressureOptionArgument"
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": null,
+      "python": {
+        "api": [
+          "force_sensor",
+          "hub.port"
+        ],
+        "code": "force_sensor.pressed(port.A)"
+      },
+      "python_prime_only": true,
+      "notes": []
+    },
+    "flippersensors_force": {
+      "opcode": "flippersensors_force",
+      "short": "force",
+      "category": "sensing",
+      "bundle_order": 72,
+      "shape": "reporter",
+      "shape_contract": "An oval. Reports a number or string. Must be dropped into a number/string slot. Does nothing on its own.",
+      "message": "[PORT] pressure in [UNIT]",
+      "colors": {
+        "primary": "#34CCF1",
+        "secondary": "#00A8C9",
+        "tertiary": "#368FA9"
+      },
+      "arguments": [
+        {
+          "name": "PORT",
+          "helper": "forceSensorArgument",
+          "default": "A",
+          "field": "ForceSensorSelector"
+        },
+        {
+          "name": "UNIT",
+          "helper": "unitForceArgument"
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": null,
+      "python": {
+        "api": [
+          "force_sensor",
+          "hub.port"
+        ],
+        "code": "force_sensor.force(port.A)  # newtons"
+      },
+      "python_prime_only": true,
+      "notes": []
+    },
+    "flippersensors_ismotion": {
+      "opcode": "flippersensors_ismotion",
+      "short": "isMotion",
+      "category": "sensing",
+      "bundle_order": 73,
+      "shape": "boolean",
+      "shape_contract": "A hexagon. Reports true/false. Does nothing on its own. Must be dropped inside wait-until, if, or repeat-until.",
+      "message": "is [MOTION]?",
+      "colors": {
+        "primary": "#34CCF1",
+        "secondary": "#00A8C9",
+        "tertiary": "#368FA9"
+      },
+      "arguments": [
+        {
+          "name": "MOTION",
+          "helper": "gestureOptionArgument"
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": null,
+      "python_prime_only": true,
+      "notes": []
+    },
+    "flippermoresensors_motion": {
+      "opcode": "flippermoresensors_motion",
+      "short": "motion",
+      "category": "more",
+      "bundle_order": 74,
+      "shape": "reporter",
+      "shape_contract": "An oval. Reports a number or string. Must be dropped into a number/string slot. Does nothing on its own.",
+      "message": "gesture",
+      "colors": {
+        "primary": "#FF6680",
+        "secondary": "#FF4D6A",
+        "tertiary": "#FF3355"
+      },
+      "arguments": [],
+      "is_terminal": false,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": "more-sensors",
+      "python_prime_only": true,
+      "notes": [
+        "Hidden until you add the matching extension from the bottom of the palette (the puzzle-piece tray)."
+      ]
+    },
+    "flippersensors_orientationAxis": {
+      "opcode": "flippersensors_orientationAxis",
+      "short": "orientationAxis",
+      "category": "sensing",
+      "bundle_order": 75,
+      "shape": "reporter",
+      "shape_contract": "An oval. Reports a number or string. Must be dropped into a number/string slot. Does nothing on its own.",
+      "message": "[AXIS] angle",
+      "colors": {
+        "primary": "#34CCF1",
+        "secondary": "#00A8C9",
+        "tertiary": "#368FA9"
+      },
+      "arguments": [
+        {
+          "name": "AXIS",
+          "helper": "orientationAxis"
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": null,
+      "python_prime_only": true,
+      "notes": []
+    },
+    "flippersensors_isorientation": {
+      "opcode": "flippersensors_isorientation",
+      "short": "isorientation",
+      "category": "sensing",
+      "bundle_order": 76,
+      "shape": "boolean",
+      "shape_contract": "A hexagon. Reports true/false. Does nothing on its own. Must be dropped inside wait-until, if, or repeat-until.",
+      "message": "is [ORIENTATION] up?",
+      "colors": {
+        "primary": "#34CCF1",
+        "secondary": "#00A8C9",
+        "tertiary": "#368FA9"
+      },
+      "arguments": [
+        {
+          "name": "ORIENTATION",
+          "helper": "orientation"
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": null,
+      "python_prime_only": true,
+      "notes": []
+    },
+    "flippermoresensors_orientation": {
+      "opcode": "flippermoresensors_orientation",
+      "short": "orientation",
+      "category": "more",
+      "bundle_order": 77,
+      "shape": "reporter",
+      "shape_contract": "An oval. Reports a number or string. Must be dropped into a number/string slot. Does nothing on its own.",
+      "message": "orientation",
+      "colors": {
+        "primary": "#FF6680",
+        "secondary": "#FF4D6A",
+        "tertiary": "#FF3355"
+      },
+      "arguments": [],
+      "is_terminal": false,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": "more-sensors",
+      "python_prime_only": true,
+      "notes": [
+        "Hidden until you add the matching extension from the bottom of the palette (the puzzle-piece tray)."
+      ]
+    },
+    "flippersensors_isReflectivity": {
+      "opcode": "flippersensors_isReflectivity",
+      "short": "isReflectivity",
+      "category": "sensing",
+      "bundle_order": 79,
+      "shape": "boolean",
+      "shape_contract": "A hexagon. Reports true/false. Does nothing on its own. Must be dropped inside wait-until, if, or repeat-until.",
+      "message": "[PORT] reflection [COMPARATOR] [VALUE]% ?",
+      "colors": {
+        "primary": "#34CCF1",
+        "secondary": "#00A8C9",
+        "tertiary": "#368FA9"
+      },
+      "arguments": [
+        {
+          "name": "COMPARATOR",
+          "helper": "comparatorArgument"
+        },
+        {
+          "name": "PORT",
+          "helper": "colorSensorArgument",
+          "default": "A",
+          "field": "ColorSensorSelector"
+        },
+        {
+          "name": "VALUE",
+          "default": 50,
+          "type": "number"
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": null,
+      "python_prime_only": true,
+      "notes": []
+    },
+    "flippersensors_reflectivity": {
+      "opcode": "flippersensors_reflectivity",
+      "short": "reflectivity",
+      "category": "sensing",
+      "bundle_order": 80,
+      "shape": "reporter",
+      "shape_contract": "An oval. Reports a number or string. Must be dropped into a number/string slot. Does nothing on its own.",
+      "message": "[PORT] reflected light",
+      "colors": {
+        "primary": "#34CCF1",
+        "secondary": "#00A8C9",
+        "tertiary": "#368FA9"
+      },
+      "arguments": [
+        {
+          "name": "PORT",
+          "helper": "colorSensorArgument",
+          "default": "A",
+          "field": "ColorSensorSelector"
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": null,
+      "python_prime_only": true,
+      "notes": []
+    },
+    "flippersensors_resetTimer": {
+      "opcode": "flippersensors_resetTimer",
+      "short": "resetTimer",
+      "category": "sensing",
+      "bundle_order": 81,
+      "shape": "stack",
+      "shape_contract": "A command. Snaps under a hat or another stack block and moves execution to the next block when it finishes. Blocks whose name starts with 'start' finish immediately and leave the motor/sound running.",
+      "message": "reset timer",
+      "colors": {
+        "primary": "#34CCF1",
+        "secondary": "#00A8C9",
+        "tertiary": "#368FA9"
+      },
+      "arguments": [],
+      "is_terminal": false,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": null,
+      "python_prime_only": true,
+      "notes": []
+    },
+    "flippersensors_resetYaw": {
+      "opcode": "flippersensors_resetYaw",
+      "short": "resetYaw",
+      "category": "sensing",
+      "bundle_order": 82,
+      "shape": "stack",
+      "shape_contract": "A command. Snaps under a hat or another stack block and moves execution to the next block when it finishes. Blocks whose name starts with 'start' finish immediately and leave the motor/sound running.",
+      "message": "set yaw angle to 0",
+      "colors": {
+        "primary": "#34CCF1",
+        "secondary": "#00A8C9",
+        "tertiary": "#368FA9"
+      },
+      "arguments": [],
+      "is_terminal": false,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": null,
+      "python_prime_only": true,
+      "notes": []
+    },
+    "flippermoresensors_setOrientation": {
+      "opcode": "flippermoresensors_setOrientation",
+      "short": "setOrientation",
+      "category": "more",
+      "bundle_order": 83,
+      "shape": "stack",
+      "shape_contract": "A command. Snaps under a hat or another stack block and moves execution to the next block when it finishes. Blocks whose name starts with 'start' finish immediately and leave the motor/sound running.",
+      "message": "set yaw axis to [UP]",
+      "colors": {
+        "primary": "#FF6680",
+        "secondary": "#FF4D6A",
+        "tertiary": "#FF3355"
+      },
+      "arguments": [
+        {
+          "name": "UP",
+          "helper": "orientation"
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": "more-sensors",
+      "python_prime_only": true,
+      "notes": [
+        "Hidden until you add the matching extension from the bottom of the palette (the puzzle-piece tray)."
+      ]
+    },
+    "flippersensors_timer": {
+      "opcode": "flippersensors_timer",
+      "short": "timer",
+      "category": "sensing",
+      "bundle_order": 84,
+      "shape": "reporter",
+      "shape_contract": "An oval. Reports a number or string. Must be dropped into a number/string slot. Does nothing on its own.",
+      "message": "timer",
+      "colors": {
+        "primary": "#34CCF1",
+        "secondary": "#00A8C9",
+        "tertiary": "#368FA9"
+      },
+      "arguments": [],
+      "is_terminal": false,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": null,
+      "python_prime_only": true,
+      "notes": []
+    },
+    "flippersound_beep": {
+      "opcode": "flippersound_beep",
+      "short": "beep",
+      "category": "sounds",
+      "bundle_order": 85,
+      "shape": "stack",
+      "shape_contract": "A command. Snaps under a hat or another stack block and moves execution to the next block when it finishes. Blocks whose name starts with 'start' finish immediately and leave the motor/sound running.",
+      "message": "start playing beep [NOTE]",
+      "colors": {
+        "primary": "#C061F1",
+        "secondary": "#8A40AF",
+        "tertiary": "#642E7F"
+      },
+      "arguments": [
+        {
+          "name": "NOTE",
+          "helper": "pianoArgument"
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime"
+      ],
+      "extension": null,
+      "python": {
+        "api": [
+          "hub.sound"
+        ],
+        "code": "sound.beep(440, 1000, 100)  # Prime speaker"
+      },
+      "python_prime_only": true,
+      "notes": []
+    },
+    "flippersound_beepForTime": {
+      "opcode": "flippersound_beepForTime",
+      "short": "beepForTime",
+      "category": "sounds",
+      "bundle_order": 86,
+      "shape": "stack",
+      "shape_contract": "A command. Snaps under a hat or another stack block and moves execution to the next block when it finishes. Blocks whose name starts with 'start' finish immediately and leave the motor/sound running.",
+      "message": "play beep [NOTE] for [DURATION] seconds",
+      "colors": {
+        "primary": "#C061F1",
+        "secondary": "#8A40AF",
+        "tertiary": "#642E7F"
+      },
+      "arguments": [
+        {
+          "name": "DURATION",
+          "type": "number"
+        },
+        {
+          "name": "NOTE",
+          "helper": "pianoArgument"
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime"
+      ],
+      "extension": null,
+      "python_prime_only": true,
+      "notes": []
+    },
+    "flippersound_playSound": {
+      "opcode": "flippersound_playSound",
+      "short": "playSound",
+      "category": "sounds",
+      "bundle_order": 87,
+      "shape": "stack",
+      "shape_contract": "A command. Snaps under a hat or another stack block and moves execution to the next block when it finishes. Blocks whose name starts with 'start' finish immediately and leave the motor/sound running.",
+      "message": "start sound [SOUND]",
+      "colors": {
+        "primary": "#C061F1",
+        "secondary": "#8A40AF",
+        "tertiary": "#642E7F"
+      },
+      "arguments": [
+        {
+          "name": "SOUND",
+          "type": "customfieldtype",
+          "field": "SoundSelector"
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime"
+      ],
+      "extension": null,
+      "python_prime_only": true,
+      "notes": []
+    },
+    "flippersound_playSoundUntilDone": {
+      "opcode": "flippersound_playSoundUntilDone",
+      "short": "playSoundUntilDone",
+      "category": "sounds",
+      "bundle_order": 88,
+      "shape": "stack",
+      "shape_contract": "A command. Snaps under a hat or another stack block and moves execution to the next block when it finishes. Blocks whose name starts with 'start' finish immediately and leave the motor/sound running.",
+      "message": "play sound [SOUND] until done",
+      "colors": {
+        "primary": "#C061F1",
+        "secondary": "#8A40AF",
+        "tertiary": "#642E7F"
+      },
+      "arguments": [
+        {
+          "name": "SOUND",
+          "type": "customfieldtype",
+          "field": "SoundSelector"
+        }
+      ],
+      "is_terminal": false,
+      "hubs": [
+        "prime"
+      ],
+      "extension": null,
+      "python_prime_only": true,
+      "notes": []
+    },
+    "flippersound_stopSound": {
+      "opcode": "flippersound_stopSound",
+      "short": "stopSound",
+      "category": "sounds",
+      "bundle_order": 89,
+      "shape": "stack",
+      "shape_contract": "A command. Snaps under a hat or another stack block and moves execution to the next block when it finishes. Blocks whose name starts with 'start' finish immediately and leave the motor/sound running.",
+      "message": "stop all sounds",
+      "colors": {
+        "primary": "#C061F1",
+        "secondary": "#8A40AF",
+        "tertiary": "#642E7F"
+      },
+      "arguments": [],
+      "is_terminal": false,
+      "hubs": [
+        "prime"
+      ],
+      "extension": null,
+      "python_prime_only": true,
+      "notes": []
+    },
+    "control_forever": {
+      "opcode": "control_forever",
+      "short": "forever",
+      "category": "control",
+      "shape": "c",
+      "message": "forever",
+      "arguments": [],
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": null,
+      "python": {
+        "api": [
+          "runloop"
+        ],
+        "code": "while True:\n    ...\n    await runloop.sleep_ms(0)"
+      },
+      "shape_contract": "A C-shaped wrapper (forever / if / repeat). Holds a stack in its mouth.",
+      "is_terminal": false,
+      "python_prime_only": true,
+      "notes": [],
+      "bundle_order": 1000,
+      "colors": {
+        "primary": "#FFB515",
+        "secondary": "#ECA100",
+        "tertiary": "#C98A01"
+      },
+      "scratch_core": true
+    },
+    "control_if": {
+      "opcode": "control_if",
+      "short": "if",
+      "category": "control",
+      "shape": "c",
+      "message": "if <CONDITION> then",
+      "arguments": [
+        {
+          "name": "CONDITION",
+          "type": "boolean"
+        }
+      ],
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": null,
+      "python": {
+        "api": [],
+        "code": "if condition:\n    ..."
+      },
+      "shape_contract": "A C-shaped wrapper (forever / if / repeat). Holds a stack in its mouth.",
+      "is_terminal": false,
+      "python_prime_only": true,
+      "notes": [],
+      "bundle_order": 1001,
+      "colors": {
+        "primary": "#FFB515",
+        "secondary": "#ECA100",
+        "tertiary": "#C98A01"
+      },
+      "scratch_core": true
+    },
+    "control_if_else": {
+      "opcode": "control_if_else",
+      "short": "if_else",
+      "category": "control",
+      "shape": "c",
+      "message": "if <CONDITION> then / else",
+      "arguments": [
+        {
+          "name": "CONDITION",
+          "type": "boolean"
+        }
+      ],
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": null,
+      "python": {
+        "api": [],
+        "code": "if condition:\n    ...\nelse:\n    ..."
+      },
+      "shape_contract": "A C-shaped wrapper (forever / if / repeat). Holds a stack in its mouth.",
+      "is_terminal": false,
+      "python_prime_only": true,
+      "notes": [],
+      "bundle_order": 1002,
+      "colors": {
+        "primary": "#FFB515",
+        "secondary": "#ECA100",
+        "tertiary": "#C98A01"
+      },
+      "scratch_core": true
+    },
+    "control_repeat": {
+      "opcode": "control_repeat",
+      "short": "repeat",
+      "category": "control",
+      "shape": "c",
+      "message": "repeat (TIMES)",
+      "arguments": [
+        {
+          "name": "TIMES",
+          "type": "number",
+          "default": 10
+        }
+      ],
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": null,
+      "python": {
+        "api": [],
+        "code": "for _ in range(n):\n    ..."
+      },
+      "shape_contract": "A C-shaped wrapper (forever / if / repeat). Holds a stack in its mouth.",
+      "is_terminal": false,
+      "python_prime_only": true,
+      "notes": [],
+      "bundle_order": 1003,
+      "colors": {
+        "primary": "#FFB515",
+        "secondary": "#ECA100",
+        "tertiary": "#C98A01"
+      },
+      "scratch_core": true
+    },
+    "control_repeat_until": {
+      "opcode": "control_repeat_until",
+      "short": "repeat_until",
+      "category": "control",
+      "shape": "c",
+      "message": "repeat until <CONDITION>",
+      "arguments": [
+        {
+          "name": "CONDITION",
+          "type": "boolean"
+        }
+      ],
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": null,
+      "python": {
+        "api": [
+          "runloop"
+        ],
+        "code": "while not condition:\n    ..."
+      },
+      "shape_contract": "A C-shaped wrapper (forever / if / repeat). Holds a stack in its mouth.",
+      "is_terminal": false,
+      "python_prime_only": true,
+      "notes": [],
+      "bundle_order": 1004,
+      "colors": {
+        "primary": "#FFB515",
+        "secondary": "#ECA100",
+        "tertiary": "#C98A01"
+      },
+      "scratch_core": true
+    },
+    "control_wait": {
+      "opcode": "control_wait",
+      "short": "wait",
+      "category": "control",
+      "shape": "stack",
+      "message": "wait (DURATION) seconds",
+      "arguments": [
+        {
+          "name": "DURATION",
+          "type": "number",
+          "default": 1
+        }
+      ],
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": null,
+      "python": {
+        "api": [
+          "runloop"
+        ],
+        "code": "await runloop.sleep_ms(1000)"
+      },
+      "shape_contract": "A command. Snaps under a hat or another stack block and moves execution to the next block when it finishes. Blocks whose name starts with 'start' finish immediately and leave the motor/sound running.",
+      "is_terminal": false,
+      "python_prime_only": true,
+      "notes": [],
+      "bundle_order": 1005,
+      "colors": {
+        "primary": "#FFB515",
+        "secondary": "#ECA100",
+        "tertiary": "#C98A01"
+      },
+      "scratch_core": true
+    },
+    "control_wait_until": {
+      "opcode": "control_wait_until",
+      "short": "wait_until",
+      "category": "control",
+      "shape": "stack",
+      "message": "wait until <CONDITION>",
+      "arguments": [
+        {
+          "name": "CONDITION",
+          "type": "boolean"
+        }
+      ],
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": null,
+      "python": {
+        "api": [
+          "runloop"
+        ],
+        "code": "await runloop.until(lambda: ...)"
+      },
+      "notes": [
+        "This is the block that makes a boolean do something. Drop flippersensors_isDistance in the hexagon slot."
+      ],
+      "shape_contract": "A command. Snaps under a hat or another stack block and moves execution to the next block when it finishes. Blocks whose name starts with 'start' finish immediately and leave the motor/sound running.",
+      "is_terminal": false,
+      "python_prime_only": true,
+      "bundle_order": 1006,
+      "colors": {
+        "primary": "#FFB515",
+        "secondary": "#ECA100",
+        "tertiary": "#C98A01"
+      },
+      "scratch_core": true
+    },
+    "control_stop": {
+      "opcode": "control_stop",
+      "short": "stop",
+      "category": "control",
+      "shape": "cap",
+      "message": "stop [STOP_OPTION]",
+      "arguments": [
+        {
+          "name": "STOP_OPTION",
+          "menu": "stopOption",
+          "options": [
+            "all",
+            "this script",
+            "other scripts"
+          ],
+          "default": "all"
+        }
+      ],
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "extension": null,
+      "shape_contract": "A stack that nothing can snap under (stop all).",
+      "is_terminal": true,
+      "python_prime_only": true,
+      "notes": [],
+      "bundle_order": 1007,
+      "colors": {
+        "primary": "#FFB515",
+        "secondary": "#ECA100",
+        "tertiary": "#C98A01"
+      },
+      "scratch_core": true
+    }
+  },
+  "icon_blocks": [
+    {
+      "opcode": "horizontalbargraphmonitor_barGraphChangeValue",
+      "category": "data",
+      "shape": "stack",
+      "label": "barGraphChangeValue",
+      "pictorial": true,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "notes": [
+        "Icon Blocks are a separate canvas (the app calls it 'doodle' / 'horizontal'). Tiles, not Scratch-shaped Word Blocks. Definitions in the bundle are opcodes plus artwork, not English message templates."
+      ]
+    },
+    {
+      "opcode": "horizontalbargraphmonitor_barGraphClearData",
+      "category": "data",
+      "shape": "stack",
+      "label": "barGraphClearData",
+      "pictorial": true,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "notes": [
+        "Icon Blocks are a separate canvas (the app calls it 'doodle' / 'horizontal'). Tiles, not Scratch-shaped Word Blocks. Definitions in the bundle are opcodes plus artwork, not English message templates."
+      ]
+    },
+    {
+      "opcode": "horizontalbargraphmonitor_barGraphViewMode",
+      "category": "data",
+      "shape": "stack",
+      "label": "barGraphViewMode",
+      "pictorial": true,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "notes": [
+        "Icon Blocks are a separate canvas (the app calls it 'doodle' / 'horizontal'). Tiles, not Scratch-shaped Word Blocks. Definitions in the bundle are opcodes plus artwork, not English message templates."
+      ]
+    },
+    {
+      "opcode": "horizontalcontrol_stopOtherStacks",
+      "category": "control",
+      "shape": "cap",
+      "label": "stop other stacks",
+      "pictorial": true,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "notes": [
+        "Icon Blocks are a separate canvas (the app calls it 'doodle' / 'horizontal'). Tiles, not Scratch-shaped Word Blocks. Definitions in the bundle are opcodes plus artwork, not English message templates."
+      ]
+    },
+    {
+      "opcode": "horizontaldisplay_ledImage",
+      "category": "light",
+      "shape": "stack",
+      "label": "show 5x5 image (Prime)",
+      "pictorial": true,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "notes": [
+        "Icon Blocks are a separate canvas (the app calls it 'doodle' / 'horizontal'). Tiles, not Scratch-shaped Word Blocks. Definitions in the bundle are opcodes plus artwork, not English message templates."
+      ]
+    },
+    {
+      "opcode": "horizontaldisplay_ledMatrix",
+      "category": "light",
+      "shape": "stack",
+      "label": "show 3x3 colour matrix",
+      "pictorial": true,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "notes": [
+        "Icon Blocks are a separate canvas (the app calls it 'doodle' / 'horizontal'). Tiles, not Scratch-shaped Word Blocks. Definitions in the bundle are opcodes plus artwork, not English message templates."
+      ]
+    },
+    {
+      "opcode": "horizontaldisplay_ledMatrixRandom",
+      "category": "light",
+      "shape": "stack",
+      "label": "random 3x3 image",
+      "pictorial": true,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "notes": [
+        "Icon Blocks are a separate canvas (the app calls it 'doodle' / 'horizontal'). Tiles, not Scratch-shaped Word Blocks. Definitions in the bundle are opcodes plus artwork, not English message templates."
+      ]
+    },
+    {
+      "opcode": "horizontaldisplay_ledRandom",
+      "category": "light",
+      "shape": "stack",
+      "label": "random 5x5 image",
+      "pictorial": true,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "notes": [
+        "Icon Blocks are a separate canvas (the app calls it 'doodle' / 'horizontal'). Tiles, not Scratch-shaped Word Blocks. Definitions in the bundle are opcodes plus artwork, not English message templates."
+      ]
+    },
+    {
+      "opcode": "horizontaldisplaymonitor_displaySetImageWithBuiltInDelay",
+      "category": "light",
+      "shape": "stack",
+      "label": "displaySetImageWithBuiltInDelay",
+      "pictorial": true,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "notes": [
+        "Icon Blocks are a separate canvas (the app calls it 'doodle' / 'horizontal'). Tiles, not Scratch-shaped Word Blocks. Definitions in the bundle are opcodes plus artwork, not English message templates."
+      ]
+    },
+    {
+      "opcode": "horizontaldisplaymonitor_displaySetMonitorFullscreen",
+      "category": "light",
+      "shape": "stack",
+      "label": "displaySetMonitorFullscreen",
+      "pictorial": true,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "notes": [
+        "Icon Blocks are a separate canvas (the app calls it 'doodle' / 'horizontal'). Tiles, not Scratch-shaped Word Blocks. Definitions in the bundle are opcodes plus artwork, not English message templates."
+      ]
+    },
+    {
+      "opcode": "horizontaldisplaymonitor_displayWriteWithBuiltInDelay",
+      "category": "light",
+      "shape": "stack",
+      "label": "displayWriteWithBuiltInDelay",
+      "pictorial": true,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "notes": [
+        "Icon Blocks are a separate canvas (the app calls it 'doodle' / 'horizontal'). Tiles, not Scratch-shaped Word Blocks. Definitions in the bundle are opcodes plus artwork, not English message templates."
+      ]
+    },
+    {
+      "opcode": "horizontalevents_broadcast",
+      "category": "event",
+      "shape": "stack",
+      "label": "broadcast message",
+      "pictorial": true,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "notes": [
+        "Icon Blocks are a separate canvas (the app calls it 'doodle' / 'horizontal'). Tiles, not Scratch-shaped Word Blocks. Definitions in the bundle are opcodes plus artwork, not English message templates."
+      ]
+    },
+    {
+      "opcode": "horizontalevents_whenBroadcast",
+      "category": "event",
+      "shape": "hat",
+      "label": "when message received",
+      "pictorial": true,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "notes": [
+        "Icon Blocks are a separate canvas (the app calls it 'doodle' / 'horizontal'). Tiles, not Scratch-shaped Word Blocks. Definitions in the bundle are opcodes plus artwork, not English message templates."
+      ]
+    },
+    {
+      "opcode": "horizontalevents_whenCloserThan",
+      "category": "event",
+      "shape": "hat",
+      "label": "when distance is near (the 20 cm preset, as a hat)",
+      "pictorial": true,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "notes": [
+        "Icon Blocks are a separate canvas (the app calls it 'doodle' / 'horizontal'). Tiles, not Scratch-shaped Word Blocks. Definitions in the bundle are opcodes plus artwork, not English message templates."
+      ]
+    },
+    {
+      "opcode": "horizontalevents_whenColor",
+      "category": "event",
+      "shape": "hat",
+      "label": "when colour is ...",
+      "pictorial": true,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "notes": [
+        "Icon Blocks are a separate canvas (the app calls it 'doodle' / 'horizontal'). Tiles, not Scratch-shaped Word Blocks. Definitions in the bundle are opcodes plus artwork, not English message templates."
+      ]
+    },
+    {
+      "opcode": "horizontalevents_whenPressed",
+      "category": "event",
+      "shape": "hat",
+      "label": "when force sensor is pressed",
+      "pictorial": true,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "notes": [
+        "Icon Blocks are a separate canvas (the app calls it 'doodle' / 'horizontal'). Tiles, not Scratch-shaped Word Blocks. Definitions in the bundle are opcodes plus artwork, not English message templates."
+      ]
+    },
+    {
+      "opcode": "horizontalevents_whenProgramStarts",
+      "category": "event",
+      "shape": "hat",
+      "label": "when program starts (yellow play)",
+      "pictorial": true,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "notes": [
+        "Icon Blocks are a separate canvas (the app calls it 'doodle' / 'horizontal'). Tiles, not Scratch-shaped Word Blocks. Definitions in the bundle are opcodes plus artwork, not English message templates."
+      ]
+    },
+    {
+      "opcode": "horizontalevents_whenTilted",
+      "category": "event",
+      "shape": "hat",
+      "label": "when hub is tilted",
+      "pictorial": true,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "notes": [
+        "Icon Blocks are a separate canvas (the app calls it 'doodle' / 'horizontal'). Tiles, not Scratch-shaped Word Blocks. Definitions in the bundle are opcodes plus artwork, not English message templates."
+      ]
+    },
+    {
+      "opcode": "horizontalmotor_motorSetSpeed",
+      "category": "motor",
+      "shape": "stack",
+      "label": "set motor speed",
+      "pictorial": true,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "notes": [
+        "Icon Blocks are a separate canvas (the app calls it 'doodle' / 'horizontal'). Tiles, not Scratch-shaped Word Blocks. Definitions in the bundle are opcodes plus artwork, not English message templates."
+      ]
+    },
+    {
+      "opcode": "horizontalmotor_motorStop",
+      "category": "motor",
+      "shape": "stack",
+      "label": "stop motor",
+      "pictorial": true,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "notes": [
+        "Icon Blocks are a separate canvas (the app calls it 'doodle' / 'horizontal'). Tiles, not Scratch-shaped Word Blocks. Definitions in the bundle are opcodes plus artwork, not English message templates."
+      ]
+    },
+    {
+      "opcode": "horizontalmotor_motorTurnClockwiseRotations",
+      "category": "motor",
+      "shape": "stack",
+      "label": "motor clockwise for N turns",
+      "pictorial": true,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "notes": [
+        "Icon Blocks are a separate canvas (the app calls it 'doodle' / 'horizontal'). Tiles, not Scratch-shaped Word Blocks. Definitions in the bundle are opcodes plus artwork, not English message templates."
+      ]
+    },
+    {
+      "opcode": "horizontalmotor_motorTurnCounterClockwiseRotations",
+      "category": "motor",
+      "shape": "stack",
+      "label": "motor counterclockwise for N turns",
+      "pictorial": true,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "notes": [
+        "Icon Blocks are a separate canvas (the app calls it 'doodle' / 'horizontal'). Tiles, not Scratch-shaped Word Blocks. Definitions in the bundle are opcodes plus artwork, not English message templates."
+      ]
+    },
+    {
+      "opcode": "horizontalmove_moveBackward",
+      "category": "movement",
+      "shape": "stack",
+      "label": "move driving base backward",
+      "pictorial": true,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "notes": [
+        "Icon Blocks are a separate canvas (the app calls it 'doodle' / 'horizontal'). Tiles, not Scratch-shaped Word Blocks. Definitions in the bundle are opcodes plus artwork, not English message templates."
+      ]
+    },
+    {
+      "opcode": "horizontalmove_moveForward",
+      "category": "movement",
+      "shape": "stack",
+      "label": "move driving base forward",
+      "pictorial": true,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "notes": [
+        "Icon Blocks are a separate canvas (the app calls it 'doodle' / 'horizontal'). Tiles, not Scratch-shaped Word Blocks. Definitions in the bundle are opcodes plus artwork, not English message templates."
+      ]
+    },
+    {
+      "opcode": "horizontalmove_moveSetSpeed",
+      "category": "movement",
+      "shape": "stack",
+      "label": "set movement speed",
+      "pictorial": true,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "notes": [
+        "Icon Blocks are a separate canvas (the app calls it 'doodle' / 'horizontal'). Tiles, not Scratch-shaped Word Blocks. Definitions in the bundle are opcodes plus artwork, not English message templates."
+      ]
+    },
+    {
+      "opcode": "horizontalmove_moveStop",
+      "category": "movement",
+      "shape": "stack",
+      "label": "stop moving",
+      "pictorial": true,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "notes": [
+        "Icon Blocks are a separate canvas (the app calls it 'doodle' / 'horizontal'). Tiles, not Scratch-shaped Word Blocks. Definitions in the bundle are opcodes plus artwork, not English message templates."
+      ]
+    },
+    {
+      "opcode": "horizontalmove_moveTurnClockwiseRotations",
+      "category": "movement",
+      "shape": "stack",
+      "label": "turn driving base clockwise",
+      "pictorial": true,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "notes": [
+        "Icon Blocks are a separate canvas (the app calls it 'doodle' / 'horizontal'). Tiles, not Scratch-shaped Word Blocks. Definitions in the bundle are opcodes plus artwork, not English message templates."
+      ]
+    },
+    {
+      "opcode": "horizontalmove_moveTurnCounterClockwiseRotations",
+      "category": "movement",
+      "shape": "stack",
+      "label": "turn driving base counterclockwise",
+      "pictorial": true,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "notes": [
+        "Icon Blocks are a separate canvas (the app calls it 'doodle' / 'horizontal'). Tiles, not Scratch-shaped Word Blocks. Definitions in the bundle are opcodes plus artwork, not English message templates."
+      ]
+    },
+    {
+      "opcode": "horizontalsound_playAnimalSoundUntilDone",
+      "category": "sounds",
+      "shape": "stack",
+      "label": "play animal sound",
+      "pictorial": true,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "notes": [
+        "Icon Blocks are a separate canvas (the app calls it 'doodle' / 'horizontal'). Tiles, not Scratch-shaped Word Blocks. Definitions in the bundle are opcodes plus artwork, not English message templates."
+      ]
+    },
+    {
+      "opcode": "horizontalsound_playEffectSoundUntilDone",
+      "category": "sounds",
+      "shape": "stack",
+      "label": "play effect sound",
+      "pictorial": true,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "notes": [
+        "Icon Blocks are a separate canvas (the app calls it 'doodle' / 'horizontal'). Tiles, not Scratch-shaped Word Blocks. Definitions in the bundle are opcodes plus artwork, not English message templates."
+      ]
+    },
+    {
+      "opcode": "horizontalsound_playMusicSoundUntilDone",
+      "category": "sounds",
+      "shape": "stack",
+      "label": "play music sound",
+      "pictorial": true,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "notes": [
+        "Icon Blocks are a separate canvas (the app calls it 'doodle' / 'horizontal'). Tiles, not Scratch-shaped Word Blocks. Definitions in the bundle are opcodes plus artwork, not English message templates."
+      ]
+    },
+    {
+      "opcode": "horizontalsound_playRecordedSound",
+      "category": "sounds",
+      "shape": "stack",
+      "label": "play recorded sound",
+      "pictorial": true,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "notes": [
+        "Icon Blocks are a separate canvas (the app calls it 'doodle' / 'horizontal'). Tiles, not Scratch-shaped Word Blocks. Definitions in the bundle are opcodes plus artwork, not English message templates."
+      ]
+    },
+    {
+      "opcode": "horizontalsound_recordSound",
+      "category": "sounds",
+      "shape": "stack",
+      "label": "record a sound",
+      "pictorial": true,
+      "hubs": [
+        "prime",
+        "essential"
+      ],
+      "notes": [
+        "Icon Blocks are a separate canvas (the app calls it 'doodle' / 'horizontal'). Tiles, not Scratch-shaped Word Blocks. Definitions in the bundle are opcodes plus artwork, not English message templates."
+      ]
+    }
+  ],
+  "not_blocks": {
+    "note": "Strings that look like opcodes but are not draggable Word Blocks. Counting them is how you get an inflated block count.",
+    "field_names": [
+      "flipperdisplay_custom-icon-direction",
+      "flipperdisplay_custom-matrix",
+      "flipperdisplay_custom-matrix-3x3-color",
+      "flipperdisplay_custom-matrix-3x3-port",
+      "flipperdisplay_custom-matrix-dynamic-led-index",
+      "flipperdisplay_custom-matrix-port",
+      "flipperlight_color-matrix-selector",
+      "flipperlight_color-selector-vertical",
+      "flipperlight_custom-icon-direction",
+      "flipperlight_distance-sensor-selector",
+      "flipperlight_led-selector",
+      "flipperlight_matrix-3x3-color-image",
+      "flipperlight_matrix-5x5-brightness-image",
+      "flipperlight_matrix-pixel-index",
+      "flippermoremotor_multiple-port-selector",
+      "flippermoremove_rotation-wheel",
+      "flippermotor_custom-icon-direction",
+      "flippermotor_multiple-port-selector",
+      "flippermove_custom-icon-direction",
+      "flippermove_rotation-wheel",
+      "flippersound_sound-selector"
+    ],
+    "phantom_bases": [
+      "flipperdisplay_custom",
+      "flipperlight_color",
+      "flipperlight_custom",
+      "flipperlight_distance",
+      "flipperlight_led",
+      "flipperlight_matrix",
+      "flippermoremotor_multiple",
+      "flippermoremove_rotation",
+      "flippermotor_custom",
+      "flippermotor_multiple",
+      "flippermove_custom",
+      "flippermove_rotation",
+      "flippersound_sound"
+    ],
+    "test_blocks": [
+      "flippertest_assert",
+      "flippertest_assertLastTunnelMessage",
+      "flippertest_assertLastTunnelMessageType",
+      "flippertest_assertNormalizedTolerance",
+      "flippertest_assertRange",
+      "flippertest_assertTolerance",
+      "flippertest_assertValue",
+      "flippertest_passTest"
+    ],
+    "dropdown_shadows": [],
+    "no_definition_class": [
+      {
+        "opcode": "flippercontrol_assert",
+        "reason": "kept only so older projects can be migrated"
+      },
+      {
+        "opcode": "flipperdisplay_centerButtonLight",
+        "reason": "legacy display family — today's blocks are flipperlight_lightDisplay*"
+      },
+      {
+        "opcode": "flipperdisplay_displayOff",
+        "reason": "legacy display family — today's blocks are flipperlight_lightDisplay*"
+      },
+      {
+        "opcode": "flipperdisplay_ledImage",
+        "reason": "legacy display family — today's blocks are flipperlight_lightDisplay*"
+      },
+      {
+        "opcode": "flipperdisplay_ledImageFor",
+        "reason": "legacy display family — today's blocks are flipperlight_lightDisplay*"
+      },
+      {
+        "opcode": "flipperdisplay_ledMatrix",
+        "reason": "legacy display family — today's blocks are flipperlight_lightDisplay*"
+      },
+      {
+        "opcode": "flipperdisplay_ledMatrixBrightness",
+        "reason": "legacy display family — today's blocks are flipperlight_lightDisplay*"
+      },
+      {
+        "opcode": "flipperdisplay_ledMatrixColor",
+        "reason": "legacy display family — today's blocks are flipperlight_lightDisplay*"
+      },
+      {
+        "opcode": "flipperdisplay_ledMatrixFor",
+        "reason": "legacy display family — today's blocks are flipperlight_lightDisplay*"
+      },
+      {
+        "opcode": "flipperdisplay_ledMatrixOff",
+        "reason": "legacy display family — today's blocks are flipperlight_lightDisplay*"
+      },
+      {
+        "opcode": "flipperdisplay_ledMatrixOn",
+        "reason": "legacy display family — today's blocks are flipperlight_lightDisplay*"
+      },
+      {
+        "opcode": "flipperdisplay_ledMatrixRotateDirection",
+        "reason": "legacy display family — today's blocks are flipperlight_lightDisplay*"
+      },
+      {
+        "opcode": "flipperdisplay_ledMatrixRotateOrientation",
+        "reason": "legacy display family — today's blocks are flipperlight_lightDisplay*"
+      },
+      {
+        "opcode": "flipperdisplay_ledMatrixText",
+        "reason": "legacy display family — today's blocks are flipperlight_lightDisplay*"
+      },
+      {
+        "opcode": "flipperdisplay_ledOn",
+        "reason": "legacy display family — today's blocks are flipperlight_lightDisplay*"
+      },
+      {
+        "opcode": "flipperdisplay_ledRotateDirection",
+        "reason": "legacy display family — today's blocks are flipperlight_lightDisplay*"
+      },
+      {
+        "opcode": "flipperdisplay_ledRotateOrientation",
+        "reason": "legacy display family — today's blocks are flipperlight_lightDisplay*"
+      },
+      {
+        "opcode": "flipperdisplay_ledSetBrightness",
+        "reason": "legacy display family — today's blocks are flipperlight_lightDisplay*"
+      },
+      {
+        "opcode": "flipperdisplay_ledText",
+        "reason": "legacy display family — today's blocks are flipperlight_lightDisplay*"
+      },
+      {
+        "opcode": "flipperdisplay_menu",
+        "reason": "menu / field name, not a draggable block"
+      },
+      {
+        "opcode": "flipperdisplay_ultrasonicLightUp",
+        "reason": "legacy display family — today's blocks are flipperlight_lightDisplay*"
+      },
+      {
+        "opcode": "flipperevents_broadcast",
+        "reason": "handled by the Scratch core event_broadcast block"
+      },
+      {
+        "opcode": "flipperevents_broadcastandwait",
+        "reason": "handled by the Scratch core block"
+      },
+      {
+        "opcode": "flipperevents_whenGreaterThan",
+        "reason": "split into whenTimer"
+      },
+      {
+        "opcode": "flipperevents_whenTilted",
+        "reason": "renamed: the palette now says whenOrientation"
+      },
+      {
+        "opcode": "flipperlight_centerButtonColor",
+        "reason": "superseded by centerButtonLight"
+      },
+      {
+        "opcode": "flipperlight_menu",
+        "reason": "menu / field name, not a draggable block"
+      },
+      {
+        "opcode": "flippermoremotor_menu",
+        "reason": "menu / field name, not a draggable block"
+      },
+      {
+        "opcode": "flippermoremotor_motorDidMovement",
+        "reason": "removed from the palette"
+      },
+      {
+        "opcode": "flippermoremotor_motorSetStallDetection",
+        "reason": "no definition class in this release"
+      },
+      {
+        "opcode": "flippermoremotor_motorTurnForSpeed",
+        "reason": "kept only so older projects can be migrated"
+      },
+      {
+        "opcode": "flippermoremove_menu",
+        "reason": "menu / field name, not a draggable block"
+      },
+      {
+        "opcode": "flippermoremove_moveDidMovement",
+        "reason": "removed from the palette"
+      },
+      {
+        "opcode": "flippermoremove_moveDistanceAtSpeed",
+        "reason": "kept only so older projects can be migrated"
+      },
+      {
+        "opcode": "flippermoremove_startDualPower",
+        "reason": "replaced by startDualSpeed"
+      },
+      {
+        "opcode": "flippermoremove_startSteerAtPower",
+        "reason": "kept only so older projects can be migrated"
+      },
+      {
+        "opcode": "flippermoremove_startSteerAtSpeed",
+        "reason": "kept only so older projects can be migrated"
+      },
+      {
+        "opcode": "flippermusic_changeTempo",
+        "reason": "music extension: opcode string only, no definition class in this release"
+      },
+      {
+        "opcode": "flippermusic_getTempo",
+        "reason": "music extension: opcode string only, no definition class in this release"
+      },
+      {
+        "opcode": "flippermusic_playDrumForBeats",
+        "reason": "music extension: opcode string only, no definition class in this release"
+      },
+      {
+        "opcode": "flippermusic_playNoteForBeats",
+        "reason": "music extension: opcode string only, no definition class in this release"
+      },
+      {
+        "opcode": "flippermusic_restForBeats",
+        "reason": "music extension: opcode string only, no definition class in this release"
+      },
+      {
+        "opcode": "flippermusic_setInstrument",
+        "reason": "music extension: opcode string only, no definition class in this release"
+      },
+      {
+        "opcode": "flippermusic_setTempo",
+        "reason": "music extension: opcode string only, no definition class in this release"
+      },
+      {
+        "opcode": "flippersensors_isTilted",
+        "reason": "renamed: now isorientation"
+      },
+      {
+        "opcode": "flippersensors_whenColor",
+        "reason": "the colour hat is flipperevents_whenColor"
+      }
+    ]
+  },
+  "legacy": {
+    "note": "Opcodes the app only keeps so it can rewrite older projects. They are not in the current palette. flipperdisplay_* is the old name for today's flipperlight_lightDisplay* family.",
+    "migrated_from": [
+      "flippercontrol_assert",
+      "flipperdisplay_centerButtonLight",
+      "flipperdisplay_ledMatrixOff",
+      "flipperdisplay_ledMatrixRotateOrientation",
+      "flippermoremotor_motorTurnForSpeed",
+      "flippermoremove_moveDistanceAtSpeed",
+      "flippermoremove_startSteerAtPower",
+      "flippermoremove_startSteerAtSpeed"
+    ],
+    "opcode_mapping": {
+      "flipperdisplay_ledImageFor": "flipperdisplay_ledMatrixFor",
+      "flipperdisplay_ledImage": "flipperdisplay_ledMatrix",
+      "flipperdisplay_ledText": "flipperdisplay_ledMatrixText",
+      "flipperdisplay_displayOff": "flipperdisplay_ledMatrixOff",
+      "flipperdisplay_ledSetBrightness": "flipperdisplay_ledMatrixBrightness",
+      "flipperdisplay_ledOn": "flipperdisplay_ledMatrixOn",
+      "flipperdisplay_ledRotateDirection": "flipperdisplay_ledMatrixRotateDirection",
+      "flipperdisplay_ledRotateOrientation": "flipperdisplay_ledMatrixRotateOrientation"
+    }
+  },
+  "unmapped_definitions": [
+    {
+      "short": "colorValue",
+      "text_key": "SensorsColorValue",
+      "shape_raw": "REPORTER",
+      "message": "[COLOR]",
+      "why": "no opcode in the bundle matches this definition class — message is a bare argument slot, so this is a dropdown shadow"
+    },
+    {
+      "short": "port",
+      "text_key": "SensorsPort",
+      "shape_raw": "REPORTER",
+      "message": "[PORT]",
+      "why": "no opcode in the bundle matches this definition class — message is a bare argument slot, so this is a dropdown shadow"
+    }
+  ],
+  "stats": {
+    "word_blocks": 88,
+    "from_bundle": 80,
+    "scratch_core_added": 8,
+    "test_classes_skipped": 8,
+    "icon_blocks": 33,
+    "definition_classes_in_bundle": 90,
+    "flipper_strings_in_bundle": 147,
+    "live_opcode_strings": 126,
+    "field_names": 21,
+    "phantom_bases": 13,
+    "app_known_opcode_set": 207,
+    "unmapped_definitions": 2
+  }
+}

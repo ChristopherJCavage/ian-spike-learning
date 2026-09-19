@@ -11,10 +11,10 @@ face on the hub screen, antennae, and a dog riding along.
 
 ## Complexity
 
-- Target step count (Figma pages): 18 build steps + 1 code page (19).
+- Target step count (Figma pages): 23 build steps + 1 code page (24).
 - How much help Ian gets vs Chris: Chris pins beams and mounts motors/sensor
-  (Steps 1-10); Ian snaps on shells, seat, minifig, eyes, antennae, dog
-  (Steps 11-18); code together (Step 19).
+  (Steps 1-15); Ian snaps on shells, seat, minifig, eyes, antennae, dog
+  (Steps 16-23); code together (Step 24).
 - Sub-assemblies: `base` (chassis + wheels), `drive` (two rear motors, skid
   steer -- no shared rear axle), `drill` (front motor + bit), `sensor`
   (distance sensor), `cab` (shells, seat, window, driver), `face` (eyes,

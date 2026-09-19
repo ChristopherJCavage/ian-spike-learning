@@ -1,0 +1,6 @@
+# Word Blocks for this build. Hub and extensions first, then hats.
+# See context/spike-blocks.md.
+hub: essential
+extensions:
+
+flipperevents_whenProgramStarts

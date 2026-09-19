@@ -1,0 +1,19 @@
+0 Fixture: the same brow, with the cones two studs further out.
+0 Expected: problems -- both ports are sealed by a decoration.
+0
+0 This is the failure the chameleon shipped with. Nothing interpenetrates:
+0 the hub's own solid stops at z = 50 and the cones start there, so every
+0 geometric check passes and the render looks tidy. The build is simply
+0 impossible to plug a cable into, which is only visible if the tool knows
+0 a port needs air in front of it.
+0
+0 !LDRCHECK FRONT +Z
+1 14 0 0 0 1 0 0 0 1 0 0 0 1 67351.dat
+1 0 -60 -30 50 0 0 1 0 1 0 -1 0 0 61332.dat
+1 0 60 -30 50 0 0 1 0 1 0 -1 0 0 61332.dat
+1 25 -60 -40 60 1 0 0 0 1 0 0 0 1 3700.dat
+1 25 60 -40 60 1 0 0 0 1 0 0 0 1 3700.dat
+1 10 0 -48 70 1 0 0 0 1 0 0 0 1 3738.dat
+1 26 -30 -72 60 1 0 0 0 1 0 0 0 1 59900.dat
+1 26 30 -72 60 1 0 0 0 1 0 0 0 1 59900.dat
+0 STEP

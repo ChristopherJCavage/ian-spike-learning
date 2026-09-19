@@ -12,11 +12,16 @@ wrong build.
 
 ## Hardware we actually own
 
-- Own: Essential `45345`, Prime `45678`. See `kits/`.
-- Do **not** assume Expansion `45681`, extra motors, or random bins.
+- Own: Essential `45345`, Prime `45678`, Prime Expansion `45681`. See `kits/`.
+- Do **not** assume any further add-on, or random bins. Grep
+  `kits/*/parts.txt` for quantity and colour before designing a part in.
+- The Expansion has **no hub and no battery**. It cannot power a build on
+  its own; it is parts only.
 - Motors/sensors mix across hubs; **battery packs do not**.
-- One hub per build. Class default: Essential hub. Home machines that need
-  extra ports or torque: Prime hub is OK.
+- One hub per build. Class default: Essential hub (2 ports A/B, streaming,
+  no on-hub matrix). Home machines that need extra ports or torque: Prime
+  hub is OK (6 ports, download, built-in 5x5). The 3x3 colour matrix is a
+  port accessory, not part of either hub.
 
 ## Curriculum we refuse
 
@@ -45,5 +50,7 @@ wrong build.
 
 - One action per instruction page (one piece or a tiny sub-assembly).
 - After a mechanism (gears, pulley): a "try it with your hand" step before code.
-- Coding last. Icon or Word Blocks unless the brief says otherwise.
+- Coding last. Icon or Word Blocks unless the brief says otherwise. The
+  program lives in `program.spike`; `python3 tools/blocks.py check` must
+  pass before Figma. Shape is the contract — see `spike-blocks.md`.
 - Combined-kit steps hint **which bin** (Essential tray vs Prime tray).

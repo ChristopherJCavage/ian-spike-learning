@@ -10,6 +10,7 @@ Copy this file with the rest of `_template/` into `builds/<slug>/`.
 
 ```
 python3 tools/ldrcheck.py check builds/<slug>/model.ldr
+python3 tools/ldrcheck.py steps builds/<slug>/model.ldr
 python3 tools/ldrcheck.py fixtures
 ```
 

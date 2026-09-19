@@ -1,0 +1,75 @@
+# Parts -- Rainforest Drop Zone
+#
+# count | colour | description | kit | element | ldraw part
+#
+# Every part is from kits/45345-essential/parts.txt. Nothing here comes from
+# the Expansion set, and nothing here is shared with builds/seed-drone, so
+# the drone and its landing site can be on the table at the same time out of
+# one box.
+#
+# The LDraw part name is what model.ldr must say. Two of these differ from
+# the design ID printed in the kit's own parts list AND from the one BrickOwl
+# uses, which is a real trap: the kit calls the frog 28841, BrickOwl and
+# LDraw call it 33320, and one of the two grass moulds is 2659 in the kit
+# list and 15279 on BrickOwl. The element number in column 5 matches across
+# all three, so cross-check on that.
+
+# --- Base ---
+1 | White | PLATE 8X16 -- the island, turned narrow and deep | 45345 | 4598523 | 92438.dat
+
+# --- The drop zone ---
+2 | Bright Red | FLAT TILE 2X4 -- side by side, wall to wall, the target | 45345 | 4560179 | 87079.dat
+
+# --- Forest ---
+2 | Bright Green | TECHNIC BRICK 1X16, D4.9 -- the corridor walls | 45345 | 6282104 | 3703.dat
+2 | Dark Green | BRICK D16 W. CROSS -- one-brick trunks | 45345 | 4251378 | 6143.dat
+2 | Dark Green | BUSH -- the two canopies | 45345 | 6269009 | 6064.dat
+
+# --- Ranger ---
+1 | Bright Orange | MINI LOWER PART -- legs | 45345 | 4120158 | 73200b.dat
+1 | Bright Green | MINI UPPER PART NO. 5098 -- torso | 45345 | 6299168 | 76382.dat
+1 | Bright Yellow | MINI HEAD NO. '752' | 45345 | 6039464 | 3626c.dat
+1 | Medium Nougat | MINI WIG NO. 18 | 45345 | 6163633 | 18228.dat
+1 | Black | CAMERA -- stands in for the drone controller | 45345 | 4106552 | 30089.dat
+
+# --- Animals ---
+1 | Dark Green | FROG | 45345 | 6171101 | 33320.dat
+
+# --- Undergrowth ---
+2 | Bright Green | GRASS, W/ 3.2 TUBE | 45345 | 6188693 | 15279.dat
+
+# Total: 17 placed parts across 9 build steps, plus a mission page.
+#
+# Totals vs kit (used / in box):
+# 92438 1/2; 87079 Bright Red 2/2; 3703 2/2; 6143 2/5; 6064 2/2;
+# 33320 1/2; 15279 2/2;
+# minifigure: 73200b 1/2; 76382 1/1; 3626c 1/4; 18228 1/1; 30089 1/1.
+#
+# Zero-spare warnings. Both Bright Red 2x4 tiles are the drop zone, both
+# 1x16 green bricks are the walls, both bushes are canopies, and both grass
+# stems are used. Everything else has a spare.
+#
+# This build is deliberately short: 17 parts against the drone's 60. The
+# class is 60 minutes, and the point is that the second child finishes the
+# island while the first is still on the drone. What came off the previous
+# 39-part version, and why:
+#
+#   16x16 plate -> 8x16. Half the area again, and the smaller plate is what
+#     makes the corridor work: the two 1x16 walls sit one row in from each
+#     edge, leaving a 4-stud lane that the two red tiles fill exactly.
+#   Trunks 2 bricks -> 1. Faster, steadier, and 58 LDU of rotor clearance
+#     instead of 34.
+#   Frogs 2 -> 1, grass 4 -> 2 (see below).
+#   Dropped entirely: the 4 orange corner marks, the crab, the stump, both
+#     broad leaves, both flowers, the 4 slopes, the 3 forest-floor tiles.
+#     The corner marks are the only real loss, and they are no loss at all
+#     here -- the green walls frame the drop zone better than four orange
+#     tiles did, and taking them out removes the one genuine sensor risk in
+#     the model, which was red being confused with orange right beside it.
+#
+# There is no black part in this build and no card either. SPIKE Essential
+# contains no flat black part at all -- every black piece in the box is an
+# axle, a peg, a damper, a camera or a wig -- so an earlier version used a
+# cut square of matte black paper. The three red tiles replace it: all LEGO,
+# nothing to cut, and a better sensor target besides, because glossy black
+# ABS reflects the sensor's own lamp and can read as none rather than black.

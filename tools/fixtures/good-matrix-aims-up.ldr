@@ -1,0 +1,13 @@
+0 Fixture: 3x3 light matrix aimed at the sky, pinned to a 3M beam so it
+0 is not lonely. Expected: clean. FACES -Y (up).
+0
+0 Matrix 1 0 0 / 0 0 1 / 0 -1 0 maps local -Z (the LEDs) onto world -Y.
+0
+0 !LDRCHECK FRONT +Z
+0 !LDRCHECK FACES 47592.dat -Y
+1 322 0 0 0 1 0 0 0 0 1 0 -1 0 47592.dat
+1 0 -30 0 -20 1 0 0 0 1 0 0 0 1 61332.dat
+1 0 30 0 -20 1 0 0 0 1 0 0 0 1 61332.dat
+1 14 -40 0 -20 0 1 0 -1 0 0 0 0 1 32523.dat
+1 14 40 0 -20 0 -1 0 1 0 0 0 0 1 32523.dat
+0 STEP

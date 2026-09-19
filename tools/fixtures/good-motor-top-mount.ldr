@@ -1,0 +1,24 @@
+0 Scratch: can a plate-with-holes be pinned down onto a motor's top face?
+0 The Small Hub has no studs, so the motor tops are the only broad anchor
+0 on this rover. Each motor offers four upward pin holes on a 40x40
+0 rectangle. Question: does a 3709 (2x4 plate, 3 vertical holes) bridge a
+0 pair of them, and is the grip deep enough, or does a 12-thick plate
+0 always read SHALLOW?
+0
+0 !LDRCHECK GROUND 8
+0 !LDRCHECK FRONT +Z
+0
+0 Left motor, placed exactly as in builds/seed-rover/model.ldr.
+1 15 -100 -30 -20 0 1 0 -1 0 0 0 0 1 68488.dat
+0
+0 Two pins standing on world Y. A pin's shaft is on its own X, so
+0 0 -1 0 / 1 0 0 / 0 0 1 stands it up. Centred at y=-60 each spans
+0 -80..-40, putting 20 LDU down inside the motor.
+1 0 -120 -60 -40 0 -1 0 1 0 0 0 0 1 61332.dat
+1 0 -120 -60 0 0 -1 0 1 0 0 0 0 1 61332.dat
+0
+0 Plate 2x4 with holes, turned to run fore-and-aft so its 20 LDU hole
+0 pitch lies along Z and picks up both motor holes. Bottom face lands on
+0 the motor's top face at y=-60.
+1 191 -120 -68 -20 0 0 1 0 1 0 -1 0 0 3709.dat
+0 STEP

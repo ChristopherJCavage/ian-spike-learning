@@ -1,0 +1,18 @@
+0 Fixture: two friction pegs in the colour sensor's forward holes, each
+0 capped with a 1x1 round tile pressed onto the bare tip.
+0 Expected: clean. Proves the 98138 underside pin_hole annotation.
+0
+0 This is the chameleon's eyes: a peg gives Ian's fingers something to
+0 press on, and the tile is the pupil. 98138 stays role: decorative (see
+0 connections.yml), so JOINS is the only thing that would actually catch
+0 a floating tile -- without it this fixture would pass even if the tile
+0 sat in mid-air.
+0
+0 !LDRCHECK FRONT +Z
+0 !LDRCHECK JOINS 98138.dat 61332.dat
+1 15 0 0 0 1 0 0 0 1 0 0 0 1 37308.dat
+1 0 -20 0 10 0 0 -1 0 1 0 1 0 0 61332.dat
+1 0 20 0 10 0 0 -1 0 1 0 1 0 0 61332.dat
+1 15 -20 0 30 1 0 0 0 0 1 0 -1 0 98138.dat
+1 15 20 0 30 1 0 0 0 0 1 0 -1 0 98138.dat
+0 STEP
