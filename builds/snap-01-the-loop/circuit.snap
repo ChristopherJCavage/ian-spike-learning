@@ -1,0 +1,88 @@
+# The Night Skate Cases -- Spark Detectives, Module 1. Beginner box only.
+#
+# One loop, many wheels. Ian builds the loop once (Case 1). Every later case
+# swaps one block in the lamp's spot (step 4) or the switch's spot (step 3),
+# so a new part never needs a rebuild. Every swap is a 2-post block.
+#
+# Loads sit at level 1. The three blue wires sit on top at level 2. To swap
+# the block at step 4, lift the ends of wires 6 and 7 off it first.
+#
+# Posts are column then row: 1A is top-left. Numbers 1-7 across, letters A-E down.
+# The battery holder hangs off the top edge. Its snaps are 1A (+) and 3A.
+# Current leaves 1A, goes down column 1, through the switch (1C and 1D),
+# along row D and into step 4 at 3D. 3D is step 4's first post (offset 0), so a
+# block there runs "forward": D10 red, M7 clockwise, W1 honks. Turned around
+# (flip=4) it runs backwards: D10 yellow, M7 counterclockwise, W1 silent.
+# Which way is really "forward" is a guess until Chris checks the + marks on
+# the real blocks (preflight.md); if it is the other way, every answer in
+# deck.md swaps and `check` says which.
+#
+# Geometry for every block is a hypothesis (tools/snap/parts.json,
+# measured:false).
+kits scb20
+grid 7x5 grid-mini
+
+step 1: grid
+step 2: B3B at 1A dir=right level=1
+step 3: S1 at 1C dir=down level=1
+step 4: L4 at 3D dir=up level=1
+step 5: wire3 at 1A dir=down level=2
+step 6: wire3 at 1D dir=right level=2
+step 7: wire3 at 3C dir=up level=2
+step 8: egg at 3D
+
+# ---- Case 1: The Dark Skate Park (the loop)
+scene watch: S1=on
+puzzle c1-a: S1=on, remove=5
+puzzle c1-b: S1=on
+puzzle c1-c: S1=off
+expect S1=off: L4 off
+expect S1=on: L4 on
+expect S1=on, remove=5: L4 off
+expect S1=on, remove=6: L4 off
+expect S1=on, remove=7: L4 off
+
+# ---- Case 2: The Colour-Changing Light (D10, then the egg)
+change colours: swap=4/D10, remove=8
+scene red: base=colours, S1=on
+change lantern: base=colours, add=4/egg
+scene lantern: base=lantern, S1=on
+puzzle c2-a: base=colours, S1=on, flip=4
+puzzle c2-b: base=colours, S1=on
+puzzle c2-c: base=colours, S1=off, flip=4
+expect base=colours, S1=on: D10 red
+expect base=colours, S1=on, flip=4: D10 yellow
+
+# ---- Case 3: The Silent Horn (S2 and W1; Pip put the horn in backwards)
+change horn: swap=3/S2, swap=4/W1, flip=4
+scene silent: base=horn, S2=pressed
+change horn-fixed: swap=3/S2, swap=4/W1
+scene honk: base=horn-fixed, S2=pressed
+puzzle c3-a: base=horn-fixed, S2=released
+puzzle c3-b: base=horn, S2=pressed
+puzzle c3-c: base=horn-fixed, S2=pressed
+expect base=horn, S2=pressed: W1 off
+expect base=horn-fixed, S2=pressed: W1 on
+expect base=horn-fixed, S2=released: W1 off
+
+# ---- Case 4: The Backwards Fan (M7 with the fan; back to the slide switch)
+change spinner: swap=4/M7, add=4/fan7
+scene spin: base=spinner, S1=on
+puzzle c4-a: base=spinner, S1=on, flip=4
+puzzle c4-b: base=spinner, S1=off
+puzzle c4-c: base=spinner, S1=on
+expect base=spinner, S1=on: M7 on fwd
+expect base=spinner, S1=on, flip=4: M7 on rev
+
+# ---- Case 5: The Big Night (Ian's missions; any answer that works is right,
+# these are the ones the checker proves)
+mission yellow-gate: swap=4/D10, flip=4 => S1=on: D10 yellow; S1=off: D10 off
+mission red-button: swap=3/S2, swap=4/D10 => S2=pressed: D10 red; S2=released: D10 off
+mission fan-back: swap=4/M7, add=4/fan7, flip=4 => S1=on: M7 on rev
+mission picture: swap=3/S2, swap=4/D10, flip=4 => S2=pressed: D10 yellow; S2=released: D10 off
+puzzle c5-a: swap=4/D10, flip=4, S1=on
+puzzle c5-b: swap=3/S2, swap=4/W1, S2=released
+puzzle c5-c: swap=4/M7, add=4/fan7, S1=on, remove=7
+puzzle c5-d: swap=3/S2, swap=4/W1, flip=4, S2=pressed
+puzzle c5-e: swap=4/M7, add=4/fan7, flip=4, S1=on
+puzzle c5-f: swap=4/W1, S1=on

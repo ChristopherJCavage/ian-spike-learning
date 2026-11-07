@@ -1,0 +1,24 @@
+# The pilot loop through a lesson's chapters: swaps, flips, the egg, a fan,
+# a puzzle and a mission. Every claim holds.
+kits scb20
+grid 7x5 grid-mini
+step 1: grid
+step 2: B3B at A1 dir=right level=1
+step 3: S1 at C1 dir=down level=1
+step 4: L4 at D3 dir=up level=1
+step 5: wire3 at A1 dir=down level=2
+step 6: wire3 at D1 dir=right level=2
+step 7: wire3 at C3 dir=up level=2
+change colours: swap=4/D10
+change lantern: base=colours, add=4/egg
+change horn: swap=3/S2, swap=4/W1, flip=4
+change spinner: swap=4/M7, add=4/fan7
+puzzle backwards: base=colours, S1=on, flip=4
+mission red-button: swap=3/S2, swap=4/D10 => S2=pressed: D10 red; S2=released: D10 off
+scene lantern: base=lantern, S1=on
+expect base=colours, S1=on: D10 red
+expect base=colours, S1=on, flip=4: D10 yellow
+expect base=horn, S2=pressed: W1 off
+expect base=horn, S2=pressed, flip=4: W1 on
+expect base=spinner, S1=on: M7 on fwd
+expect base=spinner, S1=on, flip=4: M7 on rev

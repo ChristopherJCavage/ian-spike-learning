@@ -174,3 +174,13 @@ We already hold the data those cards need -- name, quantity, design ID, colour
 tool, in the same shape as `tools/pages.py`. Not built yet.
 
 Sources are links in `context/sources.md`.
+
+## Snap Circuits (not LEGO)
+
+Separate from the three LEGO units above. Two small boxes of snap blocks:
+Beginner SCB-20 (14 parts) and Jr SC-100 (about 30). Keep one labelled bin
+per box so a block's home is its printed ID (`kits/scb20-beginner/parts.txt`,
+`kits/sc100-jr/parts.txt`), plus a "both" cup for what the boxes share:
+the 3-snap wires, S1 and S2. Keep the two battery holders apart and
+labelled -- B3B is 4.5 V and B1 is 3 V, and Jr blocks only go on B1
+(`context/snap-circuits.md`). Spare AA batteries stay out of the bins.

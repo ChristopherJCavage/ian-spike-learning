@@ -1,0 +1,9 @@
+# QTY | KEY | PRINTED | NAME | KIT
+# Written by `python3 tools/snap.py bom <build> --write`: every block the lesson
+# ever has on the board at once, across all its chapters. `snap.py check` fails if this drifts.
+1 | grid-big | - | Base grid | sc100
+1 | B1 | B1 | Battery holder (2 AA) | sc100
+1 | S2 | S2 | Press switch | both
+1 | M1 | M1 | Motor | sc100
+3 | wire3 | 3 | 3-snap wire | both
+1 | fan1 | - | Fan blade | sc100

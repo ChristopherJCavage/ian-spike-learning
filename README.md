@@ -22,6 +22,16 @@ Same **SPIKE App**; motors/sensors mix; batteries/hubs do not. Details:
 
 We are **not** using Prime's official middle-school lessons -- hardware only.
 
+Not LEGO, same learning goal: Elenco **Snap Circuits** (electricity, no
+code). [`kits/scb20-beginner/`](kits/scb20-beginner/parts.txt) (Beginner
+SCB-20), [`kits/sc100-jr/`](kits/sc100-jr/parts.txt) (Jr SC-100). The
+lessons are comics, *The Spark Detectives*:
+[`builds/snap-01-the-loop`](builds/snap-01-the-loop/README.md) (The Night
+Skate Cases, Beginner box) and
+[`builds/snap-02-flying-saucer`](builds/snap-02-flying-saucer/README.md)
+(The UFO Case, Jr box). Plan, cast, analogy and lesson arc:
+[`context/snap-circuits.md`](context/snap-circuits.md).
+
 - `kits/45345-essential/parts.txt`
 - `kits/45678-prime/parts.txt`
 - `kits/45681-expansion/parts.txt`
@@ -49,6 +59,7 @@ exists. Pretty instruction pages: LDraw/LeoCAD PNGs + Figma chrome --
 - [`context/ldraw.md`](context/ldraw.md) -- LDraw text + LeoCAD CLI (no MCP)
 - [`context/instruction-screens.md`](context/instruction-screens.md) -- Figma BI chrome
 - [`context/spike-blocks.md`](context/spike-blocks.md) -- Word/Icon/Python blocks; shape is the contract
+- [`context/snap-circuits.md`](context/snap-circuits.md) -- Snap Circuits: both boxes, the Spark Detectives comic, the water-park analogy, lesson arc, `tools/snap.py`
 
 ## Setup
 

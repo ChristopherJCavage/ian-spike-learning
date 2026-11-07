@@ -23,6 +23,35 @@ wrong build.
   hub is OK (6 ports, download, built-in 5x5). The 3x3 colour matrix is a
   port accessory, not part of either hub.
 
+## Snap Circuits (Elenco)
+
+- Own: Beginner SCB-20 and Jr SC-100 (Jr box arrived, not yet inventoried).
+  See `kits/scb20-beginner/`, `kits/sc100-jr/` and `context/snap-circuits.md`.
+  Not LEGO; no hub, no code.
+- We write our own lessons. Elenco's manuals stay as links in `sources.md`;
+  do not paste their pages or project drawings.
+- Chris puts batteries in and checks the first ON. A wire straight across the
+  battery holder is a short circuit: `tools/snap.py` refuses to draw one.
+- Jr parts go on the Jr battery holder (3 V) only; the Beginner holder is
+  4.5 V. The checker enforces it.
+- Every picture Ian copies block-for-block comes from `circuit.snap` through
+  `tools/snap.py`, the way LEGO pages come from `model.ldr`. Block sizes in
+  `tools/snap/parts.json` are `measured: false` until checked on a real box;
+  say so when you rely on them.
+- Lessons are comics, **The Spark Detectives**: the SPIKE animal crew
+  (Sully, Tika, Pip, Coco) redrawn in 2D from `context/story-cast-comic.png`,
+  running a detective agency in a town at night. Not school and not the
+  jungle. Otto the otter is retired. Copy Beast Academy's **format** (a
+  mistake, a guess, a test, an explanation, practice with stars), never its
+  characters, setting or pages. The explanation is a talk page: Pip's wrong
+  idea first, then a picture he can repeat. Vary the page shape (a splash,
+  a two-panel spread, a banner over three boxes). Don't make every talk a 2x2.
+- Every answer in a comic (guesses, puzzles, Number Lab, missions) is worked
+  out by `snap.py check` from the board. Never type an answer the checker
+  could compute; if it can't, write it out and say it is unchecked.
+- Fans: goggles or sunglasses, lean back, never look straight down at a
+  spinning fan, aim it away from faces. Module 2 launches fans on purpose.
+
 ## Curriculum we refuse
 
 - Do not copy official Essential or Prime **units/lessons** into this repo.

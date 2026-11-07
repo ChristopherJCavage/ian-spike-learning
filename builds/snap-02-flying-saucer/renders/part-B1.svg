@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" font-family="'Avenir Next','Trebuchet MS','Helvetica Neue',Arial,sans-serif">
+<!-- snap-sha: 51a507dcd9f4 -->
+<rect width="1200" height="800" fill="#ffffff"/>
+<g opacity="1">
+<rect x="182.9" y="71.0" width="837.2" height="352.5" rx="35.2" fill="#e7f4fb" stroke="#6f93ab" stroke-width="4"/>
+<rect x="394.7" y="118.0" width="64.6" height="252.6" rx="23.5" fill="#3a3a3a"/>
+<rect x="394.7" y="118.0" width="64.6" height="47.0" fill="#c4a574"/>
+<rect x="743.6" y="118.0" width="64.6" height="252.6" rx="23.5" fill="#3a3a3a"/>
+<rect x="743.6" y="118.0" width="64.6" height="47.0" fill="#c4a574"/>
+<circle cx="306.2" cy="400.0" r="47.0" fill="#d8dde3" stroke="#5c6770" stroke-width="3"/>
+<text x="306.2" y="317.8" font-size="82.25000000000001" fill="#c0392b" font-weight="bold" text-anchor="middle"><tspan x="306.2" dy="0.0">+</tspan></text>
+<circle cx="893.8" cy="400.0" r="47.0" fill="#d8dde3" stroke="#5c6770" stroke-width="3"/>
+<text x="893.8" y="317.8" font-size="82.25000000000001" fill="#22405f" font-weight="bold" text-anchor="middle"><tspan x="893.8" dy="0.0">−</tspan></text>
+</g>
+</svg>

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" font-family="'Avenir Next','Trebuchet MS','Helvetica Neue',Arial,sans-serif">
+<!-- snap-sha: ff4d243ef2b9 -->
+<rect width="1200" height="800" fill="#ffffff"/>
+<g opacity="1">
+<rect x="315.0" y="292.0" width="570.0" height="216.0" rx="60.0" fill="#56ccf2" stroke="#102216" stroke-width="3"/>
+<circle cx="450.0" cy="400.0" r="36.0" fill="#e6e6e6" stroke="#6b6b6b" stroke-width="2.5"/>
+<circle cx="750.0" cy="400.0" r="36.0" fill="#e6e6e6" stroke="#6b6b6b" stroke-width="2.5"/>
+<circle cx="600.0" cy="361.0" r="36.0" fill="#1d2433"/>
+<path d="M 662.4 327.4 Q 686.4 361.0 662.4 394.6" fill="none" stroke="#1d2433" stroke-width="4" stroke-linecap="round" opacity="0.25"></path>
+<path d="M 691.2 327.4 Q 715.2 361.0 691.2 394.6" fill="none" stroke="#1d2433" stroke-width="4" stroke-linecap="round" opacity="0.25"></path>
+<text x="600.0" y="499.0" font-size="63.0" fill="#fff" font-weight="bold" text-anchor="middle"><tspan x="600.0" dy="0.0">W1</tspan></text>
+<circle cx="369.0" cy="400.0" r="39.0" fill="#fff" stroke="#d62828" stroke-width="3"/>
+<text x="369.0" y="427.0" font-size="78.0" fill="#d62828" font-weight="bold" text-anchor="middle"><tspan x="369.0" dy="0.0">+</tspan></text>
+</g>
+</svg>

@@ -20,6 +20,22 @@ Instruction art or lesson PDFs into this repo.**
 - Prime product + BI index:
   <https://education.lego.com/en-us/product-resources/spike-prime/downloads/building-instructions/>
 
+## Snap Circuits (Elenco) -- links only
+
+Parts lists and numbers came from these. Do not paste their pages here.
+
+- Beginner SCB-20 product page: <https://shop.elenco.com/consumers/snap-circuits-beginner.html>
+- SCB-20 manual (parts list, 21 projects, short-circuit warning):
+  <https://www.elenco.com/wp-content/uploads/2017/10/753097-2.pdf>
+- Jr SC-100 product page: <https://shop.elenco.com/consumers/snap-circuits-jr-100-experiments.html>
+- SC-100 manual, 2021 printing (parts list on page 2, base grid A-G x 1-10):
+  <https://elenco.com/wp-content/uploads/2021/11/SC-100_Manual.pdf>
+- SC-100 manual, older REV-H printing (red LED, 100 ohm resistor, 6-snap wire):
+  <https://www.elenco.com/wp-content/uploads/2011/03/SC-100_REV-H_071712.pdf>
+- Elenco product summary (SCB-20 "Upgradable? No"; SC-100 up to SC-750 and the
+  UC-30/40/60 upgrade kits):
+  <https://www.elenco.com/wp-content/uploads/2021/05/Snap-Circuits-Product-Summary_2020.pdf>
+
 ## Storage and sorting (see `kits/storage.md`)
 
 - University of Idaho Extension, *Organizing the LEGO SPIKE Prime Robotics

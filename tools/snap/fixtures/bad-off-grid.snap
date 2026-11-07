@@ -1,0 +1,6 @@
+# bad: OFF_GRID
+# The mini grid has five rows (A-E).
+kits scb20
+grid 7x5 grid-mini
+step 1: grid
+step 2: B3B at D1 dir=down level=1

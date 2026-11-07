@@ -1,0 +1,42 @@
+# Elenco Snap Circuits Jr. SC-100 -- Parts Inventory
+#
+# Not a LEGO kit. Kit slug: sc100. Batteries: 2x AA, NOT included.
+# Source: Elenco SC-100 manual, 2021 printing (parts list on page 2).
+# The box is on its way; NOT yet checked against the physical kit.
+#
+# Format (pipe-delimited, grep-friendly):
+#   QTY | KEY | PRINTED | NAME | CATEGORY | PART_NO | NOTE
+#
+#   KEY      what tools/snap/parts.json and circuit.snap call the part
+#   PRINTED  the ID printed on the block itself. "-" = nothing printed.
+#
+# Count: Elenco says 30 parts; the 2021 list below sums to 29. Older
+# printings (2012 manual) list a red LED (D1), a 100 ohm resistor (R1) and
+# a 6-snap wire (6SC06) instead of the colour LED (D8). Chris: when the
+# box lands, check the real contents and fix this file, including which
+# revision you have.
+#
+# Shared with the SCB-20 Beginner box (same part numbers, pool them):
+#   wire3, S1, S2
+#
+1 | grid-big | - | Base grid, 11.0in x 7.7in | base | 6SCBG | rows A-G, columns 1-10 per the manual
+3 | wire1 | 1 | 1-snap wire (spacer between levels) | wire | 6SC01 |
+5 | wire2 | 2 | 2-snap wire | wire | 6SC02 |
+3 | wire3 | 3 | 3-snap wire | wire | 6SC03 | SHARED with SCB-20
+1 | wire4 | 4 | 4-snap wire | wire | 6SC04 |
+1 | wire5 | 5 | 5-snap wire | wire | 6SC05 |
+1 | jumper-black | - | Jumper wire, black (clips on, off-grid) | wire | 6SCJ1 | not modelled by tools/snap.py yet
+1 | jumper-red | - | Jumper wire, red (clips on, off-grid) | wire | 6SCJ2 | not modelled by tools/snap.py yet
+1 | B1 | B1 | Battery holder, 2x AA = 3 V | power | 6SCB1 | Jr only; every Jr part is rated for this
+1 | S1 | S1 | Slide switch | switch | 6SCS1 | SHARED with SCB-20
+1 | S2 | S2 | Press switch | switch | 6SCS2 | SHARED with SCB-20
+1 | L1 | L1 | 3 V lamp | light | 6SCL1 | the manual warns higher voltage can burn it out
+1 | D8 | D8 | Colour LED | light | 6SCD8 | has a forward direction
+1 | RP | RP | Photoresistor (light sensor) | sensor | 6SCRP | modelled as a plain two-terminal part for now
+1 | M1 | M1 | Motor | motor | 6SCM1 | spins the other way if flipped
+1 | fan1 | - | Fan blade (rides on M1) | accessory | 6SCM1F | MOVING PARTS
+1 | SP | SP | Speaker | sound | 6SCSP | modelled as a two-terminal load
+1 | WC | WC | Whistle chip (hears claps, also makes sound) | sound | 6SCWC | not modelled by tools/snap.py yet
+1 | U1 | U1 | Music IC module | chip | 6SCU1 | not modelled by tools/snap.py yet
+1 | U2 | U2 | Alarm IC module | chip | 6SCU2 | not modelled by tools/snap.py yet
+1 | U3 | U3 | Space war IC module | chip | 6SCU3 | not modelled by tools/snap.py yet

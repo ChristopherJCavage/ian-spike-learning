@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" font-family="'Avenir Next','Trebuchet MS','Helvetica Neue',Arial,sans-serif">
+<!-- snap-sha: ff4d243ef2b9 -->
+<rect width="1200" height="800" fill="#dff3ff"/>
+<ellipse cx="250" cy="90" rx="140" ry="40" fill="#fff" opacity="0.9"/><ellipse cx="960" cy="70" rx="170" ry="46" fill="#fff" opacity="0.9"/>
+<rect x="0" y="710" width="1200" height="90" fill="#bfe9b0"/>
+<polyline points="446.7,150.0 446.7,303.3 446.7,456.7 446.7,610.0 600.0,610.0 753.3,610.0 753.3,456.7 753.3,303.3 753.3,150.0 446.7,150.0" fill="none" stroke="#1f7fc4" stroke-width="74" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="446.7,150.0 446.7,303.3 446.7,456.7 446.7,610.0 600.0,610.0 753.3,610.0 753.3,456.7 753.3,303.3 753.3,150.0 446.7,150.0" fill="none" stroke="#9fdcff" stroke-width="56" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="446.7,150.0 446.7,303.3 446.7,456.7 446.7,610.0 600.0,610.0 753.3,610.0 753.3,456.7 753.3,303.3 753.3,150.0 446.7,150.0" fill="none" stroke="#fff" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="0.1 42"><animate attributeName="stroke-dashoffset" from="0" to="-42.1" dur="1.0s" repeatCount="indefinite"/></polyline>
+<circle cx="600.0" cy="150.0" r="54" fill="#ff9f43" stroke="#c96a10" stroke-width="6"/>
+<path d="M 600.0 176.0 L 600.0 126.0 M 580.0 146.0 L 600.0 124.0 L 620.0 146.0" stroke="#fff" stroke-width="11" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="600.0" y="56.0" font-size="30" fill="#1d2433" font-weight="bold" text-anchor="middle"><tspan x="600.0" dy="0.0">The Pump</tspan></text>
+<text x="600.0" y="82.0" font-size="22" fill="#566179" font-weight="normal" text-anchor="middle"><tspan x="600.0" dy="0.0">(B3B)</tspan></text>
+<rect x="388.7" y="483.3" width="20" height="100" rx="6" fill="#2e9e5b"/><rect x="484.7" y="483.3" width="20" height="100" rx="6" fill="#2e9e5b"/>
+<line x1="400.7" y1="493.3" x2="486.7" y2="457.3" stroke="#1d6b3f" stroke-width="14" stroke-linecap="round"/>
+<text x="370.7" y="537.3" font-size="30" fill="#1d2433" font-weight="bold" text-anchor="end"><tspan x="370.7" dy="0.0">The Gate</tspan></text>
+<text x="370.7" y="565.3" font-size="22" fill="#566179" font-weight="normal" text-anchor="end"><tspan x="370.7" dy="0.0">(S1)</tspan></text>
+<circle cx="753.3" cy="533.3" r="81.0" fill="#ffe066" opacity="0.45"><animate attributeName="opacity" values="0.3;0.6;0.3" dur="1.4s" repeatCount="indefinite"/></circle>
+<circle cx="753.3" cy="533.3" r="54" fill="#d9c2f5" stroke="#7a5b00" stroke-width="6"/>
+<g><line x1="753.3" y1="533.3" x2="799.8" y2="533.3" stroke="#7a5b00" stroke-width="7" stroke-linecap="round"/><line x1="753.3" y1="533.3" x2="776.6" y2="573.6" stroke="#7a5b00" stroke-width="7" stroke-linecap="round"/><line x1="753.3" y1="533.3" x2="730.1" y2="573.6" stroke="#7a5b00" stroke-width="7" stroke-linecap="round"/><line x1="753.3" y1="533.3" x2="706.9" y2="533.3" stroke="#7a5b00" stroke-width="7" stroke-linecap="round"/><line x1="753.3" y1="533.3" x2="730.1" y2="493.1" stroke="#7a5b00" stroke-width="7" stroke-linecap="round"/><line x1="753.3" y1="533.3" x2="776.6" y2="493.1" stroke="#7a5b00" stroke-width="7" stroke-linecap="round"/><animateTransform attributeName="transform" type="rotate" from="0 753.3 533.3" to="-360 753.3 533.3" dur="2.4s" repeatCount="indefinite"/></g>
+<text x="829.3" y="531.3" font-size="30" fill="#1d2433" font-weight="bold" text-anchor="start"><tspan x="829.3" dy="0.0">The Glow Spinner</tspan></text>
+<text x="829.3" y="559.3" font-size="22" fill="#566179" font-weight="normal" text-anchor="start"><tspan x="829.3" dy="0.0">(M7)</tspan></text>
+<text x="600.0" y="766.0" font-size="32" fill="#1d6b3f" font-weight="bold" text-anchor="middle"><tspan x="600.0" dy="0.0">All the way round: the water flows!</tspan></text>
+</svg>

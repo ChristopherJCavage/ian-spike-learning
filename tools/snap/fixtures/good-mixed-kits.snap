@@ -1,0 +1,11 @@
+# good: a Jr 3 V lamp on the Jr battery holder, through the Beginner's slide switch and wires.
+kits scb20, sc100
+grid 7x5 grid-mini
+step 1: grid
+step 2: B1 at A1 dir=right level=1
+step 3: S1 at C1 dir=down level=1
+step 4: L1 at D3 dir=up level=1
+step 5: wire3 at A1 dir=down level=2
+step 6: wire3 at D1 dir=right level=2
+step 7: wire3 at C3 dir=up level=2
+expect S1=on: L1 on

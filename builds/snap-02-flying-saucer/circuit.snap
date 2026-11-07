@@ -1,0 +1,43 @@
+# The UFO Case -- Spark Detectives, Module 2. Snap Circuits Jr. box.
+#
+# The same loop Ian built in Module 1, on the Jr box's big grid, with the Jr
+# pump (B1, 2 AA, 3 V) and the Jr motor (M1) with its fan. Hold the press
+# switch until the motor is fast, let go, and the fan flies off: Elenco's own
+# "Flying Saucer" (SC-100 project 4). Turn the motor around and the fan just
+# blows air up at your hand (their project 5). Our layout, our pages.
+#
+# Jr parts only ride the Jr battery holder: M1 is rated 3 V. The checker
+# fails M1 on the Beginner's 4.5 V B3B.
+#
+# `lift fwd`: we GUESS the fan flies when M1 spins forward (current in at its
+# + end, D3). Chris confirms on the real box (preflight.md); if it is the
+# other way, change it to `lift rev` and `check` lists every page to fix.
+#
+# Geometry and the Jr parts list are from the 2021 SC-100 manual, unchecked
+# against the box (kits/sc100-jr/parts.txt).
+kits sc100
+grid 10x7 grid-big
+lift fwd
+
+step 1: grid
+step 2: B1 at A1 dir=right level=1
+step 3: S2 at C1 dir=down level=1
+step 4: M1 at D3 dir=up level=1
+step 5: wire3 at A1 dir=down level=2
+step 6: wire3 at D1 dir=right level=2
+step 7: wire3 at C3 dir=up level=2
+step 8: fan1 at D3
+
+# ---- Case 1: The UFO Over the Skate Park
+scene spin: S2=pressed
+scene fly: S2=released, launch=4
+expect S2=pressed: M1 on fwd fly
+expect S2=released: M1 off
+
+# ---- Case 2: The Fan That Wouldn't Fly (Pip put the motor in backwards)
+change backwards: flip=4
+scene blow: base=backwards, S2=pressed
+puzzle m2-a: S2=pressed
+puzzle m2-b: base=backwards, S2=pressed
+puzzle m2-c: base=backwards, S2=released
+expect base=backwards, S2=pressed: M1 on rev blow

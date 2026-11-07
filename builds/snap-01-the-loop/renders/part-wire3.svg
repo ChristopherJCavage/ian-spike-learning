@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" font-family="'Avenir Next','Trebuchet MS','Helvetica Neue',Arial,sans-serif">
+<!-- snap-sha: ff4d243ef2b9 -->
+<rect width="1200" height="800" fill="#ffffff"/>
+<g opacity="1">
+<rect x="174.1" y="329.5" width="851.9" height="141.0" rx="58.8" fill="#2f80ed" stroke="#102216" stroke-width="3"/>
+<rect x="197.6" y="385.3" width="804.9" height="29.4" rx="11.8" fill="#f7fbff"/>
+<circle cx="306.2" cy="400.0" r="35.2" fill="#e6e6e6" stroke="#6b6b6b" stroke-width="2.5"/>
+<circle cx="600.0" cy="400.0" r="20.6" fill="#e6e6e6" stroke="#6b6b6b" stroke-width="2.5"/>
+<circle cx="893.8" cy="400.0" r="35.2" fill="#e6e6e6" stroke="#6b6b6b" stroke-width="2.5"/>
+<text x="453.1" y="426.4" font-size="79.3125" fill="#1d4e89" font-weight="bold" text-anchor="middle"><tspan x="453.1" dy="0.0">3</tspan></text>
+</g>
+</svg>

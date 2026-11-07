@@ -1,0 +1,23 @@
+# (Module name). Layout for tools/snap.py; the syntax is in its docstring.
+#
+#   kits scb20[, sc100]
+#   grid <columns>x<rows> <grid-mini | grid-big>
+#   lift fwd|rev                         (only with a motor + fan that launches)
+#   step N: <KEY> at <row letter><column number> dir=right|left|up|down level=N
+#   change <name>: <assignments>         a later chapter's board (swap, flip, add)
+#   puzzle <name>: <assignments>         a board for a PUZZLE page
+#   mission <name>: <assignments> => <assignments>: <ID> <tokens>; ...
+#   scene <name>: <assignments>          an animated board page
+#   expect <assignments>: <ID> <on|off|dim|red|yellow|fwd|rev|fly|blow>
+#
+# Assignments: S1=on|off, S2=pressed|released, remove=N, hide=N, swap=N/KEY,
+# flip=N, add=N/KEY (egg, fan), launch=N, and base=<change/puzzle/mission>
+# first to start from one defined above.
+#
+# Rules of thumb: loads at level 1, wires on top at level 2, so every wire
+# end snaps onto a block that is already placed. A wire never meets a wire.
+# Keys come from tools/snap/parts.json. Step 1 is always the grid.
+kits scb20
+grid 7x5 grid-mini
+
+step 1: grid

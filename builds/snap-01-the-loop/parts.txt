@@ -1,0 +1,14 @@
+# QTY | KEY | PRINTED | NAME | KIT
+# Written by `python3 tools/snap.py bom <build> --write`: every block the lesson
+# ever has on the board at once, across all its chapters. `snap.py check` fails if this drifts.
+1 | grid-mini | - | Mini base grid | scb20
+1 | B3B | B3B | Battery holder (3 AA) | scb20
+1 | S1 | S1 | Slide switch | both
+1 | L4 | L4 | Lamp | scb20
+3 | wire3 | 3 | 3-snap wire | both
+1 | egg | - | Lamp egg | scb20
+1 | D10 | D10 | Red/yellow LED | scb20
+1 | S2 | S2 | Press switch | both
+1 | W1 | W1 | Horn | scb20
+1 | M7 | M7 | Light motor | scb20
+1 | fan7 | - | Fan blade | scb20

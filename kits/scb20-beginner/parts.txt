@@ -1,0 +1,32 @@
+# Elenco Snap Circuits Beginner SCB-20 -- Parts Inventory
+#
+# Not a LEGO kit. Kit slug: scb20. Batteries: 3x AA, NOT included.
+# Source: Elenco SCB-20 manual parts list + product page (links in
+# context/sources.md). Not yet checked against the physical box.
+#
+# Format (pipe-delimited, grep-friendly):
+#   QTY | KEY | PRINTED | NAME | CATEGORY | PART_NO | NOTE
+#
+#   KEY      what tools/snap/parts.json and circuit.snap call the part
+#   PRINTED  the ID moulded/printed on the block itself -- this is how you
+#            tell which box a block came from. "-" = nothing printed.
+#
+# Count: Elenco says 14 parts. The manual's list names 13 of them
+# (grid, 4 wires, B3B, S1, S2, L4, D10, egg, M7, W1); the 14th is the fan
+# blade that project 2 puts on the motor. That is inferred from the count,
+# not read from the manual. Chris: confirm against the box.
+#
+# Shared with the SC-100 Jr box (same part numbers, pool them):
+#   wire3, S1, S2
+#
+1 | grid-mini | - | Mini base grid, 7.7in x 5.5in | base | 6SCBGM | assumed 7 columns x 5 rows of posts (SC-100's 11.0in x 7.7in grid is 10 x 7 at the same pitch); count the posts on the real grid
+4 | wire3 | 3 | 3-snap wire (blue) | wire | 6SC03 | the only connector in this box; SHARED with SC-100
+1 | B3B | B3B | Battery holder, 3x AA = 4.5 V | power | 6SCB3B | Beginner only; 4.5 V, SC-100's B1 is 3 V
+1 | S1 | S1 | Slide switch (green) | switch | 6SCS1 | stays where you leave it; SHARED with SC-100
+1 | S2 | S2 | Press switch | switch | 6SCS2 | on only while pressed; SHARED with SC-100
+1 | L4 | L4 | Lamp | light | 6SCL4 | no polarity
+1 | D10 | D10 | Red/yellow LED | light | 6SCD10 | one colour each way round
+1 | egg | - | LED egg (cover for D10) | accessory | 6SCEGG | no electrical part
+1 | M7 | M7 | Light motor | motor | 6SCM7 | glows while it spins; spins the other way if flipped
+1 | fan7 | - | Fan blade (rides on M7) | accessory | - | the inferred 14th part; MOVING PARTS, do not touch while spinning
+1 | W1 | W1 | Horn | sound | 6SCW1 | polarity assumed (+ end), confirm

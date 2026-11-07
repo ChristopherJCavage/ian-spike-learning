@@ -1,0 +1,46 @@
+{
+  "_doc": [
+    "Geometry and behaviour for Snap Circuits blocks, read by tools/snap.py.",
+    "A block covers `span` posts in a row, starting at its `at` post and running in its `dir`. `snaps` are the offsets (0-based) that have a metal snap; `plus`/`minus` are offsets on a source. Offset 0 is the 'forward' end of a load: current entering at offset 0 and leaving at the last snap is forward (D10 red, M7 clockwise).",
+    "EVERY entry is measured:false. Nothing here has been checked against a physical box yet. Span, snap offsets, colours and which end is +/- are all hypotheses from Elenco's text. The one anchor: the manual says 'touch a 3-snap wire across base grid points A1 and C1', so a 3-snap wire has its end snaps two posts apart. When Chris checks a part against the box, fix the entry and flip measured to true; snap.py check prints a warning for every unmeasured part a build uses.",
+    "colour is only for the drawing. Elenco says colours and styles may vary, so every page prints the block's printed ID too -- that, not the colour, is how a kid finds the part.",
+    "kit is scb20, sc100, or both (same Elenco part number in both boxes). max_volts is the highest supply a part may sit on; snap.py check fails a part that is powered by a higher-voltage battery holder.",
+    "polarity: none | colour (two colours, one each way round) | spin (spins both ways) | silent (does nothing backwards).",
+    "cells is how many AA batteries a holder takes (each 1 1/2 V). glows marks a motor that lights while it spins (M7). blades is a fan's blade count, used by the Number Lab; count the real fan."
+  ],
+  "kits": {
+    "scb20": {"dir": "kits/scb20-beginner", "name": "Snap Circuits Beginner SCB-20"},
+    "sc100": {"dir": "kits/sc100-jr", "name": "Snap Circuits Jr. SC-100"}
+  },
+  "parts": {
+    "grid-mini": {"kit": "scb20", "kind": "grid", "printed": "-", "name": "Mini base grid", "kid": "The Ground", "looks_like": "the clear flat board with little round posts", "cols": 7, "rows": 5, "measured": false},
+    "grid-big": {"kit": "sc100", "kind": "grid", "printed": "-", "name": "Base grid", "kid": "The Ground", "looks_like": "the big clear flat board with little round posts", "cols": 10, "rows": 7, "measured": false},
+
+    "wire1": {"kit": "sc100", "kind": "wire", "printed": "1", "name": "1-snap wire", "kid": "Slide Tube", "real": "a wire", "analogy": "a tube", "looks_like": "the shortest blue block", "span": 1, "snaps": [0], "colour": "#2f80ed", "measured": false, "max_volts": 99},
+    "wire2": {"kit": "sc100", "kind": "wire", "printed": "2", "name": "2-snap wire", "kid": "Slide Tube", "real": "a wire", "analogy": "a tube", "looks_like": "a short blue block", "span": 2, "snaps": [0, 1], "colour": "#2f80ed", "measured": false, "max_volts": 99},
+    "wire3": {"kit": "both", "kind": "wire", "printed": "3", "name": "3-snap wire", "kid": "Slide Tube", "real": "a wire", "analogy": "a tube", "looks_like": "a long blue block with three snaps", "span": 3, "snaps": [0, 1, 2], "colour": "#2f80ed", "measured": false, "max_volts": 99},
+    "wire4": {"kit": "sc100", "kind": "wire", "printed": "4", "name": "4-snap wire", "kid": "Slide Tube", "real": "a wire", "analogy": "a tube", "looks_like": "a longer blue block", "span": 4, "snaps": [0, 1, 2, 3], "colour": "#2f80ed", "measured": false, "max_volts": 99},
+    "wire5": {"kit": "sc100", "kind": "wire", "printed": "5", "name": "5-snap wire", "kid": "Slide Tube", "real": "a wire", "analogy": "a tube", "looks_like": "the longest blue block", "span": 5, "snaps": [0, 1, 2, 3, 4], "colour": "#2f80ed", "measured": false, "max_volts": 99},
+
+    "B3B": {"kit": "scb20", "kind": "source", "printed": "B3B", "name": "Battery holder (3 AA)", "kid": "The Pump", "real": "the batteries", "analogy": "a pump that pushes the electricity around", "looks_like": "the block that holds the three AA batteries", "span": 3, "snaps": [0, 2], "plus": 0, "minus": 2, "volts": 4.5, "cells": 3, "colour": "#e8833a", "measured": false, "max_volts": 99},
+    "B1": {"kit": "sc100", "kind": "source", "printed": "B1", "name": "Battery holder (2 AA)", "kid": "The Pump", "real": "the batteries, two of them", "analogy": "a pump that pushes the electricity around", "looks_like": "the block that holds the two AA batteries", "span": 3, "snaps": [0, 2], "plus": 0, "minus": 2, "volts": 3.0, "cells": 2, "colour": "#e8833a", "measured": false, "max_volts": 99},
+
+    "S1": {"kit": "both", "kind": "switch", "printed": "S1", "name": "Slide switch", "kid": "The Gate", "real": "a switch", "analogy": "a gate you slide open and shut", "looks_like": "the green block with a little slider", "span": 2, "snaps": [0, 1], "momentary": false, "colour": "#2e9e5b", "measured": false, "max_volts": 99},
+    "S2": {"kit": "both", "kind": "switch", "printed": "S2", "name": "Press switch", "kid": "The Button Gate", "real": "a button", "analogy": "a gate that only stays open while you push it", "looks_like": "the block with a button on top", "span": 2, "snaps": [0, 1], "momentary": true, "colour": "#1f8a4c", "measured": false, "max_volts": 99},
+
+    "L4": {"kit": "scb20", "kind": "load", "effect": "light", "polarity": "none", "printed": "L4", "name": "Lamp", "kid": "The Glow Wheel", "real": "a light bulb", "analogy": "a wheel the water has to squeeze past", "looks_like": "the block with a little bulb under a clear dome", "span": 2, "snaps": [0, 1], "colour": "#f2c94c", "measured": false, "max_volts": 4.5},
+    "D10": {"kit": "scb20", "kind": "load", "effect": "light", "polarity": "colour", "colour_forward": "red", "colour_reverse": "yellow", "printed": "D10", "name": "Red/yellow LED", "kid": "The Two-Way Flap", "real": "an LED", "analogy": "two flaps, red one way and yellow the other", "looks_like": "the block with a small clear light on top", "span": 2, "snaps": [0, 1], "colour": "#eb5757", "measured": false, "max_volts": 4.5},
+    "M7": {"kit": "scb20", "kind": "load", "effect": "spin", "polarity": "spin", "printed": "M7", "name": "Light motor", "kid": "The Glow Spinner", "real": "a motor", "analogy": "a wheel that spins and glows", "glows": true, "looks_like": "the block with the round motor on top", "span": 2, "snaps": [0, 1], "colour": "#9b51e0", "measured": false, "max_volts": 4.5},
+    "W1": {"kit": "scb20", "kind": "load", "effect": "sound", "polarity": "silent", "printed": "W1", "name": "Horn", "kid": "The Splash Horn", "real": "a horn", "analogy": "a horn the water blows", "looks_like": "the block with the round buzzer", "span": 2, "snaps": [0, 1], "colour": "#56ccf2", "measured": false, "max_volts": 4.5},
+
+    "L1": {"kit": "sc100", "kind": "load", "effect": "light", "polarity": "none", "printed": "L1", "name": "3 V lamp", "kid": "The Glow Wheel", "real": "a light bulb", "analogy": "a wheel the water has to squeeze past", "looks_like": "the block with a little bulb under a clear dome", "span": 2, "snaps": [0, 1], "colour": "#f2c94c", "measured": false, "max_volts": 3.0},
+    "D8": {"kit": "sc100", "kind": "load", "effect": "light", "polarity": "silent", "printed": "D8", "name": "Colour LED", "kid": "The One-Way Flap", "real": "an LED", "analogy": "a flap that only lets water through one way", "looks_like": "the block with a small clear light on top", "span": 2, "snaps": [0, 1], "colour": "#eb5757", "measured": false, "max_volts": 3.0},
+    "RP": {"kit": "sc100", "kind": "load", "effect": "sense", "polarity": "none", "printed": "RP", "name": "Photoresistor", "kid": "The Sunny Gate", "real": "a light sensor", "analogy": "a gate that opens wider in the light", "looks_like": "the block with a little wavy sensor window", "span": 2, "snaps": [0, 1], "colour": "#bdbdbd", "measured": false, "max_volts": 3.0},
+    "M1": {"kit": "sc100", "kind": "load", "effect": "spin", "polarity": "spin", "printed": "M1", "name": "Motor", "kid": "The Spin Wheel", "real": "a motor", "analogy": "a wheel the water spins", "looks_like": "the block with the round motor on top", "span": 2, "snaps": [0, 1], "colour": "#9b51e0", "measured": false, "max_volts": 3.0},
+    "SP": {"kit": "sc100", "kind": "load", "effect": "sound", "polarity": "silent", "printed": "SP", "name": "Speaker", "kid": "The Splash Speaker", "real": "a speaker", "analogy": "a horn the water blows", "looks_like": "the round speaker you lay on the table", "span": 2, "snaps": [0, 1], "colour": "#56ccf2", "measured": false, "max_volts": 3.0},
+
+    "egg": {"kit": "scb20", "kind": "accessory", "on": ["L4", "D10"], "printed": "-", "name": "Lamp egg", "kid": "The Egg", "real": "the white cover on the yellow lamp. It is the bulb you see. It can also sit on the LED", "looks_like": "the big white ball", "colour": "#f4efe6", "measured": false},
+    "fan7": {"kit": "scb20", "kind": "accessory", "on": "M7", "printed": "-", "name": "Fan blade", "kid": "The Fan", "real": "a fan", "looks_like": "the flat blade with slots underneath", "blades": 3, "colour": "#f2994a", "measured": false},
+    "fan1": {"kit": "sc100", "kind": "accessory", "on": "M1", "printed": "-", "name": "Fan blade", "kid": "The Fan", "real": "a fan", "looks_like": "the flat blade with slots underneath", "blades": 3, "colour": "#f2994a", "measured": false}
+  }
+}

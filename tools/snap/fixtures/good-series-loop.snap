@@ -1,0 +1,16 @@
+# good: the pilot loop. Loads at level 1, wires on top at level 2.
+kits scb20
+grid 7x5 grid-mini
+step 1: grid
+step 2: B3B at A1 dir=right level=1
+step 3: S1 at C1 dir=down level=1
+step 4: L4 at D3 dir=up level=1
+step 5: wire3 at A1 dir=down level=2
+step 6: wire3 at D1 dir=right level=2
+step 7: wire3 at C3 dir=up level=2
+scene watch: S1=on
+expect S1=off: L4 off
+expect S1=on: L4 on
+expect S1=on, remove=6: L4 off
+expect S1=on, swap=4/M7: M7 on fwd
+expect S1=on, swap=4/W1: W1 on

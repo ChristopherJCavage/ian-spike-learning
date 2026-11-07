@@ -1,0 +1,16 @@
+# good: two switches in a row. The lamp needs BOTH. Uses the SC-100's 2-snap wire for the short hop.
+kits scb20, sc100
+grid 7x5 grid-mini
+step 1: grid
+step 2: B3B at A1 dir=right level=1
+step 3: S1 at A5 dir=down level=1
+step 4: S2 at C5 dir=left level=1
+step 5: L4 at C2 dir=left level=1
+step 6: wire3 at A3 dir=right level=2
+step 7: wire2 at B5 dir=down level=2
+step 8: wire3 at C4 dir=left level=2
+step 9: wire3 at C1 dir=up level=2
+expect S1=on, S2=pressed: L4 on
+expect S1=on, S2=released: L4 off
+expect S1=off, S2=pressed: L4 off
+expect S1=off, S2=released: L4 off

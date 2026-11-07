@@ -1,0 +1,16 @@
+# The Jr flying saucer: hold the button, let go, the fan flies.
+kits sc100
+grid 7x5 grid-big
+lift fwd
+step 1: grid
+step 2: B1 at A1 dir=right level=1
+step 3: S2 at C1 dir=down level=1
+step 4: M1 at D3 dir=up level=1
+step 5: wire3 at A1 dir=down level=2
+step 6: wire3 at D1 dir=right level=2
+step 7: wire3 at C3 dir=up level=2
+step 8: fan1 at D3
+scene spin: S2=pressed
+scene fly: S2=released, launch=4
+expect S2=pressed: M1 on fwd fly
+expect S2=pressed, flip=4: M1 on rev blow

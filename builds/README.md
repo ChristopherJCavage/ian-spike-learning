@@ -69,6 +69,30 @@ is the half that matters: without it, a rule that says yes to everything
 also passes. Two annotations written during the 45681 pass turned out to
 be wrong, and both were found this way, not by re-reading them.
 
+## Snap Circuits builds
+
+Same idea, different checker. A build with `kits: scb20` / `sc100` is a
+Snap Circuits lesson: `circuit.snap` replaces `model.ldr`, `tools/snap.py`
+replaces `ldrcheck` and `pages.py`, and there is no hub and no `program.spike`.
+
+```
+1. brief.md       Chris: idea, boxes, done-when
+2. circuit.snap   Agent: layout, chapter swaps, puzzles, missions, `expect` claims
+3. snap.py check  `python3 tools/snap.py check builds/<slug>`  must print 0 problems
+3b. snap.py bom   `python3 tools/snap.py bom builds/<slug> --write`  (parts.txt)
+4. steps.md       build copy, one block per step and scene
+5. deck.md        the comic: chapters, slides, bubbles, grown-up lines, answers
+6. art            comic panels (renders/comic-*.jpg) from context/story-cast-comic.png
+7. snap.py render `python3 tools/snap.py render builds/<slug>`   SVG panels
+8. snap.py preview  open preview.html; click through with G on
+9. Table: build with Ian after `preflight.md`; patch circuit.snap first
+```
+
+`python3 tools/snap.py selftest` runs the fixtures. Folder:
+`README.md brief.md circuit.snap steps.md deck.md parts.txt preflight.md
+preview.html renders/`. Copy `builds/_snap-template/`. Background and the
+comic's rules: `context/snap-circuits.md`.
+
 ## Folder layout
 
 ```
@@ -91,14 +115,33 @@ builds/<slug>/
 ## Tags (README header)
 
 ```
-category: machine | vehicle | creature | story | scenery
+category: machine | vehicle | creature | story | scenery | circuit
 venue:    class | home
-hub:      essential | prime | none
-kits:     45345, 45678
+hub:      essential | prime | none           # circuit builds: none
+kits:     45345, 45678          # set number, or a slug for a non-LEGO kit
 skills:   gears, pulleys, ...
 coding:   icon | word | python | none
 age-fit:  6
+project:  <project-slug>          # one idea; may be one build or several
+role:     main | companion        # companion = supports the main build
 ```
+
+`kits:` is a comma-separated list. A LEGO® set uses its set number
+(45345, 45678, 45681, 9689). A kit that isn't LEGO® uses a short slug
+from its model number: `scb20` for Snap Circuits® Beginner, `sc100` for
+Snap Circuits® Jr. Each id maps to a family and a badge segment in
+`site/content/the-kits.md`.
+
+`project:` groups builds that belong to one idea. A build on its own uses
+its own slug as the project (`rainforest-chameleon`, `halfpipe-swing`).
+The Seed Drone (`main`) and the Rainforest Drop Zone (`companion`) share
+`rainforest-seed-mission`: no shared parts, so both come out of one
+Essential box at once. `venue: class` with only kits the club owns is
+Club-Ready; today that list is just 45345. `venue: home` is a Home Build
+and can mix boxes. The site's project pages
+live in `site/content/projects/`. Tags are read from the header block only,
+up to the first blank line -- prose further down can start a line with
+`project:` too.
 
 `scenery` is a build with no electronics at all -- a place for another build
 to work in, like `rainforest-drop-zone`. It still gets the full treatment
@@ -107,8 +150,10 @@ renders) because a baseplate diorama is exactly where stud-grid parity
 mistakes hide: two plates can look joined in a render and hinge apart on the
 table. It skips `code.md`, `program.spike` and the `blocks.py` steps.
 
-Class = Essential hub and Essential-only parts. Home = mix allowed, still no
-`45681`.
+Class = Essential hub and Essential-only parts. Home = mix allowed; `45681`
+only when the brief says so. `halfpipe-swing` does -- its ramp is the
+Expansion's four quarter-circle racks, and Chris asked for any combination
+of the three boxes.
 
 ## New build
 

@@ -1,0 +1,7 @@
+# bad: SHORT
+# A 3-snap wire straight across the battery holder, the manual's own never-do-this picture.
+kits scb20
+grid 7x5 grid-mini
+step 1: grid
+step 2: B3B at A1 dir=right level=1
+step 3: wire3 at A1 dir=right level=2
