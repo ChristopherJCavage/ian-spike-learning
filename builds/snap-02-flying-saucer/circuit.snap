@@ -10,7 +10,7 @@
 # fails M1 on the Beginner's 4.5 V B3B.
 #
 # `lift fwd`: we GUESS the fan flies when M1 spins forward (current in at its
-# + end, D3). Chris confirms on the real box (preflight.md); if it is the
+# + end, 3E). Chris confirms on the real box (preflight.md); if it is the
 # other way, change it to `lift rev` and `check` lists every page to fix.
 #
 # Geometry and the Jr parts list are from the 2021 SC-100 manual, unchecked
@@ -20,13 +20,13 @@ grid 10x7 grid-big
 lift fwd
 
 step 1: grid
-step 2: B1 at A1 dir=right level=1
-step 3: S2 at C1 dir=down level=1
-step 4: M1 at D3 dir=up level=1
-step 5: wire3 at A1 dir=down level=2
-step 6: wire3 at D1 dir=right level=2
-step 7: wire3 at C3 dir=up level=2
-step 8: fan1 at D3
+step 2: B1 at 1A dir=right level=1
+step 3: S2 at 1C dir=down level=1
+step 4: M1 at 3E dir=up level=1
+step 5: wire3 at 1A dir=down level=2
+step 6: wire3 at 1E dir=right level=2
+step 7: wire3 at 3C dir=up level=2
+step 8: fan1 at 3E
 
 # ---- Case 1: The UFO Over the Skate Park
 scene spin: S2=pressed

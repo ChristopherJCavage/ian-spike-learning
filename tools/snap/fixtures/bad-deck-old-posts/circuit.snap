@@ -1,0 +1,16 @@
+# Deck fixture circuit: the pilot loop with a chapter swap, puzzles and a mission.
+kits scb20
+grid 7x5 grid-mini
+step 1: grid
+step 2: B3B at 1A dir=right side=up level=1
+step 3: S1 at 1C dir=down level=1
+step 4: L4 at 3E dir=up level=1
+step 5: wire3 at 1A dir=down level=2
+step 6: wire3 at 1E dir=right level=2
+step 7: wire3 at 3C dir=up level=2
+change colours: swap=4/D10
+puzzle gap: S1=on, remove=6
+puzzle lit: S1=on
+mission yellow: swap=4/D10, flip=4 => S1=on: D10 yellow; S1=off: D10 off
+scene watch: S1=on
+expect S1=on: L4 on

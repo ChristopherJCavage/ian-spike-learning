@@ -23,7 +23,7 @@ stacks**, one per pad.
 
 | Port | Device | Role |
 |---|---|---|
-| A | Colour Sensor | Reads the pad under the belly |
+| A | Colour Sensor | Reads the pad under the head |
 | B | 3x3 Colour Light Matrix | The chameleon's skin |
 
 Both ports on the Essential hub are used. There is no motor on this
@@ -32,7 +32,7 @@ Use `horizontaldisplay_ledMatrix` (port B), never the Prime 5x5 face.
 
 ## Success
 
-Slide a pad under the belly. The back lights the same colour (blue,
+Slide a pad under the head. The back lights the same colour (blue,
 yellow, green). Slide a **bright red** pad and the back goes warning-red
 instead -- the "don't eat me" idea. No pad leaves the last colour
 showing: Icon Blocks have no easy "off" stack for "I see nothing."

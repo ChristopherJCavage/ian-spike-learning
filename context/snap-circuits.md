@@ -23,11 +23,11 @@ and styles vary). Inventories: `kits/scb20-beginner/parts.txt` and
 | 1, 2, 4, 5 | Other snap wires | - | 3 / 5 / 1 / 1 |
 | S1 | Slide switch | 1 | 1 (same part) |
 | S2 | Press switch | 1 | 1 (same part) |
-| L4 | Lamp | 1 | - |
+| L4 | White lamp (clear block, round lens) | 1 | - |
 | L1 | 3 V lamp | - | 1 |
 | D10 | Red/yellow LED, one colour each way | 1 | - |
 | D8 | Colour LED | - | 1 |
-| (egg) | white bulb cover; snaps on the yellow lamp (L4), and can sit on the LED | 1 | - |
+| (egg) | white bulb cover; sits on the middle of a light block (D10 in the lessons) | 1 | - |
 | M7 | Light motor (glows while it spins) | 1 | - |
 | M1 | Motor | - | 1 |
 | (fan) | Fan blade for the motor | 1 (inferred) | 1 |
@@ -102,7 +102,7 @@ when it does not.
 | Lamp | a light bulb | a wheel the water squeezes past | The Glow Wheel |
 | Motor (M1, Jr) | a motor | a wheel the water spins | The Spin Wheel |
 | Light motor (M7) | a motor | a wheel that spins and glows | The Glow Spinner |
-| Horn | a horn | a horn the water blows | The Splash Horn |
+| Horn | a horn | a tiny drum the water shakes | The Splash Horn |
 | LED (D10) | an LED | two flaps, red one way, yellow the other | The Two-Way Flap |
 | LED (D8, Jr) | an LED | a flap that lets water through one way | The One-Way Flap |
 | Photoresistor | a light sensor | a gate that opens wider in the light | The Sunny Gate |
@@ -133,21 +133,18 @@ out why, and Ian guesses, then tests, then hears the explanation. We copy the
   1. `builds/snap-01-the-loop`, **The Night Skate Cases** (Beginner box), five
      cases on one loop: The Dark Skate Park (the loop), The Colour-Changing
      Light (D10 and its egg), The Silent Horn (S2 and W1; Pip's horn is in
-     backwards), The Backwards Fan (M7 and its fan), The Big Night (missions,
+     backwards), The Two Lights (D10 and the lamp in one circle), The Big Night (missions,
      no step pages).
   2. `builds/snap-02-flying-saucer`, **The UFO Case** (Jr box), two cases:
      the fan flies off the motor (Elenco's Flying Saucer, our pages), and
      Pip's backwards motor only blows.
 - **Rules so far** (Tika's case notes): no circle, no light; some parts care
-  which way round; the button gate only opens while you push; flip the
-  motor, flip the spin; guess first, then test it; fans push air, air pushes
-  back; spin one way to fly, the other way to blow.
-- **Number Lab:** every case has a page or two of 2nd-3rd grade maths that
-  comes out of the board (post names as coordinates, 7 x 5, the loop's
-  perimeter, why every loop is even, odd/even flips, 1 1/2 + 1 1/2 + 1 1/2,
-  equal groups of honks, 3 x blades, counting settings vs outcomes, a flight
-  log and bar graph). Wherever the board decides the answer, `snap.py`
-  works it out, so the answer key cannot drift.
+  which way round; the button gate only opens while you push; one gate, two
+  paths, each light needs its own way back; guess first, then test it; fans
+  push air, air pushes back; spin one way to fly, the other way to blow.
+- **Number Lab:** the deck format still supports `numberlab` pages (the
+  answer is worked out from the board), but Module 1 has none: Chris asked
+  for them to come out (Nov 2026).
 - **Art rules:** generate every panel with `context/story-cast-comic.png` as
   the reference. Describe Sully as "the brown sloth in the blue beanie": the
   name alone once got a blue horned monster from somebody else's film. No
@@ -175,7 +172,7 @@ thrust. What is left, as later modules:
 | Idea | Try it | Boxes |
 |---|---|---|
 | Sharing the hill: two things in one loop each get less push | Lamp + motor in one loop | Beginner + a Jr 2-snap wire (the loop parity needs it) |
-| Two gates: in a row both must be open; side by side either will do | Predict, then try each | Either (OR needs the real box's stacking rules first) |
+| Two gates: in a row both must be open; side by side either will do | Predict, then try each | Either (lay the OR board out and run `check` first) |
 | The shortcut: why we never join the pump straight to itself | Picture only; batteries OUT | Either |
 | The Sunny Gate (RP), cousin of the SPIKE colour sensor | Cover it, shine on it | Jr |
 | Sound modules (U1-U3) and the speaker | Music, alarm, space war | Jr |
@@ -239,22 +236,32 @@ it names, the same discipline as the LDraw fixtures.
 
 ### What the checker cannot see
 
-- **Every block's size is a guess.** `tools/snap/parts.json` marks every
-  entry `measured: false`: how many posts a block covers, where its snaps
-  are, which end of a battery holder is +, even the colours. The only anchor
-  is Elenco's sentence that a 3-snap wire spans base-grid points A1 to C1.
-  `check` prints an `UNMEASURED` warning for every such part a build uses.
-  Measure, fix, flip to `true`. A page drawn from a wrong size is wrong in a
-  way the checker will happily print.
+- **Jr block sizes are still guesses.** The Beginner blocks are measured
+  from photos of the real board (`measured: true` in
+  `tools/snap/parts.json`): every 2-snap block is 1x3 with a snap at each
+  end, a blue wire is 1x3 with three snaps, and the battery holder B3B is
+  3x3 with its two snaps on one edge, so it rides the edge of the grid with
+  the batteries hanging off. `check` fails a parts.json edit that changes
+  any of those (`PARTS`). The Jr-only blocks (B1, M1, the big grid) are
+  still `measured: false` and print an `UNMEASURED` warning.
+- **Stacking.** Blocks only stack where end snaps meet, on one post, and
+  leave it in different directions. `check` fails two blocks lying on top of
+  each other (`OVERLAP`), a snap landing on a block's plastic (`BODY`), a
+  block on top that would tilt more than one level (`TILT`), and a battery
+  holder with nothing saying which side its case hangs (`HANG`). Every
+  drawing is read back and compared with the layout (`DRAWN`), every post a
+  page names must be a snap on that page's board (`POSTS`), and every photo
+  of the real board is described in `circuit.snap` and compared too
+  (`PHOTO`).
 - **Which end is "forward".** The comics' answers lean on guesses about the
   + ends: D10 red with its + where current enters, W1 honking that way round,
   M7 spinning clockwise, and (`lift fwd`) M1's fan flying that way round.
   Each build's `preflight.md` has the five-minute test; if a guess is wrong,
   fix the data and `check` lists every page whose answer changed.
-- **Parallel branches.** The electrical model handles them; there is no
-  `good-parallel` fixture because laying one out needs the real stacking
-  rules (three blocks meeting at one post), which are not in the data yet.
-  Lesson 5's OR half waits for that.
+- **Parallel branches.** The electrical model handles them, and
+  `good-parallel` is Case 4's real two-light board (photographed): the two
+  joining wires snap on top of the stacks at 3E and 3C (level 3) and tilt
+  one level onto the white light.
 - **Not modelled yet:** the jumper wires, the whistle chip, the three sound
   modules, and what a photoresistor does with light. Using one fails
   `UNKNOWN_PART` (or is treated as a plain two-terminal part for RP and SP).

@@ -12,6 +12,7 @@
 0 instead of being free to spin.
 0
 0 !LDRCHECK FRONT +Z
+0 !LDRCHECK JOINS 14769.dat 3738.dat
 1 10 0 0 0 1 0 0 0 1 0 0 0 1 3738.dat
 1 15 -60 -8 0 1 0 0 0 1 0 0 0 1 14769.dat
 1 15 60 -8 0 1 0 0 0 1 0 0 0 1 14769.dat

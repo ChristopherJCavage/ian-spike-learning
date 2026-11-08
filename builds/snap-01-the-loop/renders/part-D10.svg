@@ -1,14 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" font-family="'Avenir Next','Trebuchet MS','Helvetica Neue',Arial,sans-serif">
-<!-- snap-sha: ff4d243ef2b9 -->
+<!-- snap-sha: 6454a7e19ab3 -->
 <rect width="1200" height="800" fill="#ffffff"/>
-<g opacity="1">
-<rect x="315.0" y="292.0" width="570.0" height="216.0" rx="60.0" fill="#eb5757" stroke="#102216" stroke-width="3"/>
-<circle cx="450.0" cy="400.0" r="36.0" fill="#e6e6e6" stroke="#6b6b6b" stroke-width="2.5"/>
-<circle cx="750.0" cy="400.0" r="36.0" fill="#e6e6e6" stroke="#6b6b6b" stroke-width="2.5"/>
-<path d="M 561.6 389.8 Q 600.0 279.4 638.4 389.8 Z" fill="#e6e6e6" fill-opacity="0.85" stroke="#6b5a2e" stroke-width="3"/>
-<circle cx="600.0" cy="365.8" r="16.8" fill="#fff8dc" stroke="#555" stroke-width="2"/>
-<text x="600.0" y="499.0" font-size="63.0" fill="#fff" font-weight="bold" text-anchor="middle"><tspan x="600.0" dy="0.0">D10</tspan></text>
-<circle cx="369.0" cy="400.0" r="39.0" fill="#fff" stroke="#d62828" stroke-width="3"/>
-<text x="369.0" y="427.0" font-size="78.0" fill="#d62828" font-weight="bold" text-anchor="middle"><tspan x="369.0" dy="0.0">+</tspan></text>
+<g opacity="1" data-step="1" data-key="D10" data-want="1A 3A span=3 depth=1" data-drawn="1A 3A span=3 depth=1">
+<rect x="187.0" y="297.5" width="826.1" height="205.1" rx="57.0" fill="#fffdf8" stroke="#102216" stroke-width="3"/>
+<rect x="600.0" y="297.5" width="413.0" height="205.1" fill="#ffd43b"/>
+<rect x="187.0" y="297.5" width="413.0" height="205.1" fill="#e23d3d"/>
+<rect x="187.0" y="297.5" width="826.1" height="205.1" rx="57.0" fill="none" stroke="#102216" stroke-width="4"/>
+<circle cx="315.2" cy="400.0" r="34.2" fill="#e6e6e6" stroke="#6b6b6b" stroke-width="2.5"/>
+<circle cx="884.8" cy="400.0" r="34.2" fill="#e6e6e6" stroke="#6b6b6b" stroke-width="2.5"/>
+<rect x="531.6" y="439.9" width="136.7" height="85.5" rx="22.8" fill="#fff" stroke="#102216" stroke-width="2"/>
+<text x="600.0" y="494.0" font-size="59.81818181818182" fill="#1d2433" font-weight="bold" text-anchor="middle"><tspan x="600.0" dy="0.0">D10</tspan></text>
 </g>
 </svg>

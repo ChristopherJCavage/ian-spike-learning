@@ -8,6 +8,8 @@ skills: baseplates, stud-grid, tiles, minifigures, scenery, short-build
 coding: none
 age-fit: 6
 figma: TBD
+project: rainforest-seed-mission
+role: companion
 
 The Rainforest Drop Zone is the place the Seed Drone flies over: one white
 8x16 plate stood narrow and deep, with a green wall down each long edge, a

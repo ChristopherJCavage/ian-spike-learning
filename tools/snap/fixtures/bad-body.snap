@@ -1,0 +1,13 @@
+# bad: BODY
+# A wire's end snaps land on 1D and 3D: the middle of the switch and the
+# middle of the lamp. Those are plastic, not snaps.
+kits scb20
+grid 7x5 grid-mini
+step 1: grid
+step 2: B3B at 1A dir=right side=up level=1
+step 3: S1 at 1C dir=down level=1
+step 4: L4 at 3E dir=up level=1
+step 5: wire3 at 1A dir=down level=2
+step 6: wire3 at 1E dir=right level=2
+step 7: wire3 at 3C dir=up level=2
+step 8: wire3 at 1D dir=right level=1

@@ -76,8 +76,9 @@ Do not stall the motor against the structure.
 
 ### 3. Test the red target
 
-The target is the three-tile red patch in `builds/rainforest-drop-zone`. Rest
-the two slide shoes on the island first; then lift only a few millimetres.
+The target is the red band in `builds/rainforest-drop-zone`: two Bright Red
+2x4 tiles butted side by side, wall to wall across the lane. Rest the two
+slide shoes on the plate first; then lift only a few millimetres.
 The sensor lens sits about 16.4 mm above the shoe plane, but `CLEARANCE` is
 only a minimum-distance check -- it cannot tell whether the sensor is too
 high to read.
@@ -93,15 +94,15 @@ Pick the seed up between passes. That is not a real limitation -- there are
 only five balls, so someone is collecting them anyway -- but it will look
 like a bug the first time it happens.
 
-The orange corner marks are the other thing to watch. They touch the red
-patch corner-to-corner, which is as close as they should ever be. If the
-sensor reports red over orange, take all four off; they are decoration and
-the drop zone works without them.
+There is no orange near the target any more -- the four orange corner marks
+of the earlier island were dropped because the sensor confused them with
+red -- so the only false targets left are a dropped seed and a grass tuft
+that has crept over the band. See the drop zone's own `preflight.md`.
 
 ### 4. Check the rotor
 
-Hold one purple side grip in each hand, keep fingers below the rotor
-plane, and flick one purple blade gently. Both blades and the green hub
+Hold the yellow Hub in both hands, keep fingers below the rotor plane,
+and flick one purple blade gently. Both blades and the green hub
 must turn together while the blue 7M bearing beam stays fixed.
 
 The black vertical axle must stop on or just above the yellow Hub roof; it
@@ -175,16 +176,16 @@ of the 6 spare pegs rather than forcing it.
   over a soft surface and confirm it does not roll in the hand. The seed
   bay hangs a long way aft now, so check specifically that it does not
   nose up when a hand relaxes.
-- The purple side grips protrude only 8 mm and the skid rails sit beneath
-  most of that. They are thumb rests; the Hub body is the handhold. Watch
-  a child pick the drone up before deciding this is enough, and add a
-  wrist lanyard or a two-hands rule if it is not.
+- The purple side bars protrude only 8 mm, and at the table they pop off
+  when a child pulls on them. They are not a handhold: the pages tell
+  kids to hold the yellow Hub. Watch a child pick the drone up, and add a
+  two-hands rule if it rolls.
 - All four yellow 3M axles and both purple 11M beams are used, with no
   spares. Confirm those exact quantities before class.
 
 ## Class safety and framing
 
 Call it a **handheld model of a survey drone**, not a flying drone. Carry
-it by the two purple side grips, skim it low, and use only a gentle finger
-flick on the rotor. Keep faces, hair, and cables away from the blades.
+it by the yellow Hub, never the purple side bars, skim it low, and use
+only a gentle finger flick on the rotor. Keep faces, hair, and cables away from the blades.
 Drop only the included LEGO ball onto the paper target.

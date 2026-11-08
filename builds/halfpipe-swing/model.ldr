@@ -1,0 +1,380 @@
+0 Half-pipe Swing
+0 Name: model.ldr
+0 Author: ian-spike-learning
+0 !LICENSE Licensed as content of this repo; parts from LDraw library
+0 !LDRCHECK GROUND 242
+0 !LDRCHECK FRONT +Z
+0 !LDRCHECK FACES 41879.dat +Z
+0 !LDRCHECK FACES 47592.dat +Z
+0 !LDRCHECK CLEARANCE 24121.dat 30
+0 !LDRCHECK CLEARANCE 37312.dat 12
+0 !LDRCHECK CLEARANCE 47592.dat 20
+0 !LDRCHECK JOINS 45601.dat 54675.dat
+0 !LDRCHECK JOINS 64289.dat 54675.dat
+0 !LDRCHECK JOINS 32316.dat 54675.dat
+0 !LDRCHECK JOINS 32524.dat 32316.dat
+0 !LDRCHECK JOINS 60484.dat 32524.dat
+0 !LDRCHECK JOINS 3701.dat 60484.dat
+0 !LDRCHECK JOINS 37312.dat 3701.dat
+0 !LDRCHECK JOINS 24121.dat 3707.dat
+0 !LDRCHECK JOINS 47592.dat 3709.dat
+0 !LDRCHECK RESTS 18746.dat ON 3701.dat
+0 !LDRCHECK PROXY 18228.dat 29066
+0 !LDRCHECK MESH 46372.dat 24121.dat 140
+0
+0 // Geometry notes -- builds/halfpipe-swing/geometry.md has the measured
+0 // writeup. Quick reference:
+0 // +Y is DOWN. FRONT is +Z: Ian stands in front of the ramp and Leo faces
+0 // him. LEFT/RIGHT in these comments are Ian's, from the front -- so +X
+0 // is his LEFT (LeoCAD's "front" viewpoint looks from -Z, the back). The
+0 // PIVOT is the world origin -- the Large Motor's output axle, pointing
+0 // +Z. Ground plane is y = +242.
+0 //
+0 // The swing is a circle about the origin in the XY plane. The ramp is
+0 // four 24121 quarter racks (kit 43038) centred on the same origin, as two
+0 // rails (z 90..110 and 190..210); their teeth face inward, a 140-tooth
+0 // ring of pitch radius 175. Under the board, one axle at r = 140 carries
+0 // a Z28 gear (pitch radius 35) in each rail: 175 - 35 = 140, so the
+0 // gears mesh with the rails at every swing angle (MESH above). The gear
+0 // turns freely on its round holes and rolls; for a swing of theta it
+0 // turns -4 theta, i.e. 5 theta backwards relative to the arm.
+0 // `tools/swing.py --roll 46372 -5` swings the model and turns the gears
+0 // to match, and finds no tooth overlap -- numbers in geometry.md.
+0 //
+0 // Everything else that swings stays inside r = 159 (the rider brick's
+0 // corners), well inside the teeth (173).
+0 //
+0 // No PIVOT line. The arm hangs off the motor's output disc, which is
+0 // part of 54675.dat, so in LDraw it is rigid to the motor and nothing
+0 // reaches the frame through a lone shaft.
+0 //
+0 // Z layers, back to front: hub z -250..-30 behind the motor; motor body
+0 // -30..30; posts 30..50; crossbeams 50..70; offset beam 70..90; back
+0 // rail and back gear 90..110; arm 110..130; T-beam 130..150; rider brick
+0 // 150..170 (board and Leo above it, 144..184); spacer bushes 170..190;
+0 // front rail and front gear 190..210; light bricks 230..250; light
+0 // matrix 250..309.
+
+0 // Step 1 -- the two white baseplates. The 16x16 goes under the ramp, the
+0 // 8x16 behind it under the hub's legs, long side across, edges touching.
+0 //
+0 // The big plate's origin is z = 70 (it spans -90..230), so its stud rows
+0 // fall at z = 0, 20, 40 ... 220: one at z = 20 for the front green brick,
+0 // and the last one, z = 220, for the light plate. The small plate's
+0 // origin is z = -170 (spans -250..-90), putting its back row at -240.
+1 15 0 234 70 1 0 0 0 1 0 0 0 1 91405.dat
+1 15 0 234 -170 1 0 0 0 1 0 0 0 1 92438.dat
+0 STEP
+
+0 // Step 2 -- the two long green 1x16 Technic bricks, holes facing front.
+0 // Front brick on the big plate at z = 20; back brick on the small plate's
+0 // back row, z = -240. Holes at y = 220, every 20 from x = -140 to 140.
+1 10 0 210 20 1 0 0 0 1 0 0 0 1 3703.dat
+1 10 0 210 -240 1 0 0 0 1 0 0 0 1 3703.dat
+0 STEP
+
+0 // Step 3 -- the Large Motor, round output disc facing front, cable end
+0 // down. Hold it in your hand for now: it is shown where it will end up,
+0 // floating above the base, and the next two pages hang it there.
+0 // Matrix 1 0 0 0 0 1 0 -1 0 turns its native output (local -Y) to world
+0 // +Z; the output axle hole lands exactly on the origin's axis at z = 50,
+0 // and its body hangs to y = 150.
+0 //
+0 // Motor first, posts last, on purpose. A post's foot ends 1 LDU above
+0 // the baseplate's studs (its bottom hole is 9 above its end, and the
+0 // brick's hole is 10 above the plate). Placed on its brick pin alone, a
+0 // post is a hinge resting on studs it does not clutch, which
+0 // `ldrcheck steps` rightly fails. Placed onto the motor's pins and the
+0 // brick's pin in one move, it is part of one rigid frame from the start.
+1 16 0 0 0 1 0 0 0 0 1 0 -1 0 54675.dat
+0 STEP
+
+0 // Step 4 -- six pins, all pointing FORWARD: four into the motor's front
+0 // face (local z = 80 and 120, i.e. y = 80 and 120, x = -40 and 40), and
+0 // two into the front green brick, 2 holes out from the middle each way
+0 // (x = -40 and 40).
+1 0 -40 80 30 0 0 1 0 1 0 -1 0 0 61332.dat
+1 0 -40 120 30 0 0 1 0 1 0 -1 0 0 61332.dat
+1 0 40 80 30 0 0 1 0 1 0 -1 0 0 61332.dat
+1 0 40 120 30 0 0 1 0 1 0 -1 0 0 61332.dat
+1 0 -40 220 30 0 0 1 0 1 0 -1 0 0 61332.dat
+1 0 40 220 30 0 0 1 0 1 0 -1 0 0 61332.dat
+0 STEP
+
+0 // Step 5 -- the two posts. Black 9M beams standing up, holes facing
+0 // front. Each takes three pins: two from the motor (holes 2 and 4 from
+0 // the top) and one from the brick (the bottom hole). Push the posts
+0 // onto the motor first, then press the whole thing down onto the brick.
+0 // Holes y = 60..220; z 30..50.
+1 0 -40 140 40 1 0 0 0 0 1 0 -1 0 64289.dat
+1 0 40 140 40 1 0 0 0 0 1 0 -1 0 64289.dat
+0 STEP
+
+0 // Step 6 -- four pins into the FRONT of the posts, holes 6 and 8 from
+0 // the top (y = 160 and 200). They carry the two crossbeams.
+1 0 -40 160 50 0 0 1 0 1 0 -1 0 0 61332.dat
+1 0 40 160 50 0 0 1 0 1 0 -1 0 0 61332.dat
+1 0 -40 200 50 0 0 1 0 1 0 -1 0 0 61332.dat
+1 0 40 200 50 0 0 1 0 1 0 -1 0 0 61332.dat
+0 STEP
+
+0 // Step 7 -- two Medium Azur 13M crossbeams, one on each pair, centred.
+0 // Holes x = -120..120. The upper one (y = 160) holds the back rail at
+0 // its outer holes; the lower one (y = 200) takes the ramp's bottom
+0 // axle in its middle hole. Both are needed: each half of the ramp then
+0 // reaches the frame through a pin AND an axle on different lines, so
+0 // it cannot rock (a single pin per half reported RIGID CLUSTER HINGE).
+1 322 0 160 60 0 0 1 1 0 0 0 1 0 41239.dat
+1 322 0 200 60 0 0 1 1 0 0 0 1 0 41239.dat
+0 STEP
+
+0 // Step 8 -- four pins into the motor's BACK face, sticking out
+0 // backward. Same two heights as the front (y = 80 and 120).
+1 0 -40 80 -30 0 0 1 0 1 0 -1 0 0 61332.dat
+1 0 -40 120 -30 0 0 1 0 1 0 -1 0 0 61332.dat
+1 0 40 80 -30 0 0 1 0 1 0 -1 0 0 61332.dat
+1 0 40 120 -30 0 0 1 0 1 0 -1 0 0 61332.dat
+0 STEP
+
+0 // Step 9 -- the Prime hub, lying flat, lights UP, one short end pushed
+0 // onto the motor's back pins. 45601's short-end holes sit at local
+0 // y = -10/-30/-50, so y = 80 and 120 are its top and bottom rows and the
+0 // hub's underside lands at y = 130, its top (the 5x5) at y = 50. It
+0 // reaches back to z = -250. Ports on both long sides at y = 62, clear.
+1 16 0 130 -140 1 0 0 0 1 0 0 0 1 45601.dat
+0 STEP
+
+0 // Step 10 -- six pins, all sticking out BACKWARD: four in the hub's far
+0 // short end (same two rows), two in the back green brick, 2 out from
+0 // the middle each way (x = -40 and 40). Both sets point the same way,
+0 // so the legs on the next page slide onto all six at once.
+1 0 -40 80 -250 0 0 1 0 1 0 -1 0 0 61332.dat
+1 0 -40 120 -250 0 0 1 0 1 0 -1 0 0 61332.dat
+1 0 40 80 -250 0 0 1 0 1 0 -1 0 0 61332.dat
+1 0 40 120 -250 0 0 1 0 1 0 -1 0 0 61332.dat
+1 0 -40 220 -250 0 0 1 0 1 0 -1 0 0 61332.dat
+1 0 40 220 -250 0 0 1 0 1 0 -1 0 0 61332.dat
+0 STEP
+
+0 // Step 11 -- the two rear legs, black 9M beams like the posts, holes
+0 // facing front. Each takes three pins: two from the hub, one from the
+0 // brick. The back brick sits UNDER the hub (z -250..-230) rather than
+0 // behind the legs so that its pins point the same way as the hub's --
+0 // with the brick behind, the legs would have to move two ways at once.
+1 0 -40 140 -260 1 0 0 0 0 1 0 -1 0 64289.dat
+1 0 40 140 -260 1 0 0 0 0 1 0 -1 0 64289.dat
+0 STEP
+
+0 // Step 12 -- a purple 1x4 Technic brick on the LEFT end of the front
+0 // green brick (x 80..160), flush with the end. It lifts the button
+0 // high enough that the sensor clears the baseplate.
+1 26 120 186 20 1 0 0 0 1 0 0 0 1 3701.dat
+0 STEP
+
+0 // Step 13 -- two pins into the BACK of the purple brick, its two outer
+0 // holes (x = 100 and 140), sticking out backward.
+1 0 100 196 10 0 0 1 0 1 0 -1 0 0 61332.dat
+1 0 140 196 10 0 0 1 0 1 0 -1 0 0 61332.dat
+0 STEP
+
+0 // Step 14 -- the Force Sensor, BUTTON UP, pushed onto those two pins by
+0 // two of the four holes on its flat side. Matrix -1 0 0 0 0 1 0 1 0
+0 // stands it on end (local -Z, the button, to world -Y) with that side
+0 // facing +Z. Button top at y = 106; bottom at 226, 16 above the floor.
+0 // Behind the ramp, so nothing swings near it; reach over the left lip.
+1 16 120 176 -20 -1 0 0 0 0 1 0 1 0 37312.dat
+0 STEP
+
+0 // Step 15 -- two blue 3M pins into the motor's round output disc, the
+0 // holes straight above and below its centre (y = -20 and 20). Long end
+0 // forward: 20 in the disc, 40 out, so what hangs on them sits one module
+0 // in front of the disc and the crossbeams' slab stays free behind it.
+0 // Line the disc's marks up with the motor's first, so the arm is
+0 // straight down when the program says position 0.
+1 1 0 -20 60 0 0 1 0 1 0 -1 0 0 42924.dat
+1 1 0 20 60 0 0 1 0 1 0 -1 0 0 42924.dat
+0 STEP
+
+0 // Step 16 -- the offset beam: a purple 5M beam hanging from the disc,
+0 // its holes 1 and 3 on the blue pins. Holes y = -20..60, z 70..90. It
+0 // steps the arm forward past the back gear's slab (90..110).
+1 26 0 20 80 1 0 0 0 0 1 0 -1 0 32316.dat
+0 STEP
+
+0 // Step 17 -- two more blue 3M pins into the offset beam's bottom two
+0 // holes (y = 40 and 60), long end forward: z 70..130, through the empty
+0 // back-gear slab at r <= 64, far inside the gear (its teeth start at
+0 // y = 103).
+1 1 0 40 100 0 0 1 0 1 0 -1 0 0 42924.dat
+1 1 0 60 100 0 0 1 0 1 0 -1 0 0 42924.dat
+0 STEP
+
+0 // Step 18 -- the arm: an azure 7M beam, its holes 2 and 3 on those
+0 // pins. Holes y = 20..140, z 110..130. Its bottom hole (y = 140) is
+0 // where the gear axle will go.
+1 322 0 80 120 1 0 0 0 0 1 0 -1 0 32524.dat
+0 STEP
+
+0 // Step 19 -- two pins into the front of the arm, holes 5 and 6 (y = 100
+0 // and 120).
+1 0 0 100 130 0 0 1 0 1 0 -1 0 0 61332.dat
+1 0 0 120 130 0 0 1 0 1 0 -1 0 0 61332.dat
+0 STEP
+
+0 // Step 20 -- a black T-beam, stem up on those two pins, crossbar at the
+0 // bottom (y = 140). Matrix 1 0 0 0 0 1 0 -1 0 points the stem (local +Z)
+0 // down; origin is the top stem hole. Crossbar holes x = -20, 0, 20; the
+0 // middle one lines up with the arm's bottom hole.
+1 0 0 100 140 1 0 0 0 0 1 0 -1 0 60484.dat
+0 STEP
+
+0 // Step 21 -- two pins into the crossbar's two OUTER holes, sticking out
+0 // front. The middle hole stays empty for the gear axle.
+1 0 -20 140 150 0 0 1 0 1 0 -1 0 0 61332.dat
+1 0 20 140 150 0 0 1 0 1 0 -1 0 0 61332.dat
+0 STEP
+
+0 // Step 22 -- a purple 1x4 Technic brick on those two pins, studs UP.
+0 // 3701 has holes at local x = -20, 0, 20, y = 10, so its origin sits 10
+0 // above the crossbar: y = 130. Top 130, bottom 154. Corners at
+0 // (+-40, 154) are r = 159, the farthest swinging point after the gears.
+1 26 0 130 160 1 0 0 0 1 0 0 0 1 3701.dat
+0 STEP
+
+0 // Step 23 -- the orange board on the brick's top, long way left-right.
+0 // 18746 has two top studs (local z = +-10) and three underside tubes
+0 // (z = -20, 0, 20); quarter-turned, the tubes land between the brick's
+0 // four studs at x = +-10, +-30. The board is decorative in LDraw -- its
+0 // underside has no anti-stud primitive -- so RESTS is the assertion.
+1 191 0 122 160 0 0 1 0 1 0 -1 0 0 18746.dat
+0 STEP
+
+0 // Step 24 -- Leo on the board, facing front: short Dark Green legs on
+0 // the board's two studs, then his Bright Blue torso. Short legs are 24
+0 // hip to sole (not 40), so the legs origin is 24 above the deck and the
+0 // torso 32 above that. The half-turn about Y faces him +Z, which FACES
+0 // 41879.dat +Z checks. His back rests on the T-beam's stem.
+1 288 0 98 160 -1 0 0 0 1 0 0 0 -1 41879.dat
+1 1 0 66 160 -1 0 0 0 1 0 0 0 -1 76382.dat
+0 STEP
+
+0 // Step 25 -- Leo's head and his brown hair. Head origin 24 above the
+0 // torso; the wig at the same origin as the head.
+0 // PROXY: real part = MINI WIG NO. 63 (29066, Reddish Brown, kit 45345),
+0 // which has no LDraw file. 18228 is the nearest real wig and is drawn in
+0 // Leo's colour; PROXY lets COLOUR vs KIT accept Reddish Brown for it.
+1 14 0 42 160 -1 0 0 0 1 0 0 0 -1 3626c.dat
+1 70 0 42 160 -1 0 0 0 1 0 0 0 -1 18228.dat
+0 STEP
+
+0 // Step 26 -- the gear axle and the back gear. Hold a Z28 gear behind the
+0 // arm, then push the yellow 7M axle in from the front, under the board:
+0 // through the brick's middle hole, the T-beam's, the arm's bottom hole,
+0 // and into the gear. Every hole it passes is round, so the axle and its
+0 // gears spin freely (46372 and 32123b are rotates: true). Axle z
+0 // 80.5..219.5; gear z 90..110, centred r = 140 below the pivot.
+0 //
+0 // Gear phase: identity. Swept a full tooth (12.86 degrees) in 0.25
+0 // degree steps against the racks; identity shares no solid with them
+0 // and touches both, and anything past ~1.5 degrees either way bites.
+1 71 0 140 100 1 0 0 0 1 0 0 0 1 46372.dat
+1 14 0 140 150 0 0 1 0 1 0 -1 0 0 44294.dat
+0 STEP
+
+0 // Step 27 -- three yellow half bushes: one on the back end of the axle,
+0 // behind the gear (z 80..90), and two on the front, against the brick
+0 // (170..190). They hold the gears where the rails will be.
+1 14 0 140 85 1 0 0 0 1 0 0 0 1 32123b.dat
+1 14 0 140 175 1 0 0 0 1 0 0 0 1 32123b.dat
+1 14 0 140 185 1 0 0 0 1 0 0 0 1 32123b.dat
+0 STEP
+
+0 // Step 28 -- the front gear (z 190..210) and a last half bush to keep it
+0 // on (210..220). Same phase as the back gear: the two rails are the
+0 // same racks the same way round.
+1 71 0 140 200 1 0 0 0 1 0 0 0 1 46372.dat
+1 14 0 140 215 1 0 0 0 1 0 0 0 1 32123b.dat
+0 STEP
+
+0 // Step 29 -- two blue 3M pins into the front of the UPPER azure
+0 // crossbeam, its two end holes (x = -120 and 120), long end forward:
+0 // z 50..110, across the offset beam's slab into the back rail. 24121 has
+0 // a pin hole at local (-120, 0, 160).
+1 1 -120 160 80 0 0 1 0 1 0 -1 0 0 42924.dat
+1 1 120 160 80 0 0 1 0 1 0 -1 0 0 42924.dat
+0 STEP
+
+0 // Step 30 -- the back rail: two black quarter racks, teeth inside, on
+0 // the two pins, meeting at the bottom -- then the black 8M axle through
+0 // the bottom from the front, into the lower crossbeam's middle hole
+0 // (z 50.5..209.5). One page: until the axle is in, the two pieces only
+0 // rest against each other and the crossbeam.
+0 //
+0 // The back gear already sits in this rail's plane. Turn Leo all the way
+0 // over to the left and hang the RIGHT piece (x < 0) first; then turn him
+0 // over to the right -- the gear rolls onto the teeth -- and hang the
+0 // LEFT one (x > 0), turned over so its thin end tab lies in front of
+0 // the first one's. A quarter rack is full thickness except its two end
+0 // tabs, which are half thick, so two of them overlap at the bottom into
+0 // one full-thickness lug (good-rack-lap-joint.ldr).
+0 // x < 0: 1 0 0 0 0 1 0 -1 0 (tab at z 90..100). x > 0: -1 0 0 0 0 1 0
+0 // 1 0, the same quarter turned half a turn about the vertical (tab at
+0 // z 100..110). The "obvious" 0 0 1 -1 0 0 0 -1 0 puts both tabs on one
+0 // face and they collide (bad-rack-lap-same-face.ldr).
+0 //
+0 // Each tab is half a module, so every axle is only 10 deep in any one
+0 // rack and ldrcheck warns SHALLOW ENGAGEMENT -- two tabs stacked on one
+0 // axle is the full 20, which is what the lap joint is for.
+1 0 0 0 100 1 0 0 0 0 1 0 -1 0 24121.dat
+1 0 0 0 100 -1 0 0 0 0 1 0 1 0 24121.dat
+1 0 0 200 130 0 0 1 0 1 0 -1 0 0 3707.dat
+0 STEP
+
+0 // Step 31 -- two red 6M axles, one through each top end of the rail
+0 // (the lips), pushed in from the front and left sticking out forward.
+0 // The right lip's tab is the back half (z 90..100), the left lip's the
+0 // front half (100..110), so the left axle sits 10 further forward.
+1 4 -200 0 145 0 0 1 0 1 0 -1 0 0 3706.dat
+1 4 200 0 155 0 0 1 0 1 0 -1 0 0 3706.dat
+0 STEP
+
+0 // Step 32 -- the front rail, same two pieces the same way round, slid
+0 // onto the three axles from the front: Ian's right first, then the left
+0 // one on top at the bottom lug. Turn Leo aside for each piece, as on
+0 // step 30, so the front gear rolls onto the teeth. Centre z = 200: the
+0 // rails are 100 apart, gear to gear. The two halves hold each other
+0 // through the bottom axle and a lip axle -- two lines -- so the front
+0 // rail needs no pins of its own.
+1 0 0 0 200 1 0 0 0 0 1 0 -1 0 24121.dat
+1 0 0 0 200 -1 0 0 0 0 1 0 1 0 24121.dat
+0 STEP
+
+0 // Step 33 -- the light stand. An orange 2x4 plate with holes across the
+0 // big plate's front edge -- its back row on the last stud row (z = 220),
+0 // its front row hanging out over the table (240) -- then two purple 1x4
+0 // Technic bricks stacked on that front row, holes facing front.
+0 //
+0 // Why the overhang: on the last stud row the bricks' back face would be
+0 // z = 210, flush with the front rail's face, two parts touching with
+0 // nothing joining them. One row out, they stand 20 clear of it. 3709's
+0 // origin is its top face (underside y = 234, on the plate); the lower
+0 // brick is y 202..226 and the upper 178..202, holes at 212 and 188.
+1 191 0 226 230 1 0 0 0 1 0 0 0 1 3709.dat
+1 26 0 202 240 1 0 0 0 1 0 0 0 1 3701.dat
+1 26 0 178 240 1 0 0 0 1 0 0 0 1 3701.dat
+0 STEP
+
+0 // Step 34 -- two pins into the front of the UPPER light brick, its two
+0 // outer holes (x = -20 and 20), sticking out front.
+1 0 -20 188 250 0 0 1 0 1 0 -1 0 0 61332.dat
+1 0 20 188 250 0 0 1 0 1 0 -1 0 0 61332.dat
+0 STEP
+
+0 // Step 35 -- the 3x3 Color Light Matrix, lights facing Ian, pushed onto
+0 // those two pins by the two holes on its back. 47592's LEDs face local
+0 // -Z and its back holes are at (+-20, 0, 10); the half-turn about Y
+0 // faces the LEDs +Z (FACES 47592.dat +Z) and puts its back on z = 250.
+0 // It spans y 159..217, below Leo and the deck, 25 above the table. Its
+0 // cable goes to hub port C.
+1 322 0 188 260 -1 0 0 0 1 0 0 0 -1 47592.dat
+0 STEP

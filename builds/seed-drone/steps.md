@@ -6,8 +6,10 @@ Human connection language. Numbers **must** match `0 STEP` in `model.ldr`
 The little USB-shaped wall is the **nose**. The wall with the two round
 cable ports is the **back**. Keep those words fixed throughout the build.
 
-The seed bay hangs off the back on the drone's centreline, and the two
-short purple bars on the sides are the **grips** -- one for each hand.
+The seed bay hangs off the back on the drone's centreline. The two short
+purple bars on the sides are the **side bars**. They are not handles:
+they pop off if a child pulls on them, so the drone is always held by the
+yellow Hub.
 
 Step 1 -- hub
   Sub: body
@@ -188,8 +190,8 @@ Step 17 -- seed
       want it to. Gripped between two walls it only leaves when the tray
       turns over, which is exactly what the motor does.
 
-Step 18 -- grip pins
-  Sub: grips
+Step 18 -- side-bar pins
+  Sub: side bars
   Bin: Essential
   Add: 4x Black connector peg with friction | kit 45345
   Do: Face the USB nose. On each side wall of the Hub, find the middle
@@ -198,21 +200,18 @@ Step 18 -- grip pins
   Check: Four pegs stick straight out sideways, two on the left and two
       on the right, all at the same height.
 
-Step 19 -- hand grips
-  Sub: grips
+Step 19 -- side bars
+  Sub: side bars
   Bin: Essential
   Add: 2x Bright Reddish Violet 1x4 Technic brick | kit 45345
   Do: Turn each purple brick front-to-back and press it onto one pair of
       side pegs.
   Check: One short purple bar sticks out from each side, level with the
-      other. Now pick the drone up: cup a hand around each side of the
-      yellow Hub and rest each thumb on top of a purple bar. The drone
-      comes up flat and level, and both hands stay well below the top of
-      the Hub.
-  Note: The bars are thumb rests, not carry handles -- they stick out only
-      8 mm. The Hub body is what you actually hold. The bars tell your
-      hands where to go, and they keep both thumbs low and outside the
-      circle the blades will sweep.
+      other. Now pick the drone up by the yellow Hub, one hand cupped
+      around each side. It comes up flat and level.
+  Note: Don't hold it by the purple bars. They pop off if you pull on
+      them. Keep your hands on the yellow Hub, low down, where the blades
+      can't reach them.
 
 Step 20 -- nose pins
   Sub: survey sensor
@@ -402,10 +401,10 @@ Step 34 -- rotor blades
 Step 35 -- plug in and survey
   Sub: mission
   Bin: Essential
-  Add: (none -- use the red drop zone on the rainforest island)
+  Add: (none -- use the red band on the Rainforest Drop Zone)
   Do: Plug the downward Colour Sensor into port A and the seed-bay motor
-      into port B. Put the red ball in the level tray. Hold one purple
-      side grip in each hand and skim the skids just above the red patch.
+      into port B. Put the red ball in the level tray. Hold the yellow Hub
+      in both hands and skim the skids just above the red band.
   Check: Both plugs and cables clear the tail spine. The lens stays close
       to the target, the rotor is clear of fingers, and the seed stays
       loaded.

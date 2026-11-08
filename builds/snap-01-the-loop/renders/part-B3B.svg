@@ -1,17 +1,18 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" font-family="'Avenir Next','Trebuchet MS','Helvetica Neue',Arial,sans-serif">
-<!-- snap-sha: ff4d243ef2b9 -->
+<!-- snap-sha: 6454a7e19ab3 -->
 <rect width="1200" height="800" fill="#ffffff"/>
-<g opacity="1">
-<rect x="182.9" y="71.0" width="837.2" height="352.5" rx="35.2" fill="#e7f4fb" stroke="#6f93ab" stroke-width="4"/>
-<rect x="322.9" y="118.0" width="64.6" height="252.6" rx="23.5" fill="#3a3a3a"/>
-<rect x="322.9" y="118.0" width="64.6" height="47.0" fill="#c4a574"/>
-<rect x="569.2" y="118.0" width="64.6" height="252.6" rx="23.5" fill="#3a3a3a"/>
-<rect x="569.2" y="118.0" width="64.6" height="47.0" fill="#c4a574"/>
-<rect x="815.4" y="118.0" width="64.6" height="252.6" rx="23.5" fill="#3a3a3a"/>
-<rect x="815.4" y="118.0" width="64.6" height="47.0" fill="#c4a574"/>
-<circle cx="306.2" cy="400.0" r="47.0" fill="#d8dde3" stroke="#5c6770" stroke-width="3"/>
-<text x="306.2" y="317.8" font-size="82.25000000000001" fill="#c0392b" font-weight="bold" text-anchor="middle"><tspan x="306.2" dy="0.0">+</tspan></text>
-<circle cx="893.8" cy="400.0" r="47.0" fill="#d8dde3" stroke="#5c6770" stroke-width="3"/>
-<text x="893.8" y="317.8" font-size="82.25000000000001" fill="#22405f" font-weight="bold" text-anchor="middle"><tspan x="893.8" dy="0.0">−</tspan></text>
+<g opacity="1" data-step="1" data-key="B3B" data-want="1C 3C span=3 depth=3" data-drawn="1C 3C span=3 depth=3">
+<rect x="336.4" y="136.4" width="527.3" height="527.3" rx="25.5" fill="#e7f4fb" fill-opacity="0.96" stroke="#6f93ab" stroke-width="4"/>
+<rect x="376.4" y="157.6" width="447.3" height="72.7" rx="21.8" fill="#3a3a3a"/>
+<rect x="376.4" y="157.6" width="90.9" height="72.7" rx="18.2" fill="#c4a574"/>
+<rect x="376.4" y="272.7" width="447.3" height="72.7" rx="21.8" fill="#3a3a3a"/>
+<rect x="732.7" y="272.7" width="90.9" height="72.7" rx="18.2" fill="#c4a574"/>
+<rect x="376.4" y="387.9" width="447.3" height="72.7" rx="21.8" fill="#3a3a3a"/>
+<rect x="376.4" y="387.9" width="90.9" height="72.7" rx="18.2" fill="#c4a574"/>
+<text x="600.0" y="600.0" font-size="43.63636363636364" fill="#c0392b" font-weight="bold" text-anchor="middle"><tspan x="600.0" dy="0.0">4.5V</tspan></text>
+<circle cx="418.2" cy="581.8" r="29.1" fill="#d8dde3" stroke="#5c6770" stroke-width="3"/>
+<text x="509.1" y="603.6" font-size="72.72727272727273" fill="#c0392b" font-weight="bold" text-anchor="middle"><tspan x="509.1" dy="0.0">+</tspan></text>
+<circle cx="781.8" cy="581.8" r="29.1" fill="#d8dde3" stroke="#5c6770" stroke-width="3"/>
+<text x="690.9" y="603.6" font-size="72.72727272727273" fill="#22405f" font-weight="bold" text-anchor="middle"><tspan x="690.9" dy="0.0">−</tspan></text>
 </g>
 </svg>

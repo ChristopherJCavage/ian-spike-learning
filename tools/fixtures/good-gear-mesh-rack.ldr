@@ -1,0 +1,41 @@
+0 Fixture: a Z28 gear meshed inside two lap-joined 43038 quarter racks,
+0 on a free axle carried by a T-beam. Expected: clean.
+0
+0 The racks' teeth are a 140-tooth ring, pitch radius 175 (module 2.5
+0 LDU, so 1.25 LDU per tooth); the Z28's pitch radius is 35. Meshed, the
+0 gear's axle is 175 - 35 = 140 from the ring's centre, which is the
+0 racks' origin. MESH asserts exactly that, and excuses the teeth touching
+0 with no joint between them -- otherwise CONTACT WITHOUT JOINT.
+0
+0 MESH does not check the tooth phase. Teeth tip-on-tip interpenetrate,
+0 and that is still caught: the gear here is at phase 0, which shares no
+0 solid with the racks; turned half a tooth (6.4 degrees) it overlaps.
+0
+0 46372 is rotates: true, so the gear and its axle reaching the T-beam
+0 through one round hole is a bearing, not RIGID CLUSTER HINGE.
+0
+0 The two T-beams behind tie the 13M beams into one rigid frame: each is
+0 pinned twice into the upper beam and once into the lower, the way the
+0 half-pipe's posts take two pins each from the motor.
+0 !LDRCHECK MESH 46372.dat 24121.dat 140
+1 0 0 0 20 1 0 0 0 0 1 0 -1 0 24121.dat
+1 0 0 0 20 -1 0 0 0 0 1 0 1 0 24121.dat
+1 322 0 160 -20 0 0 1 1 0 0 0 1 0 41239.dat
+1 322 0 200 -20 0 0 1 1 0 0 0 1 0 41239.dat
+1 1 -120 160 0 0 0 1 0 1 0 -1 0 0 42924.dat
+1 1 120 160 0 0 0 1 0 1 0 -1 0 0 42924.dat
+1 14 0 200 0.5 0 0 1 0 1 0 -1 0 0 4519.dat
+1 0 60 200 -40 1 0 0 0 0 -1 0 1 0 60484.dat
+1 0 -60 200 -40 1 0 0 0 0 -1 0 1 0 60484.dat
+1 0 40 160 -30 0 0 1 0 1 0 -1 0 0 61332.dat
+1 0 80 160 -30 0 0 1 0 1 0 -1 0 0 61332.dat
+1 0 60 200 -30 0 0 1 0 1 0 -1 0 0 61332.dat
+1 0 -40 160 -30 0 0 1 0 1 0 -1 0 0 61332.dat
+1 0 -80 160 -30 0 0 1 0 1 0 -1 0 0 61332.dat
+1 0 -60 200 -30 0 0 1 0 1 0 -1 0 0 61332.dat
+1 0 -20 160 -10 0 0 1 0 1 0 -1 0 0 61332.dat
+1 0 20 160 -10 0 0 1 0 1 0 -1 0 0 61332.dat
+1 0 0 120 0 1 0 0 0 0 1 0 -1 0 60484.dat
+1 14 0 140 10 0 0 1 0 1 0 -1 0 0 4519.dat
+1 71 0 140 20 1 0 0 0 1 0 0 0 1 46372.dat
+0 STEP

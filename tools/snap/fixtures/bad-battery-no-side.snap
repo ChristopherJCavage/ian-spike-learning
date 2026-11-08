@@ -1,0 +1,6 @@
+# bad: HANG
+# B3B is 3x3. Without side= nothing says where its case goes.
+kits scb20
+grid 7x5 grid-mini
+step 1: grid
+step 2: B3B at 1A dir=right level=1

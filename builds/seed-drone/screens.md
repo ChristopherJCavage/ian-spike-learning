@@ -11,7 +11,7 @@ Previous pieces are faded by `tools/pages.py`; `highlight` stays off except
 for the two white electronics, which otherwise disappear into the page.
 
 Cameras follow the subassembly. The tail bay is built looking at the back
-of the drone (`lon 0`), the grips and skids from the front quarter
+of the drone (`lon 0`), the side bars and skids from the front quarter
 (`lon 225`), and the face and rotor from straight ahead (`lon 180`).
 
 The two eye pages drop to `lat 15`, nearly level with the table. The eyes
@@ -38,8 +38,8 @@ step | figma_frame | png | parts_added | camera | highlight | copy
 15 | SeedDrone/15-tray-square   | renders/step-015.png | 1x orange 2x4 plate | 45 0 | no  | "Second plate clicks onto the hanging studs and makes a square."
 16 | SeedDrone/16-end-stop      | renders/step-016.png | 1x orange 1x2 brick | 50 0 | no  | "The orange brick fills the left end. Three sides now; right end open."
 17 | SeedDrone/17-seed          | renders/step-017.png | 1x red ball | 50 0 | no  | "Press the seed down between the walls. It grips -- that is right."
-18 | SeedDrone/18-grip-pins     | renders/step-018.png | 4x black peg | 30 225 | no  | "Middle row of each side wall: front and back holes, middle empty."
-19 | SeedDrone/19-grips         | renders/step-019.png | 2x purple 1x4 Technic brick | 30 225 | no  | "One short bar per side. Pinch both and the drone lifts level."
+18 | SeedDrone/18-bar-pins      | renders/step-018.png | 4x black peg | 30 225 | no  | "Middle row of each side wall: front and back holes, middle empty."
+19 | SeedDrone/19-side-bars     | renders/step-019.png | 2x purple 1x4 Technic brick | 30 225 | no  | "One short bar per side. Hold the yellow Hub, not the bars."
 20 | SeedDrone/20-nose-pins     | renders/step-020.png | 2x black peg | 25 180 | no  | "Two pegs into the short wall with the USB shape."
 21 | SeedDrone/21-nose-bricks   | renders/step-021.png | 2x orange 1x2 brick | 35 180 | no  | "One orange brick on each nose peg. They can still swivel -- that is fine."
 22 | SeedDrone/22-face          | renders/step-022.png | 1x green 2x8 plate | 35 180 | no  | "One green shelf across both bricks. This is the face."
@@ -55,6 +55,6 @@ step | figma_frame | png | parts_added | camera | highlight | copy
 32 | SeedDrone/32-rotor-plate   | renders/step-032.png | 1x green 2x8 plate | 65 180 | no  | "Press the green plate on top. Seven holes in a row."
 33 | SeedDrone/33-fasteners     | renders/step-033.png | 2x yellow 3M axle, 2x black friction peg | 70 180 | no  | "Yellow beside the middle -- it locks. Black at the far ends -- it grips."
 34 | SeedDrone/34-blades        | renders/step-034.png | 2x purple 11M beam | 70 180 | no  | "One long blade onto each axle-and-peg pair; flick gently to spin the rotor."
-35 | SeedDrone/35-mission       | TBD (no render -- try it) | (none) | - | no | "Sensor A, motor B. One grip per hand, skim low over the red drop zone."
+35 | SeedDrone/35-mission       | TBD (no render -- try it) | (none) | - | no | "Sensor A, motor B. Hold the yellow Hub and skim low over the red band."
 36 | SeedDrone/36-code          | TBD (no render -- coding page) | (none) | - | no | "See red, tip the tray, play the drop sound, then return it level."
 ```

@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>hot-press instructions</title>
+<style>
+  html, body { margin: 0; background: #fff; color: #111;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+  /* `display` on .page beats the browser's own rule for the hidden
+     attribute, so the flipbook needs this or every page shows at once. */
+  .page[hidden] { display: none; }
+  .page { min-height: 100vh; display: flex; flex-direction: column;
+    padding: 24px 32px 16px; box-sizing: border-box; }
+  header { display: flex; align-items: center; gap: 16px; }
+  .badge { background: #e31c3d; color: #fff; font-size: 28px; font-weight: 700;
+    min-width: 56px; height: 56px; border-radius: 12px; display: flex;
+    align-items: center; justify-content: center; }
+  h1 { font-size: 28px; margin: 0; flex: 1; }
+  .bin { font-size: 16px; color: #444; }
+  .body { flex: 1; display: grid; grid-template-columns: 280px 1fr;
+    gap: 24px; align-items: center; min-height: 0; }
+  aside { background: #f4f4f4; border-radius: 12px; padding: 16px; }
+  aside h2 { margin: 0 0 8px; font-size: 14px; text-transform: uppercase;
+    letter-spacing: .06em; color: #666; }
+  aside ul { margin: 0; padding-left: 18px; }
+  .copy { margin-top: 16px; font-size: 18px; line-height: 1.35; }
+  .hero { width: 100%; height: auto; background: #fff; }
+  .placeholder { min-height: 360px; display: flex; align-items: center;
+    justify-content: center; background: #f4f4f4; border-radius: 12px;
+    font-size: 22px; padding: 24px; text-align: center; }
+  footer { display: flex; align-items: center; justify-content: space-between;
+    gap: 16px; margin-top: 12px; }
+  .check { flex: 1; font-size: 16px; color: #333; }
+  .slide { background: #06341f; color: #fff; cursor: pointer; }
+  .slide .scene { flex: 1; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 20px; min-height: 0; }
+  .slide .stage { position: relative; display: inline-block; min-height: 0; }
+  .slide .art { display: block; max-width: 100%; max-height: 68vh;
+    border-radius: 16px; }
+  .slide .plate { background: #fff; padding: 12px; box-sizing: border-box; }
+  /* The cartoon chameleon leans in on the build slide to look at its own
+     LEGO self. It must not cover the model, so it sits on the corner. */
+  .slide .peek { position: absolute; right: -6%; bottom: -8%; width: 30%;
+    max-width: 280px; }
+  .slide .tell { margin: 0; max-width: 22ch; text-align: center;
+    font-size: 40px; line-height: 1.2; font-weight: 700; }
+  .slide .check { color: #9fd9b6; font-size: 16px; }
+  .slide footer { justify-content: flex-start; }
+  @media print {
+    @page { size: landscape; margin: 10mm; }
+    html, body { background: #fff; }
+    /* On screen only one page is shown at a time; on paper print them all,
+       one per sheet, and drop the buttons. */
+    .page[hidden] { display: flex !important; }
+    .page { min-height: auto; height: 100vh; page-break-after: always;
+      break-after: page; }
+    .page:last-child { page-break-after: auto; break-after: auto; }
+    .nav { display: none !important; }
+    .slide { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .slide .art { max-height: 60vh; }
+  }
+  .nav button { font-size: 22px; padding: 12px 28px; border: 0; border-radius: 10px;
+    background: #111; color: #fff; cursor: pointer; }
+  .nav button:disabled { background: #bbb; cursor: default; }
+  @media (max-width: 900px) {
+    .body { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<section class="page slide" data-slide="1" hidden>
+  <div class="scene">
+    <div class="stage"><img class="art" src="renders/story-01.png" alt="Tika, Pip, Coco and Sully found a pile of old wood."></div>
+    <p class="tell">Tika, Pip, Coco and Sully found a pile of old wood.</p>
+  </div>
+  <footer><p class="check">Tika, Pip, Coco, Sully</p></footer>
+</section>
+<section class="page slide" data-slide="2" hidden>
+  <div class="scene">
+    <div class="stage"><img class="art" src="renders/story-02.png" alt="Tika tried one plank. It was not strong enough."></div>
+    <p class="tell">Tika tried one plank. It was not strong enough.</p>
+  </div>
+  <footer><p class="check">Tika</p></footer>
+</section>
+<section class="page slide" data-slide="3" hidden>
+  <div class="scene">
+    <div class="stage"><img class="art" src="renders/story-03.png" alt="A press squeezed the wood. It came out thin and strong."></div>
+    <p class="tell">A press squeezed the wood. It came out thin and strong.</p>
+  </div>
+  <footer><p class="check">Pip, Coco, Sully</p></footer>
+</section>
+<section class="page slide" data-slide="4" hidden>
+  <div class="scene">
+    <div class="stage"><img class="art" src="renders/story-04.png" alt="Old wood could be used again. No new tree had to fall."></div>
+    <p class="tell">Old wood could be used again. No new tree had to fall.</p>
+  </div>
+  <footer><p class="check">Coco, Tika, Pip, Sully</p></footer>
+</section>
+<section class="page slide" data-slide="5" hidden>
+  <div class="scene">
+    <div class="stage"><img class="art plate" src="renders/story-05.png" alt="Build a press. It comes down on the wood."></div>
+    <p class="tell">Build a press. It comes down on the wood.</p>
+  </div>
+  <footer><p class="check">Coco</p></footer>
+</section>
+<section class="page" data-step="1" hidden>
+  <header>
+    <span class="badge">1</span>
+    <h1>the table</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>1x White 16x16 plate | kit 45345</li></ul>
+      <p class="copy">The big white plate, studs up. This is the table.</p>
+    </aside>
+    <img class="hero" src="renders/step-001.png" alt="Step 1: the table">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> It sits flat. The whole press goes on this.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="2" hidden>
+  <header>
+    <span class="badge">2</span>
+    <h1>the bottom hot plate</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>1x Bright Red 2x4 brick with cross holes | kit 45345</li></ul>
+      <p class="copy">Red brick in the middle. The bottom of the press.</p>
+    </aside>
+    <img class="hero" src="renders/step-002.png" alt="Step 2: the bottom hot plate">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> This is the bottom of the press. Red means hot. It is not hot.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="3" hidden>
+  <header>
+    <span class="badge">3</span>
+    <h1>the old wood</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>2x Flame Yellowish Orange 2x4 plate with holes | kit 45345</li></ul>
+      <p class="copy">Two light orange plates on top. The old wood.</p>
+    </aside>
+    <img class="hero" src="renders/step-003.png" alt="Step 3: the old wood">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Two plates, one on the other. This is the old wood. It is thick.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="4" hidden>
+  <header>
+    <span class="badge">4</span>
+    <h1>the guide sockets</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>2x Dark Green round brick with a cross hole | kit 45345</li></ul>
+      <p class="copy">One round brick at each end. Cross holes up.</p>
+    </aside>
+    <img class="hero" src="renders/step-004.png" alt="Step 4: the guide sockets">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> All three sit in one row. The cross holes point up.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="5" hidden>
+  <header>
+    <span class="badge">5</span>
+    <h1>the guide axles</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>2x Black 8M axle | kit 45345</li></ul>
+      <p class="copy">A black axle up from each round brick.</p>
+    </aside>
+    <img class="hero" src="renders/step-005.png" alt="Step 5: the guide axles">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Both stand straight up. Tug one gently. The cross hole grips it.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="6" hidden>
+  <header>
+    <span class="badge">6</span>
+    <h1>the press plate</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>1x Bright Green 2x8 plate with holes | kit 45345</li></ul>
+      <p class="copy">Green plate on both axles. It slides.</p>
+    </aside>
+    <img class="hero" src="renders/step-006.png" alt="Step 6: the press plate">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> It slides up and down. Round holes let it move.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="7" hidden>
+  <header>
+    <span class="badge">7</span>
+    <h1>the press head</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>1x Bright Red 2x4 brick with cross holes | kit 45345</li></ul>
+      <p class="copy">Red brick under the plate. The hot press head.</p>
+    </aside>
+    <img class="hero" src="renders/step-007.png" alt="Step 7: the press head">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> The red brick hangs under the plate, right over the wood. This is the hot press head.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="8" hidden>
+  <header>
+    <span class="badge">8</span>
+    <h1>the hinge</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>1x Bright Red 1x2 plate with two holes on top | kit 45345</li></ul>
+      <p class="copy">Red hinge on the front edge. Holes point at you.</p>
+    </aside>
+    <img class="hero" src="renders/step-008.png" alt="Step 8: the hinge">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Its lower hole sits just above the green plate.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="9" hidden>
+  <header>
+    <span class="badge">9</span>
+    <h1>the tower</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>3x Bright Red 2x2x3 brick | kit 45345</li></ul>
+      <p class="copy">Three tall red bricks behind the press. The tower.</p>
+    </aside>
+    <img class="hero" src="renders/step-009.png" alt="Step 9: the tower">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> The red tower is taller than the black axles.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="10" hidden>
+  <header>
+    <span class="badge">10</span>
+    <h1>the motor mount</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>1x Bright Reddish Violet 1x4 Technic brick | kit 45345</li><li>1x Bright Orange 1x4 brick | kit 45345</li></ul>
+      <p class="copy">Purple in front, orange behind, on top of the tower.</p>
+    </aside>
+    <img class="hero" src="renders/step-010.png" alt="Step 10: the motor mount">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> The purple brick&#x27;s three holes point at you.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="11" hidden>
+  <header>
+    <span class="badge">11</span>
+    <h1>the cap</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>1x Bright Red 2x4 tile | kit 45345</li></ul>
+      <p class="copy">Smooth red tile on top. Now they are locked.</p>
+    </aside>
+    <img class="hero" src="renders/step-011.png" alt="Step 11: the cap">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> The purple and orange bricks are locked together now.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="12" hidden>
+  <header>
+    <span class="badge">12</span>
+    <h1>the motor pegs</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>2x Black connector peg (friction) | kit 45345</li></ul>
+      <p class="copy">Two pegs in the purple brick&#x27;s end holes.</p>
+    </aside>
+    <img class="hero" src="renders/step-012.png" alt="Step 12: the motor pegs">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Two pegs stick out toward you.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="13" hidden>
+  <header>
+    <span class="badge">13</span>
+    <h1>the motor</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>1x White Small Angular Motor | kit 45345</li></ul>
+      <p class="copy">Motor on the pegs. Hub faces you, wire on top.</p>
+    </aside>
+    <img class="hero" src="renders/step-013.png" alt="Step 13: the motor">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> The motor&#x27;s back is flat on the tower, high over the green plate. It does not wobble.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="14" hidden>
+  <header>
+    <span class="badge">14</span>
+    <h1>the crank peg and the hinge peg</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>2x Black connector peg (friction) | kit 45345</li></ul>
+      <p class="copy">One peg in the hub&#x27;s top hole. One in the hinge.</p>
+    </aside>
+    <img class="hero" src="renders/step-014.png" alt="Step 14: the crank peg and the hinge peg">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Both pegs point at you. The top peg moves when the hub turns.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="15" hidden>
+  <header>
+    <span class="badge">15</span>
+    <h1>the rod</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>1x Bright Blue 7M beam | kit 45345</li></ul>
+      <p class="copy">Blue beam on both pegs. The press is open.</p>
+    </aside>
+    <img class="hero" src="renders/step-015.png" alt="Step 15: the rod">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> The blue beam stands straight up. The green plate hangs from it, high over the wood. The press is open.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="16" hidden>
+  <header>
+    <span class="badge">16</span>
+    <h1>the face</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>2x Black connector peg (friction) | kit 45345</li><li>2x White 2x2 round eye tile | kit 45345</li></ul>
+      <p class="copy">Two pegs, two big eyes. The hub is the mouth.</p>
+    </aside>
+    <img class="hero" src="renders/step-016.png" alt="Step 16: the face">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Two big eyes look at you. The hub is the mouth.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="17" hidden>
+  <header>
+    <span class="badge">17</span>
+    <h1>the lights</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>2x Black connector peg (friction) | kit 45345</li><li>1x Transparent Red rock crystal | kit 45345</li><li>1x Transparent Bright Green rock crystal | kit 45345</li></ul>
+      <p class="copy">Red light and green light on top.</p>
+    </aside>
+    <img class="hero" src="renders/step-017.png" alt="Step 17: the lights">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Red will mean hot. Green will mean done.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="18" hidden>
+  <header>
+    <span class="badge">18</span>
+    <h1>the super wood</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>1x Flame Yellowish Orange 2x4 plate with holes | kit 45345</li></ul>
+      <p class="copy">One thin plate in front. The super wood.</p>
+    </aside>
+    <img class="hero" src="renders/step-018.png" alt="Step 18: the super wood">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> One plate, half as thick as the old wood. This is the super wood that comes out of the press.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="19" hidden>
+  <header>
+    <span class="badge">19</span>
+    <h1>a frog and a bush</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>1x Dark Green frog | kit 45345</li><li>1x Dark Green bush | kit 45345</li></ul>
+      <p class="copy">A frog watching. The tree nobody cut.</p>
+    </aside>
+    <img class="hero" src="renders/step-019.png" alt="Step 19: a frog and a bush">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> The bush is the tree nobody had to cut down.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="20" hidden>
+  <header>
+    <span class="badge">20</span>
+    <h1>the grass</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>2x Bright Green grass stem | kit 45345</li></ul>
+      <p class="copy">Two grass stems. A little garden.</p>
+    </aside>
+    <img class="hero" src="renders/step-020.png" alt="Step 20: the grass">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> The press stands in a little garden.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="21" hidden>
+  <header>
+    <span class="badge">21</span>
+    <h1>try it by hand</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>(none)</li></ul>
+      <p class="copy">Turn the hub one whole turn. Down to the wood, and back up.</p>
+    </aside>
+    <div class="hero placeholder"><p>Turn the motor&#x27;s hub slowly with your fingers, one whole turn.</p></div>
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> The blue beam pushes the green plate down. The red head comes down onto the wood and stops just over it. Then it goes back up. Fingers stay out from under the red head.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="22" hidden>
+  <header>
+    <span class="badge">22</span>
+    <h1>the program</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>(none -- the Hub and the light matrix stay out of the model)</li></ul>
+      <p class="copy">Matrix on A, motor on B. Red, down, sound, up, green.</p>
+    </aside>
+    <div class="hero placeholder"><p>Set the yellow Hub beside the press. Plug the motor into port B and the 3x3 light matrix into port A. Stand the matrix in front, lights toward you. Turn the hub until the press is open. Tap the yellow play button.</p></div>
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> The matrix turns red, the press comes down on the wood, a sound plays, the press goes back up, and the matrix turns green. Now swap the old wood for the super wood.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<script>
+const pages = [...document.querySelectorAll('.page')];
+let i = 0;
+function show(n) {
+  i = Math.max(0, Math.min(n, pages.length - 1));
+  pages.forEach((p, k) => p.hidden = k !== i);
+  // Story slides have no buttons -- they are printed, not clicked.
+  const back = pages[i].querySelector('.back');
+  const next = pages[i].querySelector('.next');
+  if (back) back.disabled = i === 0;
+  if (next) {
+    next.disabled = i === pages.length - 1;
+    next.textContent = i === pages.length - 1 ? 'Done' : 'Next';
+  }
+}
+document.body.addEventListener('click', e => {
+  if (e.target.classList.contains('next')) return show(i + 1);
+  if (e.target.classList.contains('back')) return show(i - 1);
+  // Buttonless pages still need a way forward on screen.
+  if (pages[i].classList.contains('slide')) show(i + 1);
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); show(i + 1); }
+  if (e.key === 'ArrowLeft') { e.preventDefault(); show(i - 1); }
+});
+show(0);
+</script>
+</body>
+</html>

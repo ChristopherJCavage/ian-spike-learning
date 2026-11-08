@@ -10,13 +10,14 @@ launch tests.
    have a red LED D1, a 100 ohm resistor R1 and a 6-snap wire instead of the
    colour LED D8. Note which printing you have and fix the file.
 2. Count the big grid's posts: the comic assumes 10 across, 7 down (A-G).
-3. B1, S2 and M1 each: how many posts do they cover? The layout assumes B1
-   covers 3 (snaps at the ends) and S2 and M1 cover 2. Fix
-   `tools/snap/parts.json` and set `measured: true` for what you check.
+3. B1 and M1: how many posts do they cover? The layout assumes three, with
+   a snap at each end, like every Beginner block (S2 and the blue wires are
+   measured on the Beginner box). Fix `tools/snap/parts.json` and set
+   `measured: true` for what you check.
 
 ## Which way flies (the one guess this module depends on)
 
-`circuit.snap` says `lift fwd`: the fan flies when M1's + is at D3 (the
+`circuit.snap` says `lift fwd`: the fan flies when M1's + is at 3E (the
 bottom, current coming in at its + end). Build Case 6 steps 1-8, goggles on,
 hold S2 until it is fast, let go.
 
@@ -32,5 +33,5 @@ hold S2 until it is fast, let go.
 ## Table check
 
 - Case 6: it spins while S2 is held; it lifts off when S2 is let go.
-- Case 7: with M1 turned (+ at C3), it blows air up and never flies.
+- Case 7: with M1 turned (+ at 3C), it blows air up and never flies.
 - Click through `preview.html` once yourself, with G on, before Ian sees it.

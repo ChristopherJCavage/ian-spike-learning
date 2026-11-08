@@ -1,0 +1,69 @@
+# BOM -- Half-pipe Swing
+#
+# QTY | COLOR | NAME | KIT | ELEMENT_ID | LDRAW
+#
+# Three kits: 45345 Essential, 45678 Prime, 45681 Expansion. ELEMENT_ID
+# from kits/*/parts.txt. Derived from the finished model.ldr; every line
+# below is quantity- and colour-checked against the inventory. Where a part
+# ships in two boxes, KIT names the box the steps send you to.
+
+## Electronics (Prime box, plus the Essential box's light matrix)
+1 | Bright Yellow | HUB, NO. 8 (SPIKE Prime Hub) -- lies flat on the motor's back, lights up | 45678 | 6464165 | 45601.dat
+1 | White | MOTOR, NO. 12 (Large Motor) -- port A, output disc forward, the pivot | 45678 | 6359210 | 54675.dat
+1 | White | SENSOR FORCE, NO. 1 -- port B, button up, back corner on Ian's left | 45678 | 6217712 | 37312.dat
+1 | Medium Azur | LIGHT, NO. 1 (3x3 Color Light Matrix) -- port C, on the front, lights facing Ian (either mould revision, 6401412, is the same part) | 45345 | 6275773 | 47592.dat
+
+## Base (Essential box)
+1 | White | PLATE 16X16 -- under the ramp | 45345 | 4618526 | 91405.dat
+1 | White | PLATE 8X16 -- behind it, under the hub's legs | 45345 | 4598523 | 92438.dat
+2 | Bright Green | TECHNIC BRICK 1X16, D4.9 -- front brick (posts), back brick (legs) | 45345 | 6282104 | 3703.dat
+
+## Frame (Prime box)
+2 | Black | TECHNIC 9M BEAM -- posts | 45678 | 4645732 | 64289.dat
+2 | Medium Azur | TECHNIC 13M BEAM -- upper (rail pins) and lower (rail axle) crossbeams | 45678 | 6261643 | 41239.dat
+2 | Black | TECHNIC 9M BEAM -- hub's rear legs | 45678 | 4645732 | 64289.dat
+
+## Button (Essential box)
+1 | Bright Reddish Violet | TECHNIC BRICK 1X4, D4.9 -- lifts the force sensor | 45345 | 6282101 | 3701.dat
+
+## Rider (Prime + Essential)
+4 | Bright Blue | CONNECTOR PEG W. FRICTION 3M -- 2 motor disc to offset beam, 2 offset beam to arm | 45678 | 6299413 | 42924.dat
+1 | Bright Reddish Violet | TECHNIC 5M BEAM -- the offset beam on the disc | 45678 | 6261642 | 32316.dat
+1 | Medium Azur | TECHNIC 7M BEAM -- the arm | 45678 | 6261638 | 32524.dat
+1 | Black | T-BEAM 3X3 W/HOLE D4.8 -- crossbar at the arm's tip | 45678 | 4552347 | 60484.dat
+1 | Bright Reddish Violet | TECHNIC BRICK 1X4, D4.9 -- under the board, studs up | 45345 | 6282101 | 3701.dat
+1 | Flame Yellowish Orange | MINI FIGURE SNOW BOARD -- the skateboard | 45345 | 6105957 | 18746.dat
+
+## Gears (Prime + Expansion)
+2 | Medium Stone Grey | ANGLED GEAR WHEEL Z28 -- one rolling in each rail | 45678 | 6259270 | 46372.dat
+1 | Bright Yellow | CROSS AXLE 7M -- the gear axle, under the board | 45678 | 6130009 | 44294.dat
+4 | Bright Yellow | 1/2 BUSH -- 1 behind the back gear, 2 spacers, 1 in front of the front gear | 45681 | 6271167 | 32123b.dat
+
+## Leo (Essential box, Minifigure Parts)
+1 | Dark Green | MINI LEG -- short legs | 45345 | 6074870 | 41879.dat
+1 | Bright Blue | MINI UPPER PART 'NO. 1162' -- torso | 45345 | 4275815 | 76382.dat
+1 | Bright Yellow | MINI HEAD NO. '752' -- head (any of the four printed heads fits; Leo's face is whichever one you use for him) | 45345 | 6039464 | 3626c.dat
+1 | Reddish Brown | MINI WIG NO. 63 -- hair; drawn as 18228 in model.ldr (PROXY) | 45345 | 6184572 | 18228.dat
+
+## Ramp (Expansion + Prime)
+4 | Black | 1/4 CIRCLE GEAR RACK 11X11 -- two rails of two, lap-joined at the bottom, teeth inside | 45681 | 6322255 | 24121.dat
+2 | Bright Blue | CONNECTOR PEG W. FRICTION 3M -- upper crossbeam to back rail | 45678 | 6299413 | 42924.dat
+1 | Black | CROSS AXLE 8M -- bottom lug, into the lower crossbeam | 45678 | 370726 | 3707.dat
+2 | Bright Red | CROSS AXLE 6M -- the two lips | 45681 | 6130002 | 3706.dat
+
+## Lights (Essential box)
+1 | Flame Yellowish Orange | PLATE 2X4, 3XD4.9 -- across the big plate's front edge | 45345 | 6132408 | 3709.dat
+2 | Bright Reddish Violet | TECHNIC BRICK 1X4, D4.9 -- stacked on the plate, under the light matrix | 45345 | 6282101 | 3701.dat
+
+## Pins (Prime box)
+28 | Black | CONNECTOR PEG W. FRICTION -- motor 4 front + 4 back, front brick 2, posts to crossbeams 4, hub's far end 4, back brick 2, sensor 2, arm to T-beam 2, T-beam to board brick 2, light matrix 2 | 45678 | 6279875 | 61332.dat
+
+# Totals vs kit (qty used / qty in its box):
+# 61332 28/92 (Prime); 42924 6/14 (Prime); 64289 4/5 (Prime); 41239 2/4
+# (Prime); 32316 1/5 (Prime); 32524 1/7 (Prime); 60484 1/5 (Prime,
+# Black); 46372 2/3 (Prime); 44294 1/6 (Prime); 3707 1/6 (Prime); 42136
+# (LDraw 32123b) 4/16 (Expansion); 3706 2/4 (Expansion); 24121/43038 4/8
+# (Expansion); 3703 2/2 (Essential -- both); 3701 4/5 (Essential); 3709
+# 1/5; 91405 1/2; 92438 1/2; 18746 1/2; 47592 1/1; Leo's four figure
+# parts 1 each; electronics 1 of each (the Prime box has a second Large
+# Motor, unused).

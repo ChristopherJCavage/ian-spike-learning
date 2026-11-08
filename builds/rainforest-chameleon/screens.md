@@ -33,7 +33,7 @@ Ian could not tell the four pegs were on the *bottom* row of three from
 the old overhead shot, so this one looks along the row from near table
 height, where "bottom" is unambiguous.
 
-The sensor aims **down** at a pad under the belly (`FACES 37308.dat +Y`).
+The sensor aims **down** from the head at a pad (`FACES 37308.dat +Y`).
 The matrix LEDs aim **up** (`FACES 47592.dat -Y`). Check views
 `renders/check-left.png`, `renders/check-front.png`, `renders/check-top.png`,
 and `renders/check-iso.png` confirm: four splayed ball-joint feet, the
@@ -79,6 +79,6 @@ step | figma_frame | png | parts_added | camera | highlight | copy
 23 | Chameleon/23-tail-corners | renders/step-023.png | 2x flat tile | 55 45 | no | "Cap the plate's two far corners with the flat orange tiles."
 24 | Chameleon/24-tail-base    | renders/step-024.png | 1x 2x4 brick w. cross hole | 55 45 | no | "Turn the dark green 2x4 brick the long way and press it onto the shelf."
 25 | Chameleon/25-curl         | renders/step-025.png | 3x 2x4 plate, 1x 2x2 slope | 35 250 | no | "Three orange plates turn the tail sideways, each on the last four studs of the one before. Purple slope on the end."
-26 | Chameleon/26-try          | TBD (no render -- try it) | (none) | - | no | "Plug both cables into the back wall. Pose the legs. Slide a coloured pad under the belly."
+26 | Chameleon/26-try          | TBD (no render -- try it) | (none) | - | no | "Plug both cables into the back wall. Pose the legs. Slide a coloured pad under its head."
 27 | Chameleon/27-code         | TBD (no render -- coding page) | (none) | - | no | "Read the pad. Light the back to match -- red means warning!"
 ```

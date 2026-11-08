@@ -18,7 +18,7 @@ The Small Hub is at the origin, rotated 180 degrees about Y:
 ```
 
 Everything else is arranged around it on the centreline. The sensor is
-centred at the nose, the seed bay hangs off the tail, one short grip
+centred at the nose, the seed bay hangs off the tail, one short side bar
 sticks out of each side wall, and the rotor axis stands over the Hub.
 
 ## Why there is only one powered motion
@@ -260,32 +260,32 @@ under that disc is the loaded seed ball at `y = -113`, so the blades pass
 35 LDU clear of a loaded tray -- 43 before the beams came down to where a
 40-LDU peg could reach them.
 
-## Landing shoes and grips
+## Landing shoes and side bars
 
 Four pins attach two 2x8 plates under the Hub. A round slide shoe presses
 into each plate and sets the ground plane. They protect the sensor lens
 and let the model rest level while loading the ball.
 
-The tail spine displaced the old rear handle, so the drone is now carried
-from the sides. A 1x4 Technic brick sits on each side wall at
-`(∓80, -40, 0)`, spanning `x 70..90, y -44..-16, z -40..40`.
+The tail spine displaced the old rear handle, so the side bars were meant
+to carry the drone from the sides. A 1x4 Technic brick sits on each side
+wall at `(∓80, -40, 0)`, spanning `x 70..90, y -44..-16, z -40..40`.
 
-A pair of side grips beats one rear handle here: it holds the model level
-instead of cantilevered, and it keeps both hands below and outside the
-rotor disc. But the measurements set an honest limit on what they are:
+On paper a pair of side bars beats one rear handle: it holds the model
+level instead of cantilevered, and it keeps both hands below and outside
+the rotor disc. But the measurements set an honest limit on what they are:
 
 - They protrude **20 LDU (8 mm)** past the Hub wall at `x = 70`, because a
   brick pinned flat against a wall protrudes exactly its own thickness.
 - The skid rails below reach to `x = 80`, so only the outer 10 LDU of each
-  grip has free air beneath it, over a 28-LDU (11 mm) gap.
+  bar has free air beneath it, over a 28-LDU (11 mm) gap.
 
-That is a thumb shelf and a fingertip hook, not a handle. The Hub body is
-the real handhold; the grips locate the hands on it. `steps.md` and
-`preflight.md` say so rather than promising a grip the geometry cannot
-deliver.
+That is a thumb shelf and a fingertip hook, not a handle. At the table it
+turned out to be less than that: the bars pop off when a child pulls on
+them. So `steps.md` and `preflight.md` call them side bars and tell kids
+to hold the yellow Hub, and nothing promises a grip.
 
 They also cannot be made longer. The side wall offers holes only at
-`z = ±20`, so any grip brick centres on `z = 0`; a 1x8 would then span
+`z = ±20`, so any side brick centres on `z = 0`; a 1x8 would then span
 `z ±80` and collide with the spine, which reaches `x = ±80` at the same
 height. 1x4 is the longest brick that fits.
 

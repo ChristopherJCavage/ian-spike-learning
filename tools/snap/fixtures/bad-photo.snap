@@ -1,0 +1,14 @@
+# bad: PHOTO
+# The photo has D10's + on 3E, but the layout puts it on 3C.
+kits scb20
+grid 7x5 grid-mini
+step 1: grid
+step 2: B3B at 1A dir=right side=up level=1
+step 3: S1 at 1C dir=down level=1
+step 4: D10 at 3C dir=down level=1
+step 5: wire3 at 1A dir=down level=2
+step 6: wire3 at 1E dir=right level=2
+step 7: wire3 at 3C dir=up level=2
+photo real: renders/real-board.jpg
+  board: S1=on
+  parts: B3B 1A+ 3A, wire3 1A 1C, S1 1C 1E, wire3 1E 3E, D10 3E+ 3C, wire3 3C 3A

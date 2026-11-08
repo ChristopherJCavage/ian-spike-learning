@@ -21,25 +21,39 @@ out from the same layout, so the answer key cannot drift from the board.
     grid 7x5 grid-mini             # columns x rows, and which grid block
     lift fwd                       # the spin that makes a motor's fan fly off
     step 1: grid
-    step 2: B3B at 1A dir=right level=1
-    change colours: swap=4/D10     # a later chapter's board
+    step 2: B3B at 1A dir=right side=up level=1
+    change colours: flip=4         # a later chapter's board
     puzzle gap: S1=on, remove=6    # a board for a puzzle page
-    mission red: swap=4/D10 => S1=on: D10 red; S1=off: D10 off
+    mission red: flip=4 => S1=on: D10 red; S1=off: D10 off
     scene watch: S1=on             # a page drawn with the switches set
-    expect S1=on: L4 on            # claims the checker must prove
+    expect S1=on: D10 yellow       # claims the checker must prove
+    photo c1: renders/real-c1.jpg  # a photo of the real board, and what is in it
+      board: S1=on
+      parts: B3B 1A+ 3A, wire3 1A 1C, S1 1C 1E, D10 3C+ 3E, egg on D10
+      shows: D10 yellow
 
 A post is the column number, then the row letter (1A is top-left: column 1,
 row A). Numbers run across the top, 1 to 7. Letters run down the side, A to
 E. `at A1` is accepted too, and means the same post. A block covers
-`span` posts from its `at` post along `dir`. Blocks that meet at a post are
-stacked: loads at level 1, wires on top at level 2, like Elenco's own
-numbers. Electricity flows between blocks that share a post.
+`span` posts from its `at` post along `dir`: every 2-snap block is 1x3,
+with its snaps on the two end posts. B3B is 3x3: its snaps are the two
+corners of one edge, and `side=` says where the rest of the case lies. It
+usually rides the edge of the board, snaps on row A and the case hanging
+off the top. Electricity flows between blocks that share a post.
+
+Stacking: two blocks may share ONE post, where both have a snap, and they
+leave it in different directions (N, S, E or W). The one placed later sits a
+level higher. Blocks never lie on top of each other along their length
+(OVERLAP) and a snap never lands on plastic (BODY). A block's `level` is the
+height of its higher end; its two ends may differ by one level (a tilt the
+real snaps take), never more (TILT).
 
 Assignments (in change, puzzle, mission, scene, expect, and deck tests):
 `S1=on|off`, `S2=pressed|released`, `remove=N` (take step N's block away),
 `hide=N` (as remove, drawn as a ?), `swap=N/KEY` (another block of the same
 size), `flip=N` (turn step N's block around; flip it twice and it is back),
 `add=N/KEY` (an accessory, the egg or a fan, on step N's block),
+`part=N/KEY@POST/DIR/LEVEL` (a new block, step N, added on its own posts),
 `launch=N` (draw step N's fan flying off: the switch must be released, and
 held down the motor must spin the `lift` way), and `base=NAME` (first, to
 start from a change, puzzle or mission defined above).
@@ -47,8 +61,14 @@ start from a change, puzzle or mission defined above).
 A mission is an answer board plus what it must do, `=> <claims>`, each claim
 `<assignments>: <ID> <tokens>` and separated by `;`.
 
-tools/snap/parts.json holds every block's size and behaviour. All of it is
-marked measured:false until someone checks it against a physical box.
+A photo is a picture of the real board (renders/real-*.jpg). `parts:` lists
+every block in it by its end snaps, + marked; `board:` is the layout state
+it should equal; `shows:` is what is lit in it. check fails if the layout
+drifts from the photo, and if the deck shows the photo while the board on
+the page before is a different one.
+
+tools/snap/parts.json holds every block's size and behaviour; parts that
+were checked against the real box are marked measured:true.
 
 `deck.md` is the comic: chapters, and slides in order. Its format is in the
 docstring of parse_deck() and in builds/_snap-template/deck.md.
@@ -137,10 +157,11 @@ class Assign:
     add: dict = field(default_factory=dict)  # step -> accessory key
     launch: int = 0
     base: str = ""
+    parts: tuple = ()  # extra blocks this board adds, as Placed
 
     def copy(self) -> "Assign":
         return Assign(dict(self.sw), set(self.remove), set(self.hide), dict(self.swap),
-                      set(self.flip), dict(self.add), self.launch, self.base)
+                      set(self.flip), dict(self.add), self.launch, self.base, tuple(self.parts))
 
     def label(self) -> str:
         bits = [f"base={self.base}"] if self.base else []
@@ -150,6 +171,7 @@ class Assign:
         bits += [f"swap={n}/{k}" for n, k in sorted(self.swap.items())]
         bits += [f"flip={n}" for n in sorted(self.flip)]
         bits += [f"add={n}/{k}" for n, k in sorted(self.add.items())]
+        bits += [f"part={p.step}/{p.key}@{post_name(p.r, p.c)}/{p.dir}/{p.level}" for p in self.parts]
         bits += [f"launch={self.launch}"] if self.launch else []
         return ", ".join(bits) or "-"
 
@@ -164,20 +186,46 @@ class Placed:
     dir: str = "right"
     level: int = 1
     host: int = 0  # accessories: the step whose block they ride on
+    side: str = ""  # a block with depth (B3B): where its case lies
 
     def defn(self) -> dict:
         return part_def(self.key) or {}
 
     def cells(self) -> list:
+        """The snap row: `span` posts from `at` along `dir`."""
         d = self.defn()
         if d.get("kind") in ("grid", "accessory") or "span" not in d:
             return []
         dr, dc = DIRS[self.dir]
         return [(self.r + dr * i, self.c + dc * i) for i in range(d["span"])]
 
+    def body_cells(self) -> list:
+        """Posts under the rest of a deep block's case, beyond its snap row."""
+        depth = self.defn().get("depth", 1)
+        if depth <= 1 or self.side not in DIRS:
+            return []
+        sr, sc = DIRS[self.side]
+        return [(r + sr * k, c + sc * k) for k in range(1, depth) for r, c in self.cells()]
+
+    def footprint(self) -> list:
+        return self.cells() + self.body_cells()
+
     def snaps(self) -> list:
         cells = self.cells()
         return [cells[i] for i in self.defn().get("snaps", [])]
+
+    def ends(self) -> list:
+        sn = self.snaps()
+        return [sn[0], sn[-1]] if len(sn) > 1 else sn
+
+    def plus_post(self):
+        """The post under the + mark: a source's + snap, a polar load's first snap."""
+        d = self.defn()
+        if d.get("kind") == "source" and self.cells():
+            return self.cells()[d["plus"]]
+        if d.get("polarity") in ("colour", "spin", "silent") and self.snaps():
+            return self.snaps()[0]
+        return None
 
 
 @dataclass
@@ -198,6 +246,31 @@ class Variant:
 
 
 @dataclass
+class PhotoItem:
+    """One block in a photo: its two end snaps, the + one marked, or the block an accessory rides on."""
+    key: str
+    posts: frozenset = frozenset()
+    plus: tuple | None = None
+    host: str = ""
+
+    def text(self) -> str:
+        if self.host:
+            return f"{self.key} on {self.host}"
+        names = sorted(self.posts, key=lambda rc: (rc[1], rc[0]))
+        return f"{self.key} " + " ".join(post_name(*rc) + ("+" if rc == self.plus else "") for rc in names)
+
+
+@dataclass
+class Photo:
+    name: str
+    file: str
+    line: int
+    assign: Assign | None = None
+    items: list = field(default_factory=list)  # PhotoItem
+    shows: list = field(default_factory=list)  # Expect
+
+
+@dataclass
 class Circuit:
     path: Path
     kits: list = field(default_factory=list)
@@ -209,6 +282,7 @@ class Circuit:
     scenes: list = field(default_factory=list)  # (name, Assign, line)
     expects: list = field(default_factory=list)
     variants: dict = field(default_factory=dict)  # name -> Variant, file order
+    photos: list = field(default_factory=list)  # Photo
     problems: list = field(default_factory=list)  # (code, message)
 
     def fail(self, code: str, msg: str, line: int = 0) -> None:
@@ -251,6 +325,16 @@ def parse_assign(text: str, circ: Circuit, line: int, start: Assign | None = Non
                 a.add[int(n)] = key
             elif k == "launch":
                 a.launch = int(v)
+            elif k == "part":
+                # 9/L4@3E/up/3 — a block this board adds, on its own posts
+                step_s, rest = v.split("/", 1)
+                key, at = rest.split("@", 1)
+                post, direction, level = at.split("/")
+                rc = parse_post(post)
+                if rc is None or direction not in DIRS:
+                    circ.fail("SYNTAX", f"bad part '{v}' (use step/KEY@post/dir/level)", line)
+                else:
+                    a.parts = a.parts + (Placed(int(step_s), key, line, rc[0], rc[1], direction, int(level)),)
             else:
                 d = part_def(k)
                 if not d or d.get("kind") != "switch":
@@ -264,19 +348,70 @@ def parse_assign(text: str, circ: Circuit, line: int, start: Assign | None = Non
     return a
 
 
-STEP_RE = re.compile(
-    r"^step\s+(\d+):\s*(\S+?)(?:\s+at\s+(\S+))?(?:\s+dir=(\w+))?(?:\s+level=(\d+))?$"
-)
+STEP_RE = re.compile(r"^step\s+(\d+):\s*(\S+?)(?:\s+at\s+(\S+))?((?:\s+\w+=\S+)*)$")
 CLAIM_RE = re.compile(r"^(.*?):\s+(\S+)\s+(.+)$")
+
+
+def parse_photo_items(text: str, ph: Photo, circ: Circuit, line: int) -> None:
+    for bit in (b.strip() for b in text.split(",") if b.strip()):
+        words = bit.split()
+        if len(words) == 3 and words[1] == "on":
+            ph.items.append(PhotoItem(words[0], host=words[2]))
+            continue
+        posts, plus = [], None
+        for w in words[1:]:
+            rc = parse_post(w.rstrip("+"))
+            if rc is None:
+                circ.fail("SYNTAX", f"photo {ph.name}: '{w}' is not a post (in '{bit}')", line)
+                break
+            posts.append(rc)
+            if w.endswith("+"):
+                plus = rc
+        else:
+            if len(posts) != 2:
+                circ.fail("PHOTO", f"photo {ph.name}: '{bit}' needs the block's two end snaps", line)
+            ph.items.append(PhotoItem(words[0], frozenset(posts), plus))
+
+
+def parse_photo_line(raw: str, ph: Photo, circ: Circuit, n: int) -> None:
+    m = re.match(r"^(board|parts|shows):\s*(.*)$", raw)
+    if not m:
+        circ.fail("SYNTAX", f"photo {ph.name}: use board:, parts: or shows: (got '{raw}')", n)
+        return
+    key, val = m.groups()
+    if key == "board":
+        ph.assign = parse_assign(val, circ, n)
+    elif key == "parts":
+        parse_photo_items(val, ph, circ, n)
+    else:
+        for bit in (b.strip() for b in val.split(",") if b.strip()):
+            words = bit.split()
+            if len(words) < 2 or set(words[1:]) - TOKENS:
+                circ.fail("SYNTAX", f"photo {ph.name}: shows '{bit}' (use '<ID> <tokens>', tokens from {' '.join(sorted(TOKENS))})", n)
+                continue
+            ph.shows.append(Expect(n, Assign(), words[0], set(words[1:])))
 
 
 def parse_circuit(path: Path) -> Circuit:
     circ = Circuit(path)
+    photo: Photo | None = None
     for n, raw in enumerate(path.read_text().splitlines(), 1):
         line = raw.split("#", 1)[0].strip()
         if not line:
             continue
-        if m := re.match(r"^kits\s+(.+)$", line):
+        if raw[:1] in (" ", "\t"):
+            if photo is None:
+                circ.fail("SYNTAX", f"indented line with no photo above it: {line}", n)
+            else:
+                parse_photo_line(line, photo, circ, n)
+            continue
+        photo = None
+        if m := re.match(r"^photo\s+([a-z0-9-]+):\s*(\S+)$", line):
+            photo = Photo(m.group(1), m.group(2), n)
+            if any(p.name == photo.name for p in circ.photos):
+                circ.fail("SYNTAX", f"photo {photo.name}: that name is already used", n)
+            circ.photos.append(photo)
+        elif m := re.match(r"^kits\s+(.+)$", line):
             circ.kits = [k.strip() for k in m.group(1).split(",") if k.strip()]
         elif m := re.match(r"^grid\s+(\d+)x(\d+)\s+(\S+)$", line):
             circ.cols, circ.rows, circ.grid_key = int(m.group(1)), int(m.group(2)), m.group(3)
@@ -294,13 +429,18 @@ def parse_circuit(path: Path) -> Circuit:
                     circ.fail("SYNTAX", f"post '{m.group(3)}' (use 1A: column number, then row letter)", n)
                 else:
                     p.r, p.c = got
-            if m.group(4):
-                if m.group(4) not in DIRS:
-                    circ.fail("SYNTAX", f"dir={m.group(4)} (use right/left/up/down)", n)
+            for opt in m.group(4).split():
+                k, v = opt.split("=", 1)
+                if k in ("dir", "side") and v not in DIRS:
+                    circ.fail("SYNTAX", f"{k}={v} (use right/left/up/down)", n)
+                elif k == "dir":
+                    p.dir = v
+                elif k == "side":
+                    p.side = v
+                elif k == "level" and v.isdigit():
+                    p.level = int(v)
                 else:
-                    p.dir = m.group(4)
-            if m.group(5):
-                p.level = int(m.group(5))
+                    circ.fail("SYNTAX", f"step {step}: '{opt}' (use dir=, side= or level=)", n)
             if key != "grid" and not m.group(3):
                 circ.fail("SYNTAX", f"step {step}: '{key}' needs 'at <post>'", n)
             circ.placed.append(p)
@@ -398,7 +538,10 @@ def effective_parts(circ: Circuit, a: Assign) -> list:
     for p in circ.placed:
         if p.step in a.remove or p.step in a.hide:
             continue
-        q = replace(p, key=a.swap[p.step]) if p.step in a.swap else p
+        q = p
+        if p.step in a.swap:
+            deep = (part_def(a.swap[p.step]) or {}).get("depth", 1) > 1
+            q = replace(p, key=a.swap[p.step], side=p.side if deep else "")
         if p.step in a.flip:
             q = turned(q)
         out.append(q)
@@ -415,6 +558,10 @@ def effective_parts(circ: Circuit, a: Assign) -> list:
         h, d = by_step.get(n), part_def(key) or {}
         if h and h.key in host_keys(d):
             res.append(Placed(1000 + n, key, 0, host=n))
+    for p in a.parts:
+        if p.step in a.remove or p.step in a.hide:
+            continue
+        res.append(p)
     return res
 
 
@@ -572,6 +719,7 @@ def named_assigns(circ: Circuit) -> list:
     for v in circ.variants.values():
         out.append((f"{v.kind} {v.name}", v.assign, v.line))
         out += [(f"mission {v.name} claim", c.assign, v.line) for c in v.claims]
+    out += [(f"photo {ph.name}", ph.assign, ph.line) for ph in circ.photos if ph.assign]
     return out
 
 
@@ -599,9 +747,173 @@ def need_counts(circ: Circuit) -> dict:
     return need
 
 
+def part_fact_problems(key: str, d: dict) -> list:
+    """What every real block of this kind is, checked against parts.json.
+    These are the facts Chris's photos settled; a typo here would quietly
+    redraw every board wrong, so check refuses it."""
+    out = []
+    kind, span, snaps = d.get("kind"), d.get("span"), d.get("snaps")
+    where = f"parts.json {key}"
+    if kind == "wire":
+        n = int(d.get("printed", "0")) if str(d.get("printed", "")).isdigit() else None
+        if n and (span != n or snaps != list(range(n))):
+            out.append(("PARTS", f"{where}: a {n}-snap wire spans {n} posts with a snap on every one (span {n}, snaps {list(range(n))})"))
+    elif kind in ("switch", "load"):
+        if span != 3 or snaps != [0, 2]:
+            out.append(("PARTS", f"{where}: span {span}, snaps {snaps}. Every 2-snap block is 1x3: span 3, snaps [0, 2] at the two end posts, nothing in the middle"))
+    elif kind == "source":
+        if snaps != [0, span - 1 if span else 0]:
+            out.append(("PARTS", f"{where}: a battery holder's two snaps are the two ends of its snap edge"))
+        if key == "B3B" and (span != 3 or d.get("depth") != 3 or not d.get("hangs")):
+            out.append(("PARTS", f"{where}: B3B is a 3x3 module (span 3, depth 3) that can hang off the edge (hangs: true); "
+                                 f"got span {span}, depth {d.get('depth', 1)}"))
+    elif kind == "grid" and key == "grid-mini" and (d.get("cols"), d.get("rows")) != (7, 5):
+        out.append(("PARTS", f"{where}: the Beginner grid is 7 posts across (1-7) by 5 down (A-E)"))
+    return out
+
+
+def stacks(parts: list) -> dict:
+    """post -> the blocks with a snap there, bottom first."""
+    at: dict = {}
+    for p in parts:
+        for s in p.snaps():
+            at.setdefault(s, []).append(p)
+    for s in at:
+        at[s].sort(key=lambda q: (q.level, q.step))
+    return at
+
+
+def end_heights(p: Placed, at: dict) -> list:
+    """How high each end of `p` sits: 1 on the grid, +1 for every block under it there."""
+    return [1 + sum(1 for q in at.get(e, []) if q.level < p.level) for e in p.ends()]
+
+
+def placement_problems(circ: Circuit, parts: list, strict: bool = True) -> list:
+    """(code, message, line) for where the blocks of one board sit.
+
+    `strict` boards are real builds; a board with a block pulled out for a
+    puzzle is not, so it skips the height checks (the rest would drop down)."""
+    out = []
+    body = [p for p in parts if p.defn().get("kind") not in (None, "grid", "accessory")]
+    on = lambda rc: 0 <= rc[0] < circ.rows and 0 <= rc[1] < circ.cols
+    who = lambda p: f"step {p.step} {p.key}"
+
+    def add(code, p, msg):
+        out.append((code, msg, p.line))
+
+    for p in body:
+        d = p.defn()
+        if p.level < 1:
+            add("LEVEL", p, f"{who(p)}: level must be 1 or more")
+        off = [c for c in p.cells() if not on(c)]
+        if off:
+            what = "its snap row" if d.get("depth", 1) > 1 else "it"
+            add("OFF_GRID", p, f"{who(p)}: {what} reaches {post_name(*off[0])}, off the {circ.cols}x{circ.rows} grid")
+        if d.get("depth", 1) > 1:
+            if p.side not in DIRS or p.side in (p.dir, OPP[p.dir]):
+                add("HANG", p, f"{who(p)} is {d['span']}x{d['depth']}: its snaps are one edge, and side= says where the rest "
+                               f"of the case lies, across that edge (side=up hangs it off the top of row A)")
+            elif not d.get("hangs") and any(not on(c) for c in p.body_cells()):
+                add("OFF_GRID", p, f"{who(p)}: its case reaches off the grid, and this block cannot hang")
+        elif p.side:
+            add("HANG", p, f"{who(p)}: side= is only for a block with a case beyond its snaps (B3B)")
+    for i, p in enumerate(body):
+        fp = set(p.footprint())
+        for q in body[i + 1:]:
+            shared = fp & set(q.footprint())
+            names = ", ".join(post_name(*c) for c in sorted(shared, key=lambda rc: (rc[1], rc[0])))
+            if len(shared) >= 2:
+                add("OVERLAP", q, f"{who(p)} and {who(q)} lie on top of each other ({names}). Blocks only stack where "
+                                  f"their end snaps meet, one post, and leave it in different directions")
+            elif shared:
+                cell = next(iter(shared))
+                if cell not in p.snaps() or cell not in q.snaps():
+                    plastic = p if cell not in p.snaps() else q
+                    add("BODY", q, f"{who(p)} and {who(q)} meet at {names}, but that is {who(plastic)}'s plastic, "
+                                   f"not a snap. Snaps only stack on snaps")
+    at = stacks(body)
+    for s, stack in at.items():
+        for a, b in zip(stack, stack[1:]):
+            if a.level == b.level:
+                add("COLLISION", b, f"{who(a)} and {who(b)} are both on {post_name(*s)} at level {a.level}; one must sit a level higher")
+            elif a.step > b.step:
+                add("BUILD_ORDER", b, f"{who(b)} goes on top of {who(a)} at {post_name(*s)}, which is placed later")
+    if strict:
+        for p in body:
+            hs = end_heights(p, at)
+            if not hs:
+                continue
+            top, low = max(hs), min(hs)
+            if p.level > top:
+                add("UNSUPPORTED", p, f"{who(p)} says level {p.level}, but nothing holds it up there: its ends sit at level "
+                                      f"{' and '.join(str(h) for h in hs)} ({' and '.join(post_name(*e) for e in p.ends())})")
+            elif top - low > 1:
+                hi, lo = p.ends()[hs.index(top)], p.ends()[hs.index(low)]
+                add("TILT", p, f"{who(p)} tips over: level {top} at {post_name(*hi)} but level {low} at {post_name(*lo)}. "
+                               f"One level is as far as a block bends")
+    return out
+
+
+def board_items(parts: list) -> list:
+    """The blocks on a board the way a photo lists them."""
+    by_step = {p.step: p for p in parts}
+    out = []
+    for p in parts:
+        d = p.defn()
+        if d.get("kind") in (None, "grid"):
+            continue
+        if d.get("kind") == "accessory":
+            host = by_step.get(p.host)
+            out.append(PhotoItem(p.key, host=host.key if host else "?"))
+        else:
+            out.append(PhotoItem(p.key, frozenset(p.ends()), p.plus_post()))
+    return out
+
+
+def item_diff(want: list, got: list) -> tuple:
+    """(in want only, in got only) as text, comparing blocks, ends and + marks."""
+    sig = lambda it: (it.key, it.posts, it.plus, it.host)
+    w, g = [sig(i) for i in want], [sig(i) for i in got]
+    only_w = [i.text() for i in want if w.count(sig(i)) > g.count(sig(i))]
+    only_g = [i.text() for i in got if g.count(sig(i)) > w.count(sig(i))]
+    return sorted(set(only_w)), sorted(set(only_g))
+
+
+def photo_problems(circ: Circuit, ph: Photo) -> list:
+    out = []
+    if ph.assign is None:
+        return [("PHOTO", f"photo {ph.name}: needs a board: line (the layout state the photo shows)")]
+    if not ph.items:
+        return [("PHOTO", f"photo {ph.name}: needs a parts: line (every block in the photo)")]
+    for it in ph.items:
+        d = part_def(it.key)
+        if not d:
+            out.append(("PHOTO", f"photo {ph.name}: no such block '{it.key}'"))
+        elif not it.host and it.plus is None and (d.get("polarity") in ("colour", "spin", "silent") or d.get("kind") == "source"):
+            out.append(("PHOTO", f"photo {ph.name}: {it.text()} -- mark which end has the + (like 3E+)"))
+        elif not it.host and it.plus is not None and not (d.get("polarity") in ("colour", "spin", "silent") or d.get("kind") == "source"):
+            out.append(("PHOTO", f"photo {ph.name}: {it.key} has no + end; drop the + from {it.text()}"))
+    if out:
+        return out
+    parts = effective_parts(circ, ph.assign)
+    only_photo, only_board = item_diff(ph.items, board_items(parts))
+    if only_photo or only_board:
+        bits = []
+        if only_photo:
+            bits.append("the photo has " + "; ".join(only_photo))
+        if only_board:
+            bits.append("the layout has " + "; ".join(only_board))
+        out.append(("PHOTO", f"photo {ph.name} ({ph.file}) does not match the board {ph.assign.label()}: " + ", but ".join(bits)))
+    for e in ph.shows:
+        msg = claim_problem(circ, replace(e, assign=ph.assign))
+        if msg:
+            out.append(("PHOTO", f"photo {ph.name} shows {e.key} {' '.join(sorted(e.tokens))}, but {msg}"))
+    return out
+
+
 def validate_assign(circ: Circuit, label: str, a: Assign) -> list:
     out = []
-    nums = {p.step for p in circ.placed}
+    nums = {p.step for p in circ.placed} | {p.step for p in a.parts}
     named = a.remove | a.hide | set(a.swap) | a.flip | set(a.add) | ({a.launch} if a.launch else set())
     for n in sorted(named):
         if n not in nums:
@@ -625,6 +937,25 @@ def validate_assign(circ: Circuit, label: str, a: Assign) -> list:
             out.append(("ASSIGN", f"{label}: {key} rides on {' or '.join(sorted(host_keys(d)))}, but step {n} is {eff[n].key} there"))
         elif d["kit"] != "both" and d["kit"] not in circ.kits:
             out.append(("WRONG_KIT", f"{label}: {key} is from the {d['kit']} box, which this build does not list"))
+    seen_steps = {p.step for p in circ.placed}
+    for p in a.parts:
+        if p.step in seen_steps:
+            out.append(("ASSIGN", f"{label}: part step {p.step} is already used"))
+        seen_steps.add(p.step)
+        d = part_def(p.key)
+        if not d or d.get("kind") in ("grid", "accessory", None):
+            out.append(("ASSIGN", f"{label}: part {p.key} has to be a real block, not a cover"))
+            continue
+        if d["kit"] != "both" and d["kit"] not in circ.kits:
+            out.append(("WRONG_KIT", f"{label}: {p.key} is from the {d['kit']} box, which this build does not list"))
+        if d.get("depth", 1) > 1:
+            out.append(("HANG", f"{label}: part= cannot place {p.key}; give it its own step with side="))
+    if a.parts or a.swap or a.flip:
+        base = {(c, m) for c, m, _ in placement_problems(circ, circ.placed)}
+        strict = not (a.remove or a.hide)
+        for code, msg, _ in placement_problems(circ, effective_parts(circ, a), strict):
+            if (code, msg) not in base:
+                out.append((code, f"{label}: {msg}"))
     if a.launch and a.launch in nums:
         fan = [q for q in effective_parts(circ, a) if q.defn().get("blades") and q.host == a.launch]
         if not circ.lift:
@@ -699,31 +1030,14 @@ def check_circuit(circ: Circuit) -> tuple:
         if d and "measured" in d and not d["measured"]:
             warns.append(("UNMEASURED", f"{key} geometry is not measured against a real box"))
 
-    # placement: bounds, level, collisions, support, order
-    occupied: dict = {}
-    snap_at: dict = {}
-    for p in body:
-        for cell in p.cells():
-            r, c = cell
-            if not (0 <= r < circ.rows and 0 <= c < circ.cols):
-                fail("OFF_GRID", f"step {p.step}: {p.key} reaches {post_name(r, c)}, off the {circ.cols}x{circ.rows} grid", p.line)
-            if p.level < 1:
-                fail("LEVEL", f"step {p.step}: level must be 1 or more", p.line)
-            if (cell, p.level) in occupied:
-                other = occupied[(cell, p.level)]
-                fail("COLLISION", f"step {p.step}: {p.key} and step {other.step} {other.key} are both on {post_name(r, c)} at level {p.level}; one must sit a level higher", p.line)
-            occupied[(cell, p.level)] = p
-        for s in p.snaps():
-            snap_at[(s, p.level)] = p
-    for p in body:
-        if p.level > 1:
-            sn = p.snaps()
-            for s in {sn[0], sn[-1]}:
-                below = snap_at.get((s, p.level - 1))
-                if below is None:
-                    fail("UNSUPPORTED", f"step {p.step}: {p.key} level {p.level} has nothing to snap onto at {post_name(*s)} (needs a level {p.level - 1} snap there)", p.line)
-                elif below.step > p.step:
-                    fail("BUILD_ORDER", f"step {p.step}: {p.key} goes on top of step {below.step} {below.key}, which is placed later", p.line)
+    # what every real block is; the photos settled these
+    for key, d in sorted(db()["parts"].items()):
+        for code, msg in part_fact_problems(key, d):
+            fail(code, msg)
+
+    # placement: bounds, the battery's overhang, overlaps, stacks, heights
+    for code, msg, line in placement_problems(circ, body):
+        fail(code, msg, line)
     for p in circ.placed:
         d = p.defn()
         if d.get("kind") == "accessory":
@@ -783,6 +1097,11 @@ def check_circuit(circ: Circuit) -> tuple:
                 msg = claim_problem(circ, c)
                 if msg:
                     fail("MISSION", f"mission {v.name}: {msg}", v.line)
+
+    # photos of the real board: the layout must be what the camera saw
+    for ph in circ.photos:
+        for code, msg in photo_problems(circ, ph):
+            fail(code, msg, ph.line)
 
     out, seen = [], set()
     for pr in circ.problems:
@@ -1062,6 +1381,7 @@ TALK_LAYOUTS = ("strip", "hero", "zigzag", "quad", "cinema", "stack", "wide", "s
 POSITIONS = ("tl", "tc", "tr", "bl", "bc", "br")
 COMMON_FIELDS = {"say", "dad", "watch", "reason", "pose", "bubble", "reveal", "title"}
 KIND_FIELDS = {
+    "cover": {"art"},
     "splash": {"art"},
     "comic": {"panel", "caption"},
     "talk": {"box", "caption", "layout"},
@@ -1155,6 +1475,8 @@ def parse_deck(path: Path) -> Deck:
         (any prose up to the first chapter is notes for humans)
         ## Chapter 1 -- The Dark Skate Park
         badge: Light Finder
+        === cover                        a full-page chapter card, before case 1
+        art: renders/comic-chapter-1.jpg
         === splash                       a slide: === <kind> [arg]
         art: renders/comic-c1-splash.jpg
         say: Read-aloud line.
@@ -1383,9 +1705,9 @@ def check_deck(bdir: Path, circ: Circuit, deck: Deck, steps: dict, fixture: bool
             if not fixture and not art_path(bdir, rel).exists():
                 fail("DECK", f"{rel} does not exist", where)
 
-        if s.kind == "splash":
+        if s.kind in ("splash", "cover"):
             if "art" not in f:
-                fail("DECK", "splash needs art:", where)
+                fail("DECK", f"{s.kind} needs art:", where)
             else:
                 need_art(f["art"])
         elif s.kind == "comic":
@@ -1504,7 +1826,146 @@ def check_deck(bdir: Path, circ: Circuit, deck: Deck, steps: dict, fixture: bool
     for v in circ.variants.values():
         if v.kind == "puzzle" and v.name not in puzzles_used:
             fail("DECK", f"puzzle {v.name} is never shown")
+
+    # A real photo goes right after the board it shows, so "yours should
+    # look like this" is true of the page before it.
+    by_file = {ph.file: ph for ph in circ.photos}
+    shown: set = set()
+    last = None  # (slide, Assign)
+    for s in deck.slides:
+        arts = [p.art for p in s.panels] + ([s.f["art"]] if "art" in s.f else [])
+        for art in arts:
+            if not Path(art).name.startswith("real-"):
+                continue
+            ph = by_file.get(art)
+            if not ph:
+                fail("PHOTO", f"{art} is a photo of the real board, but circuit.snap has no `photo` line for it", s.line)
+                continue
+            shown.add(ph.name)
+            if ph.assign is None or not ph.items:
+                continue
+            if last is None:
+                fail("PHOTO", f"photo {ph.name} comes before any board page; put it after the board it shows", s.line)
+                continue
+            got = board_items(effective_parts(circ, last[1]))
+            only_photo, only_page = item_diff(ph.items, got)
+            if only_photo or only_page:
+                bits = (["the photo has " + "; ".join(only_photo)] if only_photo else []) + \
+                       (["the page has " + "; ".join(only_page)] if only_page else [])
+                fail("PHOTO", f"photo {ph.name} follows the {last[0].kind} {last[0].arg} page (deck.md:{last[0].line}), "
+                              f"which shows a different board: " + ", but ".join(bits), s.line)
+        b = slide_board(circ, s)
+        if b is not None:
+            last = (s, b)
+    for ph in circ.photos:
+        if ph.name not in shown:
+            fail("PHOTO", f"photo {ph.name} ({ph.file}) is never shown in the deck")
+        if not re.match(r"^renders/real-[a-z0-9-]+\.jpg$", ph.file):
+            fail("PHOTO", f"photo {ph.name}: name the file renders/real-<name>.jpg (got {ph.file})")
+        elif not fixture and not (bdir / ph.file).exists():
+            fail("PHOTO", f"photo {ph.name}: {ph.file} does not exist")
+    for code, msg, line in post_problems(circ, deck, steps):
+        fail(code, msg, line)
     return P, W
+
+
+POST_TOKEN = re.compile(r"(?<!\w)[1-9][A-H](?!\w)")
+OLD_POST = re.compile(r"(?<!\w)[A-H][1-9]\d?(?!\w)")
+
+
+def old_posts(text: str) -> set:
+    """Posts written letter-first (D3). Part names like B1 or D10 are not posts."""
+    return {t for t in OLD_POST.findall(text) if t not in db()["parts"]}
+
+
+def board_posts(circ: Circuit, a: Assign) -> set:
+    """Every post a block on this board has a metal snap on."""
+    out = set()
+    for p in effective_parts(circ, a):
+        out |= {post_name(r, c) for r, c in p.snaps()}
+    return out
+
+
+def post_problems(circ: Circuit, deck: Deck, steps: dict) -> list:
+    """A post a page names has to be a snap on the board that page is about
+    (or the one just before it). Step text that still says 1B after the
+    holder moved to 1A is the mistake this catches."""
+    out = []
+    grid = {post_name(r, c) for r in range(circ.rows) for c in range(circ.cols)}
+
+    def texts(s: Slide) -> list:
+        t = [b.text for b in s.bubbles + s.reveal] + [b.text for p in s.panels for b in p.bubbles]
+        return t + [s.f.get(k, "") for k in ("dad", "watch", "ask", "card", "say")]
+
+    def posts_at(n: int) -> set:
+        return board_posts(circ, Assign(remove={p.step for p in circ.placed if p.step > n}))
+
+    for (kind, arg), f in steps.items():
+        if kind == "step":
+            ok = grid if arg == min(p.step for p in circ.placed) else posts_at(arg)
+        else:
+            a = next((a for n, a, _ in circ.scenes if n == arg), None)
+            ok = board_posts(circ, a) if a else grid
+        for k, v in f.items():
+            for t in sorted(old_posts(str(v))):
+                out.append(("POSTS", f"steps.md {kind} {arg} {k}: '{t}' is the old way round; posts are number then letter "
+                                      f"({t[1:]}{t[0]})", 0))
+            for t in sorted(set(POST_TOKEN.findall(str(v))) - ok):
+                out.append(("POSTS", f"steps.md {kind} {arg} {k}: names {t}, which is not a snap on that board "
+                                      f"(snaps: {' '.join(sorted(ok - grid if ok != grid else set())) or 'any grid post'})", 0))
+    # a board page that calls a light by its picture name means a light on that board
+    kid: dict = {}
+    for key, d in db()["parts"].items():
+        if isinstance(d, dict) and d.get("kind") == "load" and d.get("kid"):
+            kid.setdefault(d["kid"].lower(), set()).add(key)
+
+    def keys_on(a):
+        return {p.key for p in effective_parts(circ, a)} if a is not None else set()
+
+    last = posts_at(min((p.step for p in circ.placed), default=0))
+    last_keys: set = set()
+    first = min((p.step for p in circ.placed), default=0)
+    for s in deck.slides:
+        b = slide_board(circ, s)
+        if s.kind == "step" and s.arg.isdigit() and int(s.arg) == first:
+            ok = grid
+        else:
+            ok = last | (board_posts(circ, b) if b is not None else set())
+            if s.kind == "mission" and s.arg in circ.variants:
+                for c in circ.variants[s.arg].claims:
+                    ok |= board_posts(circ, c.assign)
+        for t in sorted({t for x in texts(s) for t in POST_TOKEN.findall(x)} - ok):
+            out.append(("POSTS", f"{s.kind} {s.arg}: names {t}, which is not a snap on that board", s.line))
+        for t in sorted({t for x in texts(s) for t in old_posts(x)}):
+            out.append(("POSTS", f"{s.kind} {s.arg}: '{t}' is the old way round; posts are number then letter ({t[1:]}{t[0]})", s.line))
+        if b is not None:
+            on = keys_on(b) | last_keys
+            words = " ".join(texts(s)).lower()
+            for name, keys in sorted(kid.items()):
+                if name in words and not keys & on:
+                    out.append(("NAMES", f"{s.kind} {s.arg}: says '{name}' ({'/'.join(sorted(keys))}), "
+                                         f"which is not on that board", s.line))
+            last = board_posts(circ, b)
+            last_keys = keys_on(b)
+    return out
+
+
+def slide_board(circ: Circuit, s: Slide) -> Assign | None:
+    """The board a page puts in front of Ian, or None for a page without one."""
+    if s.kind == "step" and s.arg.isdigit():
+        n = int(s.arg)
+        return Assign(remove={p.step for p in circ.placed if p.step > n})
+    if s.kind in ("change", "mission"):
+        v = circ.variants.get(s.arg)
+        if v:
+            return v.claims[0].assign if (s.kind == "mission" and v.claims) else v.assign
+    if s.kind == "scene":
+        return next((a for n, a, _ in circ.scenes if n == s.arg), None)
+    if s.kind in ("why", "predict"):
+        for k in ("water", "board", "assign"):
+            if isinstance(s.calc.get(k), Assign):
+                return s.calc[k]
+    return None
 
 
 # ------------------------------------------------------------- build files
@@ -1578,6 +2039,18 @@ def bom_text(circ: Circuit) -> str:
     return "\n".join(lines) + "\n"
 
 
+DRAWN_RE = re.compile(r'data-step="(\d+)" data-key="([^"]+)" data-want="([^"]*)" data-drawn="([^"]*)"')
+
+
+def drawn_problems(svg: str) -> list:
+    """Read each block back off a drawing and compare it with the layout."""
+    out = []
+    for step, key, want, got in DRAWN_RE.findall(svg):
+        if want != got:
+            out.append(f"step {step} {key} should be drawn as '{want}' but the picture shows '{got}'")
+    return out
+
+
 def check_build(bdir: Path) -> tuple:
     circ = parse_circuit(bdir / "circuit.snap")
     problems, warns = check_circuit(circ)
@@ -1606,6 +2079,28 @@ def check_build(bdir: Path) -> tuple:
                 fail("STEPS_MD", f"{k[0]} {k[1]}: no Say: line (the sentence printed on the page)")
             if k[0] == "step" and ("Do" not in f or "Check" not in f):
                 fail("STEPS_MD", f"step {k[1]}: needs Do: and Check:")
+
+    # a lesson that runs one box out of a block needs both boxes, and says so
+    need = need_counts(circ)
+    if len(circ.kits) > 1:
+        alone = [k for k in circ.kits
+                 if all(read_inventory(k).get(key, 0) >= q for key, q in need.items()
+                        if (part_def(key) or {}).get("kit") in (k, "both"))
+                 and all((part_def(key) or {}).get("kit") in (k, "both") for key in need if part_def(key))]
+        readme = (bdir / "README.md").read_text() if (bdir / "README.md").exists() else ""
+        if alone:
+            fail("KITS", f"the {BOX_NAME.get(alone[0], alone[0])} alone covers this lesson; list only that kit")
+        elif not re.search(r"needs both", readme, re.I):
+            short = ", ".join(f"{q}x {key}" for key, q in sorted(need.items())
+                              if (part_def(key) or {}).get("kit") == "both" and q > read_inventory(circ.kits[0]).get(key, 0))
+            fail("KITS", f"README.md must say this build needs both boxes ({short or 'parts from each box'})")
+
+    # every photo of the real board is listed in circuit.snap
+    listed = {ph.file for ph in circ.photos}
+    rd = bdir / "renders"
+    for f_ in sorted(rd.glob("real-*")) if rd.exists() else []:
+        if f"renders/{f_.name}" not in listed:
+            fail("PHOTO", f"renders/{f_.name} is a photo of the real board with no `photo` line in circuit.snap (say what is in it)")
 
     if (bdir / "story.md").exists():
         fail("DECK", "story.md is replaced by deck.md; move its slides into the comic and delete it")
@@ -1642,6 +2137,9 @@ def check_build(bdir: Path) -> tuple:
         for f in sorted(rd.glob("*.svg")) if rd.exists() else []:
             if f"renders/{f.name}" not in planned:
                 fail("RENDER", f"renders/{f.name} is not drawn by render any more (run render to clear it)")
+        for f in sorted(rd.glob("*.svg")) if rd.exists() else []:
+            for msg in drawn_problems(f.read_text()):
+                fail("DRAWN", f"renders/{f.name}: {msg}")
 
     import talkart
     for msg in talkart.lint_messages(bdir):
@@ -1742,7 +2240,32 @@ def selftest() -> int:
             detail += "\n      " + "\n      ".join(m for _, m in problems[:4])
         print(("ok   " if ok else "FAIL ") + f.name + detail)
         bad += 0 if ok else 1
+        if f.name.startswith("good-") and f.suffix == ".snap":
+            # every good board, read back off its own drawing, is the layout
+            drawn = drawn_problems(board_panel(parse_circuit(f), Assign(), "selftest"))
+            if drawn:
+                print(f"FAIL {f.name} drawing: {drawn[0]}")
+                bad += 1
     print(f"{len(items)} fixtures, {bad} wrong")
+
+    # the part facts the photos settled: a typo in parts.json must fail check
+    for key, change, why in (("L4", {"span": 2, "snaps": [0, 1]}, "a 1x2 lamp"),
+                             ("S1", {"snaps": [0, 1, 2]}, "a switch with a middle snap"),
+                             ("B3B", {"depth": 2}, "a 3x2 battery holder"),
+                             ("B3B", {"hangs": False}, "a battery holder that cannot ride the edge"),
+                             ("wire3", {"span": 2, "snaps": [0, 1]}, "a 3-snap wire two posts long"),
+                             ("grid-mini", {"rows": 4}, "a 7x4 grid")):
+        d = dict(part_def(key))
+        d.update(change)
+        ok = any(c == "PARTS" for c, _ in part_fact_problems(key, d)) and not part_fact_problems(key, part_def(key))
+        print(("ok   " if ok else "FAIL ") + f"parts.json refuses {why}")
+        bad += 0 if ok else 1
+    # a drawing that shrinks a block is caught
+    svg = board_panel(parse_circuit(FIXTURES / "good-series-loop.snap"), Assign(), "selftest")
+    shrunk = svg.replace('data-drawn="1A 3A span=3 depth=3"', 'data-drawn="1A 3A span=3 depth=2"', 1)
+    ok = shrunk != svg and bool(drawn_problems(shrunk))
+    print(("ok   " if ok else "FAIL ") + "a 3x2 battery drawing is caught (DRAWN)")
+    bad += 0 if ok else 1
     import talkart
     bad += talkart.selftest()
     return 1 if bad else 0
@@ -1792,10 +2315,16 @@ class View:
     r1: int
     c0: int
     c1: int
+    nums: str = "bottom"  # which edge the column numbers go on
+    lets: str = "left"  # which edge the row letters go on
+    margin: tuple = (1.9, 1.15, 1.15, 1.15)  # top, right, bottom, left, in posts, for crops
 
     def xy(self, cell) -> tuple:
         r, c = cell
         return (self.ox + (c - self.c0) * self.p, self.oy + (r - self.r0) * self.p)
+
+    def post_at(self, x, y) -> tuple:
+        return (round((y - self.oy) / self.p) + self.r0, round((x - self.ox) / self.p) + self.c0)
 
 
 def used_box(circ: Circuit) -> tuple:
@@ -1807,34 +2336,120 @@ def used_box(circ: Circuit) -> tuple:
             max(0, min(cs) - 1), min(circ.cols - 1, max(cs) + 1))
 
 
+def zoom_view(cells, x0, y0, x1, y1) -> View:
+    """Frame just these posts, large. Puzzle cards are small; a full 1-7
+    grid makes the + mark a few pixels tall."""
+    rs = [r for r, _ in cells]
+    cs = [c for _, c in cells]
+    r0, r1, c0, c1 = min(rs), max(rs), min(cs), max(cs)
+    nr, nc = max(1, r1 - r0), max(1, c1 - c0)
+    top, side, bot = 1.9, 1.05, 1.45
+    p = min((x1 - x0) / (nc + side + 0.65), (y1 - y0) / (nr + top + bot), 280)
+    ox = x0 + side * p + ((x1 - x0) - (nc + side + 0.65) * p) / 2
+    oy = y0 + top * p + ((y1 - y0) - (nr + top + bot) * p) / 2
+    return View(ox, oy, p, r0, r1, c0, c1)
+
+
+def clue_cells(circ: Circuit, a: Assign) -> list:
+    cells = []
+    for pl in effective_parts(circ, a):
+        d = pl.defn()
+        if d.get("kind") == "switch" or d.get("polarity") == "colour":
+            cells.extend(pl.cells())
+    return cells
+
+
+PLATE = 0.55  # the clear grid's edge, in posts beyond the outer posts
+CASE = 0.45  # a block's plastic beyond its end snaps, in posts
+LABEL = 0.6  # room for the row letters and column numbers outside the plate
+
+
+def hang_extent(circ: Circuit) -> tuple:
+    """How far (posts) any block on any board in this lesson reaches past
+    each edge of the grid: (top, right, bottom, left). The battery case
+    usually hangs two rows off the top."""
+    top = right = bottom = left = 0
+    boards = [Assign()] + [a for _, a, _ in named_assigns(circ)]
+    seen = set()
+    for a in boards:
+        for p in effective_parts(circ, a):
+            k = (p.key, p.r, p.c, p.dir, p.side)
+            if k in seen:
+                continue
+            seen.add(k)
+            for r, c in p.footprint():
+                top, bottom = max(top, -r), max(bottom, r - (circ.rows - 1))
+                left, right = max(left, -c), max(right, c - (circ.cols - 1))
+    return top, right, bottom, left
+
+
 def fit_view(circ: Circuit, x0, y0, x1, y1) -> View:
-    """The whole base grid, not a crop around the parts. Beginner is 1-7 by A-E."""
+    """The whole base grid, not a crop around the parts, plus room for a
+    battery case that hangs off an edge. Beginner is 1-7 by A-E."""
     r0, c0 = 0, 0
     r1, c1 = max(0, circ.rows - 1), max(0, circ.cols - 1)
     nr, nc = r1 - r0, c1 - c0
-    # room above row A for the column numbers and a battery that hangs off
-    hang = 1.8
-    p = min((x1 - x0) / (nc + 1.6), (y1 - y0) / (nr + 1.6 + hang), 140)
-    ox = x0 + ((x1 - x0) - nc * p) / 2
-    oy = y0 + hang * p + ((y1 - y0) - (nr + hang) * p) / 2
-    return View(ox, oy, p, r0, r1, c0, c1)
+    ht, hr, hb, hl = hang_extent(circ)
+    nums = "top" if hb and not ht else "bottom"
+    lets = "right" if hl and not hr else "left"
+    edge = lambda h: max(PLATE, h + CASE) if h else PLATE
+    mt = edge(ht) + (LABEL if nums == "top" else 0)
+    mb = edge(hb) + (LABEL if nums == "bottom" else 0)
+    ml = edge(hl) + (LABEL if lets == "left" else 0)
+    mr = edge(hr) + (LABEL if lets == "right" else 0)
+    mt, mr, mb, ml = (m + 0.1 for m in (mt, mr, mb, ml))
+    p = min((x1 - x0) / (nc + ml + mr), (y1 - y0) / (nr + mt + mb), 140)
+    ox = x0 + ml * p + ((x1 - x0) - (nc + ml + mr) * p) / 2
+    oy = y0 + mt * p + ((y1 - y0) - (nr + mt + mb) * p) / 2
+    return View(ox, oy, p, r0, r1, c0, c1, nums, lets, (mt, mr, mb, ml))
 
 
 def board_base(v: View) -> str:
     p = v.p
     nr, nc = v.r1 - v.r0, v.c1 - v.c0
-    top = 1.7 * p  # column numbers sit above a battery that hangs off row A
-    x, y = v.ox - 0.8 * p, v.oy - top
-    s = f'<rect x="{x:.1f}" y="{y:.1f}" width="{nc * p + 1.6 * p:.1f}" height="{nr * p + top + 0.8 * p:.1f}" rx="{0.3 * p:.1f}" fill="#eef3f8" stroke="#aebccd" stroke-width="3"/>\n'
+    x, y = v.ox - PLATE * p, v.oy - PLATE * p
+    s = (f'<rect x="{x:.1f}" y="{y:.1f}" width="{(nc + 2 * PLATE) * p:.1f}" height="{(nr + 2 * PLATE) * p:.1f}" '
+         f'rx="{0.3 * p:.1f}" fill="#eef3f8" stroke="#aebccd" stroke-width="3" data-grid="{nc + 1}x{nr + 1}"/>\n')
     for r in range(v.r0, v.r1 + 1):
         for c in range(v.c0, v.c1 + 1):
             cx, cy = v.xy((r, c))
             s += f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="{0.085 * p:.1f}" fill="#c7d2df"/>\n'
+    off = (PLATE + LABEL / 2) * p
+    lx = v.ox - off if v.lets == "left" else v.ox + nc * p + off
     for r in range(v.r0, v.r1 + 1):
-        s += text(v.ox - 0.62 * p, v.xy((r, v.c0))[1] + 0.09 * p, chr(65 + r), 0.26 * p, "#7d8aa0", "bold", "middle")
+        s += text(lx, v.xy((r, v.c0))[1] + 0.09 * p, chr(65 + r), 0.26 * p, "#7d8aa0", "bold", "middle")
+    ny = v.oy - off + 0.09 * p if v.nums == "top" else v.oy + nr * p + off + 0.09 * p
     for c in range(v.c0, v.c1 + 1):
-        s += text(v.xy((v.r0, c))[0], v.oy - 1.45 * p, str(c + 1), 0.26 * p, "#7d8aa0", "bold", "middle")
+        s += text(v.xy((v.r0, c))[0], ny, str(c + 1), 0.26 * p, "#7d8aa0", "bold", "middle")
     return s
+
+
+def drawn_attrs(pl: Placed, v: View, snap_xy: list, box: tuple) -> str:
+    """What the picture really shows, read back off the drawing: which posts
+    the snap circles sit on, and how many posts long and deep the plastic is.
+    check compares these with the layout (DRAWN), so a drawing bug that
+    shrinks a 1x3 block to 1x2 or a 3x3 battery to 3x2 fails the build."""
+    posts = [v.post_at(x, y) for x, y in snap_xy]
+    x, y, w, h = box
+    along = w if pl.dir in ("left", "right") else h
+    across = h if pl.dir in ("left", "right") else w
+    span = round((along - 2 * CASE * v.p) / v.p) + 1
+    depth = round((across - 2 * CASE * v.p) / v.p) + 1 if pl.defn().get("depth", 1) > 1 else 1
+    want = " ".join(post_name(*c) for c in pl.snaps())
+    got = " ".join(post_name(*c) for c in posts)
+    d = pl.defn()
+    return (f' data-step="{pl.step}" data-key="{esc(pl.key)}" data-want="{want} span={d.get("span")} depth={d.get("depth", 1)}"'
+            f' data-drawn="{got} span={span} depth={depth}"')
+
+
+def part_box(pl: Placed, v: View) -> tuple:
+    """(x, y, w, h) of a block's plastic: a deep block's whole case."""
+    if pl.defn().get("depth", 1) > 1 and pl.body_cells():
+        fp = [v.xy(c) for c in pl.footprint()]
+        e = CASE * v.p
+        x, y = min(q[0] for q in fp) - e, min(q[1] for q in fp) - e
+        return (x, y, max(q[0] for q in fp) + e - x, max(q[1] for q in fp) + e - y)
+    return geom(pl, v)[0]
 
 
 def geom(pl: Placed, v: View):
@@ -1845,7 +2460,7 @@ def geom(pl: Placed, v: View):
     horiz = abs(u[0]) >= 0.5
     kind = pl.defn().get("kind")
     hw = (0.24 if kind == "wire" else 0.36) * v.p
-    e = 0.45 * v.p
+    e = CASE * v.p
     x0, x1, y0, y1 = min(a[0], b[0]), max(a[0], b[0]), min(a[1], b[1]), max(a[1], b[1])
     if horiz:
         rect = (x0 - e, y0 - hw, x1 - x0 + 2 * e, 2 * hw)
@@ -1883,18 +2498,27 @@ def draw_glyph(pl: Placed, v: View, cx, cy, toks: set, a: Assign, anim: bool) ->
             if closed:
                 s += f'<path d="M {cx:.1f} {cy - 0.62 * p:.1f} L {cx:.1f} {cy - 0.3 * p:.1f} M {cx - 0.12 * p:.1f} {cy - 0.42 * p:.1f} L {cx:.1f} {cy - 0.28 * p:.1f} L {cx + 0.12 * p:.1f} {cy - 0.42 * p:.1f}" stroke="#ff7a1a" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>\n'
             return s
-        # Slide along the part. OFF is toward the first snap (the top, on this build).
-        dr, dc = DIRS[pl.dir]
-        ux, uy = dc, dr
-        end = 0.34 * p if closed else -0.34 * p
-        kx, ky = cx + ux * end, cy + uy * end
-        # a fat lever, and a word, so a thumbnail still shows open versus shut
-        s = f'<rect x="{kx - 0.16 * p:.1f}" y="{ky - 0.2 * p:.1f}" width="{0.32 * p:.1f}" height="{0.4 * p:.1f}" rx="{0.06 * p:.1f}" fill="#fff" stroke="#102216" stroke-width="4"/>\n'
-        s += text(cx, cy + (0.55 * p if closed else -0.62 * p), "ON" if closed else "OFF", 0.28 * p, "#102216" if closed else "#9a3412", "bold", "middle")
-        return s
+        # Slide switch: the body carries ON/OFF. A lever here covered the name.
+        return ""
     if eff == "light":
         if d.get("polarity") == "colour":
-            col = next((LIT[t] for t in toks if t in LIT), "#e6e6e6")
+            # Unlit, the two coloured halves of the body are the picture.
+            # A grey bulb in the middle covered the seam.
+            if not next((t for t in toks if t in LIT), None):
+                return ""
+            col = LIT[next(t for t in toks if t in LIT)]
+        elif d.get("glow") == "white":
+            # L4: a clear block with a round lens in the middle. Lit, it is a
+            # white light, so the rays carry the "on" on a white page.
+            s = glow(cx, cy, 0.8 * p, "#ffe58a", anim) if on else ""
+            if on:
+                for k in range(8):
+                    ang = k * math.pi / 4
+                    s += (f'<line x1="{cx + 0.3 * p * math.cos(ang):.1f}" y1="{cy + 0.3 * p * math.sin(ang):.1f}" '
+                          f'x2="{cx + 0.52 * p * math.cos(ang):.1f}" y2="{cy + 0.52 * p * math.sin(ang):.1f}" '
+                          f'stroke="#f5a700" stroke-width="{max(3, 0.05 * p):.1f}" stroke-linecap="round"/>\n')
+            lens = "#ffffff" if on else "#cfd9e2"
+            return s + f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="{0.2 * p:.1f}" fill="{lens}" stroke="#7f95a8" stroke-width="3"/>\n'
         else:
             col = "#ffd43b" if on else "#f4efdc"
         s = glow(cx, cy, 0.8 * p, col, anim) if on else ""
@@ -1914,45 +2538,116 @@ def draw_glyph(pl: Placed, v: View, cx, cy, toks: set, a: Assign, anim: bool) ->
     return f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="{0.17 * p:.1f}" fill="#fff" stroke="#555" stroke-width="3"/>\n'
 
 
+def _colour_halves(x, y, w, h, first, cx, cy):
+    """(red box, yellow box). Red is the end with the + mark."""
+    if w >= h:
+        mid = x + w / 2
+        left, right = (x, y, w / 2, h), (mid, y, w / 2, h)
+        return (left, right) if first[0] <= cx else (right, left)
+    mid = y + h / 2
+    top, bot = (x, y, w, h / 2), (x, mid, w, h / 2)
+    return (top, bot) if first[1] <= cy else (bot, top)
+
+
 def draw_part(pl: Placed, v: View, opacity: float, toks: set, a: Assign, anim: bool, badge: bool = True) -> str:
     d, p = pl.defn(), v.p
     (x, y, w, h), u, (cx, cy), first = geom(pl, v)
     kind = d["kind"]
-    s = f'<g opacity="{opacity}">\n'
+    s = ""
     sn = pl.snaps()
+    snap_xy = [v.xy(c) for c in sn]
+    box = (x, y, w, h)
     if kind == "source":
-        # The real holder hangs off the top edge. Only its two snaps sit on the grid.
-        sx0, sy0 = v.xy(sn[0])
-        sx1, sy1 = v.xy(sn[-1])
-        left, right = min(sx0, sx1), max(sx0, sx1)
-        body_h, body_w = 1.2 * p, (right - left) + 0.85 * p
-        bx, by = left - 0.42 * p, min(sy0, sy1) - body_h + 0.08 * p
-        s += f'<rect x="{bx:.1f}" y="{by:.1f}" width="{body_w:.1f}" height="{body_h:.1f}" rx="{0.12 * p:.1f}" fill="#e7f4fb" stroke="#6f93ab" stroke-width="4"/>\n'
-        ncells = int(d.get("cells") or 2)
-        gap = body_w / (ncells + 0.4)
-        for i in range(ncells):
-            cxx = bx + gap * (i + 0.7)
-            s += f'<rect x="{cxx - 0.11 * p:.1f}" y="{by + 0.16 * p:.1f}" width="{0.22 * p:.1f}" height="{body_h - 0.34 * p:.1f}" rx="{0.08 * p:.1f}" fill="#3a3a3a"/>\n'
-            s += f'<rect x="{cxx - 0.11 * p:.1f}" y="{by + 0.16 * p:.1f}" width="{0.22 * p:.1f}" height="{0.16 * p:.1f}" fill="#c4a574"/>\n'
-        for i, cell in enumerate(sn):
+        # A 3x3 holder: the snaps are two corners of one edge, and the case
+        # (with the batteries) lies to its `side`, usually hanging off the grid.
+        fp = [v.xy(c) for c in pl.footprint()]
+        e = CASE * p
+        bx, by = min(q[0] for q in fp) - e, min(q[1] for q in fp) - e
+        bw, bh = max(q[0] for q in fp) + e - bx, max(q[1] for q in fp) + e - by
+        box = (bx, by, bw, bh)
+        s += f'<rect x="{bx:.1f}" y="{by:.1f}" width="{bw:.1f}" height="{bh:.1f}" rx="{0.14 * p:.1f}" fill="#e7f4fb" fill-opacity="0.96" stroke="#6f93ab" stroke-width="4"/>\n'
+        horiz = pl.dir in ("left", "right")
+        far = [v.xy(c) for c in pl.body_cells()]
+        if far:
+            # the batteries lie along the snap edge, in the part of the case away from it
+            fx0, fy0 = min(q[0] for q in far) - e, min(q[1] for q in far) - e
+            fx1, fy1 = max(q[0] for q in far) + e, max(q[1] for q in far) + e
+            ncells = int(d.get("cells") or 2)
+            for i in range(ncells):
+                t = (i + 0.5) / ncells
+                if horiz:
+                    my = fy0 + (fy1 - fy0) * t
+                    rx0, rx1 = fx0 + 0.22 * p, fx1 - 0.22 * p
+                    s += f'<rect x="{rx0:.1f}" y="{my - 0.2 * p:.1f}" width="{rx1 - rx0:.1f}" height="{0.4 * p:.1f}" rx="{0.12 * p:.1f}" fill="#3a3a3a"/>\n'
+                    cap = rx0 if i % 2 == 0 else rx1 - 0.5 * p
+                    s += f'<rect x="{cap:.1f}" y="{my - 0.2 * p:.1f}" width="{0.5 * p:.1f}" height="{0.4 * p:.1f}" rx="{0.1 * p:.1f}" fill="#c4a574"/>\n'
+                else:
+                    mx = fx0 + (fx1 - fx0) * t
+                    ry0, ry1 = fy0 + 0.22 * p, fy1 - 0.22 * p
+                    s += f'<rect x="{mx - 0.2 * p:.1f}" y="{ry0:.1f}" width="{0.4 * p:.1f}" height="{ry1 - ry0:.1f}" rx="{0.12 * p:.1f}" fill="#3a3a3a"/>\n'
+                    cap = ry0 if i % 2 == 0 else ry1 - 0.5 * p
+                    s += f'<rect x="{mx - 0.2 * p:.1f}" y="{cap:.1f}" width="{0.4 * p:.1f}" height="{0.5 * p:.1f}" rx="{0.1 * p:.1f}" fill="#c4a574"/>\n'
+        else:
+            ncells = int(d.get("cells") or 2)
+            for i in range(ncells):
+                t = (i + 0.5) / ncells
+                bx2, by2 = x + w * t, y + h * t
+                if horiz:
+                    s += f'<rect x="{bx2 - 0.32 * p:.1f}" y="{cy - 0.14 * p:.1f}" width="{0.64 * p:.1f}" height="{0.28 * p:.1f}" rx="{0.08 * p:.1f}" fill="#3a3a3a"/>\n'
+                else:
+                    s += f'<rect x="{cx - 0.14 * p:.1f}" y="{by2 - 0.32 * p:.1f}" width="{0.28 * p:.1f}" height="{0.64 * p:.1f}" rx="{0.08 * p:.1f}" fill="#3a3a3a"/>\n'
+        # The battery sign is printed along the snap edge. Nothing can lie on
+        # that edge between the snaps (it is plastic), so + and - drawn just
+        # inside each snap are never covered by a wire.
+        mx, my = (snap_xy[0][0] + snap_xy[-1][0]) / 2, (snap_xy[0][1] + snap_xy[-1][1]) / 2
+        s += text(mx, my + 0.1 * p, f"{d.get('volts', '')}V", 0.24 * p, "#c0392b", "bold", "middle")
+        dr, dc = DIRS[pl.dir]
+        for cell in sn:
             sx, sy = v.xy(cell)
-            plus = i == 0
+            plus = cell == pl.cells()[d["plus"]]
+            inward = 1 if cell == pl.cells()[0] else -1
             s += f'<circle cx="{sx:.1f}" cy="{sy:.1f}" r="{0.16 * p:.1f}" fill="#d8dde3" stroke="#5c6770" stroke-width="3"/>\n'
-            s += text(sx, sy - 0.28 * p, "+" if plus else "\u2212", 0.28 * p, "#c0392b" if plus else "#22405f", "bold", "middle")
+            s += text(sx + dc * inward * 0.5 * p, sy + dr * inward * 0.5 * p + 0.12 * p, "+" if plus else "\u2212",
+                      0.4 * p, "#c0392b" if plus else "#22405f", "bold", "middle")
     else:
         if pl.level > 1:
             s += f'<rect x="{x + 5:.1f}" y="{y + 7:.1f}" width="{w:.1f}" height="{h:.1f}" rx="{0.2 * p:.1f}" fill="#000" opacity="0.16"/>\n'
         fill = d["colour"]
+        label = "#fff" if not is_pale(fill) else INK
         shut = kind == "switch" and not d.get("momentary") and not a.sw.get(pl.key, False)
+        split = False
         if kind == "switch" and not d.get("momentary"):
-            fill = "#d9e0da" if shut else "#0f7a32"
+            # ON is a solid green block. OFF is a pale block with an orange
+            # break through the middle, so a thumbnail still shows the gate.
+            fill = "#fff7ed" if shut else "#0f7a32"
+            label = "#9a3412" if shut else "#ffffff"
+        elif d.get("polarity") == "colour":
+            # Lit: the whole block is that colour (the answer). Dark: grey,
+            # the light is off. Not yet solved: red half at the + end, yellow
+            # half at the other, so the two boards can be told apart.
+            lit = next((t for t in toks if t in LIT), None)
+            if lit == "red":
+                fill = "#e23d3d"
+            elif lit == "yellow":
+                fill, label = "#ffd43b", "#3a2a00"
+            elif "off" in toks:
+                fill, label = "#4b5568", "#fff"
+            else:
+                split = True
+                fill, label = "#fffdf8", "#1d2433"
         s += f'<rect x="{x:.1f}" y="{y:.1f}" width="{w:.1f}" height="{h:.1f}" rx="{0.2 * p:.1f}" fill="{fill}" stroke="#102216" stroke-width="3"/>\n'
+        if split:
+            red, yel = _colour_halves(x, y, w, h, first, cx, cy)
+            s += f'<rect x="{yel[0]:.1f}" y="{yel[1]:.1f}" width="{yel[2]:.1f}" height="{yel[3]:.1f}" fill="#ffd43b"/>\n'
+            s += f'<rect x="{red[0]:.1f}" y="{red[1]:.1f}" width="{red[2]:.1f}" height="{red[3]:.1f}" fill="#e23d3d"/>\n'
+            s += f'<rect x="{x:.1f}" y="{y:.1f}" width="{w:.1f}" height="{h:.1f}" rx="{0.2 * p:.1f}" fill="none" stroke="#102216" stroke-width="4"/>\n'
         if shut:
             # a gap through the middle: the gate is shut, so the path is broken
+            band = 0.32 * p
             if abs(u[0]) >= 0.5:
-                s += f'<rect x="{cx - 0.12 * p:.1f}" y="{y - 2:.1f}" width="{0.24 * p:.1f}" height="{h + 4:.1f}" fill="#fff"/>\n'
+                s += f'<rect x="{cx - band / 2:.1f}" y="{y - 2:.1f}" width="{band:.1f}" height="{h + 4:.1f}" fill="#f97316"/>\n'
             else:
-                s += f'<rect x="{x - 2:.1f}" y="{cy - 0.12 * p:.1f}" width="{w + 4:.1f}" height="{0.24 * p:.1f}" fill="#fff"/>\n'
+                s += f'<rect x="{x - 2:.1f}" y="{cy - band / 2:.1f}" width="{w + 4:.1f}" height="{band:.1f}" fill="#f97316"/>\n'
         if kind == "wire":
             # the white stripe down a real blue 3-snap wire
             if abs(u[0]) >= 0.5:
@@ -1971,13 +2666,14 @@ def draw_part(pl: Placed, v: View, opacity: float, toks: set, a: Assign, anim: b
             # glyph above, printed ID below: both fit between the two snaps
             # whichever way the block lies
             s += draw_glyph(pl, v, cx, cy - 0.13 * p, toks, a, anim)
-            s += text(cx, cy + 0.33 * p, d["printed"], 0.21 * p, "#fff", "bold", "middle")
-            if d.get("polarity") in ("colour", "spin", "silent"):
-                # the + end, the way Elenco marks it on the block
-                sx, sy = v.xy(sn[0])
-                px, py = sx - u[0] * 0.27 * p, sy - u[1] * 0.27 * p
-                s += f'<circle cx="{px:.1f}" cy="{py:.1f}" r="{0.13 * p:.1f}" fill="#fff" stroke="#d62828" stroke-width="3"/>\n'
-                s += text(px, py + 0.09 * p, "+", 0.26 * p, "#d62828", "bold", "middle")
+            if kind == "switch" and not d.get("momentary"):
+                # The state word is a pill beside the block. A word in the
+                # middle sits under the wire and cannot be read.
+                s += text(cx, cy + 0.42 * p, d["printed"], 0.16 * p, label, "bold", "middle")
+            else:
+                if split:
+                    s += f'<rect x="{cx - 0.24 * p:.1f}" y="{cy + 0.14 * p:.1f}" width="{0.48 * p:.1f}" height="{0.30 * p:.1f}" rx="{0.08 * p:.1f}" fill="#fff" stroke="#102216" stroke-width="2"/>\n'
+                s += text(cx, cy + 0.33 * p, d["printed"], 0.21 * p, label, "bold", "middle")
     if badge:
         if abs(u[0]) >= 0.5:
             bx, by = x + 0.14 * p, y
@@ -1985,7 +2681,15 @@ def draw_part(pl: Placed, v: View, opacity: float, toks: set, a: Assign, anim: b
             bx, by = x, y + 0.14 * p
         s += f'<circle cx="{bx:.1f}" cy="{by:.1f}" r="{0.14 * p:.1f}" fill="#fff" stroke="{INK}" stroke-width="2.5"/>\n'
         s += text(bx, by + 0.06 * p, str(pl.level), 0.18 * p, INK, "bold", "middle")
-    return s + "</g>\n"
+    return f'<g opacity="{opacity}"{drawn_attrs(pl, v, snap_xy, box)}>\n' + s + "</g>\n"
+
+
+def is_pale(colour: str) -> bool:
+    c = colour.lstrip("#")
+    if len(c) != 6:
+        return False
+    r, g, b = (int(c[i:i + 2], 16) for i in (0, 2, 4))
+    return 0.299 * r + 0.587 * g + 0.114 * b > 170
 
 
 def wind(gx, gy, p, up: bool, anim: bool) -> str:
@@ -2003,10 +2707,17 @@ def wind(gx, gy, p, up: bool, anim: bool) -> str:
 
 def draw_accessory(pl: Placed, host: Placed, v: View, toks: set, anim: bool) -> str:
     (_, _, _, _), u, (cx, cy), _ = geom(host, v)
-    gx, gy, p = cx - u[0] * 0.3 * v.p, cy - u[1] * 0.3 * v.p, v.p
+    p = v.p
     if not pl.defn().get("blades"):
-        tint = next((LIT[t] for t in toks if t in LIT), "#ffffff")
-        return f'<ellipse cx="{gx:.1f}" cy="{gy:.1f}" rx="{0.42 * p:.1f}" ry="{0.5 * p:.1f}" fill="#fffaf4" fill-opacity="0.92" stroke="#d9d0c4" stroke-width="4"/>\n'
+        tint = next((LIT[t] for t in toks if t in LIT), "")
+        # The white ball is the bulb you see. When the light is on, it glows
+        # that colour; dark, it stays the white egg. It sits over the middle
+        # of the light, between the two end snaps, so it never hides the +.
+        fill, op = (tint, 0.92) if tint else ("#fffaf4", 0.72)
+        r = 0.8 * p
+        return (f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="{r:.1f}" fill="{fill}" fill-opacity="{op}" stroke="#d9d0c4" stroke-width="4"'
+                f' data-egg-on="{host.step}"/>\n')
+    gx, gy = cx - u[0] * 0.3 * p, cy - u[1] * 0.3 * p
     s = spin_group(gx, gy, 0.42 * p, "#f2994a", "rev" in toks, "on" in toks and anim)
     if "blow" in toks or "fly" in toks:
         s += wind(gx, gy - 0.1 * p, p, "blow" in toks, anim)
@@ -2100,6 +2811,46 @@ def draw_hidden(circ: Circuit, a: Assign, v: View) -> str:
     return s
 
 
+def draw_plus(pl: Placed, v: View) -> str:
+    """The + mark, drawn last so a wire snap cannot hide it.
+
+    It sits on the + snap. Drawn last, so a tube on that snap cannot hide
+    it, and it cannot float off the part onto the wrong end.
+    """
+    d = pl.defn()
+    if d.get("polarity") not in ("colour", "spin", "silent") or not pl.snaps():
+        return ""
+    p = v.p
+    (_, _, _, _), _, _, first = geom(pl, v)
+    big = d.get("polarity") == "colour"
+    px, py = first
+    rad = 0.30 * p if big else 0.20 * p
+    s = f'<circle cx="{px:.1f}" cy="{py:.1f}" r="{rad:.1f}" fill="#fff" stroke="#d62828" stroke-width="{max(3, 0.06 * p):.1f}"/>\n'
+    s += text(px, py + (0.10 * p if big else 0.06 * p), "+", 0.40 * p if big else 0.26 * p, "#d62828", "bold", "middle")
+    return s
+
+
+def draw_gate_label(pl: Placed, v: View, a: Assign) -> str:
+    """ON or OFF beside a slide switch. The wire runs down the middle of the
+    block, so a word drawn there disappears."""
+    d = pl.defn()
+    if d.get("kind") != "switch" or d.get("momentary"):
+        return ""
+    shut = not a.sw.get(pl.key, False)
+    p = v.p
+    (x, y, w, h), u, (cx, cy), _ = geom(pl, v)
+    word = "OFF" if shut else "ON"
+    fill = "#f97316" if shut else "#0f7a32"
+    tw, th = (0.95 * p, 0.40 * p)
+    if abs(u[0]) >= 0.5:
+        px, py = cx - tw / 2, y + h + 0.08 * p
+    else:
+        px, py = x + w + 0.06 * p, cy - th / 2
+    s = f'<rect x="{px:.1f}" y="{py:.1f}" width="{tw:.1f}" height="{th:.1f}" rx="{th / 2:.1f}" fill="{fill}" stroke="#102216" stroke-width="3"/>\n'
+    s += text(px + tw / 2, py + th * 0.72, word, 0.26 * p, "#fff", "bold", "middle")
+    return s
+
+
 def draw_board(circ: Circuit, v: View, a: Assign, ev: Result | None, *, upto=None, new=(), ghost=False,
                anim=True, flow=True, turn=()) -> str:
     parts = effective_parts(circ, a)
@@ -2119,7 +2870,7 @@ def draw_board(circ: Circuit, v: View, a: Assign, ev: Result | None, *, upto=Non
                 s += draw_accessory(pl, host, v, toks.get(host.step, set()), anim)
     for pl in body:
         if pl.step in new:
-            (r, _, _, _) = geom(pl, v)
+            r = part_box(pl, v)
             pulse = '<animate attributeName="stroke-opacity" values="1;0.35;1" dur="1.1s" repeatCount="indefinite"/>' if anim else ""
             s += f'<rect x="{r[0] - 7:.1f}" y="{r[1] - 7:.1f}" width="{r[2] + 14:.1f}" height="{r[3] + 14:.1f}" rx="{0.26 * v.p:.1f}" fill="none" stroke="#ff7a1a" stroke-width="8">{pulse}</rect>\n'
         if pl.step in turn:
@@ -2129,21 +2880,31 @@ def draw_board(circ: Circuit, v: View, a: Assign, ev: Result | None, *, upto=Non
         if not a.launch:  # a launch page is about the fan, not the open switch
             s += draw_markers(circ, ev, a, v)
     s += draw_hidden(circ, a, v)
+    for pl in body:
+        s += draw_plus(pl, v)
+        s += draw_gate_label(pl, v, a)
     return s
 
 
 def board_panel(circ: Circuit, a: Assign, sha: str, *, effects=True, upto=None, new=(), ghost=False, turn=(),
-                left=24, tight=False) -> str:
+                left=24, tight=False, zoom=False) -> str:
     """`left` leaves room for the find card on build pages; `tight` crops to
-    the board for the small puzzle and mission panels."""
-    v = fit_view(circ, left, 24, PW - 24, PH - 24)
+    the board for the small puzzle and mission panels. `zoom` frames the
+    gate and the colour block, which is the whole clue on those cards."""
+    cells = clue_cells(circ, a) if zoom else []
+    v = zoom_view(cells, 20, 20, PW - 20, PH - 20) if cells else fit_view(circ, left, 24, PW - 24, PH - 24)
     ev = evaluate(circ, a) if effects else None
     body = draw_board(circ, v, a, ev, upto=upto, new=new, ghost=ghost, flow=effects, turn=turn)
-    if not tight:
+    if not tight and not cells:
         return panel_open(sha) + body + "</svg>\n"
     p = v.p
-    x, y = v.ox - 0.95 * p, v.oy - 1.85 * p
-    w, h = (v.c1 - v.c0) * p + 1.9 * p, (v.r1 - v.r0) * p + 2.8 * p
+    if cells:
+        x, y = v.ox - 1.05 * p, v.oy - 1.75 * p
+        w, h = (v.c1 - v.c0) * p + 1.7 * p, (v.r1 - v.r0) * p + 3.2 * p
+    else:
+        mt, mr, mb, ml = v.margin
+        x, y = v.ox - ml * p, v.oy - mt * p
+        w, h = (v.c1 - v.c0 + ml + mr) * p, (v.r1 - v.r0 + mt + mb) * p
     return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{w:.0f}" height="{h:.0f}" viewBox="{x:.1f} {y:.1f} {w:.1f} {h:.1f}" '
             f'font-family="{FONT}">\n<!-- snap-sha: {sha} -->\n<rect x="{x:.1f}" y="{y:.1f}" width="{w:.1f}" height="{h:.1f}" fill="#ffffff"/>\n'
             + body + "</svg>\n")
@@ -2155,9 +2916,9 @@ def part_panel(key: str, sha: str) -> str:
     kind = d.get("kind")
     if kind == "grid":
         cols, rows = d["cols"], d["rows"]
-        hang = 1.8
-        p = min((PW - 160) / (cols + 0.6), (PH - 160) / (rows + 0.6 + hang))
-        v = View((PW - (cols - 1) * p) / 2, 80 + hang * p, p, 0, rows - 1, 0, cols - 1)
+        m = 2 * (PLATE + LABEL)
+        p = min((PW - 160) / (cols - 1 + m), (PH - 160) / (rows - 1 + m))
+        v = View((PW - (cols - 1) * p) / 2, (PH - (rows - 1) * p) / 2, p, 0, rows - 1, 0, cols - 1)
         return s + board_base(v) + "</svg>\n"
     if kind == "accessory":
         cx, cy = PW / 2, PH / 2
@@ -2166,10 +2927,13 @@ def part_panel(key: str, sha: str) -> str:
         else:
             s += f'<ellipse cx="{cx}" cy="{cy}" rx="200" ry="250" fill="#ffffff" fill-opacity="0.85" stroke="#999" stroke-width="8"/>\n'
         return s + "</svg>\n"
-    span = d.get("span", 2)
-    p = min(300, (PW - 260) / (span - 1 + 1.2))
-    v = View((PW - (span - 1) * p) / 2, PH / 2, p, 0, 0, 0, span - 1)
-    s += draw_part(Placed(1, key, 0, 0, 0, "right", 1), v, 1, set(), Assign(), False, badge=False)
+    span, depth = d.get("span", 3), d.get("depth", 1)
+    # a deep block (B3B) is shown the way it sits on the board: snaps along
+    # the bottom edge, the batteries above them
+    pl = Placed(1, key, 0, depth - 1, 0, "right", 1, side="up" if depth > 1 else "")
+    p = min(300, (PW - 260) / (span - 1 + 2 * CASE + 0.4), (PH - 200) / (depth - 1 + 2 * CASE + 0.4))
+    v = View((PW - (span - 1) * p) / 2, (PH - (depth - 1) * p) / 2, p, 0, depth - 1, 0, span - 1)
+    s += draw_part(pl, v, 1, set(), Assign(), False, badge=False)
     return s + "</svg>\n"
 
 
@@ -2185,10 +2949,10 @@ def water_panel(circ: Circuit, a: Assign, sha: str) -> str:
     s = panel_open(sha, "#dff3ff")
     if not paths:
         return s + "</svg>\n"
-    path = paths[0]
-    loop = [sg.plus] + [to for _, _, to in path] + [sg.plus]
-    xs = [c for _, c in loop]
-    ys = [r for r, _ in loop]
+    paths = paths[:4]
+    loops = [[sg.plus] + [to for _, _, to in pth] + [sg.plus] for pth in paths]
+    xs = [c for lp in loops for _, c in lp]
+    ys = [r for lp in loops for r, _ in lp]
     x0, y0, x1, y1 = 240, 150, PW - 240, PH - 190
     sc = min((x1 - x0) / max(1, max(xs) - min(xs)), (y1 - y0) / max(1, max(ys) - min(ys)), 200)
     ox = x0 + ((x1 - x0) - (max(xs) - min(xs)) * sc) / 2
@@ -2198,29 +2962,39 @@ def water_panel(circ: Circuit, a: Assign, sha: str) -> str:
         return (ox + (cell[1] - min(xs)) * sc, oy + (cell[0] - min(ys)) * sc)
 
     ev = evaluate(circ, a)
-    live = bool(ev.live)
-    blocker = None
-    for e, frm, _ in path:
-        st = e.part.step
-        if st in a.remove or st in a.hide:
-            blocker = ("gap", e.part)
-        elif e.kind == "switch" and not a.sw.get(e.part.key, False):
-            blocker = ("gate", e.part)
-        elif e.kind == "load" and e.part.defn().get("polarity") == "silent" and frm != e.u:
-            blocker = ("flap", e.part)
-        if blocker:
-            break
+    live_sigs = {tuple(e.part.step for e, _, _ in pth) for pth in ev.live}
+
+    def blocker_of(pth):
+        for e, frm, _ in pth:
+            st = e.part.step
+            if st in a.remove or st in a.hide:
+                return ("gap", e.part)
+            if e.kind == "switch" and not a.sw.get(e.part.key, False):
+                return ("gate", e.part)
+            if e.kind == "load" and e.part.defn().get("polarity") == "silent" and frm != e.u:
+                return ("flap", e.part)
+        return None
+
+    flowing = [tuple(e.part.step for e, _, _ in pth) in live_sigs for pth in paths]
+    blockers = []
+    for pth, ok in zip(paths, flowing):
+        b = None if ok else blocker_of(pth)
+        if b and all(b[1].step != o[1].step for o in blockers):
+            blockers.append(b)
 
     s += '<ellipse cx="250" cy="90" rx="140" ry="40" fill="#fff" opacity="0.9"/><ellipse cx="960" cy="70" rx="170" ry="46" fill="#fff" opacity="0.9"/>\n'
     s += f'<rect x="0" y="{PH - 90}" width="{PW}" height="90" fill="#bfe9b0"/>\n'
-    pts = " ".join(f"{P(n)[0]:.1f},{P(n)[1]:.1f}" for n in loop)
-    s += f'<polyline points="{pts}" fill="none" stroke="#1f7fc4" stroke-width="74" stroke-linecap="round" stroke-linejoin="round"/>\n'
-    s += f'<polyline points="{pts}" fill="none" stroke="#9fdcff" stroke-width="56" stroke-linecap="round" stroke-linejoin="round"/>\n'
-    if live:
-        s += (f'<polyline points="{pts}" fill="none" stroke="#fff" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="0.1 42">'
-              '<animate attributeName="stroke-dashoffset" from="0" to="-42.1" dur="1.0s" repeatCount="indefinite"/></polyline>\n')
-    else:
-        s += f'<polyline points="{pts}" fill="none" stroke="#ffffff" stroke-opacity="0.5" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="0.1 42"/>\n'
+    pts_all = [" ".join(f"{P(n)[0]:.1f},{P(n)[1]:.1f}" for n in lp) for lp in loops]
+    for pts in pts_all:
+        s += f'<polyline points="{pts}" fill="none" stroke="#1f7fc4" stroke-width="74" stroke-linecap="round" stroke-linejoin="round"/>\n'
+    for pts in pts_all:
+        s += f'<polyline points="{pts}" fill="none" stroke="#9fdcff" stroke-width="56" stroke-linecap="round" stroke-linejoin="round"/>\n'
+    for pts, ok in zip(pts_all, flowing):
+        if ok:
+            s += (f'<polyline points="{pts}" fill="none" stroke="#fff" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="0.1 42">'
+                  '<animate attributeName="stroke-dashoffset" from="0" to="-42.1" dur="1.0s" repeatCount="indefinite"/></polyline>\n')
+        else:
+            s += f'<polyline points="{pts}" fill="none" stroke="#ffffff" stroke-opacity="0.5" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="0.1 42"/>\n'
     R = 54
     mid = P(((min(ys) + max(ys)) / 2, (min(xs) + max(xs)) / 2))
 
@@ -2228,18 +3002,46 @@ def water_panel(circ: Circuit, a: Assign, sha: str) -> str:
         sn = pl.snaps() or pl.cells()
         return abs(sn[0][0] - sn[-1][0]) > abs(sn[0][1] - sn[-1][1])
 
-    def label(cx, cy, d, vert):
-        dx, dy = cx - mid[0], cy - mid[1]
-        if vert:
-            lx, anchor = cx + (R + 22) * (1 if dx > 0 else -1), "start" if dx > 0 else "end"
-            return text(lx, cy - 2, d["kid"], 30, INK, "bold", anchor) + text(lx, cy + 26, f"({d['printed']})", 22, "#566179", "normal", anchor)
-        ly = cy + (R + 42) if dy > 0 else cy - R - 40
-        return text(cx, ly, d["kid"], 30, INK, "bold", "middle") + text(cx, ly + 26, f"({d['printed']})", 22, "#566179", "normal", "middle")
-
     def centre(pl):
         sn = pl.snaps() or pl.cells()
         a1, b1 = P(sn[0]), P(sn[-1])
         return (a1[0] + b1[0]) / 2, (a1[1] + b1[1]) / 2
+
+    # labels go where they hit nothing: no other label, no wheel, no tube
+    tubes = [(min(P(u)[0], P(w)[0]) - 37, min(P(u)[1], P(w)[1]) - 37, max(P(u)[0], P(w)[0]) + 37, max(P(u)[1], P(w)[1]) + 37)
+             for lp in loops for u, w in zip(lp, lp[1:])]
+    wheels = [centre(e.part) for pth in paths for e, _, _ in pth if e.kind != "wire"]
+    wheels.append(centre(next(p for p in effective_parts(circ, shape) if p.defn().get("kind") == "source")))
+    taken: list = []
+
+    def hits(b, boxes):
+        return sum(1 for o in boxes if b[0] < o[2] and o[0] < b[2] and b[1] < o[3] and o[1] < b[3])
+
+    def label(cx, cy, d, vert):
+        dx, dy = cx - mid[0], cy - mid[1]
+        w = 0.56 * 30 * max(len(d["kid"]), 1)
+        side = [(cx + R + 22, cy, "start"), (cx - R - 22, cy, "end")]
+        ends = [(cx, cy + R + 42, "middle"), (cx, cy - R - 40, "middle")]
+        if vert:
+            near = [(cx, cy + sc + 66, "middle"), (cx, cy - sc - 72, "middle")]
+            spots = (side if dx > 0 else side[::-1]) + near + ends
+        else:
+            spots = (ends if dy > 0 else ends[::-1]) + side
+
+        def box(sp):
+            lx, ly, anc = sp
+            x0_ = lx if anc == "start" else lx - w if anc == "end" else lx - w / 2
+            return (x0_, ly - 28, x0_ + w, ly + 32)
+
+        def cost(sp):
+            b = box(sp)
+            off = b[0] < 6 or b[2] > PW - 6 or b[1] < 6 or b[3] > PH - 80
+            circles = [(x - R, y - R, x + R, y + R) for x, y in wheels]
+            return 100 * off + 50 * hits(b, taken) + 20 * hits(b, circles) + hits(b, tubes)
+
+        lx, ly, anchor = min(spots, key=cost)
+        taken.append(box((lx, ly, anchor)))
+        return text(lx, ly - 2, d["kid"], 30, INK, "bold", anchor) + text(lx, ly + 26, f"({d['printed']})", 22, "#566179", "normal", anchor)
 
     pump = next(p for p in effective_parts(circ, shape) if p.defn().get("kind") == "source")
     px, py = centre(pump)
@@ -2247,55 +3049,68 @@ def water_panel(circ: Circuit, a: Assign, sha: str) -> str:
     s += f'<path d="M {px:.1f} {py + 26:.1f} L {px:.1f} {py - 24:.1f} M {px - 20:.1f} {py - 4:.1f} L {px:.1f} {py - 26:.1f} L {px + 20:.1f} {py - 4:.1f}" stroke="#fff" stroke-width="11" fill="none" stroke-linecap="round" stroke-linejoin="round"/>\n'
     s += label(px, py, pump.defn(), vertical(pump))
     actual = {p.step: p for p in ev.parts}
-    for e, frm, _ in path:
-        pl = e.part
-        if blocker and blocker[0] == "gap" and blocker[1].step == pl.step:
-            cs = [P(c) for c in pl.cells()]
-            gp = " ".join(f"{x:.1f},{y:.1f}" for x, y in cs)
-            s += f'<polyline points="{gp}" fill="none" stroke="#dff3ff" stroke-width="80" stroke-linecap="butt"/>\n'
-            continue
-        if e.kind == "wire":
-            continue
-        cx, cy = centre(pl)
-        d = (actual.get(pl.step) or pl).defn()
-        toks = ev.tokens.get(pl.step, {"off"})
-        if e.kind == "switch":
-            shut = not a.sw.get(pl.key, False)
-            s += f'<rect x="{cx - 58:.1f}" y="{cy - 50:.1f}" width="20" height="100" rx="6" fill="#2e9e5b"/><rect x="{cx + 38:.1f}" y="{cy - 50:.1f}" width="20" height="100" rx="6" fill="#2e9e5b"/>\n'
-            if shut:
-                s += f'<rect x="{cx - 44:.1f}" y="{cy - 12:.1f}" width="88" height="24" rx="8" fill="#1d6b3f" transform="rotate({90 if not vertical(pl) else 0} {cx:.1f} {cy:.1f})"/>\n'
-            else:
-                s += f'<line x1="{cx - 46:.1f}" y1="{cy - 40:.1f}" x2="{cx + 40:.1f}" y2="{cy - 76:.1f}" stroke="#1d6b3f" stroke-width="14" stroke-linecap="round"/>\n'
-            s += label(cx, cy + 6, d, vertical(pl))
-            continue
-        eff = d.get("effect")
-        on = toks != {"off"}
-        col = next((LIT[t] for t in toks if t in LIT), "#ffd43b" if on else "#f4efdc")
-        if eff == "light" and on:
-            s += glow(cx, cy, R * 1.6, col)
-        if eff == "spin" and on and d.get("glows"):
-            s += glow(cx, cy, R * 1.5, "#ffe066")
-        fill = col if eff == "light" else ("#d9c2f5" if eff == "spin" else "#bde8f7")
-        s += f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="{R}" fill="{fill}" stroke="#7a5b00" stroke-width="6"/>\n'
-        spokes = "".join(f'<line x1="{cx:.1f}" y1="{cy:.1f}" x2="{cx + R * 0.86 * math.cos(k * 1.0472):.1f}" y2="{cy + R * 0.86 * math.sin(k * 1.0472):.1f}" stroke="#7a5b00" stroke-width="7" stroke-linecap="round"/>' for k in range(6))
-        if on:
-            to = -360 if "rev" in toks else 360
-            spokes += f'<animateTransform attributeName="transform" type="rotate" from="0 {cx:.1f} {cy:.1f}" to="{to} {cx:.1f} {cy:.1f}" dur="2.4s" repeatCount="indefinite"/>'
-        s += f"<g>{spokes}</g>\n"
-        if eff == "sound" and on:
-            for i, k in enumerate((1.25, 1.6)):
-                s += (f'<path d="M {cx + R * k:.1f} {cy - R * 0.6:.1f} Q {cx + R * (k + 0.35):.1f} {cy:.1f} {cx + R * k:.1f} {cy + R * 0.6:.1f}" fill="none" stroke="{INK}" stroke-width="6" stroke-linecap="round">'
-                      f'<animate attributeName="opacity" values="1;0.2;1" dur="{0.8 + i * 0.3}s" repeatCount="indefinite"/></path>\n')
-        if blocker and blocker[0] == "flap" and blocker[1].step == pl.step:
-            s += f'<rect x="{cx - 8:.1f}" y="{cy - R - 18:.1f}" width="16" height="{2 * R + 36}" rx="6" fill="#c0392b" transform="rotate({0 if vertical(pl) else 90} {cx:.1f} {cy:.1f})"/>\n'
-        s += label(cx, cy, d, vertical(pl))
-    if blocker:
-        bx, by = centre(blocker[1])
-        words = {"gap": "Missing tube!", "gate": "Gate shut!", "flap": "Flap shut: wrong way!"}[blocker[0]]
+    gaps = {b[1].step for b in blockers if b[0] == "gap"}
+    flaps = {b[1].step for b in blockers if b[0] == "flap"}
+    done = set()
+    for pth in paths:
+        for e, frm, _ in pth:
+            pl = e.part
+            if pl.step in done:
+                continue
+            done.add(pl.step)
+            if pl.step in gaps:
+                cs = [P(c) for c in pl.cells()]
+                gp = " ".join(f"{x:.1f},{y:.1f}" for x, y in cs)
+                s += f'<polyline points="{gp}" fill="none" stroke="#dff3ff" stroke-width="80" stroke-linecap="butt"/>\n'
+                continue
+            if e.kind == "wire":
+                continue
+            cx, cy = centre(pl)
+            d = (actual.get(pl.step) or pl).defn()
+            toks = ev.tokens.get(pl.step, {"off"})
+            if e.kind == "switch":
+                shut = not a.sw.get(pl.key, False)
+                s += f'<rect x="{cx - 58:.1f}" y="{cy - 50:.1f}" width="20" height="100" rx="6" fill="#2e9e5b"/><rect x="{cx + 38:.1f}" y="{cy - 50:.1f}" width="20" height="100" rx="6" fill="#2e9e5b"/>\n'
+                if shut:
+                    s += f'<rect x="{cx - 44:.1f}" y="{cy - 12:.1f}" width="88" height="24" rx="8" fill="#1d6b3f" transform="rotate({90 if not vertical(pl) else 0} {cx:.1f} {cy:.1f})"/>\n'
+                else:
+                    s += f'<line x1="{cx - 46:.1f}" y1="{cy - 40:.1f}" x2="{cx + 40:.1f}" y2="{cy - 76:.1f}" stroke="#1d6b3f" stroke-width="14" stroke-linecap="round"/>\n'
+                s += label(cx, cy + 6, d, vertical(pl))
+                continue
+            eff = d.get("effect")
+            on = toks != {"off"}
+            white = d.get("glow") == "white"
+            col = next((LIT[t] for t in toks if t in LIT), ("#ffffff" if white else "#ffd43b") if on else ("#dfe6ec" if white else "#f4efdc"))
+            if eff == "light" and on:
+                s += glow(cx, cy, R * 1.6, "#ffe58a" if white else col)
+            if eff == "spin" and on and d.get("glows"):
+                s += glow(cx, cy, R * 1.5, "#ffe066")
+            fill = col if eff == "light" else ("#d9c2f5" if eff == "spin" else "#bde8f7")
+            s += f'<circle cx="{cx:.1f}" cy="{cy:.1f}" r="{R}" fill="{fill}" stroke="#7a5b00" stroke-width="6"/>\n'
+            spokes = "".join(f'<line x1="{cx:.1f}" y1="{cy:.1f}" x2="{cx + R * 0.86 * math.cos(k * 1.0472):.1f}" y2="{cy + R * 0.86 * math.sin(k * 1.0472):.1f}" stroke="#7a5b00" stroke-width="7" stroke-linecap="round"/>' for k in range(6))
+            if on:
+                to = -360 if "rev" in toks else 360
+                spokes += f'<animateTransform attributeName="transform" type="rotate" from="0 {cx:.1f} {cy:.1f}" to="{to} {cx:.1f} {cy:.1f}" dur="2.4s" repeatCount="indefinite"/>'
+            s += f"<g>{spokes}</g>\n"
+            if eff == "sound" and on:
+                for i, k in enumerate((1.25, 1.6)):
+                    s += (f'<path d="M {cx + R * k:.1f} {cy - R * 0.6:.1f} Q {cx + R * (k + 0.35):.1f} {cy:.1f} {cx + R * k:.1f} {cy + R * 0.6:.1f}" fill="none" stroke="{INK}" stroke-width="6" stroke-linecap="round">'
+                          f'<animate attributeName="opacity" values="1;0.2;1" dur="{0.8 + i * 0.3}s" repeatCount="indefinite"/></path>\n')
+            if pl.step in flaps:
+                s += f'<rect x="{cx - 8:.1f}" y="{cy - R - 18:.1f}" width="16" height="{2 * R + 36}" rx="6" fill="#c0392b" transform="rotate({0 if vertical(pl) else 90} {cx:.1f} {cy:.1f})"/>\n'
+            s += label(cx, cy, d, vertical(pl))
+    words = {"gap": "Missing tube!", "gate": "Gate shut!", "flap": "Flap shut: wrong way!"}
+    for kind_, pl in blockers:
+        bx, by = centre(pl)
         s += f'<circle cx="{bx:.1f}" cy="{by:.1f}" r="30" fill="#d62828" stroke="#fff" stroke-width="5"/>\n'
         s += text(bx, by + 14, "\u00d7", 46, "#fff", "bold", "middle")
-        s += text(PW / 2, PH - 34, words + "  The water stops, so nothing works.", 32, "#c0392b", "bold", "middle")
-    elif live:
+    if blockers and not ev.live:
+        s += text(PW / 2, PH - 34, words[blockers[0][0]] + "  The water stops, so nothing works.", 32, "#c0392b", "bold", "middle")
+    elif blockers:
+        s += text(PW / 2, PH - 34, words[blockers[0][0]] + "  That way is blocked. The other way still flows!", 32, "#c0392b", "bold", "middle")
+    elif sum(flowing) > 1:
+        s += text(PW / 2, PH - 34, "The water splits, goes through both wheels, and comes back!", 32, "#1d6b3f", "bold", "middle")
+    elif ev.live:
         s += text(PW / 2, PH - 34, "All the way round: the water flows!", 32, "#1d6b3f", "bold", "middle")
     return s + "</svg>\n"
 
@@ -2318,6 +3133,38 @@ def change_diff(circ: Circuit, prev: Assign, cur: Assign) -> list:
                 out.append(("add", n, prev.add.get(n), cur.add[n]))
             elif prev.swap.get(n) == cur.swap.get(n):
                 out.append(("take", n, prev.add[n], None))
+    # an accessory from the build (the egg) comes off when its block is
+    # swapped for one it cannot sit on, and goes back on when it returns
+    kept = lambda a: {p.step: p for p in effective_parts(circ, a) if p.defn().get("kind") == "accessory" and p.step < 1000}
+    was, now = kept(prev), kept(cur)
+    for n in sorted(set(was) | set(now)):
+        if n in now and n not in was:
+            out.append(("add", now[n].host, None, now[n].key))
+        elif n in was and n not in now:
+            out.append(("take", was[n].host, was[n].key, None))
+    prev_parts = {p.step: p for p in prev.parts}
+    cur_parts = {p.step: p for p in cur.parts}
+    for n in sorted(set(prev_parts) | set(cur_parts)):
+        if n not in prev_parts and n in cur_parts:
+            out.append(("add", n, None, cur_parts[n].key))
+        elif n in prev_parts and n not in cur_parts:
+            out.append(("take", n, prev_parts[n].key, None))
+    return out
+
+
+def change_prevs(circ: Circuit, deck: Deck) -> dict:
+    """change name -> the board Ian has in front of him when he reaches it:
+    the last page before it that showed a board. After a guess page that
+    turned the horn round, "turn it back" is a turn, not nothing."""
+    out, last = {}, Assign()
+    for s in deck.slides:
+        if s.kind == "change" and s.arg in circ.variants:
+            out[s.arg] = last
+        b = slide_board(circ, s)
+        if b is not None:
+            last = b
+    for v, prev in change_states(circ):
+        out.setdefault(v.name, prev)
     return out
 
 
@@ -2330,16 +3177,41 @@ def change_states(circ: Circuit) -> list:
     return out
 
 
+def colour_puzzle_names(circ: Circuit, deck: Deck) -> set:
+    """Boards on a puzzle page where every card is the colour block, and
+    none of them is missing a part. Those cards zoom in on the gate and the
+    +. A missing wire is a different clue, so that page keeps the whole grid."""
+    names = set()
+    for s in deck.slides:
+        if s.kind != "puzzle":
+            continue
+        boards = [b.strip() for b in s.f.get("boards", "").split(",") if b.strip()]
+        variants = [circ.variants.get(nm) for nm in boards]
+        if not boards or any(v is None for v in variants):
+            continue
+        # A part that is missing on every card is not the clue. The egg is
+        # off for the whole colour case; the cards differ by the + and the gate.
+        same_gap = len({frozenset(v.assign.remove) for v in variants}) == 1
+        same_gap = same_gap and len({frozenset(v.assign.hide) for v in variants}) == 1
+        if not same_gap:
+            continue
+        if all(any(pl.defn().get("polarity") == "colour" for pl in effective_parts(circ, v.assign)) for v in variants):
+            names.update(boards)
+    return names
+
+
 def planned_renders(bdir: Path, circ: Circuit, deck: Deck) -> list:
     """(relative path, function that draws it) for every SVG `render` writes."""
     sha = build_hash(bdir)
+    zoom = colour_puzzle_names(circ, deck)
     out = []
     card = 470  # build and swap pages: the find card sits on the left
     for pl in circ.placed:
         out.append((f"renders/step-{pl.step:03d}.svg",
                     lambda pl=pl: board_panel(circ, Assign(), sha, effects=False, upto=pl.step, new={pl.step}, ghost=True, left=card)))
-    for v, prev in change_states(circ):
-        diff = change_diff(circ, prev, v.assign)
+    prevs = change_prevs(circ, deck)
+    for v in circ.changes():
+        diff = change_diff(circ, prevs[v.name], v.assign)
         new = {st for _, st, _, _ in diff}
         turn = {st for verb, st, _, _ in diff if verb == "turn"}
         shown = v.assign.copy()
@@ -2348,8 +3220,9 @@ def planned_renders(bdir: Path, circ: Circuit, deck: Deck) -> list:
                     lambda shown=shown, new=new, turn=turn: board_panel(circ, shown, sha, effects=False, new=new, ghost=True, turn=turn, left=card)))
     for v in circ.variants.values():
         if v.kind == "puzzle":
-            out.append((f"renders/puzzle-{v.name}.svg", lambda v=v: board_panel(circ, v.assign, sha, effects=False, tight=True)))
-            out.append((f"renders/puzzle-{v.name}-key.svg", lambda v=v: board_panel(circ, v.assign, sha, tight=True)))
+            z = v.name in zoom
+            out.append((f"renders/puzzle-{v.name}.svg", lambda v=v, z=z: board_panel(circ, v.assign, sha, effects=False, tight=True, zoom=z)))
+            out.append((f"renders/puzzle-{v.name}-key.svg", lambda v=v, z=z: board_panel(circ, v.assign, sha, tight=True, zoom=z)))
         elif v.kind == "mission":
             out.append((f"renders/mission-{v.name}.svg", lambda v=v: board_panel(circ, v.assign, sha, effects=False, tight=True)))
             first = v.claims[0].assign if v.claims else v.assign
@@ -2417,22 +3290,33 @@ def assign_words(circ: Circuit, a: Assign) -> str:
     bits = [f"{key} where {by[n].key} was" for n, key in sorted(a.swap.items()) if n in by]
     bits += [f"{a.swap.get(n, by[n].key)} turned around" for n in sorted(a.flip) if n in by]
     bits += [f"{key} on top" for _, key in sorted(a.add.items())]
+    bits += [f"{p.key} added at {post_name(p.r, p.c)}" for p in a.parts]
     bits += [f"step {n} ({by[n].key}) taken out" for n in sorted(a.remove) if n in by]
     bits += switch_words(a)
     return ", ".join(bits) or "the board as built"
 
 
-def box_label(circ: Circuit, key: str) -> str:
+def box_label(circ: Circuit, key: str, nth: int = 0) -> str:
+    """Which box to take the block from. `nth` is which copy of it this is on
+    the board; once the first box has run out, the next one comes from the
+    second box (Case 4's fifth blue wire is from the Jr box)."""
     kit = (part_def(key) or {}).get("kit", "")
     if kit == "both":
-        kit = circ.kits[0] if len(circ.kits) == 1 else "both"
+        if len(circ.kits) == 1:
+            kit = circ.kits[0]
+        elif nth:
+            kit = circ.kits[0] if nth <= read_inventory(circ.kits[0]).get(key, 0) else circ.kits[1]
+        else:
+            kit = "both"
     return BOX_NAME.get(kit, "")
 
 
 def chip_html(key: str) -> str:
     d = part_def(key) or {}
     pid = d.get("printed", "-")
-    return f'<span class="pid" style="background:{d.get("colour", "#888")}">{esc(pid if pid != "-" else d.get("kid", key))}</span>'
+    bg = d.get("colour", "#888")
+    fg = INK if is_pale(bg) else "#fff"
+    return f'<span class="pid" style="background:{bg};color:{fg}">{esc(pid if pid != "-" else d.get("kid", key))}</span>'
 
 
 def bubble_html(b: Bubble, beat: int, extra: str = "") -> str:
@@ -2471,7 +3355,13 @@ def slide_html(bdir: Path, circ: Circuit, deck: Deck, s: Slide, steps: dict, ctx
     say = f.get("say") or sc.get("Say", "")
     main = ""
     answer = ""
-    if s.kind == "splash":
+    if s.kind == "cover":
+        series = deck.meta.get("series", "")
+        module = f.get("title") or deck.meta.get("module") or ch.title
+        main = (img(f.get("art", ""), "fill")
+                + f'<div class="cover-title"><small>{esc(series)}</small>'
+                + f'<b>Chapter {ch.n}</b><span>{esc(module)}</span></div>')
+    elif s.kind == "splash":
         tag, colour = f"CASE {ch.n}", "#d62828"
         title = f.get("title") or ch.title
         series = deck.meta.get("series", "")
@@ -2519,12 +3409,16 @@ def slide_html(bdir: Path, circ: Circuit, deck: Deck, s: Slide, steps: dict, ctx
             tag, colour = f"BUILD {s.arg}/{nsteps}", "#ff7a1a"
             if pl:
                 d = pl.defn()
-                box = box_label(circ, pl.key)
+                box = box_label(circ, pl.key, sum(1 for q in circ.placed if q.key == pl.key and q.step <= pl.step))
                 where = ""
                 if pl.cells():
-                    posts = pl.snaps()
-                    snaps = " and ".join(post_name(*c) for c in posts) if len(posts) < 3 else f"{post_name(*posts[0])} to {post_name(*posts[-1])}"
-                    where = f'Snaps on <b>{snaps}</b> <span class="arrow">{ARROWS[pl.dir]}</span>'
+                    e0, e1 = pl.ends()
+                    where = f'Snaps on <b>{post_name(*e0)}</b> and <b>{post_name(*e1)}</b> <span class="arrow">{ARROWS[pl.dir]}</span>'
+                    pp = pl.plus_post()
+                    if pp:
+                        where += f'<br>The <b>+</b> goes on <b>{post_name(*pp)}</b>'
+                    if any(not (0 <= r < circ.rows and 0 <= c < circ.cols) for r, c in pl.body_cells()):
+                        where += "<br>The rest hangs off the edge"
                     where += f'<br>{"On top: level " + str(pl.level) if pl.level > 1 else "Level 1"}'
                 inner = (img(f"renders/step-{pl.step:03d}.svg", "board")
                          + f'<div class="find">{chip_html(pl.key)}<div><b>{esc(d.get("kid", pl.key))}</b><br>{where}</div></div>')
@@ -2532,17 +3426,38 @@ def slide_html(bdir: Path, circ: Circuit, deck: Deck, s: Slide, steps: dict, ctx
             v = circ.variants.get(s.arg)
             rows = []
             if v:
-                prev = next((p for vv, p in change_states(circ) if vv.name == v.name), Assign())
+                prev = change_prevs(circ, deck).get(v.name, Assign())
+                now = {p.step: p for p in effective_parts(circ, v.assign)}
+
+                def plus_at(st):
+                    q = now.get(st)
+                    pp = q.plus_post() if q and q.defn().get("kind") != "source" else None
+                    return f' <span class="where">+ on <b>{post_name(*pp)}</b></span>' if pp else ""
+
                 for verb, st, old, new in change_diff(circ, prev, v.assign):
                     if verb == "swap":
-                        rows.append(f'<div><span class="verb out">OUT</span>{chip_html(old)} <span class="verb in">IN</span>{chip_html(new)}{" <span class=verb>turned</span>" if st in v.assign.flip else ""}</div>')
+                        rows.append(f'<div><span class="verb out">OUT</span>{chip_html(old)} <span class="verb in">IN</span>{chip_html(new)}{plus_at(st)}</div>')
                         box = box_label(circ, new)
                     elif verb == "turn":
-                        rows.append(f'<div><span class="verb in">TURN</span>{chip_html(new)} the other way round</div>')
+                        rows.append(f'<div><span class="verb in">TURN</span>{chip_html(new)} around{plus_at(st)}</div>')
+                    elif verb == "add" and (part_def(new) or {}).get("kind") == "accessory":
+                        host = now.get(st)
+                        rows.append(f'<div><span class="verb in">ADD</span>{chip_html(new)} on {chip_html(host.key) if host else "top"}</div>')
                     elif verb == "add":
-                        rows.append(f'<div><span class="verb in">ADD</span>{chip_html(new)} on top</div>')
+                        q = now.get(st)
+                        where = ""
+                        if q and q.cells():
+                            e0, e1 = q.ends()
+                            where = f' <span class="where"><b>{post_name(*e0)}</b> to <b>{post_name(*e1)}</b>, level {q.level}</span>'
+                        rows.append(f'<div><span class="verb in">ADD</span>{chip_html(new)}{where}</div>')
+                        box = box_label(circ, new, sum(1 for q in now.values() if q.key == new and q.step <= st))
                     else:
                         rows.append(f'<div><span class="verb out">TAKE OFF</span>{chip_html(old)}</div>')
+                verbs = {verb for verb, *_ in change_diff(circ, prev, v.assign)}
+                if verbs == {"add"}:
+                    tag = "ADD"
+                elif verbs == {"turn"}:
+                    tag = "TURN"
             inner = img(f"renders/change-{s.arg}.svg", "board") + f'<div class="find swaps">{"".join(rows)}</div>'
         elif s.kind == "scene":
             tag, colour = SCENE_TAG.get(s.arg.split("-")[0], ("LOOK", "#1e90ff"))
@@ -2638,8 +3553,9 @@ def slide_html(bdir: Path, circ: Circuit, deck: Deck, s: Slide, steps: dict, ctx
     title = f.get("title") or ch.title
     tag_html = f'<span class="tag" style="--tag:{colour}">{esc(tag)}</span>' if tag else ""
     box_html = f'<span class="box">{esc(box)}</span>' if box else ""
-    head = (f'<header class="top">{tag_html}<span class="chap">Case {ch.n} &middot; {esc(title)}</span>'
-            f'{stars_html(f)}{box_html}</header>')
+    head = "" if s.kind == "cover" else (
+        f'<header class="top">{tag_html}<span class="chap">Case {ch.n} &middot; {esc(title)}</span>'
+        f'{stars_html(f)}{box_html}</header>')
     say_html = ctx.pop("say_html", None)
     if say_html is None:
         say_html = esc(say)
@@ -2701,6 +3617,7 @@ img.a, .k-mission img.a0 { display: none; }
 .beat.shown { opacity: 1; scale: 1; }
 i.reveal { display: none; }
 .cp1a { left: 4cqw; right: 4cqw; top: 3cqw; bottom: 1cqw; }
+.k-comic img[src*="renders/real-"] { object-fit: contain; object-position: center center; background: #111; }
 .cp2a { left: 0; width: 46.5cqw; top: 6cqw; height: 26.2cqw; }
 .cp2b { right: 0; width: 46.5cqw; top: 17cqw; height: 26.2cqw; }
 .panel .bub { position: absolute; max-width: 62%; }
@@ -2710,8 +3627,8 @@ i.reveal { display: none; }
 .talk { position: absolute; inset: 0; display: grid; gap: 1.3cqw;
   grid-template-columns: repeat(var(--cols), minmax(0, 1fr)); }
 .talk .panel { position: relative; overflow: hidden; border-width: .4cqw;
-  border-top: .7cqw solid var(--who, var(--ink)); }
-.talk .panel img.fill { object-position: center 22%; }
+  border-top: .7cqw solid var(--who, var(--ink)); background: #1b2433; }
+.talk .panel img.fill { object-fit: contain; object-position: center center; }
 .talk .boxbubs { position: absolute; left: 3%; right: 3%; bottom: 3%; z-index: 1;
   display: flex; flex-direction: column; gap: .45cqw; }
 .k-talk .body { bottom: 1.4cqw; }
@@ -2725,7 +3642,6 @@ i.reveal { display: none; }
 .talk.lay-hero .panel:nth-child(2) { grid-area: b; }
 .talk.lay-hero .panel:nth-child(3) { grid-area: c; }
 .talk.lay-hero .panel:nth-child(4) { grid-area: d; }
-.talk.lay-hero .panel:nth-child(1) img.fill { object-position: center 40%; }
 .talk.lay-hero .panel:nth-child(1) .bub { font-size: 2.15cqw; }
 .talk.lay-zigzag { grid-template-columns: 1.15fr .85fr 1.2fr; grid-template-rows: 1.15fr 1fr;
   grid-template-areas: "a a b" "c d d"; }
@@ -2768,7 +3684,6 @@ i.reveal { display: none; }
 .talk.lay-cinema .panel:nth-child(2) { grid-area: b; }
 .talk.lay-cinema .panel:nth-child(3) { grid-area: c; }
 .talk.lay-cinema .panel:nth-child(4) { grid-area: d; }
-.talk.lay-cinema .panel:nth-child(1) img.fill { object-position: center 28%; }
 .talk.lay-cinema .panel:nth-child(1) .bub { font-size: 2.2cqw; }
 .talk.lay-stack { grid-template-columns: .85fr 1.25fr; grid-template-rows: 1fr 1fr .78fr;
   grid-template-areas: "a b" "a b" "c d"; }
@@ -2776,7 +3691,6 @@ i.reveal { display: none; }
 .talk.lay-stack .panel:nth-child(2) { grid-area: b; }
 .talk.lay-stack .panel:nth-child(3) { grid-area: c; }
 .talk.lay-stack .panel:nth-child(4) { grid-area: d; }
-.talk.lay-stack .panel:nth-child(2) img.fill { object-position: center 35%; }
 .lay-hero .panel:nth-child(4) .bub,
 .lay-zigzag .panel:nth-child(2) .bub,
 .lay-zigzag .panel:nth-child(3) .bub,
@@ -2790,10 +3704,27 @@ i.reveal { display: none; }
   transform: rotate(-2deg); box-shadow: .6cqw .6cqw 0 rgba(0,0,0,.25); }
 .splash-title small { display: inline; font-size: 1.8cqw; color: #b3261e; margin-right: 1.4cqw; vertical-align: middle; }
 .k-splash .body > .bub { position: absolute; right: 4cqw; bottom: 3cqw; max-width: 40%; }
-.find { position: absolute; left: 1cqw; top: 1cqw; display: flex; gap: 1cqw; align-items: center; background: #fff8ec;
-  border: .3cqw solid var(--ink); border-radius: 1cqw; padding: .8cqw 1.2cqw; font-size: 1.9cqw; line-height: 1.25; }
+.k-cover .body { inset: 0; }
+.k-cover .say { display: none; }
+.k-cover img.fill { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  object-position: center bottom; border-radius: 0; }
+.k-cover .body::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 62%;
+  background: linear-gradient(to bottom, rgba(6, 14, 36, .72), rgba(6, 14, 36, 0)); pointer-events: none; }
+.cover-title { position: absolute; z-index: 2; left: 3%; right: 3%; top: 4.5%; text-align: center;
+  font-family: Bangers, Impact, sans-serif; font-weight: 400; color: #fff;
+  text-shadow: .28cqw .28cqw 0 #1b1b1f; }
+.cover-title small { display: block; font-size: 3.1cqw; letter-spacing: .32cqw; color: #ffe14d; }
+.cover-title b { display: block; margin-top: .2cqw; font-size: 14cqw; font-weight: 400; line-height: .88;
+  letter-spacing: .16cqw; -webkit-text-stroke: .38cqw #1b1b1f; paint-order: stroke fill; }
+.cover-title span { display: block; margin-top: .8cqw; font-size: 4.6cqw; letter-spacing: .14cqw; color: #ffe14d;
+  -webkit-text-stroke: .22cqw #1b1b1f; paint-order: stroke fill; }
+.find { position: absolute; left: 1cqw; top: 1cqw; max-width: 36%; box-sizing: border-box; display: flex; gap: 1cqw;
+  align-items: center; background: #fff8ec; border: .3cqw solid var(--ink); border-radius: 1cqw; padding: .8cqw 1.2cqw;
+  font-size: 1.8cqw; line-height: 1.25; }
+.find > .pid { flex: none; }
 .find.swaps { flex-direction: column; align-items: flex-start; gap: .6cqw; }
 .find .arrow { font-size: 2.6cqw; color: #ff7a1a; }
+.find .where { margin-left: .6cqw; font-size: 1.8cqw; white-space: nowrap; }
 .pid { display: inline-block; min-width: 4.4cqw; text-align: center; color: #fff; font: 800 2.2cqw system-ui, sans-serif;
   padding: .5cqw .9cqw; border-radius: .8cqw; border: .25cqw solid rgba(0,0,0,.35); vertical-align: middle; }
 .verb { font-family: Bangers, Impact, sans-serif; font-size: 1.9cqw; letter-spacing: .08cqw; margin: 0 .6cqw; }
@@ -2816,6 +3747,13 @@ i.reveal { display: none; }
 .mini .panel { position: relative; flex: 1; min-height: 0; }
 .grid.one-row { align-content: center; }
 .grid.one-row .mini .panel { flex: none; aspect-ratio: .86; }
+.k-puzzle .col { width: 18cqw; }
+.k-puzzle .col .pose { width: 18cqw; height: 18cqw; }
+.k-puzzle .col .bubs { bottom: 19cqw; }
+.k-puzzle .grid { left: 19cqw; }
+.k-puzzle .grid.one-row { align-content: stretch; grid-template-rows: 1fr; }
+.k-puzzle .grid.one-row .mini { height: 100%; }
+.k-puzzle .grid.one-row .mini .panel { flex: 1 1 auto; aspect-ratio: auto; min-height: 0; }
 .mini .chips { display: flex; gap: .6cqw; justify-content: center; }
 .mini .choice { font-size: 1.7cqw; padding: .15cqw 1cqw; }
 .letter { position: absolute; left: -1cqw; top: -1cqw; z-index: 2; width: 3.6cqw; height: 3.6cqw; border-radius: 50%;

@@ -1,7 +1,7 @@
 # bad: COLLISION
-# Two level-1 blocks on the same post.
+# The switch and the battery both sit on 3A at level 1.
 kits scb20
 grid 7x5 grid-mini
 step 1: grid
-step 2: B3B at A1 dir=right level=1
-step 3: S1 at A3 dir=right level=1
+step 2: B3B at 1A dir=right side=up level=1
+step 3: S1 at 3A dir=down level=1

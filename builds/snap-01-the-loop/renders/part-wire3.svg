@@ -1,12 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" font-family="'Avenir Next','Trebuchet MS','Helvetica Neue',Arial,sans-serif">
-<!-- snap-sha: ff4d243ef2b9 -->
+<!-- snap-sha: 6454a7e19ab3 -->
 <rect width="1200" height="800" fill="#ffffff"/>
-<g opacity="1">
-<rect x="174.1" y="329.5" width="851.9" height="141.0" rx="58.8" fill="#2f80ed" stroke="#102216" stroke-width="3"/>
-<rect x="197.6" y="385.3" width="804.9" height="29.4" rx="11.8" fill="#f7fbff"/>
-<circle cx="306.2" cy="400.0" r="35.2" fill="#e6e6e6" stroke="#6b6b6b" stroke-width="2.5"/>
-<circle cx="600.0" cy="400.0" r="20.6" fill="#e6e6e6" stroke="#6b6b6b" stroke-width="2.5"/>
-<circle cx="893.8" cy="400.0" r="35.2" fill="#e6e6e6" stroke="#6b6b6b" stroke-width="2.5"/>
-<text x="453.1" y="426.4" font-size="79.3125" fill="#1d4e89" font-weight="bold" text-anchor="middle"><tspan x="453.1" dy="0.0">3</tspan></text>
+<g opacity="1" data-step="1" data-key="wire3" data-want="1A 2A 3A span=3 depth=1" data-drawn="1A 2A 3A span=3 depth=1">
+<rect x="187.0" y="331.6" width="826.1" height="136.7" rx="57.0" fill="#2f80ed" stroke="#102216" stroke-width="3"/>
+<rect x="209.8" y="385.8" width="780.5" height="28.5" rx="11.4" fill="#f7fbff"/>
+<circle cx="315.2" cy="400.0" r="34.2" fill="#e6e6e6" stroke="#6b6b6b" stroke-width="2.5"/>
+<circle cx="600.0" cy="400.0" r="19.9" fill="#e6e6e6" stroke="#6b6b6b" stroke-width="2.5"/>
+<circle cx="884.8" cy="400.0" r="34.2" fill="#e6e6e6" stroke="#6b6b6b" stroke-width="2.5"/>
+<text x="457.6" y="425.6" font-size="76.90909090909092" fill="#1d4e89" font-weight="bold" text-anchor="middle"><tspan x="457.6" dy="0.0">3</tspan></text>
 </g>
 </svg>

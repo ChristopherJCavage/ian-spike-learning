@@ -431,6 +431,71 @@ def _trim(im: Image.Image) -> Image.Image:
     return im.crop((max(0, x0 - pad), max(0, y0 - pad), min(im.width, x1 + pad), min(im.height, y1 + pad)))
 
 
+def _plus(d: ImageDraw.ImageDraw, cx, cy, size, fill) -> None:
+    t = max(6, size // 5)
+    d.rectangle((cx - t // 2, cy - size // 2, cx + t // 2, cy + size // 2), fill=fill)
+    d.rectangle((cx - size // 2, cy - t // 2, cx + size // 2, cy + t // 2), fill=fill)
+
+
+def _arrow(d: ImageDraw.ImageDraw, x0, x1, y, color, thick) -> None:
+    """A horizontal arrow. The head is at x1."""
+    head = thick * 2
+    if x1 >= x0:
+        d.rectangle((x0, y - thick // 2, x1 - head // 2, y + thick // 2), fill=color)
+        d.polygon([(x1, y), (x1 - head, y - head // 2), (x1 - head, y + head // 2)], fill=color)
+    else:
+        d.rectangle((x1 + head // 2, y - thick // 2, x0, y + thick // 2), fill=color)
+        d.polygon([(x1, y), (x1 + head, y - head // 2), (x1 + head, y + head // 2)], fill=color)
+
+
+def _board(d: ImageDraw.ImageDraw, box) -> None:
+    d.rounded_rectangle(box, radius=28, fill=(18, 92, 62, 245), outline=(92, 58, 28, 255), width=10)
+
+
+def paint_two_flaps(scene: Image.Image) -> Image.Image:
+    """Two flaps in one tube: the left one red, the right one yellow."""
+    w, h = scene.size
+    ov = Image.new("RGBA", (w, h), (0, 0, 0, 0))
+    d = ImageDraw.Draw(ov)
+    card = (int(w * 0.03), int(h * 0.05), int(w * 0.60), int(h * 0.72))
+    _board(d, card)
+    x0, y0, x1, y1 = (int(w * 0.07), int(h * 0.16), int(w * 0.56), int(h * 0.60))
+    d.rounded_rectangle((x0, y0, x1, y1), radius=36, fill=(232, 242, 250, 255), outline=(20, 32, 48, 255), width=8)
+    mid = (x0 + x1) // 2
+    half = int((x1 - x0) * 0.22)
+    flap = (mid - half, y0 + 22, mid + half, y1 - 22)
+    # Back to back: flat edges meet, each flap opens the other way.
+    d.pieslice(flap, 90, 270, fill=(226, 61, 61, 255), outline=(20, 20, 20, 255), width=6)
+    d.pieslice(flap, 270, 90, fill=(255, 212, 59, 255), outline=(20, 20, 20, 255), width=6)
+    d.line((mid, y0 + 22, mid, y1 - 22), fill=(20, 20, 20, 255), width=8)
+    return Image.alpha_composite(scene, ov)
+
+
+def paint_water_hit(scene: Image.Image) -> Image.Image:
+    """One block. A pale arrow still points at the red end. The bold arrow
+    has swung around and hits the yellow end."""
+    w, h = scene.size
+    ov = Image.new("RGBA", (w, h), (0, 0, 0, 0))
+    d = ImageDraw.Draw(ov)
+    _board(d, (int(w * 0.02), int(h * 0.04), int(w * 0.70), int(h * 0.78)))
+    bw, bh = int(h * 0.28), int(h * 0.62)
+    bx, by = int(w * 0.30), int(h * 0.10)
+    d.rounded_rectangle((bx, by, bx + bw, by + bh), radius=18, fill=(255, 212, 59, 255), outline=(16, 22, 16, 255), width=6)
+    midy = by + bh // 2
+    d.rectangle((bx + 5, midy, bx + bw - 5, by + bh - 5), fill=(226, 61, 61, 255))
+    d.rounded_rectangle((bx, by, bx + bw, by + bh), radius=18, outline=(16, 22, 16, 255), width=6)
+    cx = bx + bw // 2
+    pr = int(bh * 0.16)
+    py = by + int(bh * 0.78)
+    d.ellipse((cx - pr, py - pr, cx + pr, py + pr), fill=(255, 255, 255, 255), outline=(214, 40, 40, 255), width=5)
+    _plus(d, cx, py, int(pr * 1.3), (214, 40, 40, 255))
+    pale = (170, 198, 214, 255)
+    bold = (30, 144, 255, 255)
+    _arrow(d, int(w * 0.08), bx - 8, by + int(bh * 0.75), pale, max(10, h // 28))
+    _arrow(d, int(w * 0.64), bx + bw + 8, by + int(bh * 0.25), bold, max(16, h // 16))
+    return Image.alpha_composite(scene, ov)
+
+
 def _place(scene: Image.Image, guys: list, slots: list) -> Image.Image:
     w, h = scene.size
     for (name, im), (fx, scale) in zip(guys, slots):
@@ -473,8 +538,10 @@ def build(bdir: Path) -> int:
             cache[name] = _trim(im)
         return cache[name]
 
-    def save(name, bg, poses, size, slots, crop):
+    def save(name, bg, poses, size, slots, crop, paint=None):
         scene = _cover(assets[bg], size[0], size[1], *crop)
+        if paint:
+            scene = paint(scene)
         scene = _place(scene, [(n, guy(n)) for n in poses], slots)
         scene.convert("RGB").save(out / name, quality=88)
         written.add(name)
@@ -525,6 +592,44 @@ def build(bdir: Path) -> int:
     save("c1-31-2.jpg", "desk", ["tika-ask"], stack_r, [(0.4, 0.94)], (0.45, 0.5))
     save("c1-31-3.jpg", "desk", ["coco-explain"], stack_foot, one, (0.3, 0.55))
     save("c1-31-4.jpg", "desk", ["sully-puzzled"], stack_foot, one, (0.7, 0.5))
+
+    # Case 2. Each picture is the shape of its panel, and the character stands
+    # in the room instead of filling it. The page was cropping these down to
+    # a face, so the office, the board and the park disappeared.
+    L, R = (0.30, 0.70), (0.72, 0.70)
+    save("c2-01-1.jpg", "office", ["pip-oops"], (1400, 1040), [L], (0.62, 0.58))
+    save("c2-01-2.jpg", "office", ["sully-notice"], (1000, 570), [L], (0.55, 0.5))
+    save("c2-01-3.jpg", "desk", ["tika-ask"], (1000, 470), [L], (0.4, 0.45))
+    save("c2-01-4.jpg", "chalk", ["coco-point"], (1900, 300), [(0.18, 0.92)], (0.55, 0.42))
+    save("c2-02-1.jpg", "chalk", ["coco-explain"], (1500, 760), [L], (0.42, 0.45))
+    save("c2-02-2.jpg", "chalk", ["pip-magnify"], (900, 780), [(0.42, 0.68)], (0.5, 0.4))
+    save("c2-02-3.jpg", "office", ["tika-write"], (860, 680), [L], (0.58, 0.52))
+    save("c2-02-4.jpg", "chalk", ["sully-notice"], (1500, 650), [(0.82, 0.86)], (0.72, 0.42), paint_two_flaps)
+    save("c2-03-1.jpg", "skate", ["pip-oops"], (1680, 580), [(0.22, 0.86)], (0.4, 0.72))
+    save("c2-03-2.jpg", "office", ["sully-puzzled"], (800, 600), [L], (0.55, 0.5))
+    save("c2-03-3.jpg", "chalk", ["tika-ask"], (800, 600), [(0.4, 0.7)], (0.55, 0.4))
+    save("c2-03-4.jpg", "desk", ["coco-explain"], (800, 600), [L], (0.35, 0.48))
+    save("c2-04-1.jpg", "chalk", ["tika-write"], (900, 970), [(0.42, 0.68)], (0.48, 0.42))
+    save("c2-04-2.jpg", "glow", ["pip-cheer"], (1400, 1020), [L], (0.62, 0.48))
+    save("c2-04-3.jpg", "office", ["coco-explain"], (1000, 400), [(0.22, 0.9)], (0.55, 0.55))
+    save("c2-04-4.jpg", "chalk", ["sully-notice"], (1450, 400), [(0.86, 0.92)], (0.62, 0.4), paint_water_hit)
+    save("c2-05-1.jpg", "desk", ["pip-oops"], (700, 1600), [(0.5, 0.55)], (0.4, 0.35))
+    save("c2-05-2.jpg", "chalk", ["tika-write"], (700, 1600), [(0.5, 0.52)], (0.5, 0.3))
+    save("c2-05-3.jpg", "office", ["coco-explain"], (700, 1600), [(0.5, 0.55)], (0.55, 0.35))
+    save("c2-05-4.jpg", "skate", ["sully-notice"], (700, 1600), [(0.5, 0.55)], (0.45, 0.55))
+    save("c2-06-1.jpg", "glow", ["coco-explain"], (900, 1600), [(0.5, 0.55)], (0.55, 0.35))
+    save("c2-06-2.jpg", "glow", ["pip-magnify"], (620, 1700), [(0.5, 0.5)], (0.4, 0.35))
+    save("c2-06-3.jpg", "desk", ["tika-write"], (900, 1600), [(0.5, 0.52)], (0.4, 0.32))
+    save("c2-06-4.jpg", "office", ["sully-puzzled"], (620, 1700), [(0.5, 0.55)], (0.6, 0.4))
+
+    # Cases 3-5. Each chapter file lists the panels; the drawing lives next to it.
+    import importlib.util
+    for chapter in ("case3", "case4", "case5"):
+        path = bdir / "chapters" / f"{chapter}_art.py"
+        spec = importlib.util.spec_from_file_location(chapter, path)
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        mod.add(save)
 
     # Drop the old 2x2 panels so a stale filename can't sneak back onto a page.
     for old in out.glob("c1-*.jpg"):

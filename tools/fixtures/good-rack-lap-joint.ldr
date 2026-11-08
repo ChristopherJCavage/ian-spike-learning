@@ -1,0 +1,29 @@
+0 Fixture: two 43038 quarter racks lap-joined into a half circle, with a
+0 beam right behind the joint. Expected: clean.
+0
+0 24121.dat (kit 43038) is full thickness except its two end tabs, which
+0 are half thickness on one face: local y 0..10 only. Two quarters meet in
+0 ONE plane, one of them turned half a turn about the vertical, so the two
+0 tabs land on opposite faces and stack into one full-thickness lug. That
+0 is how four of them close a circle. An axle through the lug locks both.
+0
+0 The end-tab bore is drawn as axlehol4 scaled 0 10 0. The checker used to
+0 read every one-sided axle hole as a full module deep, so the left tab's
+0 bore ran 10 LDU out of the plastic into the 13M beam behind it and the
+0 axle reported PIN SLICE CONFLICT on a joint that is fine. A one-sided
+0 axle hole drawn half a module deep is now read at its drawn depth.
+0
+0 The 9M upright ties the two 13M beams together so every part has two
+0 non-collinear connections and nothing here is a hinge. The tabs are
+0 each half a module, so SHALLOW ENGAGEMENT warns, which is the truth.
+1 0 0 0 0 1 0 0 0 0 1 0 -1 0 24121.dat
+1 0 0 0 0 -1 0 0 0 0 1 0 1 0 24121.dat
+1 322 0 160 -20 0 0 1 1 0 0 0 1 0 41239.dat
+1 322 0 200 -20 0 0 1 1 0 0 0 1 0 41239.dat
+1 0 -120 160 -10 0 0 1 0 1 0 -1 0 0 61332.dat
+1 0 120 160 -10 0 0 1 0 1 0 -1 0 0 61332.dat
+1 14 0 200 -0.5 0 0 1 0 1 0 -1 0 0 4519.dat
+1 0 20 180 -40 1 0 0 0 0 1 0 -1 0 64289.dat
+1 0 20 160 -30 0 0 1 0 1 0 -1 0 0 61332.dat
+1 0 20 200 -30 0 0 1 0 1 0 -1 0 0 61332.dat
+0 STEP

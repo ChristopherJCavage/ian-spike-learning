@@ -139,7 +139,7 @@ Step 13 -- colour sensor
       down at the table. Its cable does not plug in yet -- both ports
       are on the back wall, much later.
   Check: The lens looks at the floor, not at you. Peek under the
-      belly -- you should see the dark window.
+      head -- you should see the dark window.
 
 Step 14 -- eye pins
   Sub: face
@@ -265,9 +265,9 @@ Step 26 -- plug in and try it
   Add: (none -- use the colour pads Chris brought)
   Do: Plug the sensor's cable into port A and the light matrix's
       cable into port B, both on the hub's back wall. Pose the legs.
-      Slide a coloured pad under the belly, in front of the lens.
+      Slide a coloured pad under its head, right below the lens.
   Check: Both cables reach the back wall and plug in easily. The feet
-      stay where you put them. The pad fits under the belly without
+      stay where you put them. The pad fits under the head without
       knocking the sensor.
 
 Step 27 -- code

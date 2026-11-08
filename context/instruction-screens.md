@@ -42,8 +42,8 @@ with a few narrative pages before step 1; this is ours. One row per slide:
 
 ```
 slide | figma_frame | art | who | copy | camera | overlay
-2 | Chameleon/S2-colour | renders/story-02.png | Daniel | "Daniel counted the colours." | -      | -
-5 | Chameleon/S5-build  | renders/story-05.png | Maria  | "Build one."                  | 25 250 | renders/story-peek.png
+2 | Chameleon/S2-color  | renders/story-02.png | Sully  | "Sully counted the colors."   | -      | -
+5 | Chameleon/S5-build  | renders/story-05.png | Coco   | "Build one."                  | 25 250 | renders/story-peek.png
 ```
 
 `camera` is what makes a slide a **render** instead of an illustration. A
@@ -74,10 +74,16 @@ Rules that `pages.py check` enforces:
 
 Rules for humans:
 
-- Cast from the **Essential four** -- Leo, Maria, Daniel, Sofie. Parts for
-  all four are in `45345`, so the figure on the screen is a figure Ian can
-  pick up. Their bios are LEGO Education's and are linked in `sources.md`.
-  Use the characters; do not copy a unit (see house rules).
+- Cast from **our animal crew**, the same four in every SPIKE deck:
+  Sully the sloth (blue beanie; the quiet one who notices, and the
+  skater), Tika the toucan (red notebook; writes things down), Pip the
+  tree frog (backpack; bouncy, cheers), and Coco the capybara (purple tool
+  belt; the builder who says "let's build one"). Never draw minifigures or
+  the LEGO Education characters in story art; the minifigure parts in the
+  box only appear in LeoCAD renders of the model. Generate every slide
+  with `context/story-cast.jpg` as a reference image so the four stay on
+  model.
+  Do not copy a unit (see house rules).
 - Three or four slides. One idea each. Last slide is the call to build.
 - **The last slide shows a real render, not an illustration.** Give it a
   camera so `pages.py render` keeps it in step with the model. The

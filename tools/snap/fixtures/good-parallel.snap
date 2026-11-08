@@ -1,0 +1,27 @@
+# good: Case 4. The red light and the white light side by side, joined by a
+# wire at each end that snaps on top of the stacks at 3E and 3C (level 3)
+# and tilts one level down onto L4. Five blue wires: both boxes.
+kits scb20, sc100
+grid 7x5 grid-mini
+step 1: grid
+step 2: B3B at 1A dir=right side=up level=1
+step 3: S1 at 1C dir=down level=1
+step 4: D10 at 3E dir=up level=1
+step 5: wire3 at 1A dir=down level=2
+step 6: wire3 at 1E dir=right level=2
+step 7: wire3 at 3C dir=up level=2
+step 8: egg at 3E
+step 9: L4 at 5E dir=up level=1
+step 10: wire3 at 3E dir=right level=3
+step 11: wire3 at 3C dir=right level=3
+expect S1=on: D10 red
+expect S1=on: L4 on
+expect S1=off: L4 off
+expect S1=off: D10 off
+expect S1=on, remove=11: L4 off
+expect S1=on, remove=11: D10 red
+expect S1=on, flip=4: D10 yellow
+photo on: renders/real-on.jpg
+  board: S1=on
+  parts: B3B 1A+ 3A, wire3 1A 1C, S1 1C 1E, wire3 1E 3E, D10 3E+ 3C, egg on D10, wire3 3C 3A, L4 5E 5C, wire3 3E 5E, wire3 3C 5C
+  shows: D10 red, L4 on

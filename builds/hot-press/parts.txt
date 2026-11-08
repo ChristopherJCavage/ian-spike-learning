@@ -1,0 +1,62 @@
+# BOM -- Hot Press
+#
+# QTY | COLOR | NAME | KIT | ELEMENT_ID | LDRAW
+#
+# Every part comes from SPIKE Essential 45345.
+#
+# Four of these have a different design ID in the kit's list than the
+# LDraw file model.ldr uses. The element number in column 5 is the one to
+# match on: the eye tile is 44690 in the kit and 14769.dat in LDraw, the
+# crystal 28623 and 11127.dat, the frog 28841 and 33320.dat, the grass
+# 31576 and 15279.dat. LDraw has no eye print, so the eyes render as plain
+# white discs. The real tiles have the big cartoon eye on them.
+
+## Electronics
+1 | White | MOTOR, NO. 14 (Small Angular Motor) -- port B, pinned to the tower | 45345 | 6305270 | 68488.dat
+
+## Table and wood
+1 | White | PLATE 16X16 | 45345 | 4618526 | 91405.dat
+1 | Bright Red | BRICK 2X4 W/ CROSS HOLE -- bottom hot plate | 45345 | 6244918 | 39789.dat
+3 | Flame Yellowish Orange | PLATE 2X4, 3XD4.9 -- two are the old wood, one is the super wood | 45345 | 6132408 | 3709.dat
+
+## Guides and press plate
+2 | Dark Green | BRICK D16 W. CROSS -- guide sockets | 45345 | 4251378 | 6143.dat
+2 | Black | CROSS AXLE 8M -- guides | 45345 | 370726 | 3707.dat
+1 | Bright Green | PLATE 2X8 W. HOLES -- slides on the guides | 45345 | 6138494 | 3738.dat
+1 | Bright Red | BRICK 2X4 W/ CROSS HOLE -- press head, under the plate | 45345 | 6244918 | 39789.dat
+1 | Bright Red | T-BEAM W. PLATE 1X2 W. TUBE -- hinge for the rod | 45345 | 4207715 | 32530.dat
+
+## Tower and motor mount
+3 | Bright Red | BRICK 2X2X3 -- tower | 45345 | 6138839 | 30145.dat
+1 | Bright Reddish Violet | TECHNIC BRICK 1X4, D4.9 -- holds the motor pegs | 45345 | 6282101 | 3701.dat
+1 | Bright Orange | BRICK 1X4 -- back row beside the purple brick | 45345 | 4118827 | 3010.dat
+1 | Bright Red | FLAT TILE 2X4 -- cap, locks the two 1x4s | 45345 | 4560179 | 87079.dat
+
+## Crank and rod
+8 | Black | CONNECTOR PEG W. FRICTION -- 2 motor, 1 crank, 1 hinge, 2 eyes, 2 lights | 45345 | 6279875 | 61332.dat
+1 | Bright Blue | TECHNIC 7M BEAM -- the rod | 45345 | 4506043 | 32524.dat
+
+## Face and lights
+2 | White | FLAT TILE 2X2, ROUND, NO. 1116 -- big eyes | 45345 | 6252746 | 14769.dat
+1 | Transparent Red | ROCK CRYSTAL, TRANSPARENT -- hot light | 45345 | 6236961 | 11127.dat
+1 | Transparent Bright Green | ROCK CRYSTAL, TRANSPARENT -- done light | 45345 | 6170292 | 11127.dat
+
+## Garden
+1 | Dark Green | FROG | 45345 | 6171101 | 33320.dat
+1 | Dark Green | BUSH -- the tree nobody had to cut | 45345 | 6269009 | 6064.dat
+2 | Bright Green | GRASS, W/ 3.2 TUBE | 45345 | 6188693 | 15279.dat
+
+# Total: 36 parts across 20 build steps, then a hand-turn page and an
+# Icon Blocks page.
+#
+# Totals vs kit (used / in box):
+# 68488 1/2; 91405 1/2; 39789 Bright Red 2/3; 3709 3/5; 6143 2/5; 3707 2/3;
+# 3738 1/5; 32530 1/6; 30145 3/5; 3701 1/5; 3010 1/5; 87079 Bright Red 1/2;
+# 61332 8/28; 32524 1/3; eye tile 2/4 (44690 2 + 113420 2);
+# crystal Transparent Red 1/2, Transparent Bright Green 1/2; frog 1/2;
+# 6064 1/2; grass 2/2.
+#
+# Zero-spare: both grass stems. Either 44690 or 113420 works for the eyes.
+#
+# The Small Hub and the 3x3 matrix are used and are not in this file. The
+# Hub sits beside the press. The matrix stands in front of it. See step 22.

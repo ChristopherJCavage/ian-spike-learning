@@ -7,9 +7,10 @@ builds/snap-02-flying-saucer` fails if this file and the layout disagree.
 `Say` is the big line on the page, read aloud. `Do` is for the grown-up.
 `Check` is what to look for. `Ask` is a question for Ian.
 
-This is the same loop as Module 1, on the Jr box's big grid. Rows are
-letters down the left (A-G), columns are numbers across the top (1-10), A1 is
-the top-left post. If the real board is printed the other way, turn the
+This is the same loop as Module 1, on the Jr box's big grid. Columns are
+numbers across the top (1-10), rows are letters down the left (A-G). A post
+is the number, then the letter: 1A is the top-left post. Every block here is
+three posts long with a metal snap at each end. If the real board is printed the other way, turn the
 board, not the pages.
 
 SAFETY for this whole module: goggles or sunglasses on everyone. Lean back.
@@ -19,52 +20,52 @@ A grown-up holds the board for every launch.
 Step 1 -- The big Ground
   Bin: Jr
   Add: 1x base grid | kit sc100
-  Say: Lay the big clear board flat. Find the corner post A1.
+  Say: Lay the big clear board flat. Find the corner post 1A.
   Do: Big grid on the table, long side left to right. No batteries yet.
-  Check: Ian can point to A1, then to D3.
+  Check: Ian can point to 1A, then to 3E.
 
 Step 2 -- The Jr Pump
   Bin: Jr
   Add: 1x battery holder B1 | kit sc100
-  Say: Snap the Jr Pump along the top row, from A1.
+  Say: Snap the Jr Pump along the top row. Snaps on 1A and 3A.
   Do: You put 2 AA batteries in B1 first (new alkalines fly best; spring
-      pressed straight back). Ian presses it onto A1 to A3.
-  Check: The Jr Pump lies along row A, from A1 to A3.
+      pressed straight back). Ian presses it onto row A, + on 1A.
+  Check: The Jr Pump lies along row A, snaps on 1A (+) and 3A.
 
 Step 3 -- The Button Gate
   Bin: Either box
   Add: 1x press switch S2 | kit sc100
-  Say: Snap the Button Gate on C1, pointing down.
-  Do: S2 covers C1 and D1. Either box's S2 is the same part.
-  Check: The Button Gate sits on C1 and D1.
+  Say: The Button Gate snaps on 1C and 1E.
+  Do: S2 runs down column 1 from 1C to 1E. Either box's S2 is the same part.
+  Check: The Button Gate's snaps are on 1C and 1E.
 
 Step 4 -- The Jr Spin Wheel
   Bin: Jr
   Add: 1x motor M1 | kit sc100
-  Say: Snap the motor on D3, pointing up. The + goes at the bottom.
-  Do: M1 covers D3 and C3, + mark at D3. This way round, we think, makes the
-      fan fly (preflight.md).
-  Check: The motor sits on D3 and C3 with its + at D3.
+  Say: The motor snaps on 3C and 3E. The + goes at the bottom, on 3E.
+  Do: M1 runs down column 3 from 3C to 3E, + mark at 3E. This way round, we
+      think, makes the fan fly (preflight.md).
+  Check: The motor's snaps are on 3C and 3E, with its + at 3E.
 
 Step 5 -- First slide tube
   Bin: Either box
   Add: 1x 3-snap wire | kit sc100
-  Say: Press a blue tube on top, from the Pump at A1 down to the Button Gate.
-  Do: Down column 1, A1 to C1, end snaps pressed onto the holder and switch.
+  Say: Press a blue tube on top, from the Pump at 1A down to the Button Gate at 1C.
+  Do: Down column 1, 1A to 1C, end snaps pressed onto the holder and switch.
   Check: The tube touches the Pump and the Button Gate.
 
 Step 6 -- Second slide tube
   Bin: Either box
   Add: 1x 3-snap wire | kit sc100
-  Say: A tube from the Button Gate at D1 across to the motor at D3.
-  Do: Along row D, D1 to D3, on top of the switch's and the motor's lower snaps.
+  Say: A tube from the Button Gate at 1E across to the motor at 3E.
+  Do: Along row E, 1E to 3E, on top of the switch's and the motor's lower snaps.
   Check: The tube touches the Button Gate and the motor.
 
 Step 7 -- Close the circle
   Bin: Either box
   Add: 1x 3-snap wire | kit sc100
-  Say: The last tube from the motor at C3 up to the Pump at A3.
-  Do: Up column 3, C3 to A3.
+  Say: The last tube from the motor at 3C up to the Pump at 3A.
+  Do: Up column 3, 3C to 3A.
   Check: Tubes join every gap, all the way round.
 
 Step 8 -- The fan

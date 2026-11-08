@@ -416,6 +416,41 @@ a promise the tooling makes.
 Every defect found by eye should become three artifacts: a paragraph here,
 a rule in `ldrcheck.py`, and a fixture in `tools/fixtures/`.
 
+## Half-thick lugs: the quarter rack
+
+`24121.dat` (kit 43038, the 11x11 quarter-circle rack) is a full module
+thick everywhere except its two end lugs, which are half thick on one
+face: local y 0..10 only. That is how four of them close a circle. Two
+quarters meet in **one** plane, one turned half a turn about the
+vertical, so their lugs land on opposite faces and stack into one
+full-thickness lug that an axle locks. The first matrix anyone reaches
+for, `0 0 1 -1 0 0 0 -1 0`, also lands a quarter in the lower right, but
+it puts the lug on the same face as its partner and the two collide
+(`bad-rack-lap-same-face.ldr`). `-1 0 0 0 0 1 0 1 0` is the partner of
+`1 0 0 0 0 1 0 -1 0` (`good-rack-lap-joint.ldr`).
+
+The lug bore is `axlehol4` scaled `0 10 0`, and the checker used to read
+every one-sided axle hole as a whole module deep. The bore ran 10 LDU
+out of the plastic into the beam behind, and a correct axle reported PIN
+SLICE CONFLICT. A one-sided axle hole drawn half a module deep is now
+read at that depth. Shallower ones are not: the Z20 bevel gear's bore is
+drawn 7 deep, under `JOINT_MIN`, and it really does grip its axle.
+
+The rack's teeth face **inward**, down to r = 173 from the arc centre,
+not the 191 the bounding box suggests. Anything swinging inside the arc
+has to clear 173.
+
+## Proxies keep their real colour
+
+`PROXY <stand-in> <design id>` keeps a stand-in out of PART vs KIT, and
+now also lets COLOUR vs KIT accept the real part's colour. Leo's wig
+(29066, Reddish Brown) has no LDraw file, so 18228 draws it in Reddish
+Brown, a colour no kit ships 18228 in (`good-proxy-wig-colour.ldr`,
+`bad-wig-colour-unproxied.ldr`). The stand-in's own kit colours still
+count too, because one stand-in can cover several parts: the drill
+truck's 3005 is both a yellow head and a nougat dog, and PROXY records
+only one design id.
+
 ## A hand-written feature is a guess until something mates with it
 
 `ldrcheck kits` proves the checker can see a part. It cannot prove it sees
@@ -451,13 +486,25 @@ bore. These are not, and today they are invisible -- not wrong, *absent*:
   `rotates: true` only excuses the halves from the hinge rule; it does not
   check they are mated, coaxial, or the right way up. A cab floating above
   its base passes.
-- **Gear mesh.** Teeth engage only at a specific centre distance with
-  parallel, coplanar axes. Two gears clipping through each other and two
-  gears 40 LDU apart read identically.
+- **Gear mesh** -- now declared, not inferred. Teeth engage only at a
+  specific centre distance with parallel, coplanar axes. Undeclared, two
+  meshed gears read as CONTACT WITHOUT JOINT and two gears 40 LDU apart
+  read as fine. `0 !LDRCHECK MESH <gear> <partner> <distance>` says which
+  pairs are meant to mesh: it fails if any gear is not `distance` from a
+  partner's origin (a gear's or a curved rack's ring centre) in its
+  plane, excuses their teeth touching, and allows them **zero** shared
+  solid -- teeth interleave so shallowly (3.8 LDU for a Z28 in the
+  43038 ring) that tip-on-tip overlaps less than OVERLAP_TOLERANCE.
+  Pitch radius is 1.25 LDU per tooth, so centre distances come from tooth
+  counts. Mid-build pages forgive a gear whose partner is not on yet.
+  It does not know gear ratios or which gear drives; `tools/swing.py
+  --roll` turns a carried gear for a swing. Fixtures:
+  `good-gear-mesh-rack`, `bad-gear-mesh-undeclared`,
+  `bad-gear-short-of-rack`, `bad-gear-tooth-on-tooth`.
 - **Rack and pinion**, which adds a travel direction and end stops.
 - **Belt and pulley.** The V-belts are marked `decorative`, which means
   "excused from needing a joint" -- a placeholder, not understanding.
 
 Worth naming the risk plainly: a build that leans on any of these can pass
-clean and still not work. Gear mesh and the turntable are the two an
-excavator reaches for first.
+clean and still not work. The turntable is the one an excavator reaches
+for first; gear mesh is covered only where a model says MESH.

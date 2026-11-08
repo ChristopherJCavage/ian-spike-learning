@@ -8,9 +8,11 @@ skills: colour-sensor, light-matrix, ball-joints, events
 coding: icon
 age-fit: 6
 figma: TBD
+project: rainforest-chameleon
+role: main
 
-Chameleon Colour-Match. Coach Candy's first Essential-only rainforest
-lesson: the animal reads a coloured pad under its belly and lights the
+Chameleon Colour-Match. The club's first Essential-only rainforest
+lesson: the animal reads a coloured pad under its head and lights the
 3x3 matrix on its back to match -- with a bright-red branch for the
 warning-colour idea. Two ports in, two ports used (colour sensor on A,
 matrix on B). No motor. Ball-joint legs, white round eyes on pegs in
@@ -37,10 +39,10 @@ Class-safe: every part is from `kits/45345-essential/parts.txt`. See
 program.
 
 Five story slides come ahead of step 1, the way the SPIKE App opens a
-project: the Essential four hike into a rainforest, Leo runs out of
-fingers counting colours, Leo holds still long enough to spot a chameleon,
-Leo learns what it is and gets a tongue in the face, and Maria says
-build one. `story.md` has the slides and why each character is on the one
+project: our animal crew hikes into a rainforest, Sully the sloth runs
+out of claws counting colors, Sully holds still long enough to spot a
+chameleon, Sully learns what it is and gets a tongue in the face, and
+Coco the capybara says build one. `story.md` has the slides and why each character is on the one
 they are on. They print, so they carry no Back/Next.
 
 Click through the pages before Figma:

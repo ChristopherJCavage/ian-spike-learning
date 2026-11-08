@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" font-family="'Avenir Next','Trebuchet MS','Helvetica Neue',Arial,sans-serif">
+<!-- snap-sha: 6454a7e19ab3 -->
+<rect width="1200" height="800" fill="#dff3ff"/>
+<ellipse cx="250" cy="90" rx="140" ry="40" fill="#fff" opacity="0.9"/><ellipse cx="960" cy="70" rx="170" ry="46" fill="#fff" opacity="0.9"/>
+<rect x="0" y="710" width="1200" height="90" fill="#bfe9b0"/>
+<polyline points="485.0,150.0 485.0,265.0 485.0,380.0 485.0,610.0 600.0,610.0 715.0,610.0 715.0,380.0 715.0,265.0 715.0,150.0 485.0,150.0" fill="none" stroke="#1f7fc4" stroke-width="74" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="485.0,150.0 485.0,265.0 485.0,380.0 485.0,610.0 600.0,610.0 715.0,610.0 715.0,380.0 715.0,265.0 715.0,150.0 485.0,150.0" fill="none" stroke="#9fdcff" stroke-width="56" stroke-linecap="round" stroke-linejoin="round"/>
+<polyline points="485.0,150.0 485.0,265.0 485.0,380.0 485.0,610.0 600.0,610.0 715.0,610.0 715.0,380.0 715.0,265.0 715.0,150.0 485.0,150.0" fill="none" stroke="#ffffff" stroke-opacity="0.5" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="0.1 42"/>
+<circle cx="600.0" cy="150.0" r="54" fill="#ff9f43" stroke="#c96a10" stroke-width="6"/>
+<path d="M 600.0 176.0 L 600.0 126.0 M 580.0 146.0 L 600.0 124.0 L 620.0 146.0" stroke="#fff" stroke-width="11" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="600.0" y="54.0" font-size="30" fill="#1d2433" font-weight="bold" text-anchor="middle"><tspan x="600.0" dy="0.0">The Pump</tspan></text>
+<text x="600.0" y="82.0" font-size="22" fill="#566179" font-weight="normal" text-anchor="middle"><tspan x="600.0" dy="0.0">(B3B)</tspan></text>
+<rect x="427.0" y="445.0" width="20" height="100" rx="6" fill="#2e9e5b"/><rect x="523.0" y="445.0" width="20" height="100" rx="6" fill="#2e9e5b"/>
+<rect x="441.0" y="483.0" width="88" height="24" rx="8" fill="#1d6b3f" transform="rotate(0 485.0 495.0)"/>
+<text x="409.0" y="499.0" font-size="30" fill="#1d2433" font-weight="bold" text-anchor="end"><tspan x="409.0" dy="0.0">The Gate</tspan></text>
+<text x="409.0" y="527.0" font-size="22" fill="#566179" font-weight="normal" text-anchor="end"><tspan x="409.0" dy="0.0">(S1)</tspan></text>
+<circle cx="715.0" cy="495.0" r="54" fill="#f4efdc" stroke="#7a5b00" stroke-width="6"/>
+<g><line x1="715.0" y1="495.0" x2="761.4" y2="495.0" stroke="#7a5b00" stroke-width="7" stroke-linecap="round"/><line x1="715.0" y1="495.0" x2="738.2" y2="535.2" stroke="#7a5b00" stroke-width="7" stroke-linecap="round"/><line x1="715.0" y1="495.0" x2="691.8" y2="535.2" stroke="#7a5b00" stroke-width="7" stroke-linecap="round"/><line x1="715.0" y1="495.0" x2="668.6" y2="495.0" stroke="#7a5b00" stroke-width="7" stroke-linecap="round"/><line x1="715.0" y1="495.0" x2="691.8" y2="454.8" stroke="#7a5b00" stroke-width="7" stroke-linecap="round"/><line x1="715.0" y1="495.0" x2="738.2" y2="454.8" stroke="#7a5b00" stroke-width="7" stroke-linecap="round"/></g>
+<text x="791.0" y="493.0" font-size="30" fill="#1d2433" font-weight="bold" text-anchor="start"><tspan x="791.0" dy="0.0">The Colour Wheel</tspan></text>
+<text x="791.0" y="521.0" font-size="22" fill="#566179" font-weight="normal" text-anchor="start"><tspan x="791.0" dy="0.0">(D10)</tspan></text>
+<circle cx="485.0" cy="495.0" r="30" fill="#d62828" stroke="#fff" stroke-width="5"/>
+<text x="485.0" y="509.0" font-size="46" fill="#fff" font-weight="bold" text-anchor="middle"><tspan x="485.0" dy="0.0">×</tspan></text>
+<text x="600.0" y="766.0" font-size="32" fill="#c0392b" font-weight="bold" text-anchor="middle"><tspan x="600.0" dy="0.0">Gate shut!  The water stops, so nothing works.</tspan></text>
+</svg>

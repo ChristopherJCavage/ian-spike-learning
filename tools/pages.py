@@ -721,16 +721,82 @@ def _run_chrome_pdf(url: str, pdf_path: Path, timeout: float = 120) -> str:
             else:
                 raise TimeoutError(f"Chrome did not finish {pdf_path} in {timeout:.0f}s")
         finally:
+            # macOS answers EPERM, not ESRCH, when the group's only members
+            # left are zombies -- Chrome already exited. Both mean "gone".
             try:
                 os.killpg(proc.pid, signal.SIGTERM)
-            except ProcessLookupError:
+            except (ProcessLookupError, PermissionError):
                 pass
             try:
                 proc.wait(timeout=5)
             except subprocess.TimeoutExpired:
-                os.killpg(proc.pid, signal.SIGKILL)
+                try:
+                    os.killpg(proc.pid, signal.SIGKILL)
+                except (ProcessLookupError, PermissionError):
+                    pass
                 proc.wait(timeout=3)
     return "".join(log)
+
+
+# Cloudflare Pages refuses a file over 25 MiB. A step hero is a 2000x1500
+# PNG, and thirty of those blow the limit. The PDF flattens each one onto
+# white (that's the paper) and writes a JPEG. The click-through keeps the
+# PNGs.
+PDF_JPEG_LONG = 1400
+PDF_JPEG_QUALITY = 75
+_IMG_SRC = re.compile(r'(<img\b[^>]*\bsrc=")([^"]+)(")')
+
+
+def _shrink_for_pdf(html_text: str, build: Path, dest: Path) -> str:
+    """Rewrite image srcs to smaller files living next to the booklet HTML."""
+    try:
+        from PIL import Image
+    except ImportError:
+        sys.exit(
+            "Pillow is needed to shrink the PDF images.\n"
+            "  python3 -m pip install -r requirements.txt"
+        )
+    cache: dict[tuple[str, bool], str] = {}
+
+    def shrunk(src: str, flatten: bool) -> str:
+        key = (src, flatten)
+        if key in cache:
+            return cache[key]
+        path = (build / src).resolve()
+        if not path.is_file():
+            return src
+        im = Image.open(path).convert("RGBA")
+        if max(im.size) > PDF_JPEG_LONG:
+            scale = PDF_JPEG_LONG / max(im.size)
+            im = im.resize(
+                (round(im.width * scale), round(im.height * scale)),
+                Image.LANCZOS,
+            )
+        stem = Path(src).stem
+        if flatten:
+            bg = Image.new("RGB", im.size, (255, 255, 255))
+            bg.paste(im, mask=im.split()[-1])
+            out = dest / f"{stem}.jpg"
+            bg.save(
+                out, "JPEG", quality=PDF_JPEG_QUALITY, optimize=True, progressive=True
+            )
+        else:
+            out = dest / f"{stem}.png"
+            im.save(out, "PNG", optimize=True)
+        cache[key] = out.name
+        return out.name
+
+    def repl(match: re.Match[str]) -> str:
+        src = match.group(2)
+        if not src.lower().endswith(".png"):
+            return match.group(0)
+        blob = match.group(1) + match.group(3)
+        # Heroes and plated renders sit on white paper. Story art and the
+        # peek overlay keep their transparency, just smaller.
+        flatten = "hero" in blob or "plate" in blob
+        return f"{match.group(1)}{shrunk(src, flatten)}{match.group(3)}"
+
+    return _IMG_SRC.sub(repl, html_text)
 
 
 def write_pdf(build: Path) -> Path:
@@ -738,20 +804,25 @@ def write_pdf(build: Path) -> Path:
     preview = build / "preview.html"
     if not preview.is_file():
         write_preview(build)
-    stacked_path = (build / ".preview-stacked.html").resolve()
-    stacked_path.write_text(_stacked_html(preview.read_text()))
     pdf_path = (build / "preview.pdf").resolve()
     if not CHROME.is_file():
-        stacked_path.unlink(missing_ok=True)
         sys.exit(f"need Google Chrome at {CHROME} to write {pdf_path}")
-    try:
-        log = _run_chrome_pdf(stacked_path.as_uri(), pdf_path, timeout=180)
-        if not pdf_path.is_file() or pdf_path.stat().st_size < 1000:
-            sys.stderr.write(log)
-            sys.exit(f"Chrome failed to write {pdf_path}")
-    finally:
-        stacked_path.unlink(missing_ok=True)
-    print(f"wrote {pdf_path} ({pdf_path.stat().st_size // 1024} KB)")
+    with tempfile.TemporaryDirectory(prefix="spike-book-") as tmp:
+        dest = Path(tmp)
+        booklet = _shrink_for_pdf(_stacked_html(preview.read_text()), build, dest)
+        stacked_path = dest / "booklet.html"
+        stacked_path.write_text(booklet)
+        log = _run_chrome_pdf(stacked_path.as_uri(), pdf_path, timeout=300)
+    if not pdf_path.is_file() or pdf_path.stat().st_size < 1000:
+        sys.stderr.write(log)
+        sys.exit(f"Chrome failed to write {pdf_path}")
+    mebibytes = pdf_path.stat().st_size / (1024 * 1024)
+    print(f"wrote {pdf_path} ({mebibytes:.1f} MiB)")
+    if mebibytes > 25:
+        print(
+            f"warning: {pdf_path.name} is over Cloudflare Pages' 25 MiB limit",
+            file=sys.stderr,
+        )
     return pdf_path
 
 

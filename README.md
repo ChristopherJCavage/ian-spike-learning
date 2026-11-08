@@ -27,7 +27,7 @@ code). [`kits/scb20-beginner/`](kits/scb20-beginner/parts.txt) (Beginner
 SCB-20), [`kits/sc100-jr/`](kits/sc100-jr/parts.txt) (Jr SC-100). The
 lessons are comics, *The Spark Detectives*:
 [`builds/snap-01-the-loop`](builds/snap-01-the-loop/README.md) (The Night
-Skate Cases, Beginner box) and
+Skate Cases, Beginner box plus one Jr wire, so it needs both boxes) and
 [`builds/snap-02-flying-saucer`](builds/snap-02-flying-saucer/README.md)
 (The UFO Case, Jr box). Plan, cast, analogy and lesson arc:
 [`context/snap-circuits.md`](context/snap-circuits.md).

@@ -1,0 +1,11 @@
+0 Fixture: Leo's short legs with the identity matrix. Native facing is -Z,
+0 the model declares FRONT +Z. Expected: problems -- FACING.
+0
+0 The negative control for good-short-legs-face-front.ldr. If this passes,
+0 41879 has lost its facing: annotation and a backward Leo would ride the
+0 half-pipe with his back to Ian unnoticed.
+0
+0 !LDRCHECK FRONT +Z
+1 0 0 0 0 1 0 0 0 1 0 0 0 1 3738.dat
+1 288 40 -24 0 1 0 0 0 1 0 0 0 1 41879.dat
+0 STEP

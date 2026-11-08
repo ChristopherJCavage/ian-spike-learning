@@ -1,0 +1,15 @@
+# Hot Press -- Icon Blocks.
+# Start with the press open: the hub peg at the top of the turn.
+# Half a turn brings the press down onto the wood, the sound is the
+# squeeze, and half a turn more the same way lifts it back up.
+hub: essential
+canvas: icon
+extensions:
+
+horizontalevents_whenProgramStarts
+  horizontaldisplay_ledMatrix PORT=A MATRIX=red
+  horizontalmotor_motorSetSpeed PORT=B SPEED=40
+  horizontalmotor_motorTurnClockwiseRotations PORT=B ROTATIONS=0.5
+  horizontalsound_playEffectSoundUntilDone SOUND=magic_wand
+  horizontalmotor_motorTurnClockwiseRotations PORT=B ROTATIONS=0.5
+  horizontaldisplay_ledMatrix PORT=A MATRIX=green

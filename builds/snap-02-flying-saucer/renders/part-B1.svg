@@ -1,15 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" font-family="'Avenir Next','Trebuchet MS','Helvetica Neue',Arial,sans-serif">
-<!-- snap-sha: 51a507dcd9f4 -->
+<!-- snap-sha: 600f5fccd9ab -->
 <rect width="1200" height="800" fill="#ffffff"/>
-<g opacity="1">
-<rect x="182.9" y="71.0" width="837.2" height="352.5" rx="35.2" fill="#e7f4fb" stroke="#6f93ab" stroke-width="4"/>
-<rect x="394.7" y="118.0" width="64.6" height="252.6" rx="23.5" fill="#3a3a3a"/>
-<rect x="394.7" y="118.0" width="64.6" height="47.0" fill="#c4a574"/>
-<rect x="743.6" y="118.0" width="64.6" height="252.6" rx="23.5" fill="#3a3a3a"/>
-<rect x="743.6" y="118.0" width="64.6" height="47.0" fill="#c4a574"/>
-<circle cx="306.2" cy="400.0" r="47.0" fill="#d8dde3" stroke="#5c6770" stroke-width="3"/>
-<text x="306.2" y="317.8" font-size="82.25000000000001" fill="#c0392b" font-weight="bold" text-anchor="middle"><tspan x="306.2" dy="0.0">+</tspan></text>
-<circle cx="893.8" cy="400.0" r="47.0" fill="#d8dde3" stroke="#5c6770" stroke-width="3"/>
-<text x="893.8" y="317.8" font-size="82.25000000000001" fill="#22405f" font-weight="bold" text-anchor="middle"><tspan x="893.8" dy="0.0">−</tspan></text>
+<g opacity="1" data-step="1" data-key="B1" data-want="1A 3A span=3 depth=1" data-drawn="1A 3A span=3 depth=1">
+<rect x="187.0" y="271.8" width="826.1" height="256.4" rx="39.9" fill="#e7f4fb" fill-opacity="0.96" stroke="#6f93ab" stroke-width="4"/>
+<rect x="302.3" y="360.1" width="182.3" height="79.8" rx="22.8" fill="#3a3a3a"/>
+<rect x="715.4" y="360.1" width="182.3" height="79.8" rx="22.8" fill="#3a3a3a"/>
+<text x="600.0" y="428.5" font-size="68.36363636363637" fill="#c0392b" font-weight="bold" text-anchor="middle"><tspan x="600.0" dy="0.0">3.0V</tspan></text>
+<circle cx="315.2" cy="400.0" r="45.6" fill="#d8dde3" stroke="#5c6770" stroke-width="3"/>
+<text x="457.6" y="434.2" font-size="113.93939393939395" fill="#c0392b" font-weight="bold" text-anchor="middle"><tspan x="457.6" dy="0.0">+</tspan></text>
+<circle cx="884.8" cy="400.0" r="45.6" fill="#d8dde3" stroke="#5c6770" stroke-width="3"/>
+<text x="742.4" y="434.2" font-size="113.93939393939395" fill="#22405f" font-weight="bold" text-anchor="middle"><tspan x="742.4" dy="0.0">−</tspan></text>
 </g>
 </svg>

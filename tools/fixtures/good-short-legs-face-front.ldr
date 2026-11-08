@@ -1,0 +1,23 @@
+0 Fixture: Leo's short legs on a plate, half-turned to face the model's FRONT.
+0 Expected: clean.
+0
+0 41879 is the short-legs part Essential uses for Leo. It carries
+0 facing: -Z like 73200b, so the same half-turn about Y that faces a full
+0 figure forward faces this one forward too. Short legs are 24 LDU from
+0 hip to sole, not 40, so the torso sits 32 above a legs origin that is
+0 itself only 24 above the plate.
+0
+0 The red tile is there for the same reason as in good-figure-holds-camera:
+0 a figure is all decorative, so without one real clutch the plate itself
+0 reports NO JOINT.
+0
+0 !LDRCHECK GROUND 8
+0 !LDRCHECK FRONT +Z
+0 !LDRCHECK FACES 41879.dat +Z
+1 15 0 0 0 1 0 0 0 1 0 0 0 1 91405.dat
+1 4 80 -8 0 1 0 0 0 1 0 0 0 1 87079.dat
+0 STEP
+1 288 0 -24 10 -1 0 0 0 1 0 0 0 -1 41879.dat
+1 1 0 -56 10 -1 0 0 0 1 0 0 0 -1 76382.dat
+1 14 0 -80 10 -1 0 0 0 1 0 0 0 -1 3626c.dat
+0 STEP

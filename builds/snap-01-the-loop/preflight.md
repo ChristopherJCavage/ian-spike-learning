@@ -1,41 +1,47 @@
 # Pre-flight -- The Night Skate Cases
 
-`snap.py check` proves the comic agrees with `circuit.snap`. It cannot prove
-`circuit.snap` agrees with the real blocks, because every size and every
-"which end is +" in `tools/snap/parts.json` is still `measured: false`. Do
-this once, before Case 1, with no batteries in.
+`snap.py check` proves the comic agrees with `circuit.snap`, and that every
+photo of the real board (`renders/real-*.jpg`, described by a `photo` line in
+`circuit.snap`) agrees with the layout. The block sizes below were read off
+those photos; this list is what to look at again if you rebuild from scratch.
 
-## Measure on the real box (15 minutes)
+## What the photos settled (Nov 2026)
 
-1. **Grid.** Count the posts on the mini grid. The comic assumes 7 across and
-   5 down (and asks Ian 7 x 5 = 35), rows lettered A-E. If it differs, fix
-   `grid-mini` in `tools/snap/parts.json`; `check` will then tell you the
-   Number Lab answer changed.
-2. **How far each block reaches.** B3B covers 3 posts with snaps at the two
-   ends; S1, S2, L4, D10, W1 and M7 cover 2; a blue wire covers 3. Compare
-   with the board pictures for Case 1 steps 1-7. Fix `span`/`snaps` and set
-   `measured: true` for each block you check.
-3. **The + ends.** This is the one that matters most. The comic assumes:
-   - B3B hangs off the top. + snap is 1A, the other snap is 3A.
-   - D10 glows **red** when its + is at the bottom (3D), yellow turned around.
-   - W1 **honks** with its + at the bottom (3D), silent turned around.
-   - M7 spins **clockwise** with its + at the bottom (3D).
-   Build each one in the Case 1 loop and look. If one is the other way, flip
-   `colour_forward`/`colour_reverse` (D10), or tell the next person to swap
-   the layout; `check` will list every page whose answer changed.
-4. **The fan.** Count its blades: the Number Lab uses 3 (`blades` in
-   `parts.json`). Is it the 14th part in the box?
+1. **Grid.** The mini grid is 7 across and 5 down (7 x 5 = 35), columns
+   1-7, rows A-E.
+2. **Every Beginner block is 1x3.** S1, S2, L4, D10 and W1 each cover three
+   posts with a metal snap at each end; the middle is plastic. A blue wire
+   covers three posts with a snap at every post. `parts.json` marks these
+   `measured: true`, and `check` fails if one is edited to a 1x2.
+3. **B3B is 3x3 and rides the edge.** Its two snaps (+ and -) are on one
+   edge only. The board puts that edge on row A (+ on 1A, - on 3A) and the
+   batteries hang off the top of the grid. `check` fails a holder with no
+   `side=` or one whose case lies on other blocks.
+4. **Stacking.** Blocks only stack where their end snaps meet, on one post,
+   then leave it in different directions. Two blocks never lie on top of
+   each other along their length (`OVERLAP`), a snap never lands on another
+   block's plastic (`BODY`), and a block on top can tilt one level at most
+   (`TILT`).
+5. **The + ends.** D10 glows **red** with its + at the bottom (3E, where the
+   current comes in) and yellow turned around. W1 **honks** with its + on
+   3E. M7 is not used in this module.
+
+## Parts to put out
+
+- The Beginner box (SCB-20): everything except the fan.
+- **One blue 3-snap wire from the Jr box (SC-100).** Case 4 and mission 3
+  use five blue wires; the Beginner box has four.
 
 ## Table check (batteries in)
 
-- Case 1: build steps 1-7 with the Gate OFF. Every wire end snug on a block's
-  snap? Gate ON: lamp on. Gate OFF, lamp off. Pull the bottom tube: lamp off.
-- Case 1: the egg is pressed on the yellow lamp. That is the bulb.
-- Case 2: lift the egg off to see the LED. D10 + at the bottom: red. Turned:
-  yellow. The egg can go back on the LED for the lantern.
-- Case 3: Pip's horn (+ at the top) is silent; turned, it honks while S2 is
-  held and stops when let go.
-- Case 4: M7 spins and glows; turned around it spins the other way. Faces back.
+- Case 1: build steps 1-8 with the Gate OFF. Gate ON: the egg glows yellow.
+  Gate OFF: dark. Pull the bottom tube (1E-3E): dark.
+- Case 2: lift the egg and the tube ends, turn D10 so its + is on 3E: red.
+- Case 3: W1 honks with the + on 3E while S2 is held, and stops when let go.
+  Turned so the + is at the top (3C), it is silent.
+- Case 4: S1 and D10 back (+ on 3E, egg on). L4 on 5C-5E. Tubes 3E-5E and
+  3C-5C, each snapped on top at 3E or 3C. Gate ON: red and white. Gate OFF:
+  both dark. Pull the 3C-5C tube: only the white light goes out.
 - Click through `preview.html` once yourself, with G on, before Ian sees it.
 
 If anything is wrong, patch `circuit.snap` first, then `steps.md`, then run

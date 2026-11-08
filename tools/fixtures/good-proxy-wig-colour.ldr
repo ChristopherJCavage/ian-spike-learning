@@ -1,0 +1,20 @@
+0 Fixture: a proxied wig drawn in the colour of the part it stands in for.
+0 Expected: clean.
+0
+0 Leo's hair is MINI WIG NO. 63 (29066, Reddish Brown), which this LDraw
+0 library does not draw. 18228 is the nearest real wig, so it stands in --
+0 but no kit ships 18228 in Reddish Brown, and COLOUR vs KIT used to judge
+0 the stand-in against its own kit colours. PROXY now redirects that check
+0 to the real design id, which is exactly what the proxy means.
+0
+0 !LDRCHECK GROUND 8
+0 !LDRCHECK FRONT +Z
+0 !LDRCHECK PROXY 18228.dat 29066
+1 15 0 0 0 1 0 0 0 1 0 0 0 1 91405.dat
+1 4 80 -8 0 1 0 0 0 1 0 0 0 1 87079.dat
+0 STEP
+1 288 0 -24 10 -1 0 0 0 1 0 0 0 -1 41879.dat
+1 1 0 -56 10 -1 0 0 0 1 0 0 0 -1 76382.dat
+1 14 0 -80 10 -1 0 0 0 1 0 0 0 -1 3626c.dat
+1 70 0 -80 10 -1 0 0 0 1 0 0 0 -1 18228.dat
+0 STEP

@@ -1,0 +1,31 @@
+0 Fixture: good-gear-mesh-rack.ldr without its MESH line. Expected:
+0 CONTACT WITHOUT JOINT, gear against both racks.
+0
+0 Meshed teeth touch with no pin or axle between them, which is exactly
+0 what a plate resting against a plate looks like. Saying MESH is what
+0 tells the two apart.
+0
+0
+0
+0
+1 0 0 0 20 1 0 0 0 0 1 0 -1 0 24121.dat
+1 0 0 0 20 -1 0 0 0 0 1 0 1 0 24121.dat
+1 322 0 160 -20 0 0 1 1 0 0 0 1 0 41239.dat
+1 322 0 200 -20 0 0 1 1 0 0 0 1 0 41239.dat
+1 1 -120 160 0 0 0 1 0 1 0 -1 0 0 42924.dat
+1 1 120 160 0 0 0 1 0 1 0 -1 0 0 42924.dat
+1 14 0 200 0.5 0 0 1 0 1 0 -1 0 0 4519.dat
+1 0 60 200 -40 1 0 0 0 0 -1 0 1 0 60484.dat
+1 0 -60 200 -40 1 0 0 0 0 -1 0 1 0 60484.dat
+1 0 40 160 -30 0 0 1 0 1 0 -1 0 0 61332.dat
+1 0 80 160 -30 0 0 1 0 1 0 -1 0 0 61332.dat
+1 0 60 200 -30 0 0 1 0 1 0 -1 0 0 61332.dat
+1 0 -40 160 -30 0 0 1 0 1 0 -1 0 0 61332.dat
+1 0 -80 160 -30 0 0 1 0 1 0 -1 0 0 61332.dat
+1 0 -60 200 -30 0 0 1 0 1 0 -1 0 0 61332.dat
+1 0 -20 160 -10 0 0 1 0 1 0 -1 0 0 61332.dat
+1 0 20 160 -10 0 0 1 0 1 0 -1 0 0 61332.dat
+1 0 0 120 0 1 0 0 0 0 1 0 -1 0 60484.dat
+1 14 0 140 10 0 0 1 0 1 0 -1 0 0 4519.dat
+1 71 0 140 20 1 0 0 0 1 0 0 0 1 46372.dat
+0 STEP

@@ -1,0 +1,17 @@
+0 Fixture: the same Reddish Brown 18228 with no PROXY line.
+0 Expected: problems -- COLOUR vs KIT.
+0
+0 The negative control for good-proxy-wig-colour.ldr. Without the proxy
+0 this really is a part in a colour no kit contains, and the colour check
+0 must still say so -- the redirect is only for declared stand-ins.
+0
+0 !LDRCHECK GROUND 8
+0 !LDRCHECK FRONT +Z
+1 15 0 0 0 1 0 0 0 1 0 0 0 1 91405.dat
+1 4 80 -8 0 1 0 0 0 1 0 0 0 1 87079.dat
+0 STEP
+1 288 0 -24 10 -1 0 0 0 1 0 0 0 -1 41879.dat
+1 1 0 -56 10 -1 0 0 0 1 0 0 0 -1 76382.dat
+1 14 0 -80 10 -1 0 0 0 1 0 0 0 -1 3626c.dat
+1 70 0 -80 10 -1 0 0 0 1 0 0 0 -1 18228.dat
+0 STEP

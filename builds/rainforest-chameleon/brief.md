@@ -4,13 +4,13 @@ Status: **filled**.
 
 ## Theme / story
 
-A rainforest chameleon. Slide a coloured pad under its belly and its
+A rainforest chameleon. Slide a coloured pad under its head and its
 back changes to match -- camouflage. If the pad is bright red, the
 back lights warning-red instead: some animals shout "don't eat me."
 
-Five story slides set it up before any bricks, with the Essential four:
-the trip, the colour, Leo holding still long enough to see a chameleon,
-Leo meeting it, then build one. See `story.md`. The point of slide 3 is
+Five story slides set it up before any bricks, with our animal crew:
+the trip, the color, Sully holding still long enough to see a chameleon,
+Sully meeting it, then build one. See `story.md`. The point of slide 3 is
 that camouflage is why he nearly missed it -- the kid should want the
 model to hide before being told how it works. Slide 4 then names the
 animal and shows its big round eye and its tongue. The eye carries into
@@ -39,9 +39,9 @@ tail's purple point (step 24), not a tongue.
 
 - Hub: **essential** (2 ports A/B, no on-hub matrix)
 - Motors: none -- both ports are taken
-- Sensors: Colour Sensor -> port A (aimed down at a pad under the belly)
+- Sensors: Colour Sensor -> port A (in the head, aimed down at a pad)
 - Lights: 3x3 Colour Light Matrix -> port B (LEDs aimed up, the "skin")
-- Done-when: slide a blue / yellow / green pad under the belly and the
+- Done-when: slide a blue / yellow / green pad under the head and the
   back matches; slide a bright-red pad and the back goes warning-red.
 
 ## Constraints

@@ -130,23 +130,27 @@
 # axle without locking it, so it -- and whatever else only ever reaches the
 # model through that same free-spinning axle -- is exempt from the rigid
 # cluster hinge check (rotates: true).
+#
+# A half bush is z -5..5 about its origin, so its bore starts at the -5
+# face. An origin of 0 claimed 5 LDU of axle beyond the bush, and two
+# parts side by side on one axle reported PIN SLICE CONFLICT.
 4265c.dat:
   role: structural
   rotates: true
   features:
-    - {kind: axle_hole, gender: female, origin: [0, 0, 0], axis: [0, 0, 1], depth: 10}
+    - {kind: axle_hole, gender: female, origin: [0, 0, -5], axis: [0, 0, 1], depth: 10}
 
 32123b.dat:
   role: structural
   rotates: true
   features:
-    - {kind: axle_hole, gender: female, origin: [0, 0, 0], axis: [0, 0, 1], depth: 10}
+    - {kind: axle_hole, gender: female, origin: [0, 0, -5], axis: [0, 0, 1], depth: 10}
 
 32123.dat:
   role: structural
   rotates: true
   features:
-    - {kind: axle_hole, gender: female, origin: [0, 0, 0], axis: [0, 0, 1], depth: 10}
+    - {kind: axle_hole, gender: female, origin: [0, 0, -5], axis: [0, 0, 1], depth: 10}
 
 3713.dat:
   role: structural
@@ -450,6 +454,16 @@
     - {kind: anti_stud, gender: female, origin: [50, 24, 0], axis: [0, -1, 0], depth: 8}
     - {kind: anti_stud, gender: female, origin: [70, 24, 0], axis: [0, -1, 0], depth: 8}
 
+# Plain 1x4 brick. Same underside posts as the Technic 1x4, read the
+# same wrong way, so it could not sit on anything either.
+3010.dat:
+  role: structural
+  features:
+    - {kind: anti_stud, gender: female, origin: [-30, 24, 0], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [-10, 24, 0], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [10, 24, 0], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [30, 24, 0], axis: [0, -1, 0], depth: 8}
+
 39789.dat:
   role: structural
   features:
@@ -512,6 +526,17 @@
     - {kind: anti_stud, gender: female, origin: [0, 24, 0], axis: [0, -1, 0], depth: 8}
     - {kind: anti_stud, gender: female, origin: [0, 24, -20], axis: [0, -1, 0], depth: 8}
 
+# 2x2x3 brick. LDraw emits its four top studs and nothing underneath it
+# can clutch, so a stack of them read as three loose bricks. One anti_stud
+# under each top stud, on the underside face (y=72).
+30145.dat:
+  role: structural
+  features:
+    - {kind: anti_stud, gender: female, origin: [-10, 72, -10], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [-10, 72, 10], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [10, 72, -10], axis: [0, -1, 0], depth: 8}
+    - {kind: anti_stud, gender: female, origin: [10, 72, 10], axis: [0, -1, 0], depth: 8}
+
 # 1x1 cone. One tube, dead centre.
 59900.dat:
   role: structural
@@ -557,8 +582,15 @@
   role: decorative
 6064.dat:
   role: decorative
+# Crystal. LDraw's stud4a tube is emitted as a pin_hole 4 LDU above the
+# underside, so a peg tip pushed into the bottom never reaches it. Same
+# fix as 98138: the tube as a pin_hole on the underside face (y=24), so a
+# crystal capping a peg -- the hot press's two lights -- can be JOINS-
+# checked.
 11127.dat:
   role: decorative
+  features:
+    - {kind: pin_hole, gender: female, origin: [0, 24, 0], axis: [0, -1, 0], depth: 8}
 10830.dat:
   role: decorative
 30089b.dat:
@@ -677,6 +709,12 @@
   features:
     - {kind: axle_hole, gender: female, origin: [0, 0, 0], axis: [0, 0, 1], depth: 20}
 
+# Z28 double bevel. LDraw emits the cross bore, so only the spin is said
+# here. Its teeth reach a partner with no joint at all -- see MESH.
+46372.dat:
+  role: structural
+  rotates: true
+
 # --- Wheels and rims.
 # The 88mm expansion wheel takes a cross axle straight through the hub.
 49295.dat:
@@ -735,12 +773,19 @@
     - {kind: pin_hole, gender: female, origin: [0, 4, 0], axis: [0, 1, 0], depth: 8}
 
 # Same 2x2 round tile without the through-hole -- LDraw's "Tile 2x2 Round
-# with Round Underside Stud", the drone's eyes. LDraw emits only the
-# underside holder's bore as a lone centre pin_hole, which joins nothing,
-# because nothing ever sits at a 2x2's centre. The holder actually grips
-# the four studs around it, exactly as on 15535 above.
+# with Round Underside Stud", the kit's big printed eye. LDraw emits only
+# the underside holder's bore as a lone centre pin_hole, which joins
+# nothing, because nothing ever sits at a 2x2's centre. The holder
+# actually grips the four studs around it, exactly as on 15535 above.
+#
+# Decorative, like 98138: it is an eye. The hot press caps a peg in each
+# of the motor's two front holes with one, and those holes are exactly a
+# tile's width apart, so the two eyes touch edge to edge and each turns on
+# its one peg -- both fine for an eye, both flagged for a structural part.
+# The grip is still checked where it is claimed: JOINS in the model, and
+# in tools/fixtures/good-eye-tile-on-plate.ldr for the four-stud case.
 14769.dat:
-  role: structural
+  role: decorative
   features:
     - {kind: anti_stud, gender: female, origin: [10, 8, 10], axis: [0, -1, 0], depth: 8}
     - {kind: anti_stud, gender: female, origin: [10, 8, -10], axis: [0, -1, 0], depth: 8}
@@ -788,8 +833,14 @@
 # --- Figure and accessory bits with no clutch primitive.
 30162.dat:
   role: decorative
+# Short minifig legs (Leo's, Dark Green). Same LDraw convention as 73200:
+# the figure faces -Z natively, so a half-turn about Y faces it +Z. Proved
+# by tools/fixtures/good-short-legs-face-front.ldr and
+# bad-short-legs-backward.ldr.
 41879.dat:
   role: decorative
+  facing: -Z
+  faces_front: true
 48267.dat:
   role: decorative
 # Bright Red D16.5 ball from Essential. In the seed drone it is loose

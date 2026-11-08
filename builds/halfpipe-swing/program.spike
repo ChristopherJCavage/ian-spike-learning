@@ -1,0 +1,20 @@
+hub: prime
+extensions:
+
+flipperevents_whenProgramStarts
+  flippermotor_motorSetSpeed PORT=A SPEED=50
+  control_wait_until
+    @condition flippersensors_isPressed PORT=B OPTION=pressed
+  control_repeat TIMES=3
+    flipperlight_lightDisplayImageOn IMAGE=arrowLeft
+    flippermotor_motorGoDirectionToPosition PORT=A DIRECTION=shortest POSITION=60
+    flipperlight_lightColorMatrixImageOnForTime PORT=C MATRIX=orange VALUE=0.2
+    flippersound_beepForTime NOTE=72 DURATION=0.2
+    flipperlight_lightDisplayImageOn IMAGE=arrowRight
+    flippermotor_motorGoDirectionToPosition PORT=A DIRECTION=shortest POSITION=300
+    flipperlight_lightColorMatrixImageOnForTime PORT=C MATRIX=orange VALUE=0.2
+    flippersound_beepForTime NOTE=72 DURATION=0.2
+  flipperlight_lightDisplayImageOn IMAGE=smile
+  flippermotor_motorGoDirectionToPosition PORT=A DIRECTION=shortest POSITION=0
+  flipperlight_lightColorMatrixImageOn PORT=C MATRIX=green
+  flippersound_playSoundUntilDone SOUND=cheer

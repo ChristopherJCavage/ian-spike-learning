@@ -1,0 +1,31 @@
+0 Fixture: good-gear-mesh-rack.ldr with the gear turned half a tooth
+0 (6.43 degrees). Expected: INTERPENETRATION, gear into the racks.
+0
+0 Right centre distance, wrong phase: tips land on tips. MESH passes --
+0 it is a distance check -- and the overlap pass catches the teeth.
+0 !LDRCHECK MESH 46372.dat 24121.dat 140
+0
+0
+0
+0
+1 0 0 0 20 1 0 0 0 0 1 0 -1 0 24121.dat
+1 0 0 0 20 -1 0 0 0 0 1 0 1 0 24121.dat
+1 322 0 160 -20 0 0 1 1 0 0 0 1 0 41239.dat
+1 322 0 200 -20 0 0 1 1 0 0 0 1 0 41239.dat
+1 1 -120 160 0 0 0 1 0 1 0 -1 0 0 42924.dat
+1 1 120 160 0 0 0 1 0 1 0 -1 0 0 42924.dat
+1 14 0 200 0.5 0 0 1 0 1 0 -1 0 0 4519.dat
+1 0 60 200 -40 1 0 0 0 0 -1 0 1 0 60484.dat
+1 0 -60 200 -40 1 0 0 0 0 -1 0 1 0 60484.dat
+1 0 40 160 -30 0 0 1 0 1 0 -1 0 0 61332.dat
+1 0 80 160 -30 0 0 1 0 1 0 -1 0 0 61332.dat
+1 0 60 200 -30 0 0 1 0 1 0 -1 0 0 61332.dat
+1 0 -40 160 -30 0 0 1 0 1 0 -1 0 0 61332.dat
+1 0 -80 160 -30 0 0 1 0 1 0 -1 0 0 61332.dat
+1 0 -60 200 -30 0 0 1 0 1 0 -1 0 0 61332.dat
+1 0 -20 160 -10 0 0 1 0 1 0 -1 0 0 61332.dat
+1 0 20 160 -10 0 0 1 0 1 0 -1 0 0 61332.dat
+1 0 0 120 0 1 0 0 0 0 1 0 -1 0 60484.dat
+1 14 0 140 10 0 0 1 0 1 0 -1 0 0 4519.dat
+1 71 0 140 20 0.993712 -0.111964 0 0.111964 0.993712 0 0 0 1 46372.dat
+0 STEP

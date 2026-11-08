@@ -283,7 +283,7 @@ reason: Turning the motor around turns the fan the other way, so it pushes
 === change backwards
 pose: pip-oops
 bubble: Pip: I copied my board like this. The + at the TOP.
-dad: Lift the tube ends and the fan, turn M1 so its + is at C3, put it all
+dad: Lift the tube ends and the fan, turn M1 so its + is at 3C, put it all
     back. That is Pip's mistake, on purpose.
 
 === talk
@@ -320,7 +320,7 @@ look: M1
 choices: Fly up=fly | Just blow=blow
 answer: Fly up
 reveal: Pip: It flies again! It was backwards all along!
-dad: Turn M1 back (+ at D3), fan on, goggles on, hold until fast, let go.
+dad: Turn M1 back (+ at 3E), fan on, goggles on, hold until fast, let go.
 
 === why
 water: base=backwards, S2=pressed

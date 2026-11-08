@@ -33,8 +33,8 @@
 1 | Bright Orange | TECHNIC BRICK 1X2, D4.9 -- tray end stop | 45345 | 6136553 | 3700.dat
 1 | Bright Red | BALL D16.5 -- loose seed payload | 45345 | 4545430 | 54821.dat
 
-## Hand grips
-2 | Bright Reddish Violet | TECHNIC BRICK 1X4, D4.9 -- one side grip per hand | 45345 | 6282101 | 3701.dat
+## Side bars
+2 | Bright Reddish Violet | TECHNIC BRICK 1X4, D4.9 -- one side bar per side, not a handle | 45345 | 6282101 | 3701.dat
 
 ## Downward survey sensor and face
 2 | Bright Orange | TECHNIC BRICK 1X2, D4.9 -- face-plate mounts | 45345 | 6136553 | 3700.dat

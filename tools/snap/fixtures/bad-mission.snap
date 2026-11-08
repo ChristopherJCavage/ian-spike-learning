@@ -3,10 +3,10 @@
 kits scb20
 grid 7x5 grid-mini
 step 1: grid
-step 2: B3B at A1 dir=right level=1
-step 3: S1 at C1 dir=down level=1
-step 4: L4 at D3 dir=up level=1
-step 5: wire3 at A1 dir=down level=2
-step 6: wire3 at D1 dir=right level=2
-step 7: wire3 at C3 dir=up level=2
+step 2: B3B at 1A dir=right side=up level=1
+step 3: S1 at 1C dir=down level=1
+step 4: L4 at 3E dir=up level=1
+step 5: wire3 at 1A dir=down level=2
+step 6: wire3 at 1E dir=right level=2
+step 7: wire3 at 3C dir=up level=2
 mission red: swap=4/D10, flip=4 => S1=on: D10 red

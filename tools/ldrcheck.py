@@ -14,7 +14,8 @@ Reports, per model:
   - facing (from `facing:` in connections.yml vs `0 !LDRCHECK FRONT`)
   - unsupported parts (jointless and nothing underneath)
   - port access (room for a cable plug, from `ports:` in connections.yml)
-  - `0 !LDRCHECK` assertions (CLEARANCE, FACES, RESTS, JOINS, GRIP, PROXY)
+  - `0 !LDRCHECK` assertions (CLEARANCE, FACES, RESTS, JOINS, GRIP, PROXY,
+    MESH)
   - every intermediate step (`steps`): transients must clear by the next page
 
 Parts are resolved out of the official LDraw complete.zip, read in place.
@@ -49,6 +50,9 @@ LIBRARY = REPO / ".ldraw" / "complete.zip"
 ALIASES_PATH = REPO / "tools" / "ldraw_aliases.json"
 CONNECTIONS_PATH = REPO / "tools" / "connections.yml"
 KITS_DIR = REPO / "kits"
+# LEGO kit folders start with the set number; non-LEGO kits (Snap Circuits:
+# scb20-..., sc100-...) have their own inventory format, checked by tools/snap.py.
+LEGO_KIT_GLOB = "[0-9]*/parts.txt"
 
 # Voxel edge in LDraw units. Overlap is measured between eroded solids, so
 # this also sets how much surface gets discarded: at 2 LDU a coincident skin
@@ -293,6 +297,10 @@ class ModelDirectives:
     # grips them and that is the design. A bearing axle held captive by a
     # part above it is the honest case. See NOT RETAINED.
     freeruns: list[str] = field(default_factory=list)
+    # Gear pairs the model declares as meshed: (gear, partner, centre
+    # distance). Teeth that engage touch with no pin between them, which
+    # every other rule reads as a part resting against a part.
+    meshes: list[tuple[str, str, float]] = field(default_factory=list)
     # Parts standing in for a kit part LDraw has no geometry for: the dog,
     # the printed heads before they were aliased. Keyed by the stand-in's
     # part name, valued by the kit design id it represents.
@@ -349,6 +357,14 @@ def parse_directives(path: Path) -> ModelDirectives:
             out.grips.append((dat_name(args[0]), dat_name(args[1])))
             # Also an assertion, so a GRIP left behind after the held item
             # moves fails instead of quietly excusing a real collision.
+            out.assertions.append((verb, args))
+        elif verb == "MESH" and len(args) >= 3:
+            try:
+                out.meshes.append((dat_name(args[0]), dat_name(args[1]), float(args[2])))
+            except ValueError:
+                pass
+            # Also an assertion: every gear must sit at that centre distance
+            # from a partner, so a MESH whose gear has wandered fails.
             out.assertions.append((verb, args))
         else:
             out.assertions.append((verb, args))
@@ -496,6 +512,7 @@ def check(path: Path, through_step: int | None, ground: float | None) -> int:
 
     print("\nINTERPENETRATION")
     gripped = {tuple(sorted(g)) for g in directives.grips}
+    meshed = _meshed(parts, directives.meshes)
     collisions = []
     for i, first in enumerate(parts):
         a_raw = solids.get(first.index)
@@ -530,6 +547,8 @@ def check(path: Path, through_step: int | None, ground: float | None) -> int:
                 or part_role(second.part) == "decorative"
             )
             limit = DECORATIVE_OVERLAP_TOLERANCE if decorative else OVERLAP_TOLERANCE
+            if pair in meshed:
+                limit = MESH_OVERLAP_TOLERANCE
             if volume > limit:
                 collisions.append((volume, first, second))
     if collisions:
@@ -542,7 +561,7 @@ def check(path: Path, through_step: int | None, ground: float | None) -> int:
 
     problems += connection_checks(
         parts, solids, found, directives.front, directives.pivots,
-        directives.proxies, directives.freeruns,
+        directives.proxies, directives.freeruns, directives.meshes,
     )
 
     if ground is not None:
@@ -751,6 +770,7 @@ LDRAW_COLOR = {
     # already above. Third phantom found in this table -- see 268 and 141
     # below, and 331 before them.
     35: "Transparent Bright Green",
+    36: "Transparent Red",
     43: "Transparent Light Blue",
     47: "Transparent",
     71: "Medium Stone Grey",
@@ -967,7 +987,7 @@ def kit_colors() -> dict[str, set[str]]:
     if _KIT_COLORS is not None:
         return _KIT_COLORS
     out: dict[str, set[str]] = defaultdict(set)
-    for path in sorted(KITS_DIR.glob("*/parts.txt")):
+    for path in sorted(KITS_DIR.glob(LEGO_KIT_GLOB)):
         for line in path.read_text().splitlines():
             parts = [p.strip() for p in line.split("|")]
             if len(parts) < 6 or not parts[0].isdigit():
@@ -984,6 +1004,24 @@ def kit_colors() -> dict[str, set[str]]:
 
 def part_stem(part: str) -> str:
     return Path(part.replace("\\", "/")).stem.lower()
+
+
+def kit_colours_for(
+    part: "Placed", colors: dict[str, set[str]], proxies: dict[str, str]
+) -> set[str]:
+    """Kit colours a placed part may legally be.
+
+    A proxy is drawn in the colour of the part it stands in for, so that
+    part's kit colours count too: a brown wig proxied by 18228 is right in
+    Reddish Brown even though no kit ships 18228 in that colour. Its own
+    colours still count, because one stand-in file can cover several real
+    parts (the drill truck's 3005 is a yellow head and a nougat dog) and
+    PROXY records only one of them. A stand-in that is in no kit stays
+    unchecked, as before."""
+    allowed = set(colors.get(part_stem(part.part), set()))
+    if allowed and part.part in proxies:
+        allowed |= colors.get(proxies[part.part], set())
+    return allowed
 
 
 def _annot(part: str) -> dict:
@@ -1185,6 +1223,22 @@ def world_features(part: Placed, lib: Library, cells: set) -> list[Feature]:
             t0, t1 = -BALL_RADIUS, BALL_RADIUS
         elif gender == "female":
             t0, t1 = probe_bore(origin, axis_n, cells, MODULE)
+            # axlehol* primitives are one LDU tall and scaled to the bore,
+            # so a one-sided hole drawn at 0 10 0 is 10 deep, not a module.
+            # The ends of the 24121 quarter rack are half-thick lap tabs
+            # like this; reading them as 20 deep pushed the bore out of
+            # the plastic and into whatever sat behind it. Two-sided holes
+            # are left alone: two 10-deep halves at one origin is how a
+            # through bore is usually drawn. So are bores under half a
+            # module: the Z20 bevel gear's is drawn 7 deep, which is below
+            # JOINT_MIN, and clipping it would unseat a gear that really
+            # does grip its axle (good-expansion-gears-on-axle).
+            scale = v_len(axis)
+            if kind == "axle_hole" and MODULE / 2 - 0.5 <= scale < MODULE - 0.5:
+                if t0 == 0.0 and t1 > 0.0:
+                    t1 = scale
+                elif t1 == 0.0 and t0 < 0.0:
+                    t0 = -scale
         else:
             t0, t1 = 0.0, 4.0  # stud height
         feats.append(Feature(part.index, gender, kind, origin, axis_n, t0, t1))
@@ -1327,6 +1381,58 @@ def _joint_neighbors(found: list[Joint]) -> dict[int, set[int]]:
     return nbrs
 
 
+MESH_DISTANCE_TOLERANCE = 1.0  # LDU; teeth overlap only ~4 LDU radially
+# Meshed teeth interleave so shallowly that tip-on-tip shares at most ~220
+# LDU^3 -- inside OVERLAP_TOLERANCE -- while a correctly phased mesh shares
+# none. So a declared mesh gets no allowance at all.
+MESH_OVERLAP_TOLERANCE = 0.0
+
+
+def _mesh_pairs(
+    parts: list[Placed], gear: str, partner: str, distance: float
+) -> tuple[set[tuple[int, int]], list[Placed]]:
+    """Gear/partner pairs that really engage, and the gears that engage nothing.
+
+    A gear's axis is its native Z (true of every gear in connections.yml).
+    Engaged means the partner's origin -- the centre of a gear or of a
+    curved rack's ring -- lies `distance` from the gear's axis, and the two
+    overlap along that axis, so the teeth share a plane. The tooth phase is
+    left to the interpenetration pass: teeth tip-on-tip overlap and fail.
+    """
+    pairs: set[tuple[int, int]] = set()
+    loose: list[Placed] = []
+    partners = _instances(parts, partner)
+    for g in _instances(parts, gear):
+        axis = v_norm(rotate_vec(g.matrix, (0.0, 0.0, 1.0)))
+        g_lo, g_hi = g.bounds()
+        engaged = False
+        for p in partners:
+            if p.index == g.index:
+                continue
+            d = tuple(p.offset[k] - g.offset[k] for k in range(3))
+            along = v_dot(d, axis)
+            radial = math.sqrt(max(0.0, v_dot(d, d) - along * along))
+            if abs(radial - distance) > MESH_DISTANCE_TOLERANCE:
+                continue
+            p_lo, p_hi = p.bounds()
+            if not all(g_lo[k] < p_hi[k] and p_lo[k] < g_hi[k] for k in range(3)):
+                continue
+            pairs.add(tuple(sorted((g.index, p.index))))
+            engaged = True
+        if not engaged:
+            loose.append(g)
+    return pairs, loose
+
+
+def _meshed(
+    parts: list[Placed], meshes: list[tuple[str, str, float]] | None
+) -> set[tuple[int, int]]:
+    out: set[tuple[int, int]] = set()
+    for gear, partner, distance in meshes or []:
+        out |= _mesh_pairs(parts, gear, partner, distance)[0]
+    return out
+
+
 def _contact_excused(
     first: Placed,
     second: Placed,
@@ -1336,6 +1442,7 @@ def _contact_excused(
     membership: dict[int, int],
     nbrs: dict[int, set[int]],
     found: list[Joint],
+    meshed: set[tuple[int, int]] | None = None,
 ) -> bool:
     """True if a voxel graze is not a missing joint.
 
@@ -1345,6 +1452,8 @@ def _contact_excused(
     plate), so the graze is the joint's geometry, not a stray touch.
     """
     if pair in direct or pair in via_connector:
+        return True
+    if meshed and pair in meshed:
         return True
     if membership[first.index] == membership[second.index]:
         return True
@@ -1731,6 +1840,8 @@ def _assertion_subjects(verb: str, args: tuple[str, ...]) -> list[str]:
         return [args[0]]
     if verb == "FREERUN" and args:
         return [args[0]]
+    if verb == "MESH":
+        return list(args[:2])
     return []
 
 
@@ -1758,7 +1869,8 @@ def assertion_checks(
             print(f"  skip  {verb} {' '.join(args)}  -- not placed yet")
             continue
         msg = _eval_assertion(
-            verb, args, parts, ground, front, supported_by, adj, found
+            verb, args, parts, ground, front, supported_by, adj, found,
+            partial=partial,
         )
         if msg is None:
             print(f"  ok    {verb} {' '.join(args)}")
@@ -1777,8 +1889,10 @@ def _eval_assertion(
     supported_by: dict[int, set[int]],
     adj: list[set[int]],
     found: list[Joint] | None = None,
+    partial: bool = False,
 ) -> str | None:
-    """None means pass; a string is the failure reason."""
+    """None means pass; a string is the failure reason. `partial` is a
+    page of `steps` before the last."""
     if verb == "CLEARANCE":
         if len(args) < 2:
             return "need a part and a minimum clearance"
@@ -1918,6 +2032,36 @@ def _eval_assertion(
         if not loose:
             return f"every {name} is gripped -- FREERUN excuses nothing"
         return None
+    if verb == "MESH":
+        if len(args) < 3:
+            return "need a gear, its partner, and the centre distance"
+        try:
+            distance = float(args[2])
+        except ValueError:
+            return f"{args[2]} is not a distance"
+        if not _instances(parts, args[0]):
+            return f"{dat_name(args[0])} is not in the model"
+        if not _instances(parts, args[1]):
+            return f"{dat_name(args[1])} is not in the model"
+        _, loose = _mesh_pairs(parts, dat_name(args[0]), dat_name(args[1]), distance)
+        if partial:
+            # Mid-build, a gear whose rail is not on yet is waiting, not
+            # wrong. One sharing a partner's plane at the wrong distance is.
+            partners = _instances(parts, args[1])
+            loose = [
+                g for g in loose
+                if any(
+                    all(g.bounds()[0][k] < p.bounds()[1][k]
+                        and p.bounds()[0][k] < g.bounds()[1][k] for k in range(3))
+                    for p in partners
+                )
+            ]
+        if loose:
+            return (
+                f"{loose[0].label} is not {distance:g} LDU from any "
+                f"{dat_name(args[1])} in its plane"
+            )
+        return None
     return f"unknown directive {verb}"
 
 
@@ -2034,9 +2178,11 @@ def _interpenetrations(
     cores: dict,
     found: list[Joint],
     grips: list[tuple[str, str]] | None = None,
+    meshes: list[tuple[str, str, float]] | None = None,
 ) -> list[tuple[float, Placed, Placed]]:
     direct = {tuple(sorted((j.male_part, j.female_part))) for j in found}
     gripped = {tuple(sorted(g)) for g in (grips or [])}
+    meshed = _meshed(parts, meshes)
     voxel_volume = VOXEL ** 3
     collisions = []
     for i, first in enumerate(parts):
@@ -2065,6 +2211,8 @@ def _interpenetrations(
                 or part_role(second.part) == "decorative"
             )
             limit = DECORATIVE_OVERLAP_TOLERANCE if decorative else OVERLAP_TOLERANCE
+            if pair in meshed:
+                limit = MESH_OVERLAP_TOLERANCE
             if volume > limit:
                 collisions.append((volume, first, second))
     return collisions
@@ -2109,6 +2257,7 @@ def _bare_contacts(
     found: list[Joint],
     by_index: dict[int, Placed],
     pivots: list[tuple[str, Vec]] | None = None,
+    meshes: list[tuple[str, str, float]] | None = None,
 ) -> list[tuple[Placed, Placed]]:
     """Pairs that touch with nothing joining them, after the usual excuses.
 
@@ -2132,6 +2281,7 @@ def _bare_contacts(
                 via_connector.add(tuple(sorted((ids[a], ids[b]))))
     membership, _hinges = _rigid_clusters(parts, found, by_index, pivots or [])
     nbrs = _joint_neighbors(found)
+    meshed = _meshed(parts, meshes)
     out = []
     for i, first in enumerate(parts):
         if not first.tris or part_role(first.part) == "decorative":
@@ -2147,7 +2297,8 @@ def _bare_contacts(
                 continue
             pair = tuple(sorted((first.index, second.index)))
             if _contact_excused(
-                first, second, pair, direct, via_connector, membership, nbrs, found
+                first, second, pair, direct, via_connector, membership, nbrs, found,
+                meshed,
             ):
                 continue
             out.append((first, second))
@@ -2168,7 +2319,7 @@ def _hard_messages(
     by_index = {p.index: p for p in parts}
 
     for volume, first, second in _interpenetrations(
-        parts, solids, cores, found, directives.grips
+        parts, solids, cores, found, directives.grips, directives.meshes
     ):
         msgs.append(
             f"INTERPENETRATION {volume:.0f} LDU^3  {first.label} overlaps {second.label}"
@@ -2200,7 +2351,7 @@ def _hard_messages(
     # studs to click onto. Not a one-page grace: kids cannot hold a loose
     # plate while they pick up the next parts.
     for first, second in _bare_contacts(
-        parts, solids, found, by_index, directives.pivots
+        parts, solids, found, by_index, directives.pivots, directives.meshes
     ):
         msgs.append(
             f"CONTACT WITHOUT JOINT  {first.label} touches {second.label}"
@@ -2228,8 +2379,7 @@ def _hard_messages(
         name = LDRAW_COLOR.get(part.color)
         if not name:
             continue
-        stem = part_stem(part.part)
-        allowed = colors.get(stem, set())
+        allowed = kit_colours_for(part, colors, directives.proxies)
         if not allowed:
             continue
         if name not in allowed and "Multicombination" not in allowed:
@@ -2245,7 +2395,8 @@ def _hard_messages(
         ):
             continue
         msg = _eval_assertion(
-            verb, args, parts, ground, front, supported_by, adj, found
+            verb, args, parts, ground, front, supported_by, adj, found,
+            partial=partial_assertions,
         )
         if msg is not None:
             msgs.append(f"ASSERTION  {verb} {' '.join(args)} -- {msg}")
@@ -2352,6 +2503,7 @@ def connection_checks(
     pivots: list[tuple[str, Vec]] | None = None,
     proxies: dict[str, str] | None = None,
     freeruns: list[str] | None = None,
+    meshes: list[tuple[str, str, float]] | None = None,
 ) -> int:
     problems = 0
     by_index = {p.index: p for p in parts}
@@ -2481,6 +2633,7 @@ def connection_checks(
     # seam, i.e. a boundary RIGID CLUSTER HINGE below would also flag.
     membership, _ = _rigid_clusters(parts, found, by_index, pivots)
     nbrs = _joint_neighbors(found)
+    meshed = _meshed(parts, meshes)
     contact_bad = []
     for i, first in enumerate(parts):
         if not first.tris or part_role(first.part) == "decorative":
@@ -2496,7 +2649,8 @@ def connection_checks(
                 continue
             pair = tuple(sorted((first.index, second.index)))
             if _contact_excused(
-                first, second, pair, direct, via_connector, membership, nbrs, found
+                first, second, pair, direct, via_connector, membership, nbrs, found,
+                meshed,
             ):
                 continue
             contact_bad.append((first, second))
@@ -2664,7 +2818,7 @@ def connection_checks(
         name = LDRAW_COLOR.get(part.color)
         if not name:
             continue
-        allowed = colors.get(part_stem(part.part), set())
+        allowed = kit_colours_for(part, colors, proxies)
         if not allowed:
             continue
         if name not in allowed and "Multicombination" not in allowed:
@@ -2806,7 +2960,7 @@ def holes(refs: list[str]) -> int:
 def kit_design_ids() -> dict[str, dict]:
     """design_id -> {name, kits} across every kits/*/parts.txt."""
     out: dict[str, dict] = {}
-    for path in sorted(KITS_DIR.glob("*/parts.txt")):
+    for path in sorted(KITS_DIR.glob(LEGO_KIT_GLOB)):
         kit = path.parent.name
         for line in path.read_text().splitlines():
             if line.startswith("#") or line.count("|") != 5:
@@ -2893,7 +3047,7 @@ def kits_audit(strict: bool = False) -> int:
 
     total = sum(len(v) for v in buckets.values())
     print(
-        f"\n{total} design IDs across {len(list(KITS_DIR.glob('*/parts.txt')))} kits: "
+        f"\n{total} design IDs across {len(list(KITS_DIR.glob(LEGO_KIT_GLOB)))} kits: "
         f"{len(buckets['library'])} free, {len(buckets['annotated'])} annotated, "
         f"{len(buckets['silent'])} silent, {len(buckets['unmapped'])} unmapped, "
         f"{len(buckets['proxy'])} proxy."

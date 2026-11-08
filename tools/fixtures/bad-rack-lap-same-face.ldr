@@ -1,0 +1,24 @@
+0 Fixture: the same half circle with the right quarter turned the other
+0 way, so both end tabs sit on the SAME face. Expected: problems --
+0 parts overlap at the joint.
+0
+0 The negative control for good-rack-lap-joint.ldr. 0 0 1 -1 0 0 0 -1 0
+0 also lands the right quarter in the lower right, and it is the first
+0 matrix anyone reaches for -- but it maps local y to -z like the left
+0 quarter does, so the two half-thick tabs occupy the same 10 LDU and
+0 collide instead of stacking. Staggering the two quarters 20 LDU apart in
+0 z hides the collision but leaves each tab hanging alone in its own
+0 layer; the half-turn about the vertical is the real fix.
+0
+0
+0
+1 0 0 0 0 1 0 0 0 0 1 0 -1 0 24121.dat
+1 0 0 0 0 0 0 1 -1 0 0 0 -1 0 24121.dat
+1 322 0 160 -20 0 0 1 1 0 0 0 1 0 41239.dat
+1 322 0 200 -20 0 0 1 1 0 0 0 1 0 41239.dat
+1 0 -120 160 -10 0 0 1 0 1 0 -1 0 0 61332.dat
+1 0 120 160 -10 0 0 1 0 1 0 -1 0 0 61332.dat
+1 14 0 200 -0.5 0 0 1 0 1 0 -1 0 0 4519.dat
+1 0 20 180 -40 1 0 0 0 0 1 0 -1 0 64289.dat
+1 0 20 160 -30 0 0 1 0 1 0 -1 0 0 61332.dat
+1 0 20 200 -30 0 0 1 0 1 0 -1 0 0 61332.dat

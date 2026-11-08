@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>halfpipe-swing instructions</title>
+<style>
+  html, body { margin: 0; background: #fff; color: #111;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+  /* `display` on .page beats the browser's own rule for the hidden
+     attribute, so the flipbook needs this or every page shows at once. */
+  .page[hidden] { display: none; }
+  .page { min-height: 100vh; display: flex; flex-direction: column;
+    padding: 24px 32px 16px; box-sizing: border-box; }
+  header { display: flex; align-items: center; gap: 16px; }
+  .badge { background: #e31c3d; color: #fff; font-size: 28px; font-weight: 700;
+    min-width: 56px; height: 56px; border-radius: 12px; display: flex;
+    align-items: center; justify-content: center; }
+  h1 { font-size: 28px; margin: 0; flex: 1; }
+  .bin { font-size: 16px; color: #444; }
+  .body { flex: 1; display: grid; grid-template-columns: 280px 1fr;
+    gap: 24px; align-items: center; min-height: 0; }
+  aside { background: #f4f4f4; border-radius: 12px; padding: 16px; }
+  aside h2 { margin: 0 0 8px; font-size: 14px; text-transform: uppercase;
+    letter-spacing: .06em; color: #666; }
+  aside ul { margin: 0; padding-left: 18px; }
+  .copy { margin-top: 16px; font-size: 18px; line-height: 1.35; }
+  .hero { width: 100%; height: auto; background: #fff; }
+  .placeholder { min-height: 360px; display: flex; align-items: center;
+    justify-content: center; background: #f4f4f4; border-radius: 12px;
+    font-size: 22px; padding: 24px; text-align: center; }
+  footer { display: flex; align-items: center; justify-content: space-between;
+    gap: 16px; margin-top: 12px; }
+  .check { flex: 1; font-size: 16px; color: #333; }
+  .slide { background: #06341f; color: #fff; cursor: pointer; }
+  .slide .scene { flex: 1; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 20px; min-height: 0; }
+  .slide .stage { position: relative; display: inline-block; min-height: 0; }
+  .slide .art { display: block; max-width: 100%; max-height: 68vh;
+    border-radius: 16px; }
+  .slide .plate { background: #fff; padding: 12px; box-sizing: border-box; }
+  /* The cartoon chameleon leans in on the build slide to look at its own
+     LEGO self. It must not cover the model, so it sits on the corner. */
+  .slide .peek { position: absolute; right: -6%; bottom: -8%; width: 30%;
+    max-width: 280px; }
+  .slide .tell { margin: 0; max-width: 22ch; text-align: center;
+    font-size: 40px; line-height: 1.2; font-weight: 700; }
+  .slide .check { color: #9fd9b6; font-size: 16px; }
+  .slide footer { justify-content: flex-start; }
+  @media print {
+    @page { size: landscape; margin: 10mm; }
+    html, body { background: #fff; }
+    /* On screen only one page is shown at a time; on paper print them all,
+       one per sheet, and drop the buttons. */
+    .page[hidden] { display: flex !important; }
+    .page { min-height: auto; height: 100vh; page-break-after: always;
+      break-after: page; }
+    .page:last-child { page-break-after: auto; break-after: auto; }
+    .nav { display: none !important; }
+    .slide { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .slide .art { max-height: 60vh; }
+  }
+  .nav button { font-size: 22px; padding: 12px 28px; border: 0; border-radius: 10px;
+    background: #111; color: #fff; cursor: pointer; }
+  .nav button:disabled { background: #bbb; cursor: default; }
+  @media (max-width: 900px) {
+    .body { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<section class="page slide" data-slide="1" hidden>
+  <div class="scene">
+    <div class="stage"><img class="art" src="renders/story-01.png" alt="Tika, Pip, Coco and Sully went to the skate park."></div>
+    <p class="tell">Tika, Pip, Coco and Sully went to the skate park.</p>
+  </div>
+  <footer><p class="check">Tika, Pip, Coco, Sully</p></footer>
+</section>
+<section class="page slide" data-slide="2" hidden>
+  <div class="scene">
+    <div class="stage"><img class="art" src="renders/story-02.png" alt="Sully stood at the top of the half-pipe. It was a long way down."></div>
+    <p class="tell">Sully stood at the top of the half-pipe. It was a long way down.</p>
+  </div>
+  <footer><p class="check">Sully</p></footer>
+</section>
+<section class="page slide" data-slide="3" hidden>
+  <div class="scene">
+    <div class="stage"><img class="art" src="renders/story-03.png" alt="He dropped in. Down, down, down -- and up the other side!"></div>
+    <p class="tell">He dropped in. Down, down, down -- and up the other side!</p>
+  </div>
+  <footer><p class="check">Sully</p></footer>
+</section>
+<section class="page slide" data-slide="4" hidden>
+  <div class="scene">
+    <div class="stage"><img class="art" src="renders/story-04.png" alt="Up one side, up the other. Three times. Everyone cheered."></div>
+    <p class="tell">Up one side, up the other. Three times. Everyone cheered.</p>
+  </div>
+  <footer><p class="check">Sully, Coco, Pip, Tika</p></footer>
+</section>
+<section class="page slide" data-slide="5" hidden>
+  <div class="scene">
+    <div class="stage"><img class="art plate" src="renders/story-05.png" alt="Build a half-pipe. A motor makes your skater drop in."></div>
+    <p class="tell">Build a half-pipe. A motor makes your skater drop in.</p>
+  </div>
+  <footer><p class="check">Coco</p></footer>
+</section>
+<section class="page" data-step="1" hidden>
+  <header>
+    <span class="badge">1</span>
+    <h1>baseplates</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>1x White 16x16 plate, 1x White 8x16 plate | kit 45345</li></ul>
+      <p class="copy">Two white plates, edges touching. The big one goes in front.</p>
+    </aside>
+    <img class="hero" src="renders/step-001.png" alt="Step 1: baseplates">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Two white plates make one big rectangle, longer front-to-back than side-to-side.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="2" hidden>
+  <header>
+    <span class="badge">2</span>
+    <h1>long green bricks</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>2x Bright Green 1x16 Technic brick | kit 45345</li></ul>
+      <p class="copy">One long green brick on each plate, holes facing you.</p>
+    </aside>
+    <img class="hero" src="renders/step-002.png" alt="Step 2: long green bricks">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Both green bricks run left-to-right, end to end of their plates, holes facing you.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="3" hidden>
+  <header>
+    <span class="badge">3</span>
+    <h1>the motor</h1>
+    <span class="bin">Prime</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>1x White Large Motor | kit 45678</li></ul>
+      <p class="copy">Hold the motor, round disc facing you, cable end down.</p>
+    </aside>
+    <img class="hero" src="renders/step-003.png" alt="Step 3: the motor">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> You are looking straight at the round disc. The cable socket is at the bottom.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="4" hidden>
+  <header>
+    <span class="badge">4</span>
+    <h1>six pegs, all pointing at you</h1>
+    <span class="bin">Prime</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>6x Black connector peg (friction) | kit 45678</li></ul>
+      <p class="copy">Four pegs into the motor -- the bottom two holes each side. Two pegs into the green brick.</p>
+    </aside>
+    <img class="hero" src="renders/step-004.png" alt="Step 4: six pegs, all pointing at you">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Four pegs stick out of the motor toward you, two each side of the disc. Two pegs stick out of the green brick, the same distance apart as the motor&#x27;s left and right pegs.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="5" hidden>
+  <header>
+    <span class="badge">5</span>
+    <h1>posts</h1>
+    <span class="bin">Prime</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>2x Black 9M beam | kit 45678</li></ul>
+      <p class="copy">A black beam on each side, then stand it all on the green brick&#x27;s pegs.</p>
+    </aside>
+    <img class="hero" src="renders/step-005.png" alt="Step 5: posts">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> The motor stands on two black legs, disc facing you, with a finger&#x27;s gap under it. Nothing wobbles.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="6" hidden>
+  <header>
+    <span class="badge">6</span>
+    <h1>crossbeam pegs</h1>
+    <span class="bin">Prime</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>4x Black connector peg (friction) | kit 45678</li></ul>
+      <p class="copy">Two pegs on each post: holes 6 and 8 from the top.</p>
+    </aside>
+    <img class="hero" src="renders/step-006.png" alt="Step 6: crossbeam pegs">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Four pegs stick out toward you below the motor, two per post, at the same two heights.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="7" hidden>
+  <header>
+    <span class="badge">7</span>
+    <h1>crossbeams</h1>
+    <span class="bin">Prime</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>2x Medium Azur 13M beam | kit 45678</li></ul>
+      <p class="copy">Two long blue beams, centred, one above the other.</p>
+    </aside>
+    <img class="hero" src="renders/step-007.png" alt="Step 7: crossbeams">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Two blue beams run left-to-right under the motor, one above the other, each with four holes free beyond each post.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="8" hidden>
+  <header>
+    <span class="badge">8</span>
+    <h1>hub pegs</h1>
+    <span class="bin">Prime</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>4x Black connector peg (friction) | kit 45678</li></ul>
+      <p class="copy">Turn it around. Four pegs into the back of the motor.</p>
+    </aside>
+    <img class="hero" src="renders/step-008.png" alt="Step 8: hub pegs">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Four pegs stick out of the motor&#x27;s back, away from the disc.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="9" hidden>
+  <header>
+    <span class="badge">9</span>
+    <h1>hub</h1>
+    <span class="bin">Prime</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>1x Bright Yellow Prime Hub | kit 45678</li></ul>
+      <p class="copy">The yellow hub lies flat, lights up, on those four pegs.</p>
+    </aside>
+    <img class="hero" src="renders/step-009.png" alt="Step 9: hub">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> The hub sticks straight out behind the motor, flat, with the 5x5 lights on top. Its far end is in the air for now.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="10" hidden>
+  <header>
+    <span class="badge">10</span>
+    <h1>leg pegs</h1>
+    <span class="bin">Prime</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>6x Black connector peg (friction) | kit 45678</li></ul>
+      <p class="copy">Four pegs in the far end of the hub, two in the back green brick. All point away.</p>
+    </aside>
+    <img class="hero" src="renders/step-010.png" alt="Step 10: leg pegs">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Six pegs all point away from the motor -- four out of the hub, two out of the back green brick right under them.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="11" hidden>
+  <header>
+    <span class="badge">11</span>
+    <h1>rear legs</h1>
+    <span class="bin">Prime</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>2x Black 9M beam | kit 45678</li></ul>
+      <p class="copy">Two black legs, three pegs each. Push both on together.</p>
+    </aside>
+    <img class="hero" src="renders/step-011.png" alt="Step 11: rear legs">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> The hub sits level on its two back legs. Press on the hub -- it does not sag.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="12" hidden>
+  <header>
+    <span class="badge">12</span>
+    <h1>button riser</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>1x Bright Reddish Violet 1x4 Technic brick | kit 45345</li></ul>
+      <p class="copy">A purple brick on the end of the front green brick -- your left end.</p>
+    </aside>
+    <img class="hero" src="renders/step-012.png" alt="Step 12: button riser">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> The purple brick sits on the last four studs on your left. In the picture, taken from behind, that is the right-hand end.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="13" hidden>
+  <header>
+    <span class="badge">13</span>
+    <h1>button pegs</h1>
+    <span class="bin">Prime</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>2x Black connector peg (friction) | kit 45678</li></ul>
+      <p class="copy">Two pegs in the back of the purple brick.</p>
+    </aside>
+    <img class="hero" src="renders/step-013.png" alt="Step 13: button pegs">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Two pegs stick out of the purple brick toward the hub.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="14" hidden>
+  <header>
+    <span class="badge">14</span>
+    <h1>force sensor</h1>
+    <span class="bin">Prime</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>1x White Force Sensor | kit 45678</li></ul>
+      <p class="copy">The force sensor, button pointing at the ceiling.</p>
+    </aside>
+    <img class="hero" src="renders/step-014.png" alt="Step 14: force sensor">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> The button points at the ceiling, behind the motor on your left. It does not touch the baseplate.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="15" hidden>
+  <header>
+    <span class="badge">15</span>
+    <h1>disc pegs</h1>
+    <span class="bin">Prime</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>2x Bright Blue 3M peg | kit 45678</li></ul>
+      <p class="copy">Line up the marks. Two long blue pegs in the disc: above the middle and below it.</p>
+    </aside>
+    <img class="hero" src="renders/step-015.png" alt="Step 15: disc pegs">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Two blue pegs stick out of the disc, one above the other.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="16" hidden>
+  <header>
+    <span class="badge">16</span>
+    <h1>offset beam</h1>
+    <span class="bin">Prime</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>1x Bright Reddish Violet 5M beam | kit 45678</li></ul>
+      <p class="copy">A purple beam hangs from the disc on holes 1 and 3.</p>
+    </aside>
+    <img class="hero" src="renders/step-016.png" alt="Step 16: offset beam">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> A short purple beam hangs from the disc, in front of the blue crossbeams, two holes free below the pegs.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="17" hidden>
+  <header>
+    <span class="badge">17</span>
+    <h1>arm pegs</h1>
+    <span class="bin">Prime</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>2x Bright Blue 3M peg | kit 45678</li></ul>
+      <p class="copy">Two more long blue pegs in the purple beam&#x27;s bottom two holes.</p>
+    </aside>
+    <img class="hero" src="renders/step-017.png" alt="Step 17: arm pegs">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Two blue pegs stick out of the bottom of the purple beam.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="18" hidden>
+  <header>
+    <span class="badge">18</span>
+    <h1>arm</h1>
+    <span class="bin">Prime</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>1x Medium Azur 7M beam | kit 45678</li></ul>
+      <p class="copy">The blue arm on those pegs, holes 2 and 3.</p>
+    </aside>
+    <img class="hero" src="renders/step-018.png" alt="Step 18: arm">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> The arm hangs one step in front of the purple beam and reaches much further down. Turn the disc by hand: everything swings together.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="19" hidden>
+  <header>
+    <span class="badge">19</span>
+    <h1>T-beam pegs</h1>
+    <span class="bin">Prime</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>2x Black connector peg (friction) | kit 45678</li></ul>
+      <p class="copy">Two pegs near the bottom of the arm. Leave the last hole empty.</p>
+    </aside>
+    <img class="hero" src="renders/step-019.png" alt="Step 19: T-beam pegs">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Two pegs stick out near the bottom of the arm, the very bottom hole left empty.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="20" hidden>
+  <header>
+    <span class="badge">20</span>
+    <h1>T-beam</h1>
+    <span class="bin">Prime</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>1x Black T-beam | kit 45678</li></ul>
+      <p class="copy">An upside-down T on the end of the arm.</p>
+    </aside>
+    <img class="hero" src="renders/step-020.png" alt="Step 20: T-beam">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> An upside-down T at the end of the arm. The middle hole of its crossbar lines up with the arm&#x27;s empty bottom hole.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="21" hidden>
+  <header>
+    <span class="badge">21</span>
+    <h1>board pegs</h1>
+    <span class="bin">Prime</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>2x Black connector peg (friction) | kit 45678</li></ul>
+      <p class="copy">A peg in each end of the T&#x27;s crossbar. The middle stays empty.</p>
+    </aside>
+    <img class="hero" src="renders/step-021.png" alt="Step 21: board pegs">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Two pegs, side by side, the middle hole empty between them.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="22" hidden>
+  <header>
+    <span class="badge">22</span>
+    <h1>board brick</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>1x Bright Reddish Violet 1x4 Technic brick | kit 45345</li></ul>
+      <p class="copy">A purple brick on both pegs, studs up.</p>
+    </aside>
+    <img class="hero" src="renders/step-022.png" alt="Step 22: board brick">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Four studs on top, level, at the bottom of the arm. Look through the brick&#x27;s middle hole: you can see straight through the T-beam and the arm.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="23" hidden>
+  <header>
+    <span class="badge">23</span>
+    <h1>skateboard</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>1x Flame Yellowish Orange board | kit 45345</li></ul>
+      <p class="copy">The orange board on top, long way across.</p>
+    </aside>
+    <img class="hero" src="renders/step-023.png" alt="Step 23: skateboard">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> The board sits flat and does not tip either way.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="24" hidden>
+  <header>
+    <span class="badge">24</span>
+    <h1>Leo, legs and body</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>1x Dark Green short legs, 1x Bright Blue torso | kit 45345</li></ul>
+      <p class="copy">Leo&#x27;s green legs on the board, blue body on top. He faces you.</p>
+    </aside>
+    <img class="hero" src="renders/step-024.png" alt="Step 24: Leo, legs and body">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Leo stands on the board facing you, his back against the T-beam.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="25" hidden>
+  <header>
+    <span class="badge">25</span>
+    <h1>Leo, head and hair</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>1x Bright Yellow head, 1x Reddish Brown wig | kit 45345</li></ul>
+      <p class="copy">Head, then hair. Leo is ready to drop in.</p>
+    </aside>
+    <img class="hero" src="renders/step-025.png" alt="Step 25: Leo, head and hair">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Leo is complete and grinning. The board is level.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="26" hidden>
+  <header>
+    <span class="badge">26</span>
+    <h1>gear axle and back gear</h1>
+    <span class="bin">Prime</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>1x Medium Stone Grey Z28 gear, 1x Bright Yellow 7M axle | kit 45678</li></ul>
+      <p class="copy">Hold a gear behind the arm. Push the yellow axle through from the front, under the board.</p>
+    </aside>
+    <img class="hero" src="renders/step-026.png" alt="Step 26: gear axle and back gear">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Spin the gear with a finger. The gear and the axle turn together, freely, and the board and Leo stay still.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="27" hidden>
+  <header>
+    <span class="badge">27</span>
+    <h1>half bushes</h1>
+    <span class="bin">Expansion</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>3x Bright Yellow 1/2 bush | kit 45681</li></ul>
+      <p class="copy">One yellow ring behind the gear, two in front of the purple brick.</p>
+    </aside>
+    <img class="hero" src="renders/step-027.png" alt="Step 27: half bushes">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> The back gear cannot slide off. Two yellow rings sit in front of the brick, with some axle still sticking out past them.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="28" hidden>
+  <header>
+    <span class="badge">28</span>
+    <h1>front gear</h1>
+    <span class="bin">Prime / Expansion</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>1x Medium Stone Grey Z28 gear | kit 45678 ; 1x Bright Yellow 1/2 bush | kit 45681</li></ul>
+      <p class="copy">The second gear on the front, and one more ring to hold it.</p>
+    </aside>
+    <img class="hero" src="renders/step-028.png" alt="Step 28: front gear">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> One gear behind the arm, one in front of Leo, both on the same yellow axle. Spin one and the other spins with it.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="29" hidden>
+  <header>
+    <span class="badge">29</span>
+    <h1>rail pegs</h1>
+    <span class="bin">Prime</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>2x Bright Blue 3M peg | kit 45678</li></ul>
+      <p class="copy">A long blue peg in each end of the UPPER blue beam.</p>
+    </aside>
+    <img class="hero" src="renders/step-029.png" alt="Step 29: rail pegs">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Two long blue pegs, far left and far right of the upper blue beam.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="30" hidden>
+  <header>
+    <span class="badge">30</span>
+    <h1>back rail</h1>
+    <span class="bin">Expansion / Prime</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>2x Black curved rack | kit 45681 ; 1x Black 8M axle | kit 45678</li></ul>
+      <p class="copy">Leo over to the left, right curve on. Leo over to the right, left curve on. Black axle through the tabs.</p>
+    </aside>
+    <img class="hero" src="renders/step-030.png" alt="Step 30: back rail">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> A U-shaped rail behind Leo, teeth on the inside, with the back gear sitting in its teeth at the bottom. At the bottom the two tabs overlap to make one full-thickness end, and the black axle sticks out toward you.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="31" hidden>
+  <header>
+    <span class="badge">31</span>
+    <h1>lip axles</h1>
+    <span class="bin">Expansion</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>2x Bright Red 6M axle | kit 45681</li></ul>
+      <p class="copy">A red axle through each lip, sticking out toward you.</p>
+    </aside>
+    <img class="hero" src="renders/step-031.png" alt="Step 31: lip axles">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Three axles stick out toward you: a red one at each lip, the black one at the bottom.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="32" hidden>
+  <header>
+    <span class="badge">32</span>
+    <h1>front rail</h1>
+    <span class="bin">Expansion</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>2x Black curved rack | kit 45681</li></ul>
+      <p class="copy">The same two curves on the front. A gear rides in each rail.</p>
+    </aside>
+    <img class="hero" src="renders/step-032.png" alt="Step 32: front rail">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Two rails, back and front, with Leo between them and a gear in each rail&#x27;s teeth. Look along the ramp from the side -- the two rails line up.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="33" hidden>
+  <header>
+    <span class="badge">33</span>
+    <h1>light stand</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>1x Flame Yellowish Orange 2x4 plate with holes, 2x Bright Reddish Violet 1x4 Technic brick | kit 45345</li></ul>
+      <p class="copy">An orange plate over the front edge, two purple bricks on its front row.</p>
+    </aside>
+    <img class="hero" src="renders/step-033.png" alt="Step 33: light stand">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> A little purple tower stands in front of the ramp, just past the edge of the white plate, not touching the front rail.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="34" hidden>
+  <header>
+    <span class="badge">34</span>
+    <h1>light pegs</h1>
+    <span class="bin">Prime</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>2x Black connector peg (friction) | kit 45678</li></ul>
+      <p class="copy">Two pegs in the top purple brick.</p>
+    </aside>
+    <img class="hero" src="renders/step-034.png" alt="Step 34: light pegs">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Two pegs stick out toward you from the top of the tower.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="35" hidden>
+  <header>
+    <span class="badge">35</span>
+    <h1>light matrix</h1>
+    <span class="bin">Essential</span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>1x Medium Azur 3x3 Color Light Matrix | kit 45345</li></ul>
+      <p class="copy">The light matrix on the pegs, lights facing you.</p>
+    </aside>
+    <img class="hero" src="renders/step-035.png" alt="Step 35: light matrix">
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Nine lights look at you from under the ramp. Its cable reaches round to the hub.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="36" hidden>
+  <header>
+    <span class="badge">36</span>
+    <h1>try it with your hand (no new parts)</h1>
+    <span class="bin"></span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>(none)</li></ul>
+      <p class="copy">Motor into A, button into B, lights into C. Push Leo up one side and down the other, slowly. Watch the gears roll.</p>
+    </aside>
+    <div class="hero placeholder"><p>Plug the motor into port A, the force sensor into port B and the light matrix into port C. Hold the base with one hand. With the other, push Leo up toward one lip, slowly -- the motor turns, stiffly -- then back down and up toward the other lip. Watch the grey gears.</p></div>
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Leo goes up each side. Both gears roll along the teeth of their rails the whole way, turning as they go, and nothing else touches the ramp. The cables do not catch on the arm.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<section class="page" data-step="37" hidden>
+  <header>
+    <span class="badge">37</span>
+    <h1>code (no new parts)</h1>
+    <span class="bin"></span>
+  </header>
+  <div class="body">
+    <aside>
+      <h2>Add</h2>
+      <ul><li>(none)</li></ul>
+      <p class="copy">Press the button. Leo drops in, swings three times with a flash at every lip, and lands with green lights and a smile.</p>
+    </aside>
+    <div class="hero placeholder"><p>Open the SPIKE App, Word Blocks. Build the program on the code sheet with Chris reading it out. Put Leo back at the bottom, then run it and press the button.</p></div>
+  </div>
+  <footer>
+    <p class="check"><strong>Check:</strong> Leo drops in, swings lip to lip three times -- the front lights flash orange at every lip -- and lands in the middle with green lights, a smile and a sound.</p>
+    <div class="nav">
+      <button type="button" class="back">Back</button>
+      <button type="button" class="next">Next</button>
+    </div>
+  </footer>
+</section>
+<script>
+const pages = [...document.querySelectorAll('.page')];
+let i = 0;
+function show(n) {
+  i = Math.max(0, Math.min(n, pages.length - 1));
+  pages.forEach((p, k) => p.hidden = k !== i);
+  // Story slides have no buttons -- they are printed, not clicked.
+  const back = pages[i].querySelector('.back');
+  const next = pages[i].querySelector('.next');
+  if (back) back.disabled = i === 0;
+  if (next) {
+    next.disabled = i === pages.length - 1;
+    next.textContent = i === pages.length - 1 ? 'Done' : 'Next';
+  }
+}
+document.body.addEventListener('click', e => {
+  if (e.target.classList.contains('next')) return show(i + 1);
+  if (e.target.classList.contains('back')) return show(i - 1);
+  // Buttonless pages still need a way forward on screen.
+  if (pages[i].classList.contains('slide')) show(i + 1);
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); show(i + 1); }
+  if (e.key === 'ArrowLeft') { e.preventDefault(); show(i - 1); }
+});
+show(0);
+</script>
+</body>
+</html>

@@ -1,9 +1,7 @@
 # bad: UNSUPPORTED
-# The wire's far end lands on a post with no block under it.
+# A level-2 wire with nothing under either end.
 kits scb20
 grid 7x5 grid-mini
 step 1: grid
-step 2: B3B at A1 dir=right level=1
-step 3: S1 at C1 dir=down level=1
-step 4: wire3 at A1 dir=down level=2
-step 5: wire3 at D1 dir=right level=2
+step 2: B3B at 1A dir=right side=up level=1
+step 3: wire3 at 5A dir=down level=2

@@ -1,0 +1,109 @@
+0 Hot Press
+0 Name: model.ldr
+0 Author: ian-spike-learning
+0 !LICENSE Licensed as content of this repo; parts from LDraw library
+0 !LDRCHECK GROUND 8
+0 !LDRCHECK FRONT +Z
+0 !LDRCHECK PIVOT 3707.dat +Y
+0 !LDRCHECK PIVOT 61332.dat +Z
+0 !LDRCHECK CLEARANCE 3738.dat 120
+0 !LDRCHECK JOINS 14769.dat 61332.dat
+0 !LDRCHECK JOINS 11127.dat 61332.dat
+
+0 // Essential-only hot press. A slider-crank, drive on top.
+0 // The motor is pinned by two pegs to a purple Technic brick on a red
+0 // tower. One peg in the motor's turning hub is the crank, radius 20 LDU.
+0 // The blue 7M beam is the rod, 120 LDU hole to hole. It pulls a green
+0 // plate that slides on two black axles. A red brick under the plate is
+0 // the hot press head. At the bottom of the turn it stops 4 LDU (1.6 mm)
+0 // over the tan wood's studs, so the motor never stalls on the wood.
+0 // This file is the top of the turn: the press is open.
+
+0 // Step 1 -- the table.
+1 15 0 0 0 1 0 0 0 1 0 0 0 1 91405.dat
+0 STEP
+0 // Step 2 -- the bottom hot plate. Long side across, studs on the
+0 // middle eight.
+1 4 0 -24 0 1 0 0 0 1 0 0 0 1 39789.dat
+0 STEP
+0 // Step 3 -- the old wood, two tan plates. Studs reach y = -44.
+1 191 0 -32 0 1 0 0 0 1 0 0 0 1 3709.dat
+1 191 0 -40 0 1 0 0 0 1 0 0 0 1 3709.dat
+0 STEP
+0 // Step 4 -- the guide sockets. Cross holes on x = +-60, so the green
+0 // plate's end holes line up with them.
+1 288 -60 -24 0 1 0 0 0 1 0 0 0 1 6143.dat
+1 288 60 -24 0 1 0 0 0 1 0 0 0 1 6143.dat
+0 STEP
+0 // Step 5 -- the guide axles. Low end at y = -8, top at -167.
+1 0 -60 -87.5 0 0 1 0 -1 0 0 0 0 1 3707.dat
+1 0 60 -87.5 0 0 1 0 -1 0 0 0 0 1 3707.dat
+0 STEP
+0 // Step 6 -- the press plate. Round end holes on the two axles, so it
+0 // slides. Up pose: top at y = -120.
+1 10 0 -120 0 1 0 0 0 1 0 0 0 1 3738.dat
+0 STEP
+0 // Step 7 -- the press head, red, under the plate. Its studs go up into
+0 // the plate. Bottom at -88 here and -48 at the bottom of the turn.
+1 4 0 -112 0 1 0 0 0 1 0 0 0 1 39789.dat
+0 STEP
+0 // Step 8 -- the hinge. Red 1x2 with two holes, on the front row of the
+0 // plate. The lower hole (10 over the plate) is the one the rod uses.
+1 4 0 -128 10 1 0 0 0 1 0 0 0 1 32530.dat
+0 STEP
+0 // Step 9 -- the tower, three red 2x2x3 bricks behind the press. 216 tall.
+1 4 0 -72 -80 1 0 0 0 1 0 0 0 1 30145.dat
+1 4 0 -144 -80 1 0 0 0 1 0 0 0 1 30145.dat
+1 4 0 -216 -80 1 0 0 0 1 0 0 0 1 30145.dat
+0 STEP
+0 // Step 10 -- the motor mount. Purple Technic 1x4 on the tower's front
+0 // row, holes at hub height (y = -230) and pointing front to back.
+0 // Orange 1x4 on the back row.
+1 26 0 -240 -70 1 0 0 0 1 0 0 0 1 3701.dat
+1 25 0 -240 -90 1 0 0 0 1 0 0 0 1 3010.dat
+0 STEP
+0 // Step 11 -- the cap. A red 2x4 tile locks the two 1x4s together.
+1 4 0 -248 -80 1 0 0 0 1 0 0 0 1 87079.dat
+0 STEP
+0 // Step 12 -- two pegs in the purple brick's outer holes, out the front.
+1 0 -20 -230 -60 0 0 -1 0 1 0 1 0 0 61332.dat
+1 0 20 -230 -60 0 0 -1 0 1 0 1 0 0 61332.dat
+0 STEP
+0 // Step 13 -- the motor, hub to the front. Its two back holes at hub
+0 // height take the two pegs. Back face on z = -60, hub face on z = 20.
+1 15 0 -230 -30 -1 0 0 0 0 -1 0 -1 0 68488.dat
+0 STEP
+0 // Step 14 -- two pegs: one in the hub's top hole (the crank), one in
+0 // the hinge's lower hole.
+1 0 0 -250 20 0 0 -1 0 1 0 1 0 0 61332.dat
+1 0 0 -130 20 0 0 -1 0 1 0 1 0 0 61332.dat
+0 STEP
+0 // Step 15 -- the rod. Blue 7M beam on both pegs: top hole on the crank,
+0 // bottom hole on the hinge.
+1 1 0 -190 30 1 0 0 0 0 -1 0 1 0 32524.dat
+0 STEP
+0 // Step 16 -- the face. Two pegs in the motor's front holes, 60 over
+0 // the hub, and a big eye tile on each peg end.
+1 0 -20 -290 0 0 0 -1 0 1 0 1 0 0 61332.dat
+1 0 20 -290 0 0 0 -1 0 1 0 1 0 0 61332.dat
+1 15 -20 -290 24 1 0 0 0 0 1 0 -1 0 14769.dat
+1 15 20 -290 24 1 0 0 0 0 1 0 -1 0 14769.dat
+0 STEP
+0 // Step 17 -- two lights on top: a peg in each top hole, a red crystal
+0 // and a green crystal on the peg ends.
+1 0 -20 -300 -30 0 1 0 -1 0 0 0 0 1 61332.dat
+1 0 20 -300 -30 0 1 0 -1 0 0 0 0 1 61332.dat
+1 36 -20 -336 -30 1 0 0 0 1 0 0 0 1 11127.dat
+1 35 20 -336 -30 1 0 0 0 1 0 0 0 1 11127.dat
+0 STEP
+0 // Step 18 -- super wood: one tan plate, half as thick, in front.
+1 191 -100 -8 80 1 0 0 0 1 0 0 0 1 3709.dat
+0 STEP
+0 // Step 19 -- a frog watching, and the bush that did not get cut.
+1 288 90 0 90 -1 0 0 0 1 0 0 0 -1 33320.dat
+1 288 -110 0 -90 1 0 0 0 1 0 0 0 1 6064.dat
+0 STEP
+0 // Step 20 -- two grass stems.
+1 10 130 0 -50 1 0 0 0 1 0 0 0 1 15279.dat
+1 10 -130 0 130 1 0 0 0 1 0 0 0 1 15279.dat
+0 STEP

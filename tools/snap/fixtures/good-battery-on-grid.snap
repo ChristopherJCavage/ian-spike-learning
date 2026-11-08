@@ -1,0 +1,13 @@
+# good: the battery lying fully on the grid (snap row C, case over rows A-B),
+# the way Project 1 in the manual builds it.
+kits scb20
+grid 7x5 grid-mini
+step 1: grid
+step 2: B3B at 1C dir=right side=up level=1
+step 3: S1 at 1E dir=right level=1
+step 4: L4 at 5E dir=up level=1
+step 5: wire3 at 1C dir=down level=2
+step 6: wire3 at 3E dir=right level=2
+step 7: wire3 at 5C dir=left level=2
+expect S1=on: L4 on
+expect S1=off: L4 off

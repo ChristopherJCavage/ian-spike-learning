@@ -1,4 +1,4 @@
-# Story -- Chameleon Colour-Match
+# Story -- Chameleon Color-Match
 
 Five slides that come **before step 1**, the way the SPIKE App opens a
 project. Chrome and the rules for this track: `context/instruction-screens.md`.
@@ -13,25 +13,26 @@ These are not build steps and they are numbered on their own track.
 `screens.md` row N renders model step N, so nothing may be inserted ahead
 of row 1 -- see the note at the top of `tools/pages.py`.
 
-The cast is the real SPIKE Essential four, and the parts for all four are
-in the box (`kits/45345-essential/parts.txt`, "Minifigure Parts"). Their
-bios are LEGO Education's, linked from `context/sources.md`; we are using
-the characters, not copying a lesson. Each one is on the slide that suits
-who they actually are, because Ian will meet these same figures again in
-every other Essential unit.
+The cast is our own animal crew, the same four in every story deck (see
+`context/instruction-screens.md`): Sully the sloth, Tika the toucan, Pip
+the tree frog, and Coco the capybara. They are not minifigures and not
+the LEGO Education characters, on purpose. Each one is on the slide that
+suits who they are, so Ian meets the same friends again in the next deck.
 
 ```
 slide | figma_frame | art | who | copy | camera | overlay
-1 | Chameleon/S1-trip    | renders/story-01.png | Sofie, Daniel, Maria, Leo | "Sofie, Daniel, Maria and Leo went to see a rainforest." | - | -
-2 | Chameleon/S2-colour  | renders/story-02.png | Leo | "Leo started counting colours. He ran out of fingers." | - | -
-3 | Chameleon/S3-spot    | renders/story-03.png | Leo | "Leo held still. Then a leaf blinked at him." | - | -
-4 | Chameleon/S4-meet    | renders/story-04.png | Leo | "Leo learned its name. A chameleon changes colour to match where it sits." | - | -
-5 | Chameleon/S5-build   | renders/story-05.png | Maria | "Build a chameleon that changes colour too." | 25 245 | renders/story-peek.png
+1 | Chameleon/S1-trip    | renders/story-01.png | Tika, Pip, Coco, Sully | "Tika, Pip, Coco and Sully went to see a rainforest." | - | -
+2 | Chameleon/S2-color   | renders/story-02.png | Sully | "Sully started counting colors. He ran out of claws." | - | -
+3 | Chameleon/S3-spot    | renders/story-03.png | Sully | "Sully held still. Then a leaf blinked at him." | - | -
+4 | Chameleon/S4-meet    | renders/story-04.png | Sully | "Sully learned its name. A chameleon changes color to match where it sits." | - | -
+5 | Chameleon/S5-build   | renders/story-05.png | Coco | "Build a chameleon that changes color too." | 25 245 | renders/story-peek.png
 ```
 
-Slides 1-4 are drawn and live in git at 1536x1024, which is one of the two
-frame sizes in `context/instruction-screens.md`, so they drop into a
-landscape tablet frame with no resampling.
+Slides 1-4 are drawn with an AI image tool from one character sheet, so
+the four look the same on every page. They were generated at 16:9 and
+centre-cropped to 1536x1024, which is one of the two frame sizes in
+`context/instruction-screens.md`, so they drop into a landscape tablet
+frame with no resampling. Every figure is inside the crop.
 
 Slide 5 has a `camera`, which means `pages.py render` draws it from
 `model.ldr` like any step hero. It is the only slide that is not an
@@ -40,95 +41,88 @@ chameleon from slide 4 cut into a sticker and tucked on the corner.
 
 ## Slide 1 -- the trip
 
-**Read aloud:** "Sofie wanted to write a story about a real rainforest. So
+**Read aloud:** "Tika wanted to write a story about a real rainforest. So
 all four of them went."
 
-**Why Sofie leads:** she is the one who wants to be a journalist. She is
-holding the notebook, and she is the one who writes down what Leo finds
-two slides later.
+**Why Tika leads:** she is the one who wants to write things down. She is
+carrying the red notebook, and she is the one who writes down what Sully
+finds two slides later.
 
-**Art:** wide cartoon establishing shot. The four characters walking a
-muddy path into the forest, seen from behind and slightly above, small
-against enormous trees. A warm shaft of light through the canopy.
-Friendly, storybook, no menace.
+**Art:** wide storybook establishing shot. The four walking a muddy path
+into the forest, seen from behind, small against enormous buttress-rooted
+trees. Tika in front with her notebook, Pip hopping beside her, Coco with
+her tool belt, Sully in his blue beanie at the back. A warm shaft of light
+through the canopy. Friendly, no menace.
 
-## Slide 2 -- the colour
+## Slide 2 -- the color
 
 **Read aloud:** "Everything was green. And then it was also red, and
-orange, and blue, and yellow. Leo tried to count all of them -- and ran
-out of fingers."
+orange, and blue, and yellow. Sully tried to count all of them -- and ran
+out of claws."
 
-**Why Leo (build-tester note, was Daniel):** Ian's table read slide 2 as
-Daniel's on the first pass, but it fits Leo better and sets up slide 3.
-He is the quiet one who notices what everyone else walks past -- that is
-the whole reason slide 3 already belonged to him. Here he is not just
-looking at the colours, he is *counting* them, and that same close
-attention is exactly what finds a lizard wearing the forest as a
-disguise two pages later.
+**Why Sully:** he is the slow, quiet one who notices what everyone else
+walks past. Here he is not just looking at the colors, he is *counting*
+them, and that same close attention is what finds a lizard wearing the
+forest as a disguise on the next page. A sloth has only three claws on
+each hand, so running out is quick, and that is the joke.
 
-**Art:** the same forest, close up and loud. Leo -- blue top, dark green
-legs, brown hair, same figure as slide 3 -- holds both hands up with all
-ten fingers spread, caught mid-count and grinning at having run out.
-Scarlet flowers, a blue morpho butterfly, yellow fruit, a tree frog, a
-dozen different greens. This is the "oooo, aaaahhh" page -- it should be
-the brightest thing in the deck, and it is.
+**Art:** the same forest, close up and loud. Sully, arms up and claws
+spread, grinning at having run out. Scarlet bromeliads, a blue morpho
+butterfly, yellow fruit, orange lilies, pink orchids, a red-eyed tree frog
+on a leaf. This is the "oooo, aaaahhh" page -- it should be the brightest
+thing in the deck, and it is.
 
 ## Slide 3 -- the chameleon
 
-**Read aloud:** "The others walked right past it. Leo stayed still, and
-that is why he saw it. A chameleon wears the colour of wherever it is
+**Read aloud:** "The others walked right past it. Sully stayed still, and
+that is why he saw it. A chameleon wears the color of wherever it is
 sitting. That is how it hides."
 
-**Why Leo:** he is the quiet one, and he thinks frogs are the coolest.
-Holding still being the *reason* he found it is the best thing this story
-can teach a six-year-old right before a twenty-four step build.
+**Why Sully:** holding still is the one thing a sloth is best at, and it
+being the *reason* he found the chameleon is the best thing this story can
+teach a six-year-old right before a twenty-four step build.
 
-**Art:** close on one mossy branch. A green chameleon -- curled tail,
-turret eye, splayed grasping feet -- sitting on a leaf and almost exactly
-the leaf's green. Its curled tail rests against a red bromeliad and has
-gone red-orange to match, so the colour-changing is visible in one glance
-rather than only in the narration. Leo crouched at the left, holding
-still. Nobody else in frame.
+**Art:** one mossy branch. A green chameleon -- curled tail, turret eye,
+grasping feet -- on a leaf and almost exactly the leaf's green. Its curled
+tail sits by a red bromeliad and has gone red-orange to match, so the
+color-changing reads in one glance rather than only in the narration.
+Sully rests on the branch at the left, very still and quietly amazed.
+Nobody else in frame.
 
 ## Slide 4 -- meet it
 
-**Read aloud:** "It is called a chameleon. It can turn the colour of
+**Read aloud:** "It is called a chameleon. It can turn the color of
 whatever it is sitting on -- green on a leaf, blue by a blue flower. And
 look what it does with its tongue."
 
-**Why Leo (build-tester note, was Daniel):** slide 3 already belongs to
-Leo, who found the chameleon by holding still -- so he is the one who
-stays to watch it and is rewarded with the close look here, tongue and
-all. Handing slide 4 to a character who was not even in slide 3 broke the
-thread; keeping it Leo's means one kid's patience carries both pages.
+**Why Sully:** slide 3 already belongs to him, so he is the one who stays
+to watch and is rewarded with the close look here, tongue and all. One
+friend's patience carries both pages.
 
 **Art:** the chameleon front and centre, tongue shot out sideways in a big
-cheeky curve to catch a fly. The body is caught mid-change and you can
-read the whole idea in one glance: green head, yellow-orange middle,
-turquoise tail where it touches a blue flower. Leo -- same blue top, dark
-green legs, brown hair as slides 2 and 3 -- leans in on the left with
-both hands on his cheeks, delighted.
+cheeky curve to catch a fly. The body is caught mid-change: green head,
+orange and turquoise patches down the back, a big blue flower beside it.
+Sully leans in on the left with both paws on his cheeks, delighted.
 
 The tongue is a drawing choice, not a build one. Ian's table found a
 flex hose cannot actually mount on the sensor, so the real chameleon's
 face is two black pegs and two white round eye tiles instead (steps
-13-14), not a tongue. The art keeps the tongue anyway -- it is coral
-pink-red, catching a tiny fly -- because this is the one page in the deck
-where the drawing is allowed to be more chameleon than brick, the same
-way it is allowed a tail that coils in one smooth sweep instead of a
-stepped LEGO curl.
+13-14), not a tongue. The art keeps the tongue anyway, because this is the
+one page in the deck where the drawing is allowed to be more chameleon
+than brick, the same way it is allowed a tail that coils in one smooth
+sweep instead of a stepped LEGO curl.
 
 ## Slide 5 -- build it
 
-**Read aloud:** "Maria said: we could build one. Let's build one."
+**Read aloud:** "Coco said: we could build one. Let's build one."
 
-**Why Maria:** she is the inventive one who loves putting things together.
-She hands the story over to the bricks.
+**Why Coco:** she is the builder, the one with the tool belt. She hands
+the story over to the bricks.
 
 **Art:** none drawn. `renders/story-05.png` is a LeoCAD shot of the
 finished model at camera `25 245`. That angle keeps the whole animal
 readable -- the two white eye tiles, all four feet, the tail curl, and
-both the colour sensor and the light matrix -- while leaving the
+both the color sensor and the light matrix -- while leaving the
 bottom-right corner clear for the sticker. This is the one slide where
 the kid sees exactly what they are about to make, so it must not be an
 illustration, and it has to keep matching the model -- giving it a camera
@@ -159,14 +153,7 @@ copied.
 
 The sticker is derived from the slide 4 art, not drawn separately, so the
 two are the same animal. To redo it after changing slide 4: crop a square
-of side 780 centred on (875, 480) in the 1536x1024 art, scale to 900x900,
-mask to a circle inset 26px, and stroke that circle white at 26px.
-
-**Build-tester re-cut:** slide 4 was regenerated with Leo in place of
-Daniel (see above), which redraws the whole scene, so the crop was
-re-checked against the new art rather than assumed. The chameleon landed
-in the same part of the frame as before -- same crop, (875, 480) at side
-780 -- because the new generation kept the same chameleon-on-the-right,
-character-on-the-left layout. If a future regeneration shifts the
-chameleon, re-derive the centre from that image rather than trusting
-these numbers.
+of side 820 centred on (880, 570) in the 1536x1024 art, scale to 900x900,
+mask to a circle inset 26px, and stroke that circle white at 26px. If a
+future redraw moves the chameleon, re-derive the centre from that image
+rather than trusting these numbers.
