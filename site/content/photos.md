@@ -9,15 +9,18 @@ frame.
 
 | Slot | Photo | Treatment |
 |---|---|---|
-| Home hero | line art, not a photo (`site/assets/home/hero-line-art.svg`) | none |
+| Home hero | the Spark Detectives (`site/assets/home/hero-crew.png`) | none |
 | Project card, Seed Mission | `rainforest-seed-mission/hero` | Card |
 | Project card, Chameleon | `rainforest-chameleon/hero` | Card |
 | Project page hero | `rainforest-seed-mission/hero` | Hero |
 | Build page heroes | `<build>/hero` | Hero, with the LeoCAD render as an "As Drawn" thumbnail |
 | How It's Made | `seed-drone/iso` beside `renders/check-iso.png` | Inline pair |
-| Project card, Half-pipe Swing | `halfpipe-swing/hero` | Card |
+| Home door and project card, Night Skate Cases | `night-skate-cases/hero` | Card, and Hero on the build page |
 | Build pages, How It Works | `<build>/program` (SPIKE™ App screenshot) | Screenshot |
 | About (optional) | `about/table` | Inline |
+
+Half-pipe Swing is not on the site until it has been play-tested. Its
+shot stays on the list below and is not exported.
 
 Step pictures in the PDFs and click-throughs stay LeoCAD renders. Photos
 are for the top of the page, where someone decides whether to try it.
@@ -75,34 +78,49 @@ No other color grading. The bricks should look like bricks.
 
 Rainforest Seed Mission
 
-1. **The pair.** Ian's hands holding the Seed Drone low over the Drop Zone,
-   seed loaded, ideally mid-drop. This is the project card and the project
-   page hero. Take a burst. Saved as `rainforest-seed-mission/hero`.
+1. **The pair.** Published: one table photo of the drone beside the Drop
+   Zone, used uncropped for `rainforest-seed-mission/hero`,
+   `seed-drone/hero`, `seed-drone/iso`, and `rainforest-drop-zone/hero`.
+   The hands-mid-drop shot, and a Drop Zone shot on its own, are still
+   worth taking later. They do not replace this one until they exist.
 2. **The drone alone**, at the same three-quarter angle as
-   `builds/seed-drone/renders/check-iso.png`. This is both its build hero
-   and the "As Built" half of the How It's Made pair. Take it once from
-   slightly further back as `seed-drone/iso` if the hero is cropped tight.
+   `builds/seed-drone/renders/check-iso.png`. Not taken. The pair photo
+   stands in for `seed-drone/hero` and `seed-drone/iso`.
 3. **The Drop Zone alone**, from a little above, with the red band across
-   the middle. Saved as `rainforest-drop-zone/hero`.
+   the middle. Not taken. The pair photo stands in for
+   `rainforest-drop-zone/hero`.
 
 Chameleon Color-Match
 
-4. **Three-quarter angle**, back lit up over a pad, matching its iso
-   render. Saved as `rainforest-chameleon/hero`.
-5. **The warning shot**: the back lit red over the red pad. A spare; it may
-   go in How It Works.
+4. **The table shot.** Published as `rainforest-chameleon/hero`: from
+   above, matrix lit, color tiles beside it.
+5. **The warning shot**: the back lit red over the red pad. Not taken.
+
+Hot Press
+
+6. **The press, eyes on.** Published as `hot-press/hero`.
+
+The Night Skate Cases
+
+7. **The Case 1 board**, battery holder on the top edge, egg on the
+   light. Published as `night-skate-cases/hero`, from
+   `builds/snap-01-the-loop/renders/real-c1.jpg`.
 
 Half-pipe Swing
 
-6. **The button.** Ian's hands pressing the force sensor, reaching over
-   the left lip, Leo on the board. Saved as `halfpipe-swing/hero`.
+8. **The button.** Not taken, and not published. Ian's hands pressing
+   the force sensor, reaching over the left lip, Leo on the board.
+   Saved as `halfpipe-swing/hero` when the build comes back.
 
 Program Screenshots
 
-7. **One per build that has a program.** Open it in the SPIKE™ App on the
+9. **One per build that has a program.** Open it in the SPIKE™ App on the
    iPad and take a screenshot. Crop it to just the blocks: no app logo,
    menus, or other screens, and no edits beyond the crop. Saved as
-   `photos-inbox/<build>/program.png`. It goes under How It Works.
+   `photos-inbox/<build>/program.jpg`. It goes under How It Works.
+   Published: Seed Drone, Chameleon, Hot Press. The Hot Press shot had
+   "Project 10" and a status icon in the margin; the crop removes that
+   margin and leaves the blocks as they were.
 
 About (optional)
 

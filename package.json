@@ -1,0 +1,13 @@
+{
+  "name": "stem-builds",
+  "private": true,
+  "description": "Public STEM Builds site for stem.galaxymoose.com. No login.",
+  "scripts": {
+    "build": "python3 tools/build_site.py",
+    "dev": "python3 tools/build_site.py && wrangler dev",
+    "deploy": "python3 tools/build_site.py && wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "4.168.0"
+  }
+}

@@ -47,6 +47,13 @@ words differ, these files win.
   match; Elenco has no fan-site policy to quote.
 - Elenco® and Snap Circuits® take ® on every mention, the same as LEGO®.
 
+## Publishing
+
+stem.galaxymoose.com is public. No login. `python3 tools/build_site.py`
+writes `site/dist/`, and `npm run deploy` publishes it. The look matches
+the Daily House brief: Poppins, blue on near-black. These files stay the
+words.
+
 ## Files
 
 | File | Page |
@@ -59,7 +66,9 @@ words differ, these files win.
 | `builds/seed-drone.md` | /builds/seed-drone |
 | `builds/rainforest-chameleon.md` | /builds/rainforest-chameleon |
 | `builds/rainforest-drop-zone.md` | /builds/rainforest-drop-zone |
-| `builds/halfpipe-swing.md` | /builds/halfpipe-swing |
+| `builds/hot-press.md` | /builds/hot-press |
+| `builds/night-skate-cases.md` | /builds/night-skate-cases |
+| `builds/halfpipe-swing.md` | parked. The file stays. It is not linked from Home or Projects until the build has been play-tested. |
 | `build-template.md` | Section order for any new build page |
 | `the-kits.md` | /kits (`/sets` redirects here) |
 | `how-this-was-made.md` | /how |

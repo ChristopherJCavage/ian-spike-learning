@@ -11,6 +11,10 @@ figma: TBD
 project: rainforest-seed-mission
 role: companion
 
+Published at https://stem.galaxymoose.com/builds/rainforest-drop-zone
+Project page: https://stem.galaxymoose.com/projects/rainforest-seed-mission
+CC BY 4.0. Credit Chris Cavage, stem.galaxymoose.com.
+
 The Rainforest Drop Zone is the place the Seed Drone flies over: one white
 8x16 plate stood narrow and deep, with a green wall down each long edge, a
 tree at each end, grass, a frog, and a ranger holding the drone controller. A

@@ -6,3 +6,8 @@
 # Original phone photos carry GPS for the house. Only tools/photos.py
 # output (metadata stripped) is committed.
 photos-inbox/
+
+# Published static site and its toolchain
+site/dist/
+node_modules/
+.wrangler/

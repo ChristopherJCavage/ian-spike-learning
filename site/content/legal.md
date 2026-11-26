@@ -3,8 +3,8 @@
 ## This Site Is Unofficial
 
 LEGO® is a trademark of the LEGO Group of companies which does not
-sponsor, authorize or endorse this site. SPIKE™ and LEGO® Education are
-trademarks of the LEGO Group.
+sponsor, authorize or endorse this site. SPIKE™, LEGO® Education, the
+Minifigure, and Technic® are trademarks of the LEGO Group.
 
 Elenco® and Snap Circuits® are registered trademarks of Elenco
 Electronics, LLC, which does not sponsor, authorize or endorse this site.
@@ -30,7 +30,7 @@ for fan sites and I'm trying to follow them. In practice that means:
   copied.
 
 If you work for the LEGO Group or Elenco and think I've gotten something
-wrong, email cjcavage@gmail.com and I'll fix it.
+wrong, email [cjcavage@gmail.com](mailto:cjcavage@gmail.com) and I'll fix it.
 
 ## License for the Builds
 
@@ -69,9 +69,14 @@ None of these projects or companies is affiliated with this site.
 - [Cursor](https://cursor.com) and [Anthropic](https://www.anthropic.com)'s
   Claude models, which I use to write the models and the Python. See
   [How It's Made](/how).
-- The typefaces Syne and DM Sans, under the
+- Python is a trademark of the Python Software Foundation. Naming the
+  language does not need a symbol on every use.
+- Grok is a trademark of xAI. Claude and Anthropic are trademarks of
+  Anthropic, PBC. Anthropic's guidelines say to name Claude in plain text,
+  without a trademark symbol.
+- The typeface Poppins, under the
   [SIL Open Font License](https://openfontlicense.org/).
-- Hosted on Cloudflare Pages.
+- Hosted on Cloudflare.
 
 ## Privacy
 

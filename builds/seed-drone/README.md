@@ -11,6 +11,10 @@ figma: TBD
 project: rainforest-seed-mission
 role: main
 
+Published at https://stem.galaxymoose.com/builds/seed-drone
+Project page: https://stem.galaxymoose.com/projects/rainforest-seed-mission
+CC BY 4.0. Credit Chris Cavage, stem.galaxymoose.com.
+
 The Seed Drone is a handheld rainforest-survey machine for the club's
 careers-and-technology lesson. A child holds the yellow Hub in both hands
 and skims the two landing shoes over the red band in

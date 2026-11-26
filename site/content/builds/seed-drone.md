@@ -39,6 +39,11 @@ port B turns a quarter turn to tip the tray, the hub plays a sound while
 the seed rolls out, and the motor turns back so the tray is level for the
 next one.
 
+Editor note (not on the page): the screenshot in this slot shows a
+different wiring. The sensor is on B, the motor is on A, and the motor
+turns half a turn each way and then stops, with no sound. The paragraph
+above stays, because it matches `builds/seed-drone/program.spike`.
+
 ## What You Need
 
 - One SPIKE™ Essential set: the Small Hub (charged), one small motor, and

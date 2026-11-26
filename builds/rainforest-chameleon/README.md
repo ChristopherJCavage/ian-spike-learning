@@ -11,6 +11,9 @@ figma: TBD
 project: rainforest-chameleon
 role: main
 
+Published at https://stem.galaxymoose.com/builds/rainforest-chameleon
+CC BY 4.0. Credit Chris Cavage, stem.galaxymoose.com.
+
 Chameleon Colour-Match. The club's first Essential-only rainforest
 lesson: the animal reads a coloured pad under its head and lights the
 3x3 matrix on its back to match -- with a bright-red branch for the

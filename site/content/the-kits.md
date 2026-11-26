@@ -11,12 +11,13 @@ checklist under What You Need spells out the set numbers.
 
 ---
 
-## SPIKE™
+## LEGO® SPIKE™
 
-SPIKE™ comes in three boxes: Essential, Prime, and the Prime Expansion.
-Club-Ready builds use only Essential, because that's the box the club owns
-and the only one a Saturday session can count on. Home Builds can use any
-mix of the three.
+LEGO® SPIKE™ comes in three boxes: Essential, Prime, and the Prime Expansion.
+At the Contemporary Chinese School of Arizona (CCSA), the LEGO® robotics
+club sticks to SPIKE™ Essential. An hour on Saturday is about one box, and
+that's the one the club has. At home we mix and match. We have all three,
+and the pieces are sorted into tackle boxes.
 
 Picture: our own LeoCAD render of the Small Hub with the color sensor and a
 motor plugged in. No official product photos anywhere on this page.
@@ -25,7 +26,7 @@ motor plugged in. No official product photos anywhere on this page.
 
 The club's box, made for kids around six to ten. It has a
 Small Hub with two ports, two small motors, a color sensor, a 3x3 light
-matrix, four minifigures, and a tray of bricks. Two ports means every model
+matrix, four LEGO® minifigures, and a tray of bricks. Two ports means every model
 picks exactly two of motor, motor, sensor, or matrix.
 
 [Official Product Page](https://education.lego.com/en-us/products/lego-education-spike-essential-set/45345/)
@@ -40,7 +41,7 @@ Club-Ready builds need it.
 
 ### SPIKE™ Prime Expansion, Set 45681
 
-An add-on for Prime with a lot more Technic pieces, one more motor, and a
+An add-on for Prime with a lot more LEGO® Technic® pieces, one more motor, and a
 second color sensor. It has no hub of its own, so it only works alongside
 a Prime set.
 
@@ -67,7 +68,7 @@ Source for the dates: [LEGO® Education, SPIKE™ portfolio retirement](https://
 
 ---
 
-## Simple Machines
+## LEGO® Simple Machines
 
 ### Simple Machines, Set 9689
 
@@ -79,13 +80,16 @@ date from the LEGO Group, so this page doesn't guess one.
 
 ---
 
-## Snap Circuits®
+## Elenco® Snap Circuits®
 
 Elenco® Snap Circuits® comes in boxes that share one snap system, and we
 have two of them. The parts snap onto a plastic grid, so we snap together
 our own circuits with no solder and no code. It isn't a LEGO® product.
-Blocks from the two boxes mix, with one rule: Jr. parts are made for 3
-volts, so they stay off the Beginner set's 4.5-volt battery holder.
+The blocks from the two boxes can share a grid. The limit is the battery.
+Junior parts are made for 3 volts, from two AA batteries. The Beginner
+holder uses three AA batteries, which is 4.5 volts. The Junior manual
+warns that the extra voltage can burn out a part, including the lamp
+wire, so a Junior part stays off that holder.
 
 ### Snap Circuits® Beginner, SCB-20
 
@@ -96,7 +100,7 @@ sets, but its blocks snap into them.
 
 [Official Product Page](https://shop.elenco.com/consumers/snap-circuits-beginner.html)
 
-### Snap Circuits® Jr., SC-100
+### Snap Circuits® Junior, SC-100
 
 The bigger box: about 30 parts on a full-size grid, run by two AA
 batteries, with 100 experiments in its manual. It adds a speaker, a light

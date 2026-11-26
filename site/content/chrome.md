@@ -23,8 +23,9 @@ Line 1: Galaxy Moose Software · Everything on this site is free ·
 Line 2 (verbatim, do not edit):
 
 > LEGO® is a trademark of the LEGO Group of companies which does not
-> sponsor, authorize or endorse this site. SPIKE™ and LEGO® Education are
-> trademarks of the LEGO Group. This site is unofficial.
+> sponsor, authorize or endorse this site. SPIKE™, LEGO® Education, the
+> Minifigure, and Technic® are trademarks of the LEGO Group. This site is
+> unofficial.
 
 Line 3 (ours, same size and color as line 2):
 
@@ -38,8 +39,9 @@ PDF, and program. Some projects are a single build. Some are two builds
 that work together. Every published build belongs to exactly one project,
 set by `project:` and `role:` in its README.
 
-- Project of one (Chameleon, Half-pipe Swing): the card and the page are
-  just the build.
+- Project of one (Chameleon, Hot Press, The Night Skate Cases): the card
+  and the page are just the build. Half-pipe Swing is written the same
+  way and stays off Home and Projects until it has been play-tested.
 - Project of several (Rainforest Seed Mission): a project page, and each
   build page gets a Goes With chip.
 
@@ -95,9 +97,9 @@ Need.
 Values come from the `kits:` tag. Each id maps to a family and a segment in
 `the-kits.md`. A segment is Needed when its id is listed.
 
-- Seed Mission and Chameleon: Essential.
-- Half-pipe Swing: Essential, Prime, and Expansion. It still uses Leo, the
-  skateboards, and the baseplates from Essential.
+- Seed Mission, Chameleon, and Hot Press: Essential.
+- A build that needs all three boxes lights Essential, Prime, and
+  Expansion. Half-pipe Swing is that shape. It is not on the site yet.
 - The Night Skate Cases (Snap Circuits®): Beginner and Jr. Every block is
   from the Beginner box, but Case 4 needs a fifth blue wire, and only the
   Jr. box has one.

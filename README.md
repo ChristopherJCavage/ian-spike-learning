@@ -3,6 +3,15 @@
 Grep-able notes for Ian's LEGO Education SPIKE kits and **our** builds.
 Not a parts database. Not official LEGO curriculum.
 
+The public site is [stem.galaxymoose.com](https://stem.galaxymoose.com).
+The builds on that site are the Seed Drone, the Rainforest Drop Zone, the
+Chameleon Color-Match, the Hot Press, and The Night Skate Cases. Each of
+those folders links back to its page.
+
+Code in `tools/` is MIT ([LICENSE](LICENSE)). The builds, photos, and
+instructions are CC BY 4.0 ([LICENSE-BUILDS.md](LICENSE-BUILDS.md)). Credit
+Chris Cavage, stem.galaxymoose.com.
+
 | Folder | What it is |
 |---|---|
 | [`kits/`](kits/) | What we **own** (inventories + how the two boxes mix) |

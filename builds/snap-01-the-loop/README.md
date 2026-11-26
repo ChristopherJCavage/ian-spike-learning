@@ -11,6 +11,9 @@ project: snap-electricity
 role: main
 figma: TBD
 
+Published at https://stem.galaxymoose.com/builds/night-skate-cases
+CC BY 4.0. Credit Chris Cavage, stem.galaxymoose.com.
+
 The Spark Detectives, Module 1: a long comic in five cases, one sitting
 each. Ian builds one loop in Case 1 (battery holder riding the top edge,
 slide switch, the red/yellow light D10 with the egg on it, three blue

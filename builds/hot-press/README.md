@@ -11,6 +11,9 @@ figma: TBD
 project: super-wood
 role: main
 
+Published at https://stem.galaxymoose.com/builds/hot-press
+CC BY 4.0. Credit Chris Cavage, stem.galaxymoose.com.
+
 The Hot Press is the press step from the club's wood poster. The motor
 sits high on a red tower with big eyes and a red and a green light on
 top. One peg in its hub pulls a blue beam, and the beam pushes a green

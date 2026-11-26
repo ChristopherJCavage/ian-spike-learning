@@ -3,17 +3,18 @@
 URL: /projects
 
 Some ideas are one build. Some are two that work together. The badge on
-each card shows which kit, and which boxes of it, you need. Anything marked
-Club-Ready fits in what the club owns and one class session.
+each card shows which kit, and which boxes of it, you need.
 
 A kit family gets a section here when its first build is published, in the
 same order as [Kits](/kits).
 
-## SPIKE™
+## LEGO® SPIKE™
+
+Anchor: `#spike`
 
 ### Rainforest Seed Mission
 
-Card: pair, wide. Tag: Club-Ready. Photo:
+Card: pair, wide. No Club-Ready tag on this page. Photo:
 `photos/rainforest-seed-mission/hero`. Kit badge: Essential only.
 
 Skim a survey drone over the rainforest. When its color sensor sees the
@@ -26,10 +27,22 @@ of the same box.
 
 [Open the Project]
 
+The next two cards sit side by side under the wide Seed Mission card.
+
+### Chameleon Color-Match
+
+Card: single, left of the row. No Club-Ready tag on this page. Photo:
+`photos/rainforest-chameleon/hero`. Kit badge: Essential only.
+
+A chameleon that looks at a color and changes its back to match. Show it
+red and it flashes a warning instead of hiding.
+
+Print the PDF · Click Through the Steps
+
 ### Hot Press
 
-Card: single. Tag: Club-Ready. Photo: `photos/hot-press/hero`.
-Kit badge: Essential only.
+Card: single, right of the row. No Club-Ready tag on this page. Photo:
+`photos/hot-press/hero`. Kit badge: Essential only.
 
 A motor with big eyes brings a red press head down onto two plates of
 old wood and lifts it again. The wood stays thick. Red bricks and a red
@@ -37,23 +50,16 @@ light stand in for the heat.
 
 Print the PDF · Click Through the Steps
 
-### Chameleon Color-Match
+## Elenco® Snap Circuits®
 
-Card: single. Tag: Club-Ready. Photo: `photos/rainforest-chameleon/hero`.
-Kit badge: Essential only.
+Anchor: `#snap`
 
-A chameleon that looks at a color and changes its back to match. Show it
-red and it flashes a warning instead of hiding.
+### The Night Skate Cases
 
-Print the PDF · Click Through the Steps
+Card: single. No Home Build tag on this page. Photo: `photos/night-skate-cases/hero`.
+Kit badge: Beginner and Jr.
 
-### Half-pipe Swing
+The Spark Detectives, Chapter 1. Five short cases about one loop of
+electricity, snapped on a real board. A grown-up puts the batteries in.
 
-Card: single. Tag: Home Build. Photo: `photos/halfpipe-swing/hero`.
-Kit badge: Essential, Prime, and Expansion.
-
-Press the button and Leo drops into a curved half-pipe, swings lip to lip
-three times, and sticks the landing. It takes all three boxes, and a
-grown-up builds the frame.
-
-Print the PDF · Click Through the Steps
+[Start Chapter 1](/builds/night-skate-cases)

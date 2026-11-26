@@ -41,6 +41,13 @@ green. The wood doesn't get thinner. The single thin plate in front of
 the press is the picture of wood after a real press. The red bricks, a
 red crystal, and the red matrix stand in for heat. Nothing is heated.
 
+Editor note (not on the page): the screenshot in this slot is a different
+program, "when program starts, run the motor on port A for 9 seconds."
+The paragraph above stays, because it matches
+`builds/hot-press/program.spike`. The only edit to that picture is a crop
+that removes the app's "Project 10" label and status icon. The blocks
+are unchanged.
+
 ## What You Need
 
 - One SPIKE™ Essential set: the Small Hub (charged), one small motor,
